@@ -6,6 +6,21 @@ from statistics import mean
 
 import httpx
 
+
+def fold(name: str) -> str:
+    return name.strip().casefold()
+
+
+def names_of(item: dict) -> set[str]:
+    """Every reviewed name an item answers to, not just the one the curator happened to pick.
+
+    Matching on canonical_name alone charges the metric for naming disagreement between the
+    curator and the reviewer, which is not a retrieval failure. Aliases here are the published
+    ones on the meme record, so this stays inside the reviewed boundary.
+    """
+    return {fold(x) for x in [item["canonical_name"], *(item.get("aliases") or [])] if x and x.strip()}
+
+
 parser = argparse.ArgumentParser()
 parser.add_argument("gold")
 parser.add_argument("--api", default="http://localhost:8100")
@@ -17,9 +32,10 @@ with httpx.Client(base_url=args.api, timeout=120, trust_env=False) as client:
         response = client.post("/v1/search", json={"query": row["query"], "limit": 10})
         response.raise_for_status()
         search = response.json()
-        names = [x["canonical_name"] for x in search["items"]]
-        expected = set(row["expected_names"])
-        ranks = [i for i, name in enumerate(names, 1) if name in expected]
+        item_names = [names_of(x) for x in search["items"]]
+        expected = {fold(x) for x in row["expected_names"]}
+        ranks = [i for i, names in enumerate(item_names, 1) if names & expected]
+        found = {name for names in item_names for name in names & expected}
         response = client.post("/v1/answers", json={"query": row["query"]})
         response.raise_for_status()
         answer = response.json()
@@ -29,7 +45,7 @@ with httpx.Client(base_url=args.api, timeout=120, trust_env=False) as client:
         results.append(
             {
                 "query": row["query"],
-                "recall_at_10": len(expected.intersection(names)) / len(expected) if expected else None,
+                "recall_at_10": len(found) / len(expected) if expected else None,
                 "reciprocal_rank": 1 / min(ranks) if ranks else 0,
                 "citations_resolve": resolvable,
                 "structural_citation_coverage": bool(coverage),
