@@ -1441,6 +1441,18 @@
               }
             ],
             "title": "Published At"
+          },
+          "observed_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Observed At"
           }
         },
         "type": "object",
@@ -1749,6 +1761,18 @@
             "type": "string",
             "title": "Artifact Hash"
           },
+          "observed_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Observed At"
+          },
           "created_at": {
             "type": "string",
             "format": "date-time",
@@ -1828,6 +1852,18 @@
               }
             ],
             "title": "Supersedes Id"
+          },
+          "observed_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Observed At"
           }
         },
         "type": "object",
@@ -1978,6 +2014,17 @@
             },
             "type": "array",
             "title": "Matches"
+          },
+          "retrieval_score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Retrieval Score"
           }
         },
         "type": "object",
@@ -2216,6 +2263,11 @@
           "total_is_candidate_count": {
             "type": "boolean",
             "title": "Total Is Candidate Count",
+            "default": false
+          },
+          "scores_calibrated": {
+            "type": "boolean",
+            "title": "Scores Calibrated",
             "default": false
           }
         },

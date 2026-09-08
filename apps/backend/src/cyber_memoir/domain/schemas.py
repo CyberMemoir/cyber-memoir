@@ -19,6 +19,7 @@ class Material(BaseModel):
     kind: Literal["manual", "subtitle", "asr", "ocr", "metadata"] = "manual"
     locator: dict = Field(default_factory=dict)
     supersedes_id: str | None = None
+    observed_at: datetime | None = None
 
 
 class Claim(BaseModel):

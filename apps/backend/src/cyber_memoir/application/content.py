@@ -71,12 +71,18 @@ def add_material(db: Session, source_id: str, material: Material, provenance=Non
         previous = require(db, Evidence, material.supersedes_id)
         if previous.source_id != source_id:
             raise HTTPException(422, "修订必须属于同一来源")
-    data = json.dumps(material.model_dump(), ensure_ascii=False, sort_keys=True).encode()
+    # observed_at is observation metadata, not content: it must not fork the identity of a material,
+    # and existing content hashes have to stay stable.
+    data = json.dumps(
+        material.model_dump(exclude={"observed_at"}), ensure_ascii=False, sort_keys=True
+    ).encode()
     digest = sha256(data).hexdigest()
     existing = db.scalar(
         select(Evidence).where(Evidence.source_id == source_id, Evidence.content_hash == digest)
     )
     if existing:
+        if existing.observed_at is None and material.observed_at is not None:
+            existing.observed_at = material.observed_at
         return existing
     text_key, _ = storage.put(data)
     evidence = Evidence(
@@ -92,6 +98,7 @@ def add_material(db: Session, source_id: str, material: Material, provenance=Non
             "text_artifact_key": text_key,
             **(provenance or {"method": "human_submission"}),
         },
+        observed_at=material.observed_at,
         supersedes_id=material.supersedes_id,
     )
     db.add(evidence)

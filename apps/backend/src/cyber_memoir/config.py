@@ -31,6 +31,19 @@ class Settings(BaseSettings):
     auto_media: bool = False
     task_timeout_seconds: int = 1800
     max_material_bytes: int = 16 * 1024 * 1024
+    # Ingestion. Bilingual videos and uploader+auto caption pairs both need more than one track.
+    subtitle_track_limit: int = 3
+    # Retrieval fusion. Tunable so the gold set can sweep them; see ADR 0004.
+    rrf_k: int = 60
+    rrf_weight_exact_alias: float = 3.0
+    rrf_weight_bm25: float = 1.0
+    rrf_weight_vector: float = 1.0
+    retrieval_channel_limit: int = 100
+    retrieval_per_source_cap: int = 4
+    retrieval_candidate_cap: int = 50
+    # Reranker score below which a chunk cannot support an answer (ADR 0004).
+    # Only enforceable when a calibrated scorer ran; 0 disables the floor entirely.
+    answer_score_floor: float = 0.35
 
 
 @lru_cache

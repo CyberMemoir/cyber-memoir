@@ -562,6 +562,8 @@ export interface components {
             meme_revision: number;
             /** Published At */
             published_at: string | null;
+            /** Observed At */
+            observed_at?: string | null;
         };
         /** Claim */
         Claim: {
@@ -670,6 +672,8 @@ export interface components {
             content_hash: string;
             /** Artifact Hash */
             artifact_hash: string;
+            /** Observed At */
+            observed_at?: string | null;
             /**
              * Created At
              * Format: date-time
@@ -698,6 +702,8 @@ export interface components {
             };
             /** Supersedes Id */
             supersedes_id?: string | null;
+            /** Observed At */
+            observed_at?: string | null;
         };
         /** MemeDraft */
         MemeDraft: {
@@ -761,6 +767,8 @@ export interface components {
             matches?: {
                 [key: string]: unknown;
             }[];
+            /** Retrieval Score */
+            retrieval_score?: number | null;
         };
         /** MergeRequest */
         MergeRequest: {
@@ -843,6 +851,11 @@ export interface components {
              * @default false
              */
             total_is_candidate_count: boolean;
+            /**
+             * Scores Calibrated
+             * @default false
+             */
+            scores_calibrated: boolean;
         };
         /** SearchRequest */
         SearchRequest: {

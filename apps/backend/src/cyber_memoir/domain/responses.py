@@ -25,6 +25,7 @@ class EvidenceOut(BaseModel):
     retracted: bool
     content_hash: str
     artifact_hash: str
+    observed_at: datetime | None = None
     created_at: datetime
     source: SourceOut | None = None
 
@@ -71,6 +72,8 @@ class MemeOut(BaseModel):
     relations: list[RelationOut]
     exact_match: bool = False
     matches: list[dict[str, Any]] = Field(default_factory=list)
+    # Best calibrated score among this item's retrieved chunks; None when nothing scored it.
+    retrieval_score: float | None = None
 
 
 class SearchOut(BaseModel):
@@ -80,6 +83,8 @@ class SearchOut(BaseModel):
     degraded: list[str]
     query: str
     total_is_candidate_count: bool = False
+    # False means no calibrated scorer ran, so the ADR 0004 floor could not be applied.
+    scores_calibrated: bool = False
 
 
 class AnswerClaim(ClaimOut):
@@ -97,6 +102,7 @@ class CitationOut(BaseModel):
     content_hash: str
     meme_revision: int
     published_at: datetime | None
+    observed_at: datetime | None = None
 
 
 class AnswerOut(BaseModel):

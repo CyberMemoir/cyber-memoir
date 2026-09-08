@@ -41,6 +41,57 @@ def test_inline_bilibili_subtitle_and_redis_loss_recovery(client, env, monkeypat
         assert db.get(Job, data["job_id"]).status == "succeeded"
 
 
+def test_bilingual_and_auto_captions_both_survive_while_danmaku_stays_out(client, env, monkeypatch):
+    client.post("/v1/submissions", json={"url": "https://www.bilibili.com/video/BV1TEST00001"})
+
+    def track(text):
+        cue = ["1", "00:00:01,000 --> 00:00:02,000", text, ""]
+        return [{"ext": "srt", "data": "\n".join(cue)}]
+
+    monkeypatch.setattr(
+        pipeline,
+        "metadata",
+        lambda url: {
+            "title": "合成测试",
+            "subtitles": {"zh-CN": track("合成中文字幕"), "danmaku": track("合成弹幕")},
+            "automatic_captions": {
+                "en": track("synthetic english caption"),
+                "zh-Hans": track("合成自动字幕"),
+            },
+        },
+    )
+    assert run_once()
+    assert run_once()
+    with Session(env) as db:
+        texts = {x.text for x in db.scalars(select(Evidence).where(Evidence.kind == "subtitle"))}
+    # Uploader track wins its language, the other language still lands, the second zh variant is
+    # dropped as a duplicate transcript, and danmaku is excluded on purpose (ADR 0005).
+    assert texts == {"合成中文字幕", "synthetic english caption"}
+
+
+def test_observed_at_is_recorded_without_forking_material_identity(client, env):
+    data = client.post("/v1/submissions", json={"url": "https://www.bilibili.com/video/BV1TEST00001"}).json()
+    body = {"text": "合成测试材料，非真实文化事实。", "locator": {"note": "合成测试"}}
+    url = f"/v1/sources/{data['source']['id']}/materials"
+    first = client.post(url, json={**body, "observed_at": "2019-03-01T00:00:00Z"}).json()
+    assert first["observed_at"].startswith("2019-03-01")
+    assert not first["created_at"].startswith("2019-03-01")
+    # Observation time is metadata about the sighting, not part of what the material is.
+    again = client.post(url, json={**body, "observed_at": "2020-07-04T00:00:00Z"}).json()
+    assert again["id"] == first["id"]
+    with Session(env) as db:
+        assert db.scalar(select(Evidence).where(Evidence.id == first["id"])).observed_at.year == 2019
+
+
+def test_observed_at_is_optional_and_never_guessed(client, env):
+    data = client.post("/v1/submissions", json={"url": "https://www.bilibili.com/video/BV1TEST00001"}).json()
+    created = client.post(
+        f"/v1/sources/{data['source']['id']}/materials",
+        json={"text": "合成测试材料，未记录观察时间。", "locator": {"note": "合成测试"}},
+    ).json()
+    assert created["observed_at"] is None
+
+
 def test_platform_failure_requests_human_material(client, env, monkeypatch):
     data = client.post(
         "/v1/submissions", json={"url": "https://www.douyin.com/video/1234567890123456789"}

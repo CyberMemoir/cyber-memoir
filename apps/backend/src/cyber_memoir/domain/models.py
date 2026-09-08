@@ -85,6 +85,9 @@ class Evidence(Identity, Base):
     content_hash: Mapped[str] = mapped_column(String(64))
     artifact_hash: Mapped[str] = mapped_column(String(64))
     extraction_provenance: Mapped[dict] = mapped_column(JSON, default=dict)
+    # When the material was observed in the wild. Distinct from Source.platform_published_at (what the
+    # platform claims) and created_at (when this row was written). NULL means not separately recorded.
+    observed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     verified: Mapped[bool] = mapped_column(Boolean, default=False)
     retracted: Mapped[bool] = mapped_column(Boolean, default=False)
     supersedes_id: Mapped[str | None] = mapped_column(ForeignKey("evidence.id"))

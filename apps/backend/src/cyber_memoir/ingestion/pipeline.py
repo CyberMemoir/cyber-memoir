@@ -71,11 +71,27 @@ def ingest(db: Session, source_id: str):
             Material(text=text[:200000], kind="metadata", locator={"fields": ["title", "description"]}),
             {"method": "yt-dlp"},
         )
-    subtitles = data.get("subtitles") or data.get("automatic_captions") or {}
-    for language in sorted((x for x in subtitles if x != "danmaku"), key=lambda x: not x.startswith("zh"))[
-        :1
-    ]:
-        variants = subtitles[language]
+    # Uploader tracks and auto-captions are merged rather than either/or: a video can carry both, and
+    # a bilingual one carries several languages. Chinese first, uploader-provided before machine
+    # captions, then alphabetical so ingestion is deterministic. One track per base language, so a
+    # zh / zh-Hans / zh-CN pile does not spend the budget on the same transcript three times.
+    # danmaku stays excluded; ADR 0005 records why.
+    uploaded = data.get("subtitles") or {}
+    tracks = {**(data.get("automatic_captions") or {}), **uploaded}
+    languages, seen = [], set()
+    for language in sorted(
+        (x for x in tracks if x != "danmaku"),
+        key=lambda x: (not x.startswith("zh"), x not in uploaded, x),
+    ):
+        base = language.split("-")[0].lower()
+        if base in seen:
+            continue
+        seen.add(base)
+        languages.append(language)
+        if len(languages) >= settings().subtitle_track_limit:
+            break
+    for language in languages:
+        variants = tracks[language]
         selected = next((x for x in variants if x.get("ext") in {"json3", "json", "srt", "vtt"}), None)
         if selected:
             try:
