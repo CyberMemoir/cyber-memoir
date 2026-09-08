@@ -96,13 +96,16 @@ def search(db: Session, request: SearchRequest):
             )
         )
     )
+    cfg = settings()
     rankings = []
     exact = (
-        db.scalars(_base(request).where(Chunk.meme_id.in_(exact_memes)).limit(100)).all()
+        db.scalars(
+            _base(request).where(Chunk.meme_id.in_(exact_memes)).limit(cfg.retrieval_channel_limit)
+        ).all()
         if exact_memes
         else []
     )
-    rankings.append(([x.id for x in exact], 3.0))
+    rankings.append(([x.id for x in exact], cfg.rrf_weight_exact_alias))
     channels.append("exact_alias")
     if settings().opensearch_url:
         try:
@@ -119,7 +122,7 @@ def search(db: Session, request: SearchRequest):
             result = client().search(
                 index=settings().search_index,
                 body={
-                    "size": 100,
+                    "size": cfg.retrieval_channel_limit,
                     "query": {
                         "bool": {
                             "must": [
@@ -136,7 +139,7 @@ def search(db: Session, request: SearchRequest):
                     },
                 },
             )
-            rankings.append(([x["_id"] for x in result["hits"]["hits"]], 1.0))
+            rankings.append(([x["_id"] for x in result["hits"]["hits"]], cfg.rrf_weight_bm25))
             channels.append("bm25")
         except Exception as exc:
             warnings.append("bm25_unavailable")
@@ -150,9 +153,9 @@ def search(db: Session, request: SearchRequest):
                 _base(request)
                 .where(Chunk.embedding_model == settings().embedding_model, Chunk.embedding.is_not(None))
                 .order_by(Chunk.embedding.cosine_distance(vector))
-                .limit(100)
+                .limit(cfg.retrieval_channel_limit)
             ).all()
-            rankings.append(([x.id for x in nearest], 1.0))
+            rankings.append(([x.id for x in nearest], cfg.rrf_weight_vector))
             channels.append("vector")
         except Exception as exc:
             warnings.append("vector_unavailable")
@@ -168,11 +171,12 @@ def search(db: Session, request: SearchRequest):
                     Meme.normalized_name.contains(query, autoescape=True),
                 )
             )
-            .limit(100)
+            .limit(cfg.retrieval_channel_limit)
         ).all()
-        rankings.append(([x.id for x in fallback], 1.0))
+        # The fallback stands in for bm25, so it carries the bm25 weight rather than its own knob.
+        rankings.append(([x.id for x in fallback], cfg.rrf_weight_bm25))
         channels.append("lexical_fallback")
-    fused = rrf(rankings)
+    fused = rrf(rankings, k=cfg.rrf_k)
     # Untrusted/stale index documents cannot bypass current database visibility.
     chunks = db.scalars(_base(request).where(Chunk.id.in_(list(fused)))).all() if fused else []
     chunks.sort(key=lambda c: (-fused[c.id], c.id))
@@ -201,10 +205,10 @@ def search(db: Session, request: SearchRequest):
     source_counts, candidates = defaultdict(int), []
     for chunk in chunks:
         source_id = db.get(Evidence, chunk.evidence_id).source_id
-        if source_counts[source_id] < 4:
+        if source_counts[source_id] < cfg.retrieval_per_source_cap:
             candidates.append(chunk)
             source_counts[source_id] += 1
-        if len(candidates) >= 50:
+        if len(candidates) >= cfg.retrieval_candidate_cap:
             break
     try:
         scores = rerank(query, [f"{db.get(Meme, x.meme_id).canonical_name}\n{x.text}" for x in candidates])
