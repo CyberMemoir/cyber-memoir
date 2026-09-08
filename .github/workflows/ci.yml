@@ -1,0 +1,37 @@
+name: CI
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: apps/web/package-lock.json
+      - run: cd apps/backend && uv sync --frozen
+      - run: cd apps/web && npm ci
+      - run: make test
+      - run: make check
+      - run: make contracts && git diff --exit-code packages/contracts
+      - run: cd apps/web && npx playwright install --with-deps chromium && npx playwright test
+  integration:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: '3.12'
+      - run: cd apps/backend && uv sync --frozen
+      - run: make configure
+      - run: docker compose --env-file .env -f ops/compose/compose.yml up -d --wait postgres redis opensearch minio
+      - run: make migrate
+      - run: cd apps/backend && MEMOIR_INTEGRATION=1 uv run --env-file ../../.env pytest -q ../../tests/test_live_stack.py
+      - if: always()
+        run: docker compose --env-file .env -f ops/compose/compose.yml down -v

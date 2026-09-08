@@ -1,0 +1,12 @@
+.git
+.env
+**/.env
+**/.venv
+**/node_modules
+**/.next
+**/.next-e2e
+**/test-results
+**/__pycache__
+.qa
+.data
+docs/design/*.png

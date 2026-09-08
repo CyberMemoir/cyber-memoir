@@ -1,0 +1,31 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "cyber-memoir"
+version = "0.1.0"
+description = "Evidence-first Chinese internet cultural memory infrastructure"
+requires-python = ">=3.12,<3.15"
+dependencies = [
+  "fastapi>=0.115,<1", "uvicorn>=0.34,<1", "sqlalchemy>=2.0,<3",
+  "psycopg[binary]>=3.2,<4", "alembic>=1.14,<2", "pgvector>=0.3,<1",
+  "pydantic-settings>=2.7,<3", "redis>=5,<7", "httpx>=0.28,<1",
+  "opensearch-py>=2.8,<4", "boto3>=1.35,<2", "mcp>=1.12,<2",
+  "python-multipart>=0.0.20,<1", "yt-dlp>=2025.1.15",
+]
+
+[project.optional-dependencies]
+models = ["FlagEmbedding>=1.3,<2", "faster-whisper>=1.1,<2", "Pillow>=11,<13", "paddleocr>=3,<4", "paddlepaddle>=3,<4"]
+
+[dependency-groups]
+dev = ["pytest>=8,<10", "ruff>=0.11,<1"]
+
+[tool.ruff]
+line-length = 110
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I"]
+
+[tool.pytest.ini_options]
+testpaths = ["../../tests"]
