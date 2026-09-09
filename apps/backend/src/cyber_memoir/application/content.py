@@ -198,15 +198,17 @@ def review(db: Session, revision_id: str, action: ReviewAction, reviewer: str):
             db.add(event)
             db.flush()
             link(item.evidence_ids, "event", item.description, event_id=event.id)
+        # derived_from takes either end: a meme built on another meme, or a meme built on
+        # upstream material that is itself no meme (a film, a clip, an off-platform post).
         allowed = {
-            "derived_from": "meme",
-            "variant_of": "meme",
-            "claimed_origin": "source",
-            "documented_in": "source",
-            "mentions": "entity",
+            "derived_from": {"meme", "source"},
+            "variant_of": {"meme"},
+            "claimed_origin": {"source"},
+            "documented_in": {"source"},
+            "mentions": {"entity"},
         }
         for item in payload.relations:
-            if allowed[item.predicate] != item.target_type:
+            if item.target_type not in allowed[item.predicate]:
                 raise HTTPException(422, "关系端点类型不匹配")
             model = {"meme": Meme, "source": Source, "entity": Entity}[item.target_type]
             target = require(db, model, item.target_id)
