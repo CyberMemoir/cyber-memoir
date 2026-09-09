@@ -98,6 +98,63 @@ def test_one_hop_graph_expansion_requires_reviewed_relation(client, prepared, au
     assert ids == {parent["meme_id"], child["meme_id"]}
 
 
+def _reranker(monkeypatch, score: float):
+    from cyber_memoir.search import retrieval
+
+    monkeypatch.setattr(retrieval, "rerank", lambda query, texts: [score] * len(texts))
+
+
+def _indexed(prepared, env):
+    """Publish and project into chunks; the score floor only applies to retrieved chunks."""
+    item = prepared()
+    with Session(env) as db:
+        index_meme(db, item["meme_id"])
+        db.commit()
+    return item
+
+
+def test_search_reports_scores_without_filtering_them(client, prepared, monkeypatch, env):
+    _indexed(prepared, env)
+    _reranker(monkeypatch, 0.01)
+    result = client.post("/v1/search", json={"query": "仅用于软件测试的虚构表述"}).json()
+    assert result["scores_calibrated"]
+    # Searching is a presentation job: a weak hit is still shown, with its score attached.
+    assert result["items"][0]["retrieval_score"] == pytest.approx(0.01)
+    assert result["items"][0]["matches"][0]["score"] == pytest.approx(0.01)
+
+
+def test_answer_abstains_below_the_score_floor(client, prepared, monkeypatch, env):
+    _indexed(prepared, env)
+    _reranker(monkeypatch, 0.01)
+    data = client.post("/v1/answers", json={"query": "仅用于软件测试的虚构表述"}).json()
+    assert data["claims"] == []
+    assert "没有足够的已审核证据" in data["answer"]
+
+
+def test_answer_uses_claims_above_the_score_floor(client, prepared, monkeypatch, env):
+    _indexed(prepared, env)
+    _reranker(monkeypatch, 0.9)
+    data = client.post("/v1/answers", json={"query": "仅用于软件测试的虚构表述"}).json()
+    assert data["claims"]
+
+
+def test_exact_alias_is_identity_not_relevance_so_the_floor_does_not_apply(
+    client, prepared, monkeypatch, env
+):
+    _indexed(prepared, env)
+    _reranker(monkeypatch, 0.01)
+    data = client.post("/v1/answers", json={"query": "合成测试梗别名"}).json()
+    assert data["claims"]
+
+
+def test_missing_calibrated_scorer_is_declared_not_silently_skipped(client, prepared, env):
+    _indexed(prepared, env)
+    data = client.post("/v1/answers", json={"query": "仅用于软件测试的虚构表述"}).json()
+    # No reranker means nothing to threshold. The run says so instead of pretending it was checked.
+    assert "score_floor_unenforced" in data["degraded"]
+    assert data["claims"]
+
+
 def test_no_evidence_no_answer(client):
     data = client.post("/v1/answers", json={"query": "不存在的梗起源"}).json()
     assert not data["claims"] and not data["citations"]

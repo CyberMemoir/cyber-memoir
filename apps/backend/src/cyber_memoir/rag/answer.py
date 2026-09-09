@@ -4,16 +4,35 @@ from sqlalchemy.orm import Session
 
 from cyber_memoir.adapters.inference import generate_json
 from cyber_memoir.application.content import evidence_is_public
+from cyber_memoir.config import settings
 from cyber_memoir.domain.schemas import SearchRequest
 from cyber_memoir.search.retrieval import search
 
 log = logging.getLogger(__name__)
 
 
+def supported_items(result: dict) -> list[dict]:
+    """Drop memes no chunk retrieved well enough to answer from (ADR 0004).
+
+    An exact alias / platform-id match is an identity match, not a scored one, so it is exempt.
+    Without a calibrated scorer there is nothing to threshold, and the run is marked degraded
+    rather than silently answering as if the floor had been applied.
+    """
+    floor = settings().answer_score_floor
+    if floor <= 0:
+        return result["items"]
+    if not result.get("scores_calibrated"):
+        result["degraded"].append("score_floor_unenforced")
+        return result["items"]
+    return [
+        meme for meme in result["items"] if meme["exact_match"] or (meme["retrieval_score"] or 0.0) >= floor
+    ]
+
+
 def answer(db: Session, request: SearchRequest):
     result = search(db, request.model_copy(update={"limit": 5, "offset": 0}))
     citations, approved = {}, []
-    for meme in result["items"]:
+    for meme in supported_items(result):
         for evidence in meme["evidence"]:
             if evidence_is_public(db, evidence["id"]):
                 citations[evidence["id"]] = {
