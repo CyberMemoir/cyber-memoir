@@ -1,23 +1,32 @@
-# 反例查询 —— 不属于任何条目，因此单独成文件。
+# 反例：这些查询不应产生任何有证据支持的断言。
+# 只有 answerable: false 的用例会计入 correct_abstention（ADR 0002 条款 8）。
 #
-# 这些是「库里不该有答案」的查询。run.py 把它们写成 answerable: false 的行，
-# 而 correct_abstention 只在这类行上计算：没有反例，弃答率就是 None，不是 0。
-# ADR 0002 要求不少于 8 条。
-#
-# 与条目内的 must_not_return 不是一回事：
-#   must_not_return  —— 这条查询不应返回「本条目」。用于交叉检查，不进 gold.jsonl。
-#   本文件           —— 这条查询不应返回「任何条目」。进 gold.jsonl，计入弃答率。
-# 前者能被一个自信的错答蒙混过去（没返回 A，但自信地返回了 B）；后者不能。
-#
-# 由人工策展，不由代码或模型生成（ADR 0002 条款 1、条款 5）。
-# 校验器会检查每条 query 是否与已策展条目的规范名或别名冲突 —— 撞上了就不是反例。
-#
-# 格式：
-#   - query: <检索词>
-#     reason: <为什么它在本库里不该有答案>
-#
-# 例（勿直接使用，请换成策展人确认过的查询）：
-#   - query: 这不是一个真实存在的梗
-#     reason: 构造的字符串，不对应任何真实表述
-
-negatives: []
+# kind 区分两种反例，它们的寿命不同：
+#   fabricated    —— 编造的、不存在的梗。永久有效。
+#   out_of_corpus —— 真实存在但本档案尚未收录。一旦被策展，这条必须删除，
+#                    否则会把「正确回答」记成「弃答失败」。
+negatives:
+  - query: 熊大回眸
+    kind: out_of_corpus
+    reason: 真实流行梗，但档案尚未收录任何来源；系统应回答证据不足，而不是编造
+  - query: 轻松绷住
+    kind: out_of_corpus
+    reason: 真实流行梗，未收录；用于检验无证据时是否弃答
+  - query: 中国人能飞
+    kind: out_of_corpus
+    reason: 真实流行梗，未收录；用于检验无证据时是否弃答
+  - query: OMG你吓到我了
+    kind: out_of_corpus
+    reason: 真实流行梗，未收录；同时检验含英文字母的查询不会误命中
+  - query: 大狗大狗叫叫叫
+    kind: out_of_corpus
+    reason: 真实流行梗，未收录；叠词结构，检验分词不会误匹配已收录条目
+  - query: 青蛙教练
+    kind: out_of_corpus
+    reason: 真实流行梗，未收录；用于检验无证据时是否弃答
+  - query: 爹系男友
+    kind: out_of_corpus
+    reason: 真实流行梗，未收录；通用词汇组合，检验不会被向量通道拉到相近条目
+  - query: 被生活磨平了妙脆角
+    kind: out_of_corpus
+    reason: 真实流行梗，未收录；长句式查询，检验长查询下的弃答行为

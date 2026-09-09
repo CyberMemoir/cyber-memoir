@@ -414,7 +414,7 @@ def report_strata(records: list[Record], negatives: list[dict] | None = None) ->
         counts["origin"][r.get("origin_type") or "?"] += 1
         for item in r.get("taxonomy") or []:
             counts["taxonomy"][item] += 1
-    off_platform = sum(v for k, v in counts["origin"].items() if k not in ("on_platform", "?"))
+    off_platform = sum(v for k, v in counts["origin"].items() if k not in ("on_platform", "unknown", "?"))
     blocked = sum(1 for r in records if r.get("origin_blocked"))
     failed = sum(1 for r in records if (r.get("curation") or {}).get("ingestion_ok") is False)
     alias_heavy = sum(1 for r in records if len(r.get("aliases") or []) >= 2)
