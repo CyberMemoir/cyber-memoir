@@ -30,6 +30,20 @@ class Settings(BaseSettings):
     asr_model: str = "small"
     auto_media: bool = False
     task_timeout_seconds: int = 1800
+    # Platform fetching. Bilibili answers bursts with HTTP 412 no matter how correctly the
+    # request is signed, so the constraint is volume over time, not protocol.
+    #
+    # Measured over four paced passes: roughly a dozen requests get through before throttling
+    # begins, whatever the spacing - 40s and 60s intervals both hit it - and what restores
+    # service is a long quiet period, with a 20-minute cooldown giving the best recovery. So
+    # the budget is per window rather than per request, and 300s spreads about a dozen fetches
+    # across an hour instead of burning them in ten minutes and stalling.
+    platform_fetch_interval_seconds: int = 300
+    platform_block_backoff_seconds: int = 3600
+    platform_block_max_attempts: int = 48
+    job_max_attempts: int = 3
+    # A cookies.txt readable inside the container; browser profiles are not available there.
+    platform_cookies_file: str = ""
     max_material_bytes: int = 16 * 1024 * 1024
 
 
