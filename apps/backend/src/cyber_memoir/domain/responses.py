@@ -12,6 +12,8 @@ class SourceOut(BaseModel):
     title: str
     platform_published_at: datetime | None
     availability: str
+    source_tier: str | None = None
+    metadata_note: str | None = None
     created_at: datetime
 
 
