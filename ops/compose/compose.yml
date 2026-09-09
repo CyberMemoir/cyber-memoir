@@ -5,6 +5,7 @@ x-backend: &backend
     dockerfile: apps/backend/Dockerfile
     args:
       INSTALL_MODELS: ${INSTALL_MODELS:-false}
+      MODEL_EXTRAS: ${MODEL_EXTRAS:-models}
   env_file: ../../.env
   environment:
     DATABASE_URL: postgresql+psycopg://memoir:${POSTGRES_PASSWORD:?run make configure}@postgres:5432/memoir
