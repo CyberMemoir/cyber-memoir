@@ -100,6 +100,9 @@ class Event(Identity, Base):
     occurred_at_end: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     time_precision: Mapped[str] = mapped_column(String(20), default="unknown")
     time_basis: Mapped[str] = mapped_column(Text)
+    # The artefact the event is about: the derivative video, the cited post. Optional because
+    # plenty of events (a dated observation of use) have no single source behind them.
+    to_source_id: Mapped[str | None] = mapped_column(ForeignKey("sources.id"), index=True)
 
 
 class Relation(Identity, Base):

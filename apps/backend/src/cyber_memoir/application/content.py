@@ -194,6 +194,8 @@ def review(db: Session, revision_id: str, action: ReviewAction, reviewer: str):
         for claim in payload.claims:
             link(claim.evidence_ids, claim.key, claim.statement, claim.stance)
         for item in payload.events:
+            if item.to_source_id:
+                require(db, Source, item.to_source_id)
             event = Event(meme_id=meme.id, revision=number, **item.model_dump(exclude={"evidence_ids"}))
             db.add(event)
             db.flush()

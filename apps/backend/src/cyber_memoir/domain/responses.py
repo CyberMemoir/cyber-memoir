@@ -44,6 +44,7 @@ class EventOut(BaseModel):
     occurred_at_end: datetime | None
     time_precision: str
     time_basis: str
+    to_source_id: str | None = None
     evidence_ids: list[str] = Field(default_factory=list)
 
 
