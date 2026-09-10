@@ -43,7 +43,10 @@ class Entity(Identity, Base):
 
 class Source(Identity, Base):
     __tablename__ = "sources"
-    __table_args__ = (UniqueConstraint("platform", "platform_item_id"),)
+    __table_args__ = (
+        UniqueConstraint("platform", "platform_item_id"),
+        CheckConstraint("source_tier IS NULL OR source_tier IN ('A','B','C','D')", name="source_tier_range"),
+    )
     platform: Mapped[str] = mapped_column(String(20), index=True)
     platform_item_id: Mapped[str] = mapped_column(String(100))
     canonical_url: Mapped[str] = mapped_column(Text)
@@ -54,6 +57,12 @@ class Source(Identity, Base):
     availability: Mapped[str] = mapped_column(String(32), default="pending")
     metadata_key: Mapped[str | None] = mapped_column(Text)
     last_error: Mapped[str | None] = mapped_column(Text)
+    # A-D from the evidence rubric; None means no reviewer has judged it yet.
+    source_tier: Mapped[str | None] = mapped_column(String(1))
+    source_tier_reason: Mapped[str | None] = mapped_column(Text)
+    # Set when a reviewer supplied title/date by hand because the platform can no longer
+    # serve them - a deleted video keeps whatever was observed while it still existed.
+    metadata_note: Mapped[str | None] = mapped_column(Text)
 
 
 class Meme(Identity, Base):

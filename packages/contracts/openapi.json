@@ -744,6 +744,122 @@
         }
       }
     },
+    "/v1/reviews/sources/{source_id}/tier": {
+      "post": {
+        "summary": "Set Source Tier",
+        "description": "Authority of the source itself (rubric A-D), which Evidence.kind does not capture.\n\nA reviewer's judgement, not a submitter's claim, so an explainer video cannot\npresent itself as a primary record.",
+        "operationId": "set_source_tier_v1_reviews_sources__source_id__tier_post",
+        "parameters": [
+          {
+            "name": "source_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Source Id"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TierAction"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/reviews/sources/{source_id}/metadata": {
+      "post": {
+        "summary": "Set Source Metadata",
+        "description": "Record platform facts by hand when the platform can no longer be asked.\n\nRefreshing is the right path while a source is still fetchable; this exists for the\nones that are gone, where an earlier observation is the only record left. The note\nkeeps that provenance visible rather than passing it off as a fetched value.",
+        "operationId": "set_source_metadata_v1_reviews_sources__source_id__metadata_post",
+        "parameters": [
+          {
+            "name": "source_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Source Id"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SourceMetadata"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/reviews/sources/{source_id}/refresh": {
       "post": {
         "summary": "Refresh Source",
@@ -2316,6 +2432,46 @@
         "type": "object",
         "title": "SearchRequest"
       },
+      "SourceMetadata": {
+        "properties": {
+          "reason": {
+            "type": "string",
+            "maxLength": 2000,
+            "minLength": 3,
+            "title": "Reason"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 500
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "platform_published_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Platform Published At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "reason"
+        ],
+        "title": "SourceMetadata",
+        "description": "Reviewer-supplied platform facts, for sources the platform will not serve again."
+      },
       "SourceOut": {
         "properties": {
           "id": {
@@ -2353,6 +2509,28 @@
           "availability": {
             "type": "string",
             "title": "Availability"
+          },
+          "source_tier": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Tier"
+          },
+          "metadata_note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Metadata Note"
           },
           "created_at": {
             "type": "string",
@@ -2393,6 +2571,32 @@
           "url"
         ],
         "title": "Submission"
+      },
+      "TierAction": {
+        "properties": {
+          "reason": {
+            "type": "string",
+            "maxLength": 2000,
+            "minLength": 3,
+            "title": "Reason"
+          },
+          "tier": {
+            "type": "string",
+            "enum": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "title": "Tier"
+          }
+        },
+        "type": "object",
+        "required": [
+          "reason",
+          "tier"
+        ],
+        "title": "TierAction"
       },
       "ValidationError": {
         "properties": {
