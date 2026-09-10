@@ -103,6 +103,7 @@ class Loader:
         self.auth = {"Authorization": "Bearer %s" % token()}
         self.sources: dict[str, str] = {}
         self.memes: dict[str, str] = {}
+        self.duplicates: dict[str, list[str]] = {}
 
     def post(self, path: str, payload: dict) -> httpx.Response:
         time.sleep(self.pace)
@@ -145,26 +146,40 @@ class Loader:
     def meme_for(self, name: str) -> str | None:
         """The id of an already-published meme, by its canonical name.
 
-        There is no lookup-by-name endpoint, so this goes through search, which
-        matches the canonical name exactly - and then checks the name back, because
-        a near-miss hit would silently point the relation at the wrong meme."""
+        Where several share the name, the oldest wins and the rest are reported: it
+        is deterministic, and it is the id anything else is most likely to already
+        reference."""
         if self.dry:
             return "dry-meme"
         if name in self.memes:
             return self.memes[name]
-        time.sleep(self.pace)
-        found = self.client.post("/v1/search", json={"query": name, "limit": 10})
-        found.raise_for_status()
-        for item in found.json()["items"]:
-            if item["canonical_name"] == name:
-                self.memes[name] = item["id"]
-                return item["id"]
-        return None
+        rows = self.lookup(name)
+        if not rows:
+            return None
+        if len(rows) > 1:
+            self.duplicates[name] = [x["id"] for x in rows[1:]]
+        self.memes[name] = rows[0]["id"]
+        return rows[0]["id"]
+
+    def lookup(self, name: str) -> list[dict]:
+        """Published memes with this canonical name, oldest first."""
+        if self.dry:
+            return []
+        response = self.client.get("/v1/memes", params={"name": name})
+        response.raise_for_status()
+        return response.json()
 
     def publish(self, draft: dict, evidence_ids: list[str], name: str) -> str:
+        """Revise the meme of this name if it exists, and only otherwise create one.
+
+        Without the meme_id the API creates a new meme every time, so each rerun of
+        this script minted another copy - the archive reached 42 published memes for
+        ten curated records before anyone looked."""
         if self.dry:
             return "dry-revision"
-        revision = self.post("/v1/reviews/drafts", draft).json()["id"]
+        existing = self.meme_for(name)
+        path = "/v1/reviews/drafts" + ("?meme_id=%s" % existing if existing else "")
+        revision = self.post(path, draft).json()["id"]
         self.post(
             "/v1/reviews/%s/decision" % revision,
             {
@@ -372,6 +387,11 @@ def main() -> int:
             raw = raw.replace("resolved: false", "resolved: true", 1)
             path.write_text(raw, encoding="utf-8")
 
+    if loader.duplicates:
+        print("\n! 同名的已发布梗，只用了最早的一条；其余是历次重跑留下的副本：")
+        for name, ids in sorted(loader.duplicates.items()):
+            print("  %s：%s" % (name, "、".join(x[:8] for x in ids)))
+        print("  清理需要人工决定：POST /v1/reviews/memes/<id>/retract，本脚本不代劳。")
     print("\n完成，%d 处失败。" % failures)
     return 1 if failures else 0
 
