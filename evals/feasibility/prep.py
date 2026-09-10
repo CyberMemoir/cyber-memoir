@@ -369,7 +369,9 @@ def resolve_ids(out: Path, sleep: float) -> int:
     return 0
 
 
-BOILERPLATE = re.compile(r"bilibili|梗百科|^[\d\s.:+=]+$|^.{0,1}$", re.I)
+# Bylines and handles sit in the same corner as the title card and were being picked as
+# the meme name; BV1ii4C6QEk8 came out as "作者：@platsae".
+BOILERPLATE = re.compile(r"bilibili|bilisili|梗百科|作者|^@|^[\d\s.:+=]+$|^.{0,1}$", re.I)
 
 
 def guess_meme_name(ocr_path: Path) -> str:
@@ -419,7 +421,7 @@ def build_sheet(out: Path) -> int:
         writer.writerows(rows)
     judged = sum(1 for r in rows if r["role"])
     print("-> %s   %d 行，其中 %d 行已判定 role" % (target.name, len(rows), judged))
-    print("role 取值：derivative | source | reference | irrelevant（留空表示待判定）")
+    print("role 取值：source | popularized_by | derivative | reference | irrelevant（留空表示待判定）")
     print("meme_name 是从 OCR 首屏猜的，错了直接改，重跑不会覆盖你填过的内容。")
     return 0
 
@@ -435,6 +437,11 @@ def _iso_day(value: str) -> str:
             return ""
         y, m, d = parts
     return "%s-%02d-%02dT00:00:00+08:00" % (y, int(m), int(d))
+
+
+def _scalar(value: str) -> str:
+    """A YAML-safe double-quoted scalar. JSON is a YAML subset, so this always parses."""
+    return json.dumps(value, ensure_ascii=False)
 
 
 def build_drafts(sheet: Path, out: Path) -> int:
@@ -458,13 +465,16 @@ def build_drafts(sheet: Path, out: Path) -> int:
             existing[match.group(1).strip()] = path.name
     written, warnings = 0, []
     for index, (name, items) in enumerate(sorted(memes.items()), 1):
-        usable = [r for r in items if (r.get("role") or "").strip() == "derivative" and _iso_day(r.get("upload_date"))]
-        if not usable:
-            warnings.append("%s：没有可用的 derivative（缺日期或未判定），跳过" % name)
+        dated = [r for r in items if _iso_day(r.get("upload_date"))]
+        usable = [r for r in dated if (r.get("role") or "").strip() == "derivative"]
+        upstream = [r for r in dated if (r.get("role") or "").strip() == "source"]
+        spreaders = [r for r in dated if (r.get("role") or "").strip() == "popularized_by"]
+        if not (usable or upstream or spreaders):
+            warnings.append("%s：没有可用的行（缺日期或未判定），跳过" % name)
             continue
-        dates = sorted(_iso_day(r["upload_date"]) for r in usable)
+        dates = sorted(_iso_day(r["upload_date"]) for r in (usable or dated))
         earliest, latest = dates[0][:10], dates[-1][:10]
-        if len(dates) > 1 and int(dates[0][:4]) < int(dates[1][:4]) - 1:
+        if usable and len(dates) > 1 and int(dates[0][:4]) < int(dates[1][:4]) - 1:
             warnings.append(
                 "%s：最早一条 %s 比其余早多年，derivative 早于梗本身在时间上讲不通，"
                 "多半应为 source" % (name, earliest))
@@ -496,27 +506,49 @@ def build_drafts(sheet: Path, out: Path) -> int:
             "",
             "sources:",
         ]
-        for row in usable:
+        for row in upstream + spreaders + usable:
             lines += [
                 "  - url: https://www.bilibili.com/video/%s" % row["bv_id"],
-                "    role: derivative",
-                "    note: %s（%s 画面中引用）" % ((row.get("title") or "").replace("\n", " ")[:40], row["episode_id"]),
+                "    role: %s" % (row.get("role") or "").strip(),
+                "    note: %s"
+                % _scalar(
+                    "%s（%s 画面中引用）"
+                    % ((row.get("title") or "").replace(chr(10), " ")[:40], row["episode_id"])
+                ),
             ]
         lines += ["", "evidence_map:"]
-        for row in usable:
+        for row in upstream + spreaders + usable:
             lines.append("  ocr-%s: null" % row["bv_id"])
         lines += ["", "claims: []", "", "events:"]
         for row in usable:
             lines += [
                 "  - event_type: remix",
-                "    description: %s 出现衍生作品《%s》" % (name, (row.get("title") or "")[:30]),
+                "    description: %s"
+                % _scalar("%s 出现衍生作品《%s》" % (name, (row.get("title") or "")[:30])),
                 "    occurred_at_start: %s" % _iso_day(row["upload_date"]),
                 "    time_precision: day",
                 "    time_basis: 平台显示的投稿时间，经 %s 画面引用发现" % row["episode_id"],
                 "    evidence: [ocr-%s]" % row["bv_id"],
             ]
+        lines += ["", "relations:"] if (upstream or spreaders) else ["", "relations: []"]
+        for row in upstream:
+            lines += [
+                "  - predicate: derived_from",
+                "    target_type: source",
+                "    target_bv: %s" % row["bv_id"],
+                "    assertion_status: supported",
+                "    evidence: [ocr-%s]" % row["bv_id"],
+            ]
+        for row in spreaders:
+            lines += [
+                "  - predicate: popularized_by",
+                "    target_type: source",
+                "    target_bv: %s" % row["bv_id"],
+                "    assertion_status: supported",
+                "    evidence: [ocr-%s]" % row["bv_id"],
+            ]
         lines += [
-            "", "relations: []", "",
+            "",
             "gold:", "  canonical:", "    - %s" % name,
             "  alias: []", "  origin_intent:", "    - %s的出处" % name,
             "  must_not_return: []", "",
@@ -665,18 +697,21 @@ def main() -> int:
         metavar="BROWSER",
         help="chrome / edge / firefox — reuses your own bilibili login to clear 412",
     )
+    videos.add_argument("--cookies", metavar="FILE", help="cookies.txt; works with the browser open")
     asr = sub.add_parser("asr", help="transcribe videos that have no subtitle track")
     asr.add_argument("tokens", nargs="+", metavar="BV_OR_URL")
     asr.add_argument("--out", type=Path, default=HERE)
     asr.add_argument("--model", default="small", help="faster-whisper size: small / medium / large-v3")
     asr.add_argument("--sleep", type=float, default=4.0)
     asr.add_argument("--cookies-from-browser", metavar="BROWSER")
+    asr.add_argument("--cookies", metavar="FILE", help="cookies.txt; works with the browser open")
     deriv = sub.add_parser("derivatives", help="OCR burned-in BV ids and resolve them to dated videos")
     deriv.add_argument("tokens", nargs="+", metavar="BV_OR_URL")
     deriv.add_argument("--out", type=Path, default=HERE)
     deriv.add_argument("--every", type=float, default=1.0, help="sample one frame per N seconds")
     deriv.add_argument("--sleep", type=float, default=4.0, help="seconds between resolve calls")
     deriv.add_argument("--cookies-from-browser", metavar="BROWSER")
+    deriv.add_argument("--cookies", metavar="FILE", help="cookies.txt; works with the browser open")
     # PowerShell drops empty string arguments, so --proxy "" never survives. Use a flag.
     deriv.add_argument("--no-proxy", action="store_true", help="bypass any system proxy for bilibili")
     deriv.add_argument("--video", type=Path, help="OCR this local file instead of downloading")
@@ -685,6 +720,7 @@ def main() -> int:
     res.add_argument("--out", type=Path, default=HERE)
     res.add_argument("--sleep", type=float, default=12.0)
     res.add_argument("--cookies-from-browser", metavar="BROWSER")
+    res.add_argument("--cookies", metavar="FILE", help="cookies.txt; works with the browser open")
     sheet = sub.add_parser("sheet", help="build lineage.csv for the human role pass")
     sheet.add_argument("--out", type=Path, default=HERE)
     dr = sub.add_parser("drafts", help="turn lineage.csv into curation YAML per meme")
@@ -703,6 +739,8 @@ def main() -> int:
         ])
         if args.cookies_from_browser:
             EXTRA.extend(["--cookies-from-browser", args.cookies_from_browser])
+        if getattr(args, "cookies", None):
+            EXTRA.extend(["--cookies", args.cookies])
         return fetch_videos(args.tokens, args.out, args.sleep)
     if args.mode == "derivatives":
         EXTRA.extend([
@@ -711,6 +749,8 @@ def main() -> int:
         ])
         if args.cookies_from_browser:
             EXTRA.extend(["--cookies-from-browser", args.cookies_from_browser])
+        if getattr(args, "cookies", None):
+            EXTRA.extend(["--cookies", args.cookies])
         if args.no_proxy:
             EXTRA.extend(["--proxy", ""])
         return extract_derivatives(args.tokens, args.out, args.every, args.sleep,
@@ -724,6 +764,8 @@ def main() -> int:
                       "--retries", "3", "--extractor-retries", "3"])
         if args.cookies_from_browser:
             EXTRA.extend(["--cookies-from-browser", args.cookies_from_browser])
+        if getattr(args, "cookies", None):
+            EXTRA.extend(["--cookies", args.cookies])
         return resolve_ids(args.out, args.sleep)
     if args.mode == "asr":
         EXTRA.extend([
@@ -732,6 +774,8 @@ def main() -> int:
         ])
         if args.cookies_from_browser:
             EXTRA.extend(["--cookies-from-browser", args.cookies_from_browser])
+        if getattr(args, "cookies", None):
+            EXTRA.extend(["--cookies", args.cookies])
         return transcribe(args.tokens, args.out, args.model, args.sleep)
     if args.mode == "cnmeme":
         return fetch_cnmeme(args.names, args.out)
