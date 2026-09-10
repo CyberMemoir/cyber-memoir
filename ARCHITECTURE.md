@@ -110,6 +110,7 @@ EvidenceLink 记录 `claim_key + statement + supports/contradicts + evidence_id`
 - 单 Source 候选限额；全部通道使用一致的平台和平台发布时间过滤。
 - 暂用精确向量查询，实测瓶颈后再启用 HNSW。换模型必须重建向量，不混用向量空间。
 - 模型或检索通道不可用时返回 `degraded`；不返回伪造的向量命中或重排分数。
+- 融合常量（RRF k 与三路权重、各通道条数、单 Source 限额、候选上限）为设置项而非字面量，供金标准评测集扫参；默认值与此前硬编码值一致。
 
 ### API / MCP
 
