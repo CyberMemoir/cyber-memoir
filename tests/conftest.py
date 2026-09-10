@@ -19,6 +19,8 @@ def env(tmp_path, monkeypatch):
         "STORAGE_PATH": str(tmp_path / "artifacts"),
         "OPENSEARCH_URL": "",
         "REDIS_URL": "redis://127.0.0.1:1/0",
+        # Pacing is a production concern; a suite that honoured it would stall between cycles.
+        "PLATFORM_FETCH_INTERVAL_SECONDS": "0",
         "EMBEDDING_BACKEND": "disabled",
         "RERANKER_BACKEND": "disabled",
         "LLM_BASE_URL": "",

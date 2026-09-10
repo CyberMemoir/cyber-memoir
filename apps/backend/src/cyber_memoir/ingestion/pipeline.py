@@ -10,7 +10,7 @@ from cyber_memoir.application.content import add_material, create_draft, require
 from cyber_memoir.config import settings
 from cyber_memoir.domain.models import Entity, Evidence, Revision, Source
 from cyber_memoir.domain.schemas import Material, MemeDraft
-from cyber_memoir.ingestion.media import analyze_bytes, analyze_url, metadata
+from cyber_memoir.ingestion.media import PlatformRateLimited, analyze_bytes, analyze_url, metadata
 from cyber_memoir.ingestion.subtitles import parse_subtitles
 from cyber_memoir.ingestion.urls import safe_get
 
@@ -21,6 +21,10 @@ def ingest(db: Session, source_id: str):
     source = require(db, Source, source_id)
     try:
         data = metadata(source.canonical_url)
+    except PlatformRateLimited:
+        # Nothing is wrong with this source and no human needs to supply anything, so the
+        # availability is left alone; the worker will ask again later.
+        raise
     except Exception as exc:
         source.availability, source.last_error = (
             "needs_material",

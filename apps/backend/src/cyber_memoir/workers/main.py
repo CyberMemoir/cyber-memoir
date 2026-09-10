@@ -1,6 +1,7 @@
 import logging
 import signal
 import threading
+import time
 from datetime import timedelta
 
 from redis import Redis
@@ -11,10 +12,37 @@ from cyber_memoir.adapters.storage import remove_temporary
 from cyber_memoir.config import settings
 from cyber_memoir.db import engine
 from cyber_memoir.domain.models import Job, Source, now
+from cyber_memoir.ingestion.media import PlatformRateLimited
 from cyber_memoir.ingestion.pipeline import extract, ingest, process_media
 from cyber_memoir.search.indexing import index_meme
 
 log = logging.getLogger(__name__)
+
+# Only these reach the platform; indexing and extraction are local and must keep flowing
+# even while fetching is paused.
+PLATFORM_KINDS = ("ingest", "media")
+_last_fetch = [0.0]
+
+
+def _claim_fetch_slot(redis, interval: int) -> bool:
+    """One platform fetch per interval across the worker, whatever the queue depth.
+
+    Per-job backoff cannot pace this: twenty ready jobs still fire twenty requests back to
+    back. Redis holds the gate so it survives a restart; the in-process fallback matches how
+    the API rate limiter degrades, and is sound for the single-worker V1 deployment.
+
+    An interval of 0 disables pacing, which is what the test environment wants: a suite that
+    waited out the production interval between worker cycles would take minutes.
+    """
+    if interval <= 0:
+        return True
+    try:
+        return bool(redis.set("memoir:platform:gate", "1", nx=True, ex=interval))
+    except Exception:
+        if time.monotonic() - _last_fetch[0] < interval:
+            return False
+        _last_fetch[0] = time.monotonic()
+        return True
 
 
 def run_once() -> bool:
@@ -38,6 +66,8 @@ def run_once() -> bool:
             (Job.status == "running")
             & (Job.started_at < now() - timedelta(seconds=cfg.task_timeout_seconds)),
         )
+        if not _claim_fetch_slot(redis, cfg.platform_fetch_interval_seconds):
+            eligible = eligible & Job.kind.notin_(PLATFORM_KINDS)
         query = (
             select(Job).where(eligible).order_by(Job.created_at).with_for_update(skip_locked=True).limit(1)
         )
@@ -69,11 +99,20 @@ def run_once() -> bool:
             db.rollback()
             job = db.get(Job, jid)
             job.error = f"{type(exc).__name__}: 任务失败，详情见服务端日志"
-            job.status = "failed" if job.attempts >= 3 or kind == "media" else "pending"
-            job.available_at = now() + timedelta(seconds=min(300, 10 * 2**job.attempts))
-            if kind == "media":
-                source = db.get(Source, payload["source_id"])
-                source.availability, source.last_error = "needs_material", job.error
+            if isinstance(exc, PlatformRateLimited):
+                # A block is transient. Waiting it out is the only useful response, so this
+                # gets its own budget and does not spend the ordinary attempt allowance.
+                job.status = "failed" if job.attempts >= cfg.platform_block_max_attempts else "pending"
+                job.available_at = now() + timedelta(seconds=cfg.platform_block_backoff_seconds)
+                job.error = "PlatformRateLimited: 平台限流，稍后自动重试"
+            else:
+                job.status = (
+                    "failed" if job.attempts >= cfg.job_max_attempts or kind == "media" else "pending"
+                )
+                job.available_at = now() + timedelta(seconds=min(300, 10 * 2**job.attempts))
+                if kind == "media":
+                    source = db.get(Source, payload["source_id"])
+                    source.availability, source.last_error = "needs_material", job.error
             db.commit()
             log.exception("job_failed id=%s kind=%s", jid, kind)
         if kind == "media" and job.status in {"failed", "succeeded"}:
