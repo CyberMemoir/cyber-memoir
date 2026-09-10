@@ -12,6 +12,11 @@ x-backend: &backend
     REDIS_URL: redis://redis:6379/0
     OPENSEARCH_URL: http://opensearch:9200
     S3_ENDPOINT: http://minio:9000
+    HF_HOME: /app/.models
+  # INSTALL_MODELS bakes the model libraries into the image, not the weights - those
+  # download on the first search that needs them. Without somewhere to keep them, every
+  # `up --build` re-downloads 2.3GB of reranker.
+  volumes: ["models:/app/.models"]
   restart: unless-stopped
 
 services:
@@ -111,3 +116,4 @@ volumes:
   redis:
   opensearch:
   objects:
+  models:

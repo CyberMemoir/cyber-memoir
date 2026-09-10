@@ -19,7 +19,9 @@ RUN if [ "$INSTALL_MODELS" = "true" ]; then \
     fi
 COPY apps/backend/ ./
 RUN pip install --no-cache-dir --no-deps .
-RUN useradd --create-home --uid 10001 memoir && mkdir -p /app/.data && chown -R memoir:memoir /app
+# /app/.models exists so a volume mounted there inherits memoir's ownership; created
+# by docker it would be root's and the download would fail as this unprivileged user.
+RUN useradd --create-home --uid 10001 memoir && mkdir -p /app/.data /app/.models && chown -R memoir:memoir /app
 USER memoir
 ENV PYTHONUNBUFFERED=1
 EXPOSE 8100
