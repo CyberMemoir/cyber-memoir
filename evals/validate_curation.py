@@ -41,7 +41,9 @@ TAXONOMY = {
 }
 ORIGIN_TYPES = {"on_platform", "off_platform_media", "live", "text_forum", "offline", "unknown"}
 MATERIAL_PATHS = {"subtitle", "asr", "ocr", "manual"}
-SOURCE_ROLES = {"origin", "earliest_artifact", "amplifier", "derivative", "reference"}
+# The vocabulary the curation actually uses: what the meme came from, what made it
+# spread, and what was made from it. Set during the role pass over lineage.csv.
+SOURCE_ROLES = {"source", "popularized_by", "derivative", "reference", "irrelevant"}
 PLATFORMS = {"bilibili", "douyin"}
 CLAIM_KEYS = {"definition", "usage_context", "origin", "alias"}
 STANCES = {"supports", "contradicts"}
@@ -49,9 +51,15 @@ EVENT_TYPES = {"observed_use", "spread", "remix", "origin_claim"}
 TIME_PRECISION = {"unknown", "year", "month", "day", "second"}
 ORIGIN_STATUS = {"unknown", "supported", "disputed"}
 # review() rejects any predicate whose target_type does not match.
+# Mirrors the map in application/content.py review(); the two must agree, and this one
+# has already drifted once. A predicate added there has to be added here.
 PREDICATE_TARGET = {
-    "derived_from": "meme", "variant_of": "meme",
-    "claimed_origin": "source", "documented_in": "source", "mentions": "entity",
+    "derived_from": {"meme", "source"},
+    "variant_of": {"meme"},
+    "claimed_origin": {"source"},
+    "popularized_by": {"source"},
+    "documented_in": {"source"},
+    "mentions": {"entity"},
 }
 GOLD_BUCKETS = ("canonical", "alias", "origin_intent", "polysemy", "adversarial", "must_not_return")
 ORIGIN_WORDS = ("起源", "来源", "最早", "谁先", "首创", "出处")
@@ -191,13 +199,26 @@ def check_relations(r: Record) -> None:
             r.err("relations[%d].predicate=%r 不在允许集合中" % (i, predicate))
             continue
         expected = PREDICATE_TARGET[predicate]
-        if rel.get("target_type") != expected:
+        if rel.get("target_type") not in expected:
             r.err(
-                "relations[%d] %s 的 target_type 必须是 %s，实为 %r"
-                % (i, predicate, expected, rel.get("target_type"))
+                "relations[%d] %s 的 target_type 必须是 %s 之一，实为 %r"
+                % (i, predicate, sorted(expected), rel.get("target_type"))
             )
         if rel.get("assertion_status", "supported") not in {"supported", "disputed"}:
             r.err("relations[%d].assertion_status 取值非法" % i)
+        # Exactly one way of naming the far end. target_bv is a video, so it can only
+        # ever be a source; a meme target is named, because its id does not exist until
+        # that meme is published.
+        named = [k for k in ("target_bv", "target_name", "target_id") if rel.get(k)]
+        if len(named) != 1:
+            r.err(
+                "relations[%d] 必须且只能用 target_bv / target_name / target_id 之一指定目标，实为 %s"
+                % (i, named or "空")
+            )
+        elif named[0] == "target_bv" and rel.get("target_type") != "source":
+            r.err("relations[%d] target_bv 指向视频，target_type 只能是 source" % i)
+        elif named[0] == "target_name" and rel.get("target_type") != "meme":
+            r.err("relations[%d] target_name 指向另一个梗，target_type 只能是 meme" % i)
 
 
 def check_events(r: Record) -> None:
@@ -340,6 +361,25 @@ def load_negatives(directory: Path) -> tuple[list[dict], list[str]]:
     return [x for x in items if isinstance(x, dict)], problems
 
 
+def check_relation_targets(records: list["Record"]) -> list[str]:
+    """A relation naming a meme must name one this corpus defines.
+
+    The loader publishes the target first, so a name with no record behind it is a
+    typo or a meme nobody has curated yet - either way the relation cannot resolve.
+    """
+    known = {text_of(r.get("canonical_name")) for r in records}
+    problems = []
+    for r in records:
+        for i, rel in enumerate(r.get("relations") or []):
+            wanted = text_of(rel.get("target_name")).strip()
+            if wanted and wanted not in known:
+                problems.append(
+                    "%s relations[%d] 指向《%s》，但没有任何记录以此为 canonical_name"
+                    % (r.slug, i, wanted)
+                )
+    return problems
+
+
 def check_negatives_against_records(negatives: list[dict], records: list["Record"]) -> list[str]:
     """A query matching a curated entry is not a negative; the library should answer it."""
     surface: dict[str, str] = {}
@@ -466,6 +506,9 @@ def main(argv: list[str]) -> int:
         failed += bool(r.errors)
     for problem in cross_check(records):
         print("\nx 跨文件：%s" % problem)
+        failed += 1
+    for problem in check_relation_targets(records):
+        print("\nx 关系目标：%s" % problem)
         failed += 1
     for problem in negative_problems + check_negatives_against_records(negatives, records):
         print("\nx 反例：%s" % problem)

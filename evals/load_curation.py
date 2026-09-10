@@ -9,6 +9,10 @@ material as Evidence, writes the returned ids back into evidence_map, then creat
 and approves a draft. Rerunnable: submissions dedupe on (platform, item id) and
 material dedupes on content hash, so a second run adds nothing.
 
+A relation may name another meme instead of a video, with target_type: meme and
+target_name: <that meme's canonical_name>. The named meme must already be published,
+so records are loaded in dependency order rather than alphabetically.
+
 Explainer episodes are tiered C: archived explainers, not primary records.
 """
 
@@ -98,6 +102,7 @@ class Loader:
         self.client = httpx.Client(base_url=base, timeout=60, trust_env=False)
         self.auth = {"Authorization": "Bearer %s" % token()}
         self.sources: dict[str, str] = {}
+        self.memes: dict[str, str] = {}
 
     def post(self, path: str, payload: dict) -> httpx.Response:
         time.sleep(self.pace)
@@ -137,6 +142,25 @@ class Loader:
             return "dry-evidence"
         return self.post("/v1/sources/%s/materials" % source_id, payload).json()["id"]
 
+    def meme_for(self, name: str) -> str | None:
+        """The id of an already-published meme, by its canonical name.
+
+        There is no lookup-by-name endpoint, so this goes through search, which
+        matches the canonical name exactly - and then checks the name back, because
+        a near-miss hit would silently point the relation at the wrong meme."""
+        if self.dry:
+            return "dry-meme"
+        if name in self.memes:
+            return self.memes[name]
+        time.sleep(self.pace)
+        found = self.client.post("/v1/search", json={"query": name, "limit": 10})
+        found.raise_for_status()
+        for item in found.json()["items"]:
+            if item["canonical_name"] == name:
+                self.memes[name] = item["id"]
+                return item["id"]
+        return None
+
     def publish(self, draft: dict, evidence_ids: list[str], name: str) -> str:
         if self.dry:
             return "dry-revision"
@@ -152,6 +176,14 @@ class Loader:
         return revision
 
 
+def target_id(relation: dict, sources: dict[str, str], memes: dict[str, str]) -> str | None:
+    if relation.get("target_bv"):
+        return sources.get(relation["target_bv"])
+    if relation.get("target_name"):
+        return memes.get(relation["target_name"])
+    return relation.get("target_id")
+
+
 def cited_bv(item: dict) -> str | None:
     """The work an event is about, taken from its evidence key only."""
     for key in item.get("evidence", []):
@@ -161,7 +193,40 @@ def cited_bv(item: dict) -> str | None:
     return None
 
 
-def build_draft(doc: dict, ids: dict[str, str], sources: dict[str, str]) -> dict:
+def order_by_dependency(paths: list[Path], docs: dict[Path, dict]) -> list[Path]:
+    """A record naming another meme has to be loaded after it.
+
+    Alphabetical order put 才是王道 before 闹吃VS古振兴, which it derives from, and the
+    relation cannot resolve until the target is published. Anything in a cycle, or
+    naming a meme no record defines, keeps its alphabetical place and fails loudly at
+    publish time rather than being silently dropped here."""
+    owner = {docs[path]["canonical_name"]: path for path in paths}
+    pending = list(paths)
+    done: set[Path] = set()
+    ordered: list[Path] = []
+    while pending:
+        ready = [
+            path
+            for path in pending
+            if all(
+                owner[name] in done
+                for name in (
+                    r.get("target_name")
+                    for r in docs[path].get("relations") or []
+                )
+                if name in owner and owner[name] is not path
+            )
+        ]
+        if not ready:  # a cycle: give up on ordering, keep the input order
+            ordered.extend(pending)
+            break
+        ordered.extend(ready)
+        done.update(ready)
+        pending = [path for path in pending if path not in done]
+    return ordered
+
+
+def build_draft(doc: dict, ids: dict[str, str], sources: dict[str, str], memes: dict[str, str]) -> dict:
     def refs(item):
         return [ids[k] for k in item.get("evidence", []) if k in ids]
 
@@ -197,8 +262,9 @@ def build_draft(doc: dict, ids: dict[str, str], sources: dict[str, str]) -> dict
             {
                 "predicate": r["predicate"],
                 "target_type": r.get("target_type", "source"),
-                # target_bv names a video; its Source id is only known once submitted.
-                "target_id": sources.get(r["target_bv"]) if r.get("target_bv") else r.get("target_id"),
+                # target_bv names a video, target_name another meme; neither id is
+                # known until that thing exists in the archive.
+                "target_id": target_id(r, sources, memes),
                 "assertion_status": r.get("assertion_status", "supported"),
                 "evidence_ids": refs(r),
             }
@@ -221,11 +287,12 @@ def main() -> int:
     tiered: set[str] = set()
     failures = 0
 
-    for path in sorted(CURATION.glob("*.yaml")):
-        if path.name.startswith("_"):
-            continue
+    paths = [p for p in sorted(CURATION.glob("*.yaml")) if not p.name.startswith("_")]
+    docs = {path: yaml.safe_load(path.read_text(encoding="utf-8")) for path in paths}
+
+    for path in order_by_dependency(paths, docs):
         raw = path.read_text(encoding="utf-8")
-        doc = yaml.safe_load(raw)
+        doc = docs[path]
         name = doc["canonical_name"]
         print("\n=== %s  (%s) ===" % (name, path.name))
 
@@ -263,7 +330,23 @@ def main() -> int:
                     "日期与标题取自 yt-dlp 对平台元数据的解析；抓取受限，ingest 未能写入",
                 )
 
-        draft = build_draft(doc, ids, loader.sources)
+        memes: dict[str, str] = {}
+        for item in doc.get("relations") or []:
+            wanted = item.get("target_name")
+            if not wanted:
+                continue
+            found = loader.meme_for(wanted)
+            if not found:
+                print("  x 关系指向的梗《%s》尚未发布" % wanted)
+                failures += 1
+            else:
+                memes[wanted] = found
+
+        draft = build_draft(doc, ids, loader.sources, memes)
+        if any(r["target_id"] is None for r in draft["relations"]):
+            print("  x 有关系的目标无法解析，跳过")
+            failures += 1
+            continue
         # Every referenced id must be confirmed, relations included, or approve is refused.
         every_id = sorted(
             {i for c in draft["claims"] for i in c["evidence_ids"]}
