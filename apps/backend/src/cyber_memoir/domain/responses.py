@@ -73,6 +73,15 @@ class MemeOut(BaseModel):
     matches: list[dict[str, Any]] = Field(default_factory=list)
 
 
+class MemeRef(BaseModel):
+    """Enough to address a meme and to tell two same-named ones apart."""
+
+    id: str
+    canonical_name: str
+    published_revision: int
+    created_at: datetime
+
+
 class SearchOut(BaseModel):
     items: list[MemeOut]
     total: int

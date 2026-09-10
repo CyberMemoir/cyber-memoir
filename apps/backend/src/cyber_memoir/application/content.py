@@ -229,6 +229,29 @@ def review(db: Session, revision_id: str, action: ReviewAction, reviewer: str):
     return dump(revision)
 
 
+def find_by_name(db: Session, name: str) -> list[dict]:
+    """Published memes whose canonical name normalises to this one.
+
+    A list, not a single row: nothing stops two published memes sharing a name, and
+    pretending otherwise would hand back an arbitrary one of them. A caller wanting
+    exactly one has to see the ambiguity to refuse it.
+    """
+    rows = db.scalars(
+        select(Meme)
+        .where(Meme.normalized_name == normalize(name), publication_is_valid())
+        .order_by(Meme.created_at.asc())
+    ).all()
+    return [
+        {
+            "id": x.id,
+            "canonical_name": x.canonical_name,
+            "published_revision": x.published_revision,
+            "created_at": x.created_at,
+        }
+        for x in rows
+    ]
+
+
 def public_meme(db: Session, meme_id: str):
     meme = require(db, Meme, meme_id)
     if meme.status == "merged":

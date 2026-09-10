@@ -4,7 +4,7 @@ import time
 from collections import defaultdict, deque
 from typing import Annotated
 
-from fastapi import Depends, FastAPI, File, HTTPException, Request, UploadFile
+from fastapi import Depends, FastAPI, File, HTTPException, Query, Request, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, Response
 from pydantic import BaseModel, Field
@@ -20,7 +20,7 @@ from cyber_memoir.application import content
 from cyber_memoir.config import settings
 from cyber_memoir.db import session
 from cyber_memoir.domain.models import Alias, Entity, Evidence, EvidenceLink, Job, Meme, Revision, Source, now
-from cyber_memoir.domain.responses import AnswerOut, EvidenceOut, MemeOut, SearchOut
+from cyber_memoir.domain.responses import AnswerOut, EvidenceOut, MemeOut, MemeRef, SearchOut
 from cyber_memoir.domain.schemas import (
     Material,
     MemeDraft,
@@ -211,6 +211,17 @@ def evidence_artifact(evidence_id: str, db: DB):
         media_type="application/octet-stream",
         headers={"Content-Disposition": f'attachment; filename="evidence-{item.id}.bin"'},
     )
+
+
+@app.get("/v1/memes", response_model=list[MemeRef])
+def memes_by_name(db: DB, name: str = Query(min_length=1, max_length=200)):
+    """Exact lookup by canonical name, so a tool that knows the name need not search.
+
+    Search is the wrong instrument for this: it is ranked, it is approximate, and it
+    drags in the reranker, so a name a caller already knows exactly cannot be turned
+    into an id while any of that is unavailable.
+    """
+    return content.find_by_name(db, name)
 
 
 @app.get("/v1/memes/{meme_id}", response_model=MemeOut)
