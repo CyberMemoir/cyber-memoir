@@ -91,18 +91,42 @@ the other.
 
 ## Current state (2026-09-10)
 
+**Search is unusable on this machine.** The reranker weights are not in the image -
+INSTALL_MODELS installs the libraries, not the 2.3GB of weights - so they download
+inside the first request that needs them, and huggingface.co runs at roughly 40
+bytes/second from here. The download also dies with the request that started it, so
+no client timeout is long enough. Anything going through `/v1/search` hangs, the
+gold-set run included. Three ways out, none chosen yet: `RERANKER_BACKEND=disabled`
+(honest, reversible, and the reranker's contribution is unmeasured at this corpus
+size, but it changes the configuration the gold numbers were taken under),
+`HF_ENDPOINT=https://hf-mirror.com` (a third-party mirror), or fetching the weights
+by hand into the volume `pr-model-cache` adds.
+
+**The archive holds 42 published memes for 10 curated records.**
+`/v1/reviews/drafts` creates a new meme unless given `meme_id`, and the loader never
+gave it one, so every rerun published another copy - five 牛来, four 大葱哥. Fixed
+going forward; the existing copies are still there. Cleaning them up means deciding
+which copy is the archive's and retracting the rest, which is Vincent's call. The
+gold-set numbers on record were measured over this corpus, duplicates included.
+
 - **Stack**: `docker compose --env-file .env -f ops/compose/compose.yml up -d`, API on :8100.
   Reranker enabled; embeddings and LLM deliberately off — hand curation must not be
   contaminated by model output.
 - **Corpus**: 16 OCR'd episodes, 59 extracted ids (33 resolved — the newest batch is
-  unresolved), 10 curation records all with definitions, **6 published**; the 4 newest
-  (闹吃VS古振兴, 才是王道, 真人版HIM, 大葱哥) are not yet loaded.
+  unresolved), **all 10 curation records published**, each at revision 2.
+  才是王道 is the first meme derived from another meme, and 闹吃VS古振兴 the first
+  carrying both a source and a popularized_by.
 - **`lineage.csv`**: 59 rows, **26 with a blank `role`** — the newest OCR batch, awaiting
   the human role pass. The 26 also need resolving (`prep.py resolve`) for their dates.
 - **Gold set**: 22 cases (14 positive, 8 negative). Baseline recall@10 1.00, MRR 1.00 — not
   impressive on 6 memes queried by their own names. The informative number was abstention:
   6/8 without the score floor, **8/8 with it**.
-- **Branches**: 8 pushed to origin; `pr-ingest-pacing` is local only. Stacking is real where
+- **Branches**: 11 pushed to origin (`pr-popularized-by`, `pr-model-cache` and
+  `pr-meme-by-name` are the new ones); `pr-ingest-pacing` is local only. `integration`
+  is a local merge of all of them and is what the running stack is built from — no
+  single branch carries both the migration chain and the newer API work, so nothing
+  else will start. Never commit novel work on `integration`: make it on a PR branch and
+  merge it in. Stacking is real where
   it exists — `pr-source-annotations` chains off `pr-event-source-link` for the migration
   order, and API branches sit on `pr-windows-encoding` because `make contracts` cannot run
   on Windows without it.
@@ -111,9 +135,10 @@ the other.
 
 ## Next
 
-1. Load the 4 new records. **Order matters**: 闹吃VS古振兴 before 才是王道, because the
-   `derived_from → Meme` relation requires a published target.
-2. Re-measure pacing now that cookies work — `platform_fetch_interval_seconds: 300` on
+1. Decide the reranker question above; nothing that touches search can run until then,
+   and that includes every retrieval number.
+2. Decide what to do with the 32 duplicate memes.
+3. Re-measure pacing now that cookies work — `platform_fetch_interval_seconds: 300` on
    `pr-ingest-pacing` was measured under anonymous conditions and is likely far too
    conservative.
 3. Grow the corpus. Six memes cannot measure retrieval — recall is 1.00 from exact-alias
@@ -131,6 +156,10 @@ the other.
 - **Fusion has no representation.** Observed twice (泥肘+老叟戏顽童 on 2026-08-13,
   肥嘟嘟+牛来). A derivative that merges memes appears on several timelines with nothing
   saying they merged.
+- **A relation to a source renders as a bare UUID.** `content.detail()` returns
+  relations as ids only, so the web UI shows 闹吃VS古振兴 as "衍生自 · 有证据支持 ·
+  a3f1…" seven times. The timeline is unreadable until relations carry the target's
+  title and URL.
 - **Ingestion contract undecided.** Automated fetch works now that auth is fixed, but the
   OCR lineage pipeline still lives in `prep.py` on the host, not in the worker.
 
