@@ -204,6 +204,9 @@ def review(db: Session, revision_id: str, action: ReviewAction, reviewer: str):
             "derived_from": {"meme", "source"},
             "variant_of": {"meme"},
             "claimed_origin": {"source"},
+            # The work that made a meme spread, which is neither where it came from nor a
+            # thing made from it - and routinely postdates the earliest known instance.
+            "popularized_by": {"source"},
             "documented_in": {"source"},
             "mentions": {"entity"},
         }

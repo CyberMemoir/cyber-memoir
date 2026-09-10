@@ -50,7 +50,9 @@ class EventInput(BaseModel):
 
 
 class RelationInput(BaseModel):
-    predicate: Literal["derived_from", "variant_of", "claimed_origin", "mentions", "documented_in"]
+    predicate: Literal[
+        "derived_from", "variant_of", "claimed_origin", "popularized_by", "mentions", "documented_in"
+    ]
     target_type: Literal["meme", "source", "entity"]
     target_id: str
     assertion_status: Literal["supported", "disputed"] = "supported"
