@@ -1,0 +1,139 @@
+# 由 evals/feasibility/prep.py drafts 从 lineage.csv 生成
+# definition / usage_context / claims 需要人工补齐，evidence 入库后再填 ID
+slug: meme-02
+resolved: true
+
+canonical_name: 才是王道
+aliases: []
+
+# definition 必填，且 claims 里要有逐字相同的 statement（用 |- 块标量）
+definition: "闹吃VS古振兴说唱PK中的爆火歌词，这个韵脚比较符合B站剪辑的抽象填词，很多这类视频都有这句歌词，本质赞美自己支持的游戏"
+usage_context: "闹吃VS古振兴和其他比较dis说唱歌词"
+
+origin_status: unknown
+origin_type: unknown
+origin_ref: ""
+
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+
+sources:
+  - url: https://www.bilibili.com/video/BV1kYbD69E6x
+    role: derivative
+    note: "你那卡通画风根本没技巧（BV1ii4C6QEk8 画面中引用）"
+  - url: https://www.bilibili.com/video/BV1xZ8u6JEiw
+    role: derivative
+    note: "像笨蛋一样的硬核才是王道（BV1ii4C6QEk8 画面中引用）"
+  - url: https://www.bilibili.com/video/BV1KW8F6QETE
+    role: derivative
+    note: "妙趣横生的音乐才是王道（BV1ii4C6QEk8 画面中引用）"
+  - url: https://www.bilibili.com/video/BV1wE8z6bEqR
+    role: derivative
+    note: "像素方块的硬核才是王道🍑（BV1ii4C6QEk8 画面中引用）"
+  - url: https://www.bilibili.com/video/BV1Gi8q6uEUR
+    role: derivative
+    note: "尼古丁真VS芙蓉王源，你支持谁？（BV1ii4C6QEk8 画面中引用）"
+  - url: https://www.bilibili.com/video/BV1P48167EGZ
+    role: derivative
+    note: "【金坷垃】⚡非洲农业的发达才是王道⚡（BV1ii4C6QEk8 画面中引用）"
+  - url: https://www.bilibili.com/video/BV1Qi8x6BE5X
+    role: derivative
+    note: "法棍才是王道（BV1ii4C6QEk8 画面中引用）"
+  - url: https://www.bilibili.com/video/BV1MLhK6LEyY
+    role: derivative
+    note: "⚡️闹 吃 不 要 相 信 古 振 兴 的 话⚡️（BV1ii4C6QEk8 画面中引用）"
+
+evidence_map:
+  ocr-narration-BV1ii4C6QEk8: 5e3e3892-f12f-495f-aca1-02f247f8150c
+  ocr-BV1kYbD69E6x: 4ae569f9-172f-4e23-8bb0-6bce23b75022
+  ocr-BV1xZ8u6JEiw: ea9b53d6-5024-4cfd-8d08-0377b51848a9
+  ocr-BV1KW8F6QETE: 082b974e-557f-44f8-bd02-ae5968c82f32
+  ocr-BV1wE8z6bEqR: c75d1eeb-7edd-4a13-9c0d-f2df756daf28
+  ocr-BV1Gi8q6uEUR: 68b71f09-2672-4d8d-893b-b7883f934ece
+  ocr-BV1P48167EGZ: 18935e62-33ba-4213-afa8-69eb52964a4f
+  ocr-BV1Qi8x6BE5X: ca0559bf-7f76-4065-85ad-c5ca4aa950fd
+  ocr-BV1MLhK6LEyY: 9cd6589f-ddcb-491e-acaf-d235d925949a
+
+claims:
+  - key: definition
+    statement: "闹吃VS古振兴说唱PK中的爆火歌词，这个韵脚比较符合B站剪辑的抽象填词，很多这类视频都有这句歌词，本质赞美自己支持的游戏"
+    evidence: [ocr-narration-BV1ii4C6QEk8]
+    stance: supports
+  - key: usage_context
+    statement: "闹吃VS古振兴和其他比较dis说唱歌词"
+    evidence: [ocr-narration-BV1ii4C6QEk8]
+    stance: supports
+
+events:
+  - event_type: remix
+    description: "才是王道 出现衍生作品《你那卡通画风根本没技巧》"
+    occurred_at_start: 2026-08-16T00:00:00+08:00
+    time_precision: day
+    time_basis: 平台显示的投稿时间，经 BV1ii4C6QEk8 画面引用发现
+    evidence: [ocr-BV1kYbD69E6x]
+  - event_type: remix
+    description: "才是王道 出现衍生作品《像笨蛋一样的硬核才是王道》"
+    occurred_at_start: 2026-08-18T00:00:00+08:00
+    time_precision: day
+    time_basis: 平台显示的投稿时间，经 BV1ii4C6QEk8 画面引用发现
+    evidence: [ocr-BV1xZ8u6JEiw]
+  - event_type: remix
+    description: "才是王道 出现衍生作品《妙趣横生的音乐才是王道》"
+    occurred_at_start: 2026-08-20T00:00:00+08:00
+    time_precision: day
+    time_basis: 平台显示的投稿时间，经 BV1ii4C6QEk8 画面引用发现
+    evidence: [ocr-BV1KW8F6QETE]
+  - event_type: remix
+    description: "才是王道 出现衍生作品《像素方块的硬核才是王道🍑》"
+    occurred_at_start: 2026-08-21T00:00:00+08:00
+    time_precision: day
+    time_basis: 平台显示的投稿时间，经 BV1ii4C6QEk8 画面引用发现
+    evidence: [ocr-BV1wE8z6bEqR]
+  - event_type: remix
+    description: "才是王道 出现衍生作品《尼古丁真VS芙蓉王源，你支持谁？》"
+    occurred_at_start: 2026-08-21T00:00:00+08:00
+    time_precision: day
+    time_basis: 平台显示的投稿时间，经 BV1ii4C6QEk8 画面引用发现
+    evidence: [ocr-BV1Gi8q6uEUR]
+  - event_type: remix
+    description: "才是王道 出现衍生作品《【金坷垃】⚡非洲农业的发达才是王道⚡》"
+    occurred_at_start: 2026-08-22T00:00:00+08:00
+    time_precision: day
+    time_basis: 平台显示的投稿时间，经 BV1ii4C6QEk8 画面引用发现
+    evidence: [ocr-BV1P48167EGZ]
+  - event_type: remix
+    description: "才是王道 出现衍生作品《法棍才是王道》"
+    occurred_at_start: 2026-08-23T00:00:00+08:00
+    time_precision: day
+    time_basis: 平台显示的投稿时间，经 BV1ii4C6QEk8 画面引用发现
+    evidence: [ocr-BV1Qi8x6BE5X]
+  - event_type: remix
+    description: "才是王道 出现衍生作品《⚡️闹 吃 不 要 相 信 古 振 兴 的 话⚡️》"
+    occurred_at_start: 2026-08-25T00:00:00+08:00
+    time_precision: day
+    time_basis: 平台显示的投稿时间，经 BV1ii4C6QEk8 画面引用发现
+    evidence: [ocr-BV1MLhK6LEyY]
+
+relations:
+  - predicate: derived_from
+    target_type: meme
+    target_name: 闹吃VS古振兴
+    assertion_status: supported
+    evidence: [ocr-narration-BV1ii4C6QEk8]
+
+gold:
+  canonical:
+    - 才是王道
+  alias: []
+  origin_intent:
+    - 才是王道的出处
+  must_not_return: []
+
+curation:
+  curator: ""
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+    - 衍生关系来自 BV1ii4C6QEk8 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+    - 传播区间 2026-08-16 .. 2026-08-25（8 条）

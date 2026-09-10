@@ -1,0 +1,77 @@
+# 由 evals/feasibility/prep.py drafts 从 lineage.csv 生成
+# definition / usage_context / claims 需要人工补齐，evidence 入库后再填 ID
+slug: lao-sou-xi-wan-tong
+resolved: true
+
+canonical_name: 老叟戏顽童
+aliases: [顽童戏老叟]
+
+# definition 必填，且 claims 里要有逐字相同的 statement（用 |- 块标量）
+definition: "非常有经验的老怪物凭借技术压制戏弄自以为是的小孩"
+usage_context: "一方被另一方完全算计掌控"
+
+origin_status: unknown
+origin_type: unknown
+origin_ref: ""
+
+taxonomy:
+  - catchphrase
+  - fandom
+platform_primary: bilibili
+material_path: ocr
+
+sources:
+  - url: https://www.bilibili.com/video/BV1JguG64Ei8
+    role: derivative
+    note: 这分明是老叟戏顽童（BV1vQ8i6uEYf 画面中引用）
+  - url: https://www.bilibili.com/video/BV1vngn61Eph
+    role: derivative
+    note: 👈😭泥肘！这分明就是老叟戏顽童（BV1vQ8i6uEYf 画面中引用）
+
+evidence_map:
+  ocr-narration-BV1vQ8i6uEYf: afcb3198-6e85-44dc-aa57-732ac0983f8c
+  ocr-BV1JguG64Ei8: 3b4113bd-5676-4727-b852-769a51be686a
+  ocr-BV1vngn61Eph: 77ebaf55-9abc-403f-bb4e-1687bc8bd832
+
+claims:
+  - key: definition
+    statement: "非常有经验的老怪物凭借技术压制戏弄自以为是的小孩"
+    evidence: [ocr-narration-BV1vQ8i6uEYf]
+    stance: supports
+  - key: usage_context
+    statement: "一方被另一方完全算计掌控"
+    evidence: [ocr-narration-BV1vQ8i6uEYf]
+    stance: supports
+
+events:
+  - event_type: remix
+    description: 老叟戏顽童 出现衍生作品《这分明是老叟戏顽童》
+    occurred_at_start: 2026-08-08T00:00:00+08:00
+    time_precision: day
+    time_basis: 平台显示的投稿时间，经 BV1vQ8i6uEYf 画面引用发现
+    evidence: [ocr-BV1JguG64Ei8]
+  - event_type: remix
+    description: 老叟戏顽童 出现衍生作品《👈😭泥肘！这分明就是老叟戏顽童》
+    occurred_at_start: 2026-08-13T00:00:00+08:00
+    time_precision: day
+    time_basis: 平台显示的投稿时间，经 BV1vQ8i6uEYf 画面引用发现
+    evidence: [ocr-BV1vngn61Eph]
+
+relations: []
+
+gold:
+  canonical:
+    - 老叟戏顽童
+  alias:
+    - "顽童戏老叟"
+  origin_intent:
+    - 老叟戏顽童的出处
+  must_not_return: []
+
+curation:
+  curator: ""
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+    - 衍生关系来自 BV1vQ8i6uEYf 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+    - 传播区间 2026-08-08 .. 2026-08-13（2 条）
