@@ -413,6 +413,52 @@
         }
       }
     },
+    "/v1/memes": {
+      "get": {
+        "summary": "Memes By Name",
+        "description": "Exact lookup by canonical name, so a tool that knows the name need not search.\n\nSearch is the wrong instrument for this: it is ranked, it is approximate, and it\ndrags in the reranker, so a name a caller already knows exactly cannot be turned\ninto an id while any of that is unavailable.",
+        "operationId": "memes_by_name_v1_memes_get",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200,
+              "title": "Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MemeRef"
+                  },
+                  "title": "Response Memes By Name V1 Memes Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/memes/{meme_id}": {
       "get": {
         "summary": "Meme Detail",
@@ -1995,6 +2041,36 @@
           "relations"
         ],
         "title": "MemeOut"
+      },
+      "MemeRef": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "canonical_name": {
+            "type": "string",
+            "title": "Canonical Name"
+          },
+          "published_revision": {
+            "type": "integer",
+            "title": "Published Revision"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "canonical_name",
+          "published_revision",
+          "created_at"
+        ],
+        "title": "MemeRef",
+        "description": "Enough to address a meme and to tell two same-named ones apart."
       },
       "MergeRequest": {
         "properties": {

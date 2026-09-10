@@ -191,6 +191,30 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/memes": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Memes By Name
+         * @description Exact lookup by canonical name, so a tool that knows the name need not search.
+         *
+         *     Search is the wrong instrument for this: it is ranked, it is approximate, and it
+         *     drags in the reranker, so a name a caller already knows exactly cannot be turned
+         *     into an id while any of that is unavailable.
+         */
+        get: operations["memes_by_name_v1_memes_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/memes/{meme_id}": {
         parameters: {
             query?: never;
@@ -762,6 +786,23 @@ export interface components {
                 [key: string]: unknown;
             }[];
         };
+        /**
+         * MemeRef
+         * @description Enough to address a meme and to tell two same-named ones apart.
+         */
+        MemeRef: {
+            /** Id */
+            id: string;
+            /** Canonical Name */
+            canonical_name: string;
+            /** Published Revision */
+            published_revision: number;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
         /** MergeRequest */
         MergeRequest: {
             /** Reason */
@@ -1235,6 +1276,37 @@ export interface operations {
                 };
                 content: {
                     "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    memes_by_name_v1_memes_get: {
+        parameters: {
+            query: {
+                name: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MemeRef"][];
                 };
             };
             /** @description Validation Error */
