@@ -81,6 +81,7 @@ def search(db: Session, request: SearchRequest):
             "total": total,
             "channels": ["catalog"],
             "degraded": [],
+            "scores_calibrated": False,
             "query": request.query,
         }
     exact_memes = set(
@@ -173,7 +174,6 @@ def search(db: Session, request: SearchRequest):
             )
             .limit(cfg.retrieval_channel_limit)
         ).all()
-        # The fallback stands in for bm25, so it carries the bm25 weight rather than its own knob.
         rankings.append(([x.id for x in fallback], cfg.rrf_weight_bm25))
         channels.append("lexical_fallback")
     fused = rrf(rankings, k=cfg.rrf_k)
@@ -210,10 +210,16 @@ def search(db: Session, request: SearchRequest):
             source_counts[source_id] += 1
         if len(candidates) >= cfg.retrieval_candidate_cap:
             break
+    # The reranker is the only calibrated relevance signal here. RRF scores encode rank position,
+    # not match quality, so a threshold can never be read off them; see ADR 0004.
+    chunk_scores, scores_calibrated = {}, False
     try:
         scores = rerank(query, [f"{db.get(Meme, x.meme_id).canonical_name}\n{x.text}" for x in candidates])
         if scores is not None:
-            candidates = [x for _, x in sorted(zip(scores, candidates, strict=True), key=lambda x: -x[0])]
+            ranked = sorted(zip(scores, candidates, strict=True), key=lambda x: -x[0])
+            chunk_scores = {chunk.id: float(score) for score, chunk in ranked}
+            candidates = [chunk for _, chunk in ranked]
+            scores_calibrated = True
             channels.append("bge_reranker")
         else:
             warnings.append("reranker_disabled")
@@ -226,10 +232,18 @@ def search(db: Session, request: SearchRequest):
         item = detail(db, mid)
         item["exact_match"] = mid in exact_memes
         item["matches"] = [
-            {"evidence_id": x.evidence_id, "text": x.text, "offset": x.offset}
+            {
+                "evidence_id": x.evidence_id,
+                "text": x.text,
+                "offset": x.offset,
+                "score": chunk_scores.get(x.id),
+            }
             for x in candidates
             if x.meme_id == mid
         ]
+        # A meme is scored by its best supporting chunk; None means no calibrated score backs it.
+        scored = [x["score"] for x in item["matches"] if x["score"] is not None]
+        item["retrieval_score"] = max(scored) if scored else None
         items.append(item)
     return {
         "items": items,
@@ -237,5 +251,6 @@ def search(db: Session, request: SearchRequest):
         "total_is_candidate_count": True,
         "channels": channels,
         "degraded": warnings,
+        "scores_calibrated": scores_calibrated,
         "query": request.query,
     }
