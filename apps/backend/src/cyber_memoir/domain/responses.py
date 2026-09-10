@@ -78,6 +78,15 @@ class MemeOut(BaseModel):
     retrieval_score: float | None = None
 
 
+class MemeRef(BaseModel):
+    """Enough to address a meme and to tell two same-named ones apart."""
+
+    id: str
+    canonical_name: str
+    published_revision: int
+    created_at: datetime
+
+
 class SearchOut(BaseModel):
     items: list[MemeOut]
     total: int
