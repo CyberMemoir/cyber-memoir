@@ -35,6 +35,7 @@ class EventInput(BaseModel):
     occurred_at_end: datetime | None = None
     time_precision: Literal["unknown", "year", "month", "day", "second"] = "unknown"
     time_basis: str = Field(min_length=1, max_length=500)
+    to_source_id: str | None = None
     evidence_ids: list[str] = Field(min_length=1, max_length=30)
 
     @model_validator(mode="after")
