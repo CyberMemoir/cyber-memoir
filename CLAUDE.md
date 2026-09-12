@@ -89,25 +89,35 @@ loader has no such limit.
 and role vocabulary have already drifted once. A predicate added to one must be added to
 the other.
 
-## Current state (2026-09-10)
+## Current state (2026-09-12)
 
-**Search is unusable on this machine.** The reranker weights are not in the image -
-INSTALL_MODELS installs the libraries, not the 2.3GB of weights - so they download
-inside the first request that needs them, and huggingface.co runs at roughly 40
-bytes/second from here. The download also dies with the request that started it, so
-no client timeout is long enough. Anything going through `/v1/search` hangs, the
-gold-set run included. Three ways out, none chosen yet: `RERANKER_BACKEND=disabled`
-(honest, reversible, and the reranker's contribution is unmeasured at this corpus
-size, but it changes the configuration the gold numbers were taken under),
-`HF_ENDPOINT=https://hf-mirror.com` (a third-party mirror), or fetching the weights
-by hand into the volume `pr-model-cache` adds.
+**Search hangs until the reranker weights are installed by hand.** INSTALL_MODELS
+bakes the model libraries into the image, not the 2.3GB of weights, so the first
+request needing the reranker downloads them - and huggingface.co runs at roughly 40
+bytes/second from here, inside a request that dies before it finishes, so no client
+timeout is long enough. Anything through `/v1/search` hangs, the gold-set run
+included.
+
+Decided 2026-09-12: fetch the weights by hand, rather than disabling the reranker
+(which would change the configuration the gold numbers were taken under) or trusting
+a third-party mirror. Download the six files of BAAI/bge-reranker-v2-m3 into a local
+directory, then `python ops/install_reranker.py <dir>` - it checks them, copies them
+into the `models` volume where the worker sees them too, and prints the .env lines.
+Set `RERANKER_MODEL` to the container path and `HF_HUB_OFFLINE=1` so nothing retries
+the hub.
 
 **The archive holds 42 published memes for 10 curated records.**
 `/v1/reviews/drafts` creates a new meme unless given `meme_id`, and the loader never
-gave it one, so every rerun published another copy - five 牛来, four 大葱哥. Fixed
-going forward; the existing copies are still there. Cleaning them up means deciding
-which copy is the archive's and retracting the rest, which is Vincent's call. The
-gold-set numbers on record were measured over this corpus, duplicates included.
+gave it one, so every rerun published another copy - five 牛来, four 大葱哥. The
+loader is fixed; the copies are still there, and the gold-set numbers on record were
+measured over this corpus, duplicates included.
+
+Which copy survives is a real choice, because a later run carries evidence an earlier
+run had no builder for. `python evals/dedupe_memes.py report` writes
+`evals/curation/_keep.csv`, one row per copy with its evidence, claim, event and
+relation counts, and marks the one its stated rule would pick; edit the `keep` column,
+then `python evals/dedupe_memes.py retract`. Run it before the next load - the loader
+revises the *oldest* copy of a name, which need not be the one you keep.
 
 - **Stack**: `docker compose --env-file .env -f ops/compose/compose.yml up -d`, API on :8100.
   Reranker enabled; embeddings and LLM deliberately off — hand curation must not be
@@ -135,16 +145,21 @@ gold-set numbers on record were measured over this corpus, duplicates included.
 
 ## Next
 
-1. Decide the reranker question above; nothing that touches search can run until then,
+Order agreed 2026-09-12: weights, then dedupe, then corpus. **UI last.**
+
+1. Install the reranker weights (above). Nothing that touches search runs until then,
    and that includes every retrieval number.
-2. Decide what to do with the 32 duplicate memes.
-3. Re-measure pacing now that cookies work — `platform_fetch_interval_seconds: 300` on
+2. Dedupe the 42 memes down to 10 (above). Do this before the next load.
+3. Role pass on the 26 blank rows in `lineage.csv`, then `prep.py resolve` for their
+   dates, then `drafts` / `load_curation.py`. This is the corpus growth that makes
+   retrieval measurable at all - recall is 1.00 today from exact-alias matching alone,
+   and nothing about pgvector or OpenSearch is answerable until lexical matching has a
+   chance to fail. `gengbaike_catalogue.txt` has ~28 unprocessed videos behind that.
+4. Re-measure pacing now that cookies work - `platform_fetch_interval_seconds: 300` on
    `pr-ingest-pacing` was measured under anonymous conditions and is likely far too
    conservative.
-3. Grow the corpus. Six memes cannot measure retrieval — recall is 1.00 from exact-alias
-   matching alone. Nothing about pgvector or OpenSearch is answerable until lexical matching
-   has a chance to fail. `gengbaike_catalogue.txt` has ~28 unprocessed videos.
-4. The web UI. Real data exists and the frontend has never been pointed at it.
+5. The web UI, once the data is worth showing. Relations render as bare UUIDs today;
+   see the gap below.
 
 ## Open architecture gaps
 
