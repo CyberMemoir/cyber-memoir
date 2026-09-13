@@ -7,8 +7,8 @@ canonical_name: 熊大回眸
 aliases: []
 
 # definition 必填，且 claims 里要有逐字相同的 statement（用 |- 块标量）
-definition: ""
-usage_context: ""
+definition: "出自熊出没动画片，梗图回眸惆怅，角色难绷叠加"
+usage_context: "配上伤感文案，P到乱七八糟的场景中，制造幽默"
 
 origin_status: unknown
 origin_type: unknown
@@ -24,9 +24,18 @@ sources:
     note: "当你的队友第一件出了金蛋（BV1PkgE69EoL 画面中引用）"
 
 evidence_map:
+  ocr-narration-BV1PkgE69EoL: null
   ocr-BV1qvu16EEs4: null
 
-claims: []
+claims:
+  - key: definition
+    statement: "出自熊出没动画片，梗图回眸惆怅，角色难绷叠加"
+    evidence: [ocr-narration-BV1PkgE69EoL]
+    stance: supports
+  - key: usage_context
+    statement: "配上伤感文案，P到乱七八糟的场景中，制造幽默"
+    evidence: [ocr-narration-BV1PkgE69EoL]
+    stance: supports
 
 events:
 

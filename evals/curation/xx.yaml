@@ -7,8 +7,8 @@ canonical_name: XX人吃到美食
 aliases: []
 
 # definition 必填，且 claims 里要有逐字相同的 statement（用 |- 块标量）
-definition: ""
-usage_context: ""
+definition: "本地人以为能吃到家乡菜结果吃到很诡异的创新菜"
+usage_context: "表示厌恶不理解这个做法，因为它破坏了原本好的做法"
 
 origin_status: unknown
 origin_type: unknown
@@ -33,12 +33,21 @@ sources:
     note: "平纪沪语《把上海人送走只需要》（BV1vwG369EkM 画面中引用）"
 
 evidence_map:
+  ocr-narration-BV1vwG369EkM: null
   ocr-BV1a4KU66EoX: null
   ocr-BV1Hj3M69EFK: null
   ocr-BV1Wv3F6zEZz: null
   ocr-BV1v73w6fEBj: null
 
-claims: []
+claims:
+  - key: definition
+    statement: "本地人以为能吃到家乡菜结果吃到很诡异的创新菜"
+    evidence: [ocr-narration-BV1vwG369EkM]
+    stance: supports
+  - key: usage_context
+    statement: "表示厌恶不理解这个做法，因为它破坏了原本好的做法"
+    evidence: [ocr-narration-BV1vwG369EkM]
+    stance: supports
 
 events:
   - event_type: remix

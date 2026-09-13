@@ -36,11 +36,18 @@ def normalize(text) -> str:
 
 def main() -> int:
     rows, surfaces, kinds = [], {}, Counter()
+    skipped = []
     for path in sorted(CURATION.glob("*.yaml")):
         if path.name.startswith("_"):
             continue
         doc = yaml.safe_load(path.read_text(encoding="utf-8"))
         name = doc["canonical_name"]
+        # A draft with no definition yet is not in the archive, so its gold cases would
+        # measure the loading backlog rather than retrieval - every one of them a miss
+        # for a reason that has nothing to do with search.
+        if not str(doc.get("definition") or "").strip():
+            skipped.append(name)
+            continue
         for value in [name, *(doc.get("aliases") or [])]:
             surfaces[normalize(value)] = name
         for bucket in POSITIVE_BUCKETS:
@@ -71,6 +78,9 @@ def main() -> int:
     TARGET.write_text(
         "".join(json.dumps(row, ensure_ascii=False) + "\n" for row in unique), encoding="utf-8"
     )
+    if skipped:
+        print("  ! 跳过 %d 条尚无 definition 的草稿（不在库中，计入只会拉低召回）：%s"
+              % (len(skipped), "、".join(skipped)))
     positives = sum(1 for r in unique if r["answerable"])
     print("-> %s   %d 条（正例 %d，反例 %d）" % (TARGET.name, len(unique), positives, len(unique) - positives))
     print("   构成：%s" % dict(kinds))
