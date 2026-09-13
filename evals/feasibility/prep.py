@@ -392,11 +392,19 @@ def build_sheet(out: Path) -> int:
     """Join resolved ids with their episode's meme name for the human role pass."""
     target = out / "lineage.csv"
     fields = ["episode_id", "meme_name", "bv_id", "upload_date", "title", "role", "notes"]
-    prior = {}
+    prior, rewritten = {}, []
     if target.exists():
         with target.open(encoding="utf-8-sig", newline="") as handle:
             for row in csv.DictReader(handle):
                 prior[row["bv_id"]] = row
+                stamp = (row.get("upload_date") or "").strip()
+                # A spreadsheet that opens this file reformats the column it reads as a
+                # date: 20260629 comes back as "20260629 7:47", _iso_day rejects it, and
+                # drafts silently skips the meme for "no usable rows". Only role,
+                # meme_name and notes are read back from here, so regenerating repairs
+                # it - but say so, or the next person loses the same afternoon.
+                if stamp and not (stamp.isdigit() and len(stamp) == 8):
+                    rewritten.append(row["bv_id"])
     rows = []
     for path in sorted(out.glob("*.derivatives.csv")):
         episode = path.name.replace(".derivatives.csv", "")
@@ -421,6 +429,13 @@ def build_sheet(out: Path) -> int:
         writer.writerows(rows)
     judged = sum(1 for r in rows if r["role"])
     print("-> %s   %d 行，其中 %d 行已判定 role" % (target.name, len(rows), judged))
+    if rewritten:
+        print("! 上一版 %d 行的 upload_date 不是 8 位数字，像被电子表格改写过（如 "
+              "20260629 -> \"20260629 7:47\"）：%s%s"
+              % (len(rewritten), ", ".join(rewritten[:4]),
+                 " 等" if len(rewritten) > 4 else ""))
+        print("  已从 *.derivatives.csv 重新生成日期与标题；role / meme_name / notes 原样保留。"
+              "编辑请用纯文本编辑器。")
     print("role 取值：source | popularized_by | derivative | reference | irrelevant（留空表示待判定）")
     print("meme_name 是从 OCR 首屏猜的，错了直接改，重跑不会覆盖你填过的内容。")
     return 0
