@@ -1,0 +1,3 @@
+﻿video_id,video_format,span_start,meme,claim_type,claim_text,names_source,gives_date,verifiable,video_cites,notes
+BV1PVi5BqE3g,roundup,0:00,鸡你太美,origin,说这句话最早出自2018年一段篮球宣传拍摄,y,y,y,n,示例行，标注前请删除。names_source/gives_date/verifiable/video_cites 填 y 或 n
+BV1VotU6iEiZ,single,0:00,耍起,explainer,"大家秉承的一种对生活的态度,耍起是川渝方言大概意思是玩起来",n,n,unsure,n,示例行，请删除。语义漂移属于 mutation，但没给时间点，所以 gives_date=n

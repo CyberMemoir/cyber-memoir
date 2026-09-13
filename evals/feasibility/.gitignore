@@ -1,0 +1,6 @@
+# Downloaded media. Reproducible from gengbaike_catalogue.txt via prep.py, and far too
+# large to track: 8 mp4 + 4 m4a came to 127MB against 456KB for everything else here.
+*.mp4
+*.m4a
+*.webm
+*.srt

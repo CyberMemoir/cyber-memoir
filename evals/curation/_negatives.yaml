@@ -1,0 +1,44 @@
+# 反例：这些查询不应产生任何有证据支持的断言。
+# 只有 answerable: false 的用例会计入 correct_abstention（ADR 0002 条款 8）。
+#
+# kind 区分两种反例，它们的寿命不同：
+#   fabricated    —— 编造的、不存在的梗。永久有效。
+#   out_of_corpus —— 真实存在但本档案尚未收录。一旦被策展，这条必须删除，
+#                    否则会把「正确回答」记成「弃答失败」。
+negatives:
+  # 2026-09-13：熊大回眸、轻松绷住 已被策展，按上面的规则删除，反例从 8 条降到 6 条。
+  # ADR 0002 要求至少 8 条，少于 8 条时 correct_abstention 不可单独报告。
+  # 需要 Vincent 补两条：真实存在、但本档案确实没有收录的梗。语料每长一次就会吃掉反例。
+  - query: 中国人能飞
+    kind: out_of_corpus
+    reason: 真实流行梗，未收录；用于检验无证据时是否弃答
+  - query: OMG你吓到我了
+    kind: out_of_corpus
+    reason: 真实流行梗，未收录；同时检验含英文字母的查询不会误命中
+  - query: 大狗大狗叫叫叫
+    kind: out_of_corpus
+    reason: 真实流行梗，未收录；叠词结构，检验分词不会误匹配已收录条目
+  - query: 青蛙教练
+    kind: out_of_corpus
+    reason: 真实流行梗，未收录；用于检验无证据时是否弃答
+  - query: 爹系男友
+    kind: out_of_corpus
+    reason: 真实流行梗，未收录；通用词汇组合，检验不会被向量通道拉到相近条目
+  - query: 被生活磨平了妙脆角
+    kind: out_of_corpus
+    reason: 真实流行梗，未收录；长句式查询，检验长查询下的弃答行为
+  - query: Verity
+    kind: out_of_corpus
+    reason: 真实流行梗，未收录；
+  - query: 严肃脸
+    kind: out_of_corpus
+    reason: 真实流行梗，未收录
+  - query: 接成绩
+    kind: fabricated
+    reason: 虚构语句
+  - query: 要不算了吧
+    kind: fabricated
+    reason: 虚构语句
+  
+  
+    
