@@ -327,6 +327,53 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/reviews/sources/{source_id}/tier": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Set Source Tier
+         * @description Authority of the source itself (rubric A-D), which Evidence.kind does not capture.
+         *
+         *     A reviewer's judgement, not a submitter's claim, so an explainer video cannot
+         *     present itself as a primary record.
+         */
+        post: operations["set_source_tier_v1_reviews_sources__source_id__tier_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/reviews/sources/{source_id}/metadata": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Set Source Metadata
+         * @description Record platform facts by hand when the platform can no longer be asked.
+         *
+         *     Refreshing is the right path while a source is still fetchable; this exists for the
+         *     ones that are gone, where an earlier observation is the only record left. The note
+         *     keeps that provenance visible rather than passing it off as a fetched value.
+         */
+        post: operations["set_source_metadata_v1_reviews_sources__source_id__metadata_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/reviews/sources/{source_id}/refresh": {
         parameters: {
             query?: never;
@@ -626,6 +673,8 @@ export interface components {
             time_precision: "unknown" | "year" | "month" | "day" | "second";
             /** Time Basis */
             time_basis: string;
+            /** To Source Id */
+            to_source_id?: string | null;
             /** Evidence Ids */
             evidence_ids: string[];
         };
@@ -645,6 +694,9 @@ export interface components {
             time_precision: string;
             /** Time Basis */
             time_basis: string;
+            /** To Source Id */
+            to_source_id?: string | null;
+            target?: components["schemas"]["TargetRef"] | null;
             /** Evidence Ids */
             evidence_ids?: string[];
         };
@@ -811,6 +863,7 @@ export interface components {
             to_entity_id: string | null;
             /** Assertion Status */
             assertion_status: string;
+            target?: components["schemas"]["TargetRef"] | null;
             /** Evidence Ids */
             evidence_ids?: string[];
         };
@@ -868,6 +921,18 @@ export interface components {
              */
             offset: number;
         };
+        /**
+         * SourceMetadata
+         * @description Reviewer-supplied platform facts, for sources the platform will not serve again.
+         */
+        SourceMetadata: {
+            /** Reason */
+            reason: string;
+            /** Title */
+            title?: string | null;
+            /** Platform Published At */
+            platform_published_at?: string | null;
+        };
         /** SourceOut */
         SourceOut: {
             /** Id */
@@ -884,6 +949,10 @@ export interface components {
             platform_published_at: string | null;
             /** Availability */
             availability: string;
+            /** Source Tier */
+            source_tier?: string | null;
+            /** Metadata Note */
+            metadata_note?: string | null;
             /**
              * Created At
              * Format: date-time
@@ -899,6 +968,43 @@ export interface components {
              * @default
              */
             title: string;
+        };
+        /**
+         * TargetRef
+         * @description The far end of an event or relation, named and dated, so a reader needs no second
+         *     request to label an edge or place it in time.
+         *
+         *     availability is the platform's for a source and the archive's for a meme: a meme
+         *     target that has since been retracted comes back withdrawn, with no label.
+         */
+        TargetRef: {
+            /**
+             * Type
+             * @enum {string}
+             */
+            type: "meme" | "source" | "entity";
+            /** Id */
+            id: string;
+            /** Label */
+            label: string;
+            /** Url */
+            url?: string | null;
+            /** Published At */
+            published_at?: string | null;
+            /** Availability */
+            availability?: string | null;
+            /** Tier */
+            tier?: string | null;
+        };
+        /** TierAction */
+        TierAction: {
+            /** Reason */
+            reason: string;
+            /**
+             * Tier
+             * @enum {string}
+             */
+            tier: "A" | "B" | "C" | "D";
         };
         /** ValidationError */
         ValidationError: {
@@ -1485,6 +1591,80 @@ export interface operations {
             cookie?: never;
         };
         requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    set_source_tier_v1_reviews_sources__source_id__tier_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path: {
+                source_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TierAction"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    set_source_metadata_v1_reviews_sources__source_id__metadata_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path: {
+                source_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SourceMetadata"];
+            };
+        };
         responses: {
             /** @description Successful Response */
             200: {

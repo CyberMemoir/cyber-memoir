@@ -240,6 +240,61 @@ def public_meme(db: Session, meme_id: str):
     return meme
 
 
+def target_refs(db: Session, items) -> dict[tuple[str, str], dict]:
+    """(type, id) -> enough to name, link and date the far end of an event or relation.
+
+    Without this every relation to a source reached the reader as a bare UUID, so a
+    lineage of seven sources read as the same unlabelled line seven times, and drawing
+    anything on a time axis took one request per edge.
+
+    A meme target is named only while it is publicly valid. Review checks the target is
+    published, but it can be retracted afterwards - thirty-two memes were in a single
+    pass - and a relation must not keep a withdrawn name readable through a live page.
+    """
+    wanted: dict[str, set[str]] = defaultdict(set)
+    for item in items:
+        for kind in ("meme", "source", "entity"):
+            value = getattr(item, "to_%s_id" % kind, None)
+            if value:
+                wanted[kind].add(value)
+    refs: dict[tuple[str, str], dict] = {}
+    if wanted["source"]:
+        for source in db.scalars(select(Source).where(Source.id.in_(wanted["source"]))):
+            refs[("source", source.id)] = {
+                "type": "source",
+                "id": source.id,
+                "label": source.title or source.platform_item_id,
+                "url": source.canonical_url,
+                "published_at": source.platform_published_at,
+                "availability": source.availability,
+                "tier": source.source_tier,
+            }
+    if wanted["meme"]:
+        public = set(
+            db.scalars(select(Meme.id).where(Meme.id.in_(wanted["meme"]), publication_is_valid()))
+        )
+        for target in db.scalars(select(Meme).where(Meme.id.in_(wanted["meme"]))):
+            shown = target.id in public
+            refs[("meme", target.id)] = {
+                "type": "meme",
+                "id": target.id,
+                "label": target.canonical_name if shown else "",
+                "availability": "published" if shown else "withdrawn",
+            }
+    if wanted["entity"]:
+        for entity in db.scalars(select(Entity).where(Entity.id.in_(wanted["entity"]))):
+            refs[("entity", entity.id)] = {"type": "entity", "id": entity.id, "label": entity.name}
+    return refs
+
+
+def ref_for(item, refs: dict[tuple[str, str], dict]) -> dict | None:
+    for kind in ("meme", "source", "entity"):
+        value = getattr(item, "to_%s_id" % kind, None)
+        if value:
+            return refs.get((kind, value))
+    return None
+
+
 def detail(db: Session, meme_id: str):
     meme = public_meme(db, meme_id)
     links = db.scalars(
@@ -255,6 +310,15 @@ def detail(db: Session, meme_id: str):
         source = db.get(Source, item.source_id)
         evidence[item.id] = {**dump(item), "source": dump(source)}
         claims[(link.claim_key, link.statement, link.stance)].append(item.id)
+    events = db.scalars(
+        select(Event)
+        .where(Event.meme_id == meme.id, Event.revision == meme.published_revision)
+        .order_by(Event.occurred_at_start.asc().nulls_last())
+    ).all()
+    relations = db.scalars(
+        select(Relation).where(Relation.meme_id == meme.id, Relation.revision == meme.published_revision)
+    ).all()
+    refs = target_refs(db, [*events, *relations])
     return {
         **dump(meme),
         "evidence": list(evidence.values()),
@@ -263,23 +327,20 @@ def detail(db: Session, meme_id: str):
             for (k, s, st), ids in claims.items()
         ],
         "events": [
-            {**dump(x), "evidence_ids": list({link.evidence_id for link in links if link.event_id == x.id})}
-            for x in db.scalars(
-                select(Event)
-                .where(Event.meme_id == meme.id, Event.revision == meme.published_revision)
-                .order_by(Event.occurred_at_start.asc().nulls_last())
-            )
+            {
+                **dump(x),
+                "target": ref_for(x, refs),
+                "evidence_ids": list({link.evidence_id for link in links if link.event_id == x.id}),
+            }
+            for x in events
         ],
         "relations": [
             {
                 **dump(x),
+                "target": ref_for(x, refs),
                 "evidence_ids": list({link.evidence_id for link in links if link.relation_id == x.id}),
             }
-            for x in db.scalars(
-                select(Relation).where(
-                    Relation.meme_id == meme.id, Relation.revision == meme.published_revision
-                )
-            )
+            for x in relations
         ],
     }
 

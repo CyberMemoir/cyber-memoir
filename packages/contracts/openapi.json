@@ -1828,6 +1828,16 @@
             ],
             "title": "To Source Id"
           },
+          "target": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TargetRef"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "evidence_ids": {
             "items": {
               "type": "string"
@@ -2270,6 +2280,16 @@
             "type": "string",
             "title": "Assertion Status"
           },
+          "target": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TargetRef"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "evidence_ids": {
             "items": {
               "type": "string"
@@ -2571,6 +2591,80 @@
           "url"
         ],
         "title": "Submission"
+      },
+      "TargetRef": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "meme",
+              "source",
+              "entity"
+            ],
+            "title": "Type"
+          },
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url"
+          },
+          "published_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Published At"
+          },
+          "availability": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Availability"
+          },
+          "tier": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tier"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "id",
+          "label"
+        ],
+        "title": "TargetRef",
+        "description": "The far end of an event or relation, named and dated, so a reader needs no second\nrequest to label an edge or place it in time.\n\navailability is the platform's for a source and the archive's for a meme: a meme\ntarget that has since been retracted comes back withdrawn, with no label."
       },
       "TierAction": {
         "properties": {
