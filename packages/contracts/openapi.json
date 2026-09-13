@@ -2757,7 +2757,7 @@
           "label"
         ],
         "title": "TargetRef",
-        "description": "The far end of an event or relation, named and dated, so a reader needs no second\nrequest to label an edge or place it in time.\n\navailability is the platform's for a source and the archive's for a meme: a meme\ntarget that has since been retracted comes back withdrawn, with no label."
+        "description": "The far end of an event or relation, named and dated, so a reader needs no second\nrequest to label an edge or place it in time.\n\navailability means different things by type, so switch on type before reading it.\nFor a source it is the archive's ingestion state - pending, needs_material,\nmaterial_available - and says nothing about whether the video is still up on the\nplatform; no takedown status is recorded anywhere. For a meme it is published or\nwithdrawn, and a withdrawn target comes back with no label.\n\npublished_at is an instant in UTC. A video posted at 00:00 in Beijing comes back as\n16:00 the previous day, so slicing the first ten characters reads the wrong date;\nrender it in Asia/Shanghai."
       },
       "TierAction": {
         "properties": {
