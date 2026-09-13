@@ -1,7 +1,7 @@
 # 由 evals/feasibility/prep.py drafts 从 lineage.csv 生成
 # definition / usage_context / claims 需要人工补齐，evidence 入库后再填 ID
 slug: ni-hui-XXX-ma
-resolved: false
+resolved: true
 
 canonical_name: 你会XXX吗
 aliases: []
@@ -36,12 +36,12 @@ sources:
     note: "【纸飞机】压力切片man 你会做切片吗？（BV1Xsuc67E8r 画面中引用）"
 
 evidence_map:
-  ocr-narration-BV1Xsuc67E8r: null
-  ocr-BV1NsKQ6zEwG: null
-  ocr-BV1pUKD6PEZ7: null
-  ocr-BV17iTY6VE1B: null
-  ocr-BV15pT166Eks: null
-  ocr-BV1b4NL6BEgD: null
+  ocr-narration-BV1Xsuc67E8r: 4d670e33-626d-469c-967f-20485992296a
+  ocr-BV1NsKQ6zEwG: f7f79076-9418-44ee-bf66-d730218382ed
+  ocr-BV1pUKD6PEZ7: 8fba7d3e-ef11-49b8-94ff-e58ebdf8ae09
+  ocr-BV17iTY6VE1B: b9225a17-a82a-4a98-86d5-c4ee46b20673
+  ocr-BV15pT166Eks: 18d78a24-6108-485d-89ec-5ba5830696d2
+  ocr-BV1b4NL6BEgD: 4483866e-7c5c-4bb1-97d7-2584b3db83ee
 
 claims:
   - key: definition
