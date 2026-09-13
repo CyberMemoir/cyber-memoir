@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Any
+from typing import Any, Literal
 
 from pydantic import BaseModel, Field
 
@@ -38,6 +38,23 @@ class ClaimOut(BaseModel):
     evidence_ids: list[str]
 
 
+class TargetRef(BaseModel):
+    """The far end of an event or relation, named and dated, so a reader needs no second
+    request to label an edge or place it in time.
+
+    availability is the platform's for a source and the archive's for a meme: a meme
+    target that has since been retracted comes back withdrawn, with no label.
+    """
+
+    type: Literal["meme", "source", "entity"]
+    id: str
+    label: str
+    url: str | None = None
+    published_at: datetime | None = None
+    availability: str | None = None
+    tier: str | None = None
+
+
 class EventOut(BaseModel):
     id: str
     event_type: str
@@ -47,6 +64,7 @@ class EventOut(BaseModel):
     time_precision: str
     time_basis: str
     to_source_id: str | None = None
+    target: TargetRef | None = None
     evidence_ids: list[str] = Field(default_factory=list)
 
 
@@ -57,6 +75,7 @@ class RelationOut(BaseModel):
     to_source_id: str | None
     to_entity_id: str | None
     assertion_status: str
+    target: TargetRef | None = None
     evidence_ids: list[str] = Field(default_factory=list)
 
 
