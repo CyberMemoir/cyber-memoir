@@ -221,7 +221,12 @@ def search(db: Session, request: SearchRequest):
             candidates = [chunk for _, chunk in ranked]
             scores_calibrated = True
             channels.append("bge_reranker")
-        else:
+        # rerank() returns None both when the backend is off and when there is nothing to
+        # rank, and only the first is a degradation. Four gold-set negatives matched no
+        # chunk at all and came back flagged reranker_disabled on a run where the reranker
+        # was working: a degraded flag that fires when nothing is wrong is worse than no
+        # flag, because it is what a reader trusts to tell them the run was sound.
+        elif candidates:
             warnings.append("reranker_disabled")
     except Exception as exc:
         warnings.append("reranker_unavailable")
