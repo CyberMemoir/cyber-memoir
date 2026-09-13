@@ -89,35 +89,18 @@ loader has no such limit.
 and role vocabulary have already drifted once. A predicate added to one must be added to
 the other.
 
-## Current state (2026-09-12)
+## Current state (2026-09-13)
 
-**Search hangs until the reranker weights are installed by hand.** INSTALL_MODELS
-bakes the model libraries into the image, not the 2.3GB of weights, so the first
-request needing the reranker downloads them - and huggingface.co runs at roughly 40
-bytes/second from here, inside a request that dies before it finishes, so no client
-timeout is long enough. Anything through `/v1/search` hangs, the gold-set run
-included.
+**Search works, slowly.** Reranker weights were fetched by hand into the `models`
+volume (`ops/install_reranker.py`, `HF_HUB_OFFLINE=1`). A gold run takes 67-81 minutes;
+`RETRIEVAL_CANDIDATE_CAP=20` saved 20% and is recorded in
+`evals/results-2026-09-13-cap.md` with its criteria committed before the run.
 
-Decided 2026-09-12: fetch the weights by hand, rather than disabling the reranker
-(which would change the configuration the gold numbers were taken under) or trusting
-a third-party mirror. Download the six files of BAAI/bge-reranker-v2-m3 into a local
-directory, then `python ops/install_reranker.py <dir>` - it checks them, copies them
-into the `models` volume where the worker sees them too, and prints the .env lines.
-Set `RERANKER_MODEL` to the container path and `HF_HUB_OFFLINE=1` so nothing retries
-the hub.
-
-**The archive holds 42 published memes for 10 curated records.**
-`/v1/reviews/drafts` creates a new meme unless given `meme_id`, and the loader never
-gave it one, so every rerun published another copy - five 牛来, four 大葱哥. The
-loader is fixed; the copies are still there, and the gold-set numbers on record were
-measured over this corpus, duplicates included.
-
-Which copy survives is a real choice, because a later run carries evidence an earlier
-run had no builder for. `python evals/dedupe_memes.py report` writes
-`evals/curation/_keep.csv`, one row per copy with its evidence, claim, event and
-relation counts, and marks the one its stated rule would pick; edit the `keep` column,
-then `python evals/dedupe_memes.py retract`. Run it before the next load - the loader
-revises the *oldest* copy of a name, which need not be the one you keep.
+**14 memes published, one copy each.** 32 duplicates were retracted on 2026-09-13
+(`evals/curation/_keep.csv` records which). The loader now passes `meme_id`, so reruns
+revise instead of minting copies. Latest gold run: 40 cases, recall@10 1.00, MRR 1.00,
+abstention 10/10 — of which 6 were real refusals by the score floor and 4 matched no
+chunk at all.
 
 - **Stack**: `docker compose --env-file .env -f ops/compose/compose.yml up -d`, API on :8100.
   Reranker enabled; embeddings and LLM deliberately off — hand curation must not be
@@ -143,23 +126,41 @@ revises the *oldest* copy of a name, which need not be the one you keep.
 - **`test_backup.py` fails and always has** (`Unexpected artifact key in backup`), on `main`,
   unrelated to any of this work. The backup path is unverified.
 
+## Web UI — decided 2026-09-13
+
+Two parts: search/answers as the baseline, and a **Universe of Memes** exhibition.
+Universe level is every meme on a horizontal time axis; click one to zoom into its galaxy.
+
+- **Position by date, colour by role.** Stage never decides where a star sits. The four
+  stages are causal and the evidence breaks their order: 才是王道 (derived meme) is dated
+  08-16, before 闹吃VS古振兴's popularized_by work at 08-20.
+- **Milestones are the first star of each stage.**
+- **Missing stages are visible empty slots** (无证据) — distinct from an evidenced star
+  that lacks a date (无日期). Only 闹吃VS古振兴 has all four; most galaxies show 2-3 empty.
+- **Time direction is always drawn**: "时间 →" on the universe axis, "早 → 晚" radially.
+- **No takedown checking, ever.** `availability` is ingestion state, not whether a video
+  is online, and nothing records that.
+
+`GET /v1/universe` (`pr-universe`) serves all of it in one ~2s request. Quiet gaps over
+21 days are compressed into bands that carry their true length; 21 came from measuring
+29 gaps first (bursts ≤ 15 days, silences ≥ 30). Dates leave the server already in
+Beijing time — `at` is UTC and must never be displayed.
+
+**Split:** DeepSeek builds the UI; Claude owns the API and the time scale, and reviews.
+Handoff lives in `ai_context/` (gitignored): `task_prompt.txt` is the spec with ten
+numbered invariants, `universe.example.json` a real payload, DeepSeek writes
+`deepseek_report.txt`, Claude writes `review_feedback.txt`. Review against the INV
+numbers, and check real data on the live stack — the e2e harness only has synthetic data.
+
 ## Next
 
-Order agreed 2026-09-12: weights, then dedupe, then corpus. **UI last.**
-
-1. Install the reranker weights (above). Nothing that touches search runs until then,
-   and that includes every retrieval number.
-2. Dedupe the 42 memes down to 10 (above). Do this before the next load.
-3. Role pass on the 26 blank rows in `lineage.csv`, then `prep.py resolve` for their
-   dates, then `drafts` / `load_curation.py`. This is the corpus growth that makes
-   retrieval measurable at all - recall is 1.00 today from exact-alias matching alone,
-   and nothing about pgvector or OpenSearch is answerable until lexical matching has a
-   chance to fail. `gengbaike_catalogue.txt` has ~28 unprocessed videos behind that.
-4. Re-measure pacing now that cookies work - `platform_fetch_interval_seconds: 300` on
-   `pr-ingest-pacing` was measured under anonymous conditions and is likely far too
-   conservative.
-5. The web UI, once the data is worth showing. Relations render as bare UUIDs today;
-   see the gap below.
+1. DeepSeek builds `pr-web-universe`; Claude reviews it against `task_prompt.txt`.
+2. Reranker per-pair cost (2.3-3.5 s) is the eval bottleneck, not the candidate cap.
+   Next suspect is memory in the 8 GB Docker VM. Unverified.
+3. Gold set positives all name their meme, so recall is saturated and cannot see what
+   the cap (now 20) costs. It needs queries that do not contain the answer's name.
+4. Grow the corpus. `gengbaike_catalogue.txt` has ~28 unprocessed episodes.
+5. Re-measure platform pacing now that cookies work (`pr-ingest-pacing`, 300 s).
 
 ## Open architecture gaps
 
