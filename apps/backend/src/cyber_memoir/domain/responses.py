@@ -137,3 +137,87 @@ class AnswerOut(BaseModel):
     retrieval_version: str
     channels: list[str]
     degraded: list[str]
+
+
+class UniverseBand(BaseModel):
+    """A quiet period cut out of the axis. start and end are axis positions; days is how
+    long the silence really was, which the band must show since its width does not."""
+
+    start: float
+    end: float
+    date_from: str
+    date_to: str
+    days: int
+
+
+class UniverseTick(BaseModel):
+    t: float
+    date: str
+
+
+class Star(BaseModel):
+    """One dated piece of a meme's lineage.
+
+    t is its position on the galaxy's time axis, 0 at the earliest star, and null when
+    the star has no date - an undated star is evidence without a time, which is not the
+    same as a missing stage. date is the calendar day in Beijing; never derive it from
+    at, which is UTC.
+    """
+
+    id: str
+    stage: Literal["source", "popularized_by", "derivative", "derived_meme"]
+    kind: Literal["source", "meme"]
+    target_id: str | None
+    label: str
+    url: str | None
+    bvid: str | None
+    tier: str | None
+    at: datetime | None
+    date: str | None
+    t: float | None
+    milestone: bool
+    evidence_ids: list[str]
+
+
+class Emergence(BaseModel):
+    """When the meme is first evidenced as a meme: its first derivative, else the work that
+    popularized it, else its earliest upstream source. basis says which, so a galaxy dated
+    only by old material can be drawn as such."""
+
+    at: datetime | None
+    date: str | None
+    basis: Literal["derivative", "popularized_by", "source", "none"]
+
+
+class Galaxy(BaseModel):
+    meme_id: str
+    name: str
+    definition: str
+    emergence: Emergence
+    u: float | None
+    stars: list[Star]
+    milestones: dict[str, str | None] = Field(
+        description="The first star of each stage by date. null means the stage has no evidence "
+        "at all - draw an empty slot - which differs from a stage whose stars are merely undated."
+    )
+    bands: list[UniverseBand]
+    ticks: list[UniverseTick]
+
+
+class UniverseAxis(BaseModel):
+    bands: list[UniverseBand]
+    ticks: list[UniverseTick]
+
+
+class UniverseLink(BaseModel):
+    from_meme_id: str
+    to_meme_id: str
+    predicate: str
+
+
+class UniverseOut(BaseModel):
+    timezone: str
+    quiet_gap_days: int
+    axis: UniverseAxis
+    galaxies: list[Galaxy]
+    links: list[UniverseLink]

@@ -16,11 +16,11 @@ from sqlalchemy.orm import Session
 from cyber_memoir.adapters import storage
 from cyber_memoir.api.auth import reviewer, submitter
 from cyber_memoir.api.body_limit import BodyLimitMiddleware
-from cyber_memoir.application import content
+from cyber_memoir.application import content, universe
 from cyber_memoir.config import settings
 from cyber_memoir.db import session
 from cyber_memoir.domain.models import Alias, Entity, Evidence, EvidenceLink, Job, Meme, Revision, Source, now
-from cyber_memoir.domain.responses import AnswerOut, EvidenceOut, MemeOut, SearchOut
+from cyber_memoir.domain.responses import AnswerOut, EvidenceOut, MemeOut, SearchOut, UniverseOut
 from cyber_memoir.domain.schemas import (
     Material,
     MemeDraft,
@@ -213,6 +213,16 @@ def evidence_artifact(evidence_id: str, db: DB):
         media_type="application/octet-stream",
         headers={"Content-Disposition": f'attachment; filename="evidence-{item.id}.bin"'},
     )
+
+
+@app.get("/v1/universe", response_model=UniverseOut)
+def universe_api(db: DB):
+    """Every published meme as a galaxy of dated stars, with the time axes to draw them on.
+
+    Read-only and uncached: it is a handful of queries over the published set, and a cache
+    would be one more place a retraction could fail to take effect.
+    """
+    return universe.build(db)
 
 
 @app.get("/v1/memes/{meme_id}", response_model=MemeOut)

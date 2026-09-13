@@ -191,6 +191,29 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/universe": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Universe Api
+         * @description Every published meme as a galaxy of dated stars, with the time axes to draw them on.
+         *
+         *     Read-only and uncached: it is a handful of queries over the published set, and a cache
+         *     would be one more place a retraction could fail to take effect.
+         */
+        get: operations["universe_api_v1_universe_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/memes/{meme_id}": {
         parameters: {
             query?: never;
@@ -639,6 +662,23 @@ export interface components {
             /** Evidence Ids */
             evidence_ids: string[];
         };
+        /**
+         * Emergence
+         * @description When the meme is first evidenced as a meme: its first derivative, else the work that
+         *     popularized it, else its earliest upstream source. basis says which, so a galaxy dated
+         *     only by old material can be drawn as such.
+         */
+        Emergence: {
+            /** At */
+            at: string | null;
+            /** Date */
+            date: string | null;
+            /**
+             * Basis
+             * @enum {string}
+             */
+            basis: "derivative" | "popularized_by" | "source" | "none";
+        };
         /** EntityInput */
         EntityInput: {
             /** Entity Type */
@@ -728,6 +768,31 @@ export interface components {
              */
             created_at: string;
             source?: components["schemas"]["SourceOut"] | null;
+        };
+        /** Galaxy */
+        Galaxy: {
+            /** Meme Id */
+            meme_id: string;
+            /** Name */
+            name: string;
+            /** Definition */
+            definition: string;
+            emergence: components["schemas"]["Emergence"];
+            /** U */
+            u: number | null;
+            /** Stars */
+            stars: components["schemas"]["Star"][];
+            /**
+             * Milestones
+             * @description The first star of each stage by date. null means the stage has no evidence at all - draw an empty slot - which differs from a stage whose stars are merely undated.
+             */
+            milestones: {
+                [key: string]: string | null;
+            };
+            /** Bands */
+            bands: components["schemas"]["UniverseBand"][];
+            /** Ticks */
+            ticks: components["schemas"]["UniverseTick"][];
         };
         /** HTTPValidationError */
         HTTPValidationError: {
@@ -832,7 +897,7 @@ export interface components {
              * Predicate
              * @enum {string}
              */
-            predicate: "derived_from" | "variant_of" | "claimed_origin" | "mentions" | "documented_in";
+            predicate: "derived_from" | "variant_of" | "claimed_origin" | "popularized_by" | "mentions" | "documented_in";
             /**
              * Target Type
              * @enum {string}
@@ -959,6 +1024,49 @@ export interface components {
              */
             created_at: string;
         };
+        /**
+         * Star
+         * @description One dated piece of a meme's lineage.
+         *
+         *     t is its position on the galaxy's time axis, 0 at the earliest star, and null when
+         *     the star has no date - an undated star is evidence without a time, which is not the
+         *     same as a missing stage. date is the calendar day in Beijing; never derive it from
+         *     at, which is UTC.
+         */
+        Star: {
+            /** Id */
+            id: string;
+            /**
+             * Stage
+             * @enum {string}
+             */
+            stage: "source" | "popularized_by" | "derivative" | "derived_meme";
+            /**
+             * Kind
+             * @enum {string}
+             */
+            kind: "source" | "meme";
+            /** Target Id */
+            target_id: string | null;
+            /** Label */
+            label: string;
+            /** Url */
+            url: string | null;
+            /** Bvid */
+            bvid: string | null;
+            /** Tier */
+            tier: string | null;
+            /** At */
+            at: string | null;
+            /** Date */
+            date: string | null;
+            /** T */
+            t: number | null;
+            /** Milestone */
+            milestone: boolean;
+            /** Evidence Ids */
+            evidence_ids: string[];
+        };
         /** Submission */
         Submission: {
             /** Url */
@@ -1012,6 +1120,58 @@ export interface components {
              * @enum {string}
              */
             tier: "A" | "B" | "C" | "D";
+        };
+        /** UniverseAxis */
+        UniverseAxis: {
+            /** Bands */
+            bands: components["schemas"]["UniverseBand"][];
+            /** Ticks */
+            ticks: components["schemas"]["UniverseTick"][];
+        };
+        /**
+         * UniverseBand
+         * @description A quiet period cut out of the axis. start and end are axis positions; days is how
+         *     long the silence really was, which the band must show since its width does not.
+         */
+        UniverseBand: {
+            /** Start */
+            start: number;
+            /** End */
+            end: number;
+            /** Date From */
+            date_from: string;
+            /** Date To */
+            date_to: string;
+            /** Days */
+            days: number;
+        };
+        /** UniverseLink */
+        UniverseLink: {
+            /** From Meme Id */
+            from_meme_id: string;
+            /** To Meme Id */
+            to_meme_id: string;
+            /** Predicate */
+            predicate: string;
+        };
+        /** UniverseOut */
+        UniverseOut: {
+            /** Timezone */
+            timezone: string;
+            /** Quiet Gap Days */
+            quiet_gap_days: number;
+            axis: components["schemas"]["UniverseAxis"];
+            /** Galaxies */
+            galaxies: components["schemas"]["Galaxy"][];
+            /** Links */
+            links: components["schemas"]["UniverseLink"][];
+        };
+        /** UniverseTick */
+        UniverseTick: {
+            /** T */
+            t: number;
+            /** Date */
+            date: string;
         };
         /** ValidationError */
         ValidationError: {
@@ -1357,6 +1517,26 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    universe_api_v1_universe_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UniverseOut"];
                 };
             };
         };
