@@ -1,0 +1,453 @@
+{
+  "cases": [
+    {
+      "query": "才是王道",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "才是王道的出处",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "胆子真是肥嘟嘟的",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "胆子真是肥嘟嘟啊",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "胆子真是肥嘟嘟的的出处",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "真人版HIM",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "真人版HIM的出处",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "狼王撕衣",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "狼王撕衣的出处",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "老叟戏顽童",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "顽童戏老叟",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "老叟戏顽童的出处",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "大葱哥",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "大葱哥的出处",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "轻松绷住",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "轻松绷住的出处",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "azhe",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "azhe的出处",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "泥肘",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "泥肘的出处",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "牛来",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "牛来的出处",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "松针大油边",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "松针大油边的出处",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "闹吃VS古振兴",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "闹吃VS古振兴的出处",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "熊大回眸",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "熊大回眸的出处",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "XX人吃到美食",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "XX人吃到美食的出处",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "中国人能飞",
+      "recall_at_10": null,
+      "reciprocal_rank": 0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": true,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "OMG你吓到我了",
+      "recall_at_10": null,
+      "reciprocal_rank": 0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": true,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "大狗大狗叫叫叫",
+      "recall_at_10": null,
+      "reciprocal_rank": 0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": true,
+      "degraded": [
+        "vector_disabled",
+        "reranker_disabled"
+      ]
+    },
+    {
+      "query": "青蛙教练",
+      "recall_at_10": null,
+      "reciprocal_rank": 0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": true,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "爹系男友",
+      "recall_at_10": null,
+      "reciprocal_rank": 0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": true,
+      "degraded": [
+        "vector_disabled",
+        "reranker_disabled"
+      ]
+    },
+    {
+      "query": "被生活磨平了妙脆角",
+      "recall_at_10": null,
+      "reciprocal_rank": 0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": true,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "Verity",
+      "recall_at_10": null,
+      "reciprocal_rank": 0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": true,
+      "degraded": [
+        "vector_disabled",
+        "reranker_disabled"
+      ]
+    },
+    {
+      "query": "严肃脸",
+      "recall_at_10": null,
+      "reciprocal_rank": 0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": true,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "接成绩",
+      "recall_at_10": null,
+      "reciprocal_rank": 0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": true,
+      "degraded": [
+        "vector_disabled",
+        "reranker_disabled"
+      ]
+    },
+    {
+      "query": "要不算了吧",
+      "recall_at_10": null,
+      "reciprocal_rank": 0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": true,
+      "degraded": [
+        "vector_disabled"
+      ]
+    }
+  ],
+  "recall_at_10": 1.0,
+  "mrr": 1.0,
+  "note": "引用可解析和结构覆盖不等于语义支持率；语义支持与起源判断仍需人工金标准。",
+  "correct_abstention": 1.0,
+  "correct_abstention_n": 10
+}
