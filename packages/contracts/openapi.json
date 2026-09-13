@@ -459,6 +459,25 @@
         }
       }
     },
+    "/v1/universe": {
+      "get": {
+        "summary": "Universe Api",
+        "description": "Every published meme as a galaxy of dated stars, with the time axes to draw them on.\n\nRead-only and uncached: it is a handful of queries over the published set, and a cache\nwould be one more place a retraction could fail to take effect.",
+        "operationId": "universe_api_v1_universe_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UniverseOut"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/memes/{meme_id}": {
       "get": {
         "summary": "Meme Detail",
@@ -1694,6 +1713,51 @@
         ],
         "title": "ClaimOut"
       },
+      "Emergence": {
+        "properties": {
+          "at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "At"
+          },
+          "date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Date"
+          },
+          "basis": {
+            "type": "string",
+            "enum": [
+              "derivative",
+              "popularized_by",
+              "source",
+              "none"
+            ],
+            "title": "Basis"
+          }
+        },
+        "type": "object",
+        "required": [
+          "at",
+          "date",
+          "basis"
+        ],
+        "title": "Emergence",
+        "description": "When the meme is first evidenced as a meme: its first derivative, else the work that\npopularized it, else its earliest upstream source. basis says which, so a galaxy dated\nonly by old material can be drawn as such."
+      },
       "EntityInput": {
         "properties": {
           "entity_type": {
@@ -1973,6 +2037,85 @@
           "created_at"
         ],
         "title": "EvidenceOut"
+      },
+      "Galaxy": {
+        "properties": {
+          "meme_id": {
+            "type": "string",
+            "title": "Meme Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "definition": {
+            "type": "string",
+            "title": "Definition"
+          },
+          "emergence": {
+            "$ref": "#/components/schemas/Emergence"
+          },
+          "u": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "U"
+          },
+          "stars": {
+            "items": {
+              "$ref": "#/components/schemas/Star"
+            },
+            "type": "array",
+            "title": "Stars"
+          },
+          "milestones": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "type": "object",
+            "title": "Milestones",
+            "description": "The first star of each stage by date. null means the stage has no evidence at all - draw an empty slot - which differs from a stage whose stars are merely undated."
+          },
+          "bands": {
+            "items": {
+              "$ref": "#/components/schemas/UniverseBand"
+            },
+            "type": "array",
+            "title": "Bands"
+          },
+          "ticks": {
+            "items": {
+              "$ref": "#/components/schemas/UniverseTick"
+            },
+            "type": "array",
+            "title": "Ticks"
+          }
+        },
+        "type": "object",
+        "required": [
+          "meme_id",
+          "name",
+          "definition",
+          "emergence",
+          "u",
+          "stars",
+          "milestones",
+          "bands",
+          "ticks"
+        ],
+        "title": "Galaxy"
       },
       "HTTPValidationError": {
         "properties": {
@@ -2664,6 +2807,143 @@
         ],
         "title": "SourceOut"
       },
+      "Star": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "stage": {
+            "type": "string",
+            "enum": [
+              "source",
+              "popularized_by",
+              "derivative",
+              "derived_meme"
+            ],
+            "title": "Stage"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "source",
+              "meme"
+            ],
+            "title": "Kind"
+          },
+          "target_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Target Id"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url"
+          },
+          "bvid": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bvid"
+          },
+          "tier": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tier"
+          },
+          "at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "At"
+          },
+          "date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Date"
+          },
+          "t": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "T"
+          },
+          "milestone": {
+            "type": "boolean",
+            "title": "Milestone"
+          },
+          "evidence_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Evidence Ids"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "stage",
+          "kind",
+          "target_id",
+          "label",
+          "url",
+          "bvid",
+          "tier",
+          "at",
+          "date",
+          "t",
+          "milestone",
+          "evidence_ids"
+        ],
+        "title": "Star",
+        "description": "One dated piece of a meme's lineage.\n\nt is its position on the galaxy's time axis, 0 at the earliest star, and null when\nthe star has no date - an undated star is evidence without a time, which is not the\nsame as a missing stage. date is the calendar day in Beijing; never derive it from\nat, which is UTC."
+      },
       "Submission": {
         "properties": {
           "url": {
@@ -2784,6 +3064,143 @@
           "tier"
         ],
         "title": "TierAction"
+      },
+      "UniverseAxis": {
+        "properties": {
+          "bands": {
+            "items": {
+              "$ref": "#/components/schemas/UniverseBand"
+            },
+            "type": "array",
+            "title": "Bands"
+          },
+          "ticks": {
+            "items": {
+              "$ref": "#/components/schemas/UniverseTick"
+            },
+            "type": "array",
+            "title": "Ticks"
+          }
+        },
+        "type": "object",
+        "required": [
+          "bands",
+          "ticks"
+        ],
+        "title": "UniverseAxis"
+      },
+      "UniverseBand": {
+        "properties": {
+          "start": {
+            "type": "number",
+            "title": "Start"
+          },
+          "end": {
+            "type": "number",
+            "title": "End"
+          },
+          "date_from": {
+            "type": "string",
+            "title": "Date From"
+          },
+          "date_to": {
+            "type": "string",
+            "title": "Date To"
+          },
+          "days": {
+            "type": "integer",
+            "title": "Days"
+          }
+        },
+        "type": "object",
+        "required": [
+          "start",
+          "end",
+          "date_from",
+          "date_to",
+          "days"
+        ],
+        "title": "UniverseBand",
+        "description": "A quiet period cut out of the axis. start and end are axis positions; days is how\nlong the silence really was, which the band must show since its width does not."
+      },
+      "UniverseLink": {
+        "properties": {
+          "from_meme_id": {
+            "type": "string",
+            "title": "From Meme Id"
+          },
+          "to_meme_id": {
+            "type": "string",
+            "title": "To Meme Id"
+          },
+          "predicate": {
+            "type": "string",
+            "title": "Predicate"
+          }
+        },
+        "type": "object",
+        "required": [
+          "from_meme_id",
+          "to_meme_id",
+          "predicate"
+        ],
+        "title": "UniverseLink"
+      },
+      "UniverseOut": {
+        "properties": {
+          "timezone": {
+            "type": "string",
+            "title": "Timezone"
+          },
+          "quiet_gap_days": {
+            "type": "integer",
+            "title": "Quiet Gap Days"
+          },
+          "axis": {
+            "$ref": "#/components/schemas/UniverseAxis"
+          },
+          "galaxies": {
+            "items": {
+              "$ref": "#/components/schemas/Galaxy"
+            },
+            "type": "array",
+            "title": "Galaxies"
+          },
+          "links": {
+            "items": {
+              "$ref": "#/components/schemas/UniverseLink"
+            },
+            "type": "array",
+            "title": "Links"
+          }
+        },
+        "type": "object",
+        "required": [
+          "timezone",
+          "quiet_gap_days",
+          "axis",
+          "galaxies",
+          "links"
+        ],
+        "title": "UniverseOut"
+      },
+      "UniverseTick": {
+        "properties": {
+          "t": {
+            "type": "number",
+            "title": "T"
+          },
+          "date": {
+            "type": "string",
+            "title": "Date"
+          }
+        },
+        "type": "object",
+        "required": [
+          "t",
+          "date"
+        ],
+        "title": "UniverseTick"
       },
       "ValidationError": {
         "properties": {
