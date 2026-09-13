@@ -1,7 +1,7 @@
 # 由 evals/feasibility/prep.py drafts 从 lineage.csv 生成
 # definition / usage_context / claims 需要人工补齐，evidence 入库后再填 ID
 slug: xx
-resolved: false
+resolved: true
 
 canonical_name: XX人吃到美食
 aliases: []
@@ -33,11 +33,11 @@ sources:
     note: "平纪沪语《把上海人送走只需要》（BV1vwG369EkM 画面中引用）"
 
 evidence_map:
-  ocr-narration-BV1vwG369EkM: null
-  ocr-BV1a4KU66EoX: null
-  ocr-BV1Hj3M69EFK: null
-  ocr-BV1Wv3F6zEZz: null
-  ocr-BV1v73w6fEBj: null
+  ocr-narration-BV1vwG369EkM: af21ce5d-15a5-4a85-85f1-d596fa39ac23
+  ocr-BV1a4KU66EoX: 7e171924-9dde-4578-8fe7-5901bba36c88
+  ocr-BV1Hj3M69EFK: 056f0827-8fce-4b67-8787-a8b8ec65e7bb
+  ocr-BV1Wv3F6zEZz: e9573ef8-2098-492e-be06-991db9cfbbd9
+  ocr-BV1v73w6fEBj: 327b6e61-ebc7-4675-aa46-c8737c457980
 
 claims:
   - key: definition

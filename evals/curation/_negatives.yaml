@@ -27,3 +27,18 @@ negatives:
   - query: 被生活磨平了妙脆角
     kind: out_of_corpus
     reason: 真实流行梗，未收录；长句式查询，检验长查询下的弃答行为
+  - query: Verity
+    kind: out_of_corpus
+    reason: 真实流行梗，未收录；
+  - query: 严肃脸
+    kind: out_of_corpus
+    reason: 真实流行梗，未收录
+  - query: 接成绩
+    kind: fabricated
+    reason: 虚构语句
+  - query: 要不算了吧
+    kind: fabricated
+    reason: 虚构语句
+  
+  
+    
