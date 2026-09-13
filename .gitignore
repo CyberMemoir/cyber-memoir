@@ -20,3 +20,8 @@ coverage.xml
 playwright-report/
 test-results/
 bili-cookies.txt
+
+# Reranker weights, 2.3GB, fetched by hand - see ops/install_reranker.py
+ops/models/
+# Scratch for handing work to other models; not a project artefact
+ai_context/
