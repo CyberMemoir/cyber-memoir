@@ -47,3 +47,34 @@ about quality, and should be recorded as that.
 
 `results-2026-09-13-cap50.json`: recall@10 1.00, MRR 1.00, correct_abstention 1.00
 (n=10), 81 minutes, median 107s.
+
+## Result (added after the run)
+
+`results-2026-09-13-cap20.json`. **Every criterion holds**, so cap 20 is accepted:
+recall@10 1.00, MRR 1.00, correct_abstention 1.00 (n=10), no per-case metric changed, no
+case gained a `degraded` entry. As stated above, that is not evidence the cap costs no
+quality on queries that do not name their answer.
+
+**Time, and a contamination.** The full test suite and a contract regeneration ran on
+the same machine during cases 2 to 5, so those timings are upper bounds and are left out
+of the comparison. On the clean cases 6 to 40, paired against the same cases at cap 50:
+
+| | cap 50 | cap 20 |
+|---|---|---|
+| total | 65.7 min | 52.3 min (−20%) |
+| median case | 85 s | 83 s |
+| median per-case ratio | | 0.75 |
+
+Single cases moved as much as +42% the wrong way (熊大回眸 85 → 121 s), so run-to-run
+noise is of the same order as the saving. The biggest savings were on the queries with
+the most candidates (闹吃VS古振兴 146 → 100 s).
+
+**Why so little.** The reranker measured inside the container costs 2.3 to 3.5 s per
+pair on this machine (5.1 s for a single pair; 20 pairs 45.8 s), and every case calls it
+twice, through `/v1/search` and `/v1/answers`. Most queries never produce twenty
+candidates, so the cap only bites on the few that do. Time tracks candidates actually
+scored: 才是王道 returned one meme in 61 s of search, 才是王道的出处 returned six in 163 s.
+
+The cap is not the lever. The per-pair cost is. The container sees 16 CPUs with torch on
+8 threads, so it is not CPU-starved; the Docker VM has 8 GB for a 2.3 GB fp32 model
+beside OpenSearch and PostgreSQL, and memory pressure is the next suspect - unverified.
