@@ -974,8 +974,15 @@ export interface components {
          * @description The far end of an event or relation, named and dated, so a reader needs no second
          *     request to label an edge or place it in time.
          *
-         *     availability is the platform's for a source and the archive's for a meme: a meme
-         *     target that has since been retracted comes back withdrawn, with no label.
+         *     availability means different things by type, so switch on type before reading it.
+         *     For a source it is the archive's ingestion state - pending, needs_material,
+         *     material_available - and says nothing about whether the video is still up on the
+         *     platform; no takedown status is recorded anywhere. For a meme it is published or
+         *     withdrawn, and a withdrawn target comes back with no label.
+         *
+         *     published_at is an instant in UTC. A video posted at 00:00 in Beijing comes back as
+         *     16:00 the previous day, so slicing the first ten characters reads the wrong date;
+         *     render it in Asia/Shanghai.
          */
         TargetRef: {
             /**
