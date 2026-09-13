@@ -34,3 +34,7 @@
 {"query": "青蛙教练", "expected_names": [], "answerable": false}
 {"query": "爹系男友", "expected_names": [], "answerable": false}
 {"query": "被生活磨平了妙脆角", "expected_names": [], "answerable": false}
+{"query": "Verity", "expected_names": [], "answerable": false}
+{"query": "严肃脸", "expected_names": [], "answerable": false}
+{"query": "接成绩", "expected_names": [], "answerable": false}
+{"query": "要不算了吧", "expected_names": [], "answerable": false}
