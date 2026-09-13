@@ -2,9 +2,15 @@
 
 import argparse
 import json
+import sys
 from statistics import mean
 
 import httpx
+
+# Windows consoles default to cp1252; both the gold set and this report are Chinese.
+for _stream in (sys.stdout, sys.stderr):
+    if hasattr(_stream, "reconfigure"):
+        _stream.reconfigure(encoding="utf-8", errors="replace")
 
 
 def fold(name: str) -> str:
@@ -25,7 +31,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("gold")
 parser.add_argument("--api", default="http://localhost:8100")
 args = parser.parse_args()
-rows = [json.loads(line) for line in open(args.gold) if line.strip()]
+rows = [json.loads(line) for line in open(args.gold, encoding="utf-8") if line.strip()]
 results = []
 with httpx.Client(base_url=args.api, timeout=120, trust_env=False) as client:
     for row in rows:
