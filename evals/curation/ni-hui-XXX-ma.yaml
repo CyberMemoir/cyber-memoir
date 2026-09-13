@@ -1,14 +1,14 @@
 # 由 evals/feasibility/prep.py drafts 从 lineage.csv 生成
 # definition / usage_context / claims 需要人工补齐，evidence 入库后再填 ID
-slug: azhe
+slug: ni-hui-XXX-ma
 resolved: false
 
-canonical_name: azhe
+canonical_name: 你会XXX吗
 aliases: []
 
 # definition 必填，且 claims 里要有逐字相同的 statement（用 |- 块标量）
-definition: ""
-usage_context: ""
+definition: "瓦洛兰特师徒杯阿辙在进点时质疑希咩咩实力"
+usage_context: "质疑或者压力团队成员，但现在因为梗的存在更表示调侃"
 
 origin_status: unknown
 origin_type: unknown
@@ -36,13 +36,22 @@ sources:
     note: "【纸飞机】压力切片man 你会做切片吗？（BV1Xsuc67E8r 画面中引用）"
 
 evidence_map:
+  ocr-narration-BV1Xsuc67E8r: null
   ocr-BV1NsKQ6zEwG: null
   ocr-BV1pUKD6PEZ7: null
   ocr-BV17iTY6VE1B: null
   ocr-BV15pT166Eks: null
   ocr-BV1b4NL6BEgD: null
 
-claims: []
+claims:
+  - key: definition
+    statement: "瓦洛兰特师徒杯阿辙在进点时质疑希咩咩实力"
+    evidence: [ocr-narration-BV1Xsuc67E8r]
+    stance: supports
+  - key: usage_context
+    statement: "质疑或者压力团队成员，但现在因为梗的存在更表示调侃"
+    evidence: [ocr-narration-BV1Xsuc67E8r]
+    stance: supports
 
 events:
   - event_type: remix

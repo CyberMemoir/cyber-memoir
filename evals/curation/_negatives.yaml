@@ -6,12 +6,9 @@
 #   out_of_corpus —— 真实存在但本档案尚未收录。一旦被策展，这条必须删除，
 #                    否则会把「正确回答」记成「弃答失败」。
 negatives:
-  - query: 熊大回眸
-    kind: out_of_corpus
-    reason: 真实流行梗，但档案尚未收录任何来源；系统应回答证据不足，而不是编造
-  - query: 轻松绷住
-    kind: out_of_corpus
-    reason: 真实流行梗，未收录；用于检验无证据时是否弃答
+  # 2026-09-13：熊大回眸、轻松绷住 已被策展，按上面的规则删除，反例从 8 条降到 6 条。
+  # ADR 0002 要求至少 8 条，少于 8 条时 correct_abstention 不可单独报告。
+  # 需要 Vincent 补两条：真实存在、但本档案确实没有收录的梗。语料每长一次就会吃掉反例。
   - query: 中国人能飞
     kind: out_of_corpus
     reason: 真实流行梗，未收录；用于检验无证据时是否弃答
