@@ -837,6 +837,8 @@ export interface components {
             matches?: {
                 [key: string]: unknown;
             }[];
+            /** Retrieval Score */
+            retrieval_score?: number | null;
         };
         /**
          * MemeRef
@@ -873,7 +875,7 @@ export interface components {
              * Predicate
              * @enum {string}
              */
-            predicate: "derived_from" | "variant_of" | "claimed_origin" | "mentions" | "documented_in";
+            predicate: "derived_from" | "variant_of" | "claimed_origin" | "popularized_by" | "mentions" | "documented_in";
             /**
              * Target Type
              * @enum {string}
@@ -937,6 +939,11 @@ export interface components {
              * @default false
              */
             total_is_candidate_count: boolean;
+            /**
+             * Scores Calibrated
+             * @default false
+             */
+            scores_calibrated: boolean;
         };
         /** SearchRequest */
         SearchRequest: {
