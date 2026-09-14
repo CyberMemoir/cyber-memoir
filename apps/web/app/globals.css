@@ -442,6 +442,14 @@ select:focus-visible {
   border-bottom: 1px solid var(--line);
   background: var(--tint);
 }
+.answer-details summary {
+  padding: 6px 0 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+.answer-details .retrieval-note {
+  margin-top: 6px;
+}
 .answer h3 {
   font-family: var(--serif);
   font-size: 24px;

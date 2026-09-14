@@ -43,8 +43,9 @@ export default function ArchivePage() {
   useEffect(() => {
     void run(); /* initial catalog */
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  /* Answers take 60-200s on this machine, so the wait has to look like work
-     rather than a hang. Nothing here fires on a keystroke: the form submits. */
+  /* An answer is not instant, so the wait has to look like work rather than a hang,
+     without promising a duration this deployment cannot keep. Nothing here fires on
+     a keystroke: the run is submitted with the form. */
   useEffect(() => {
     if (!loading) return;
     const timer = window.setInterval(() => setElapsed((n) => n + 1), 1000);
@@ -80,7 +81,7 @@ export default function ArchivePage() {
       </form>
       {loading && elapsed > 2 && (
         <p className="retrieval-note" role="status">
-          正在检索并核对证据。单次回答在本机可能需要 1-3 分钟，请勿关闭页面。
+          正在检索并核对证据，请勿关闭页面。
         </p>
       )}
       <div className="filter-bar">
@@ -136,9 +137,7 @@ export default function ArchivePage() {
               <h3>基于证据的回答</h3>
               <p className="answer-text">{answer.answer}</p>
               {answer.claims.length === 0 && (
-                <p className="retrieval-note">
-                  本次回答没有可引用的断言，以上文字来自接口本身。
-                </p>
+                <p className="retrieval-note">本次回答没有可引用的证据断言。</p>
               )}
               {answer.uncertainties.map((t) => (
                 <p className="uncertainty" key={t}>
@@ -157,11 +156,17 @@ export default function ArchivePage() {
                   </li>
                 ))}
               </ol>
-              <p className="retrieval-note">
-                回答模式：{answer.mode}
-                {answer.degraded.length > 0 &&
-                  ` ｜ 未启用或降级：${answer.degraded.join("、")}`}
-              </p>
+              {/* How the answer was produced is our plumbing, not the reader's
+                  question, so it is folded away. The degraded-channel line stays
+                  where it always was, below the whole page. */}
+              <details className="answer-details">
+                <summary>检索细节</summary>
+                <p className="retrieval-note">
+                  回答模式：{answer.mode}
+                  {answer.channels.length > 0 &&
+                    ` ｜ 检索通道：${answer.channels.join(" · ")}`}
+                </p>
+              </details>
             </section>
           )}
           {!loading && !result?.items.length && !error && (

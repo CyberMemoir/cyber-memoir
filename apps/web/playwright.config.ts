@@ -11,6 +11,11 @@ export default defineConfig({
   fullyParallel: false,
   workers: 1,
   timeout: 60000,
+  // The webServer below is a dev server, so a route is compiled the first time a
+  // test hits it. On this machine that can outlast the 5s default and fail a
+  // navigation the app performed correctly; every assertion here settles in well
+  // under this when the route is warm.
+  expect: { timeout: 15000 },
   use: {
     baseURL: "http://127.0.0.1:3101",
     viewport: { width: 1505, height: 1045 },
