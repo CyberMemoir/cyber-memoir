@@ -407,6 +407,12 @@ select:focus-visible {
 .row-meta a {
   color: var(--green);
 }
+.row-links {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
 .meme-row h3 {
   font-family: var(--serif);
   font-weight: 500;
