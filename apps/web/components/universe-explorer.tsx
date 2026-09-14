@@ -373,7 +373,37 @@ function Legend({ galaxy }: { galaxy: Galaxy | null }) {
             </li>
           );
         })}
-        <li>
+        <li data-key="milestone">
+          <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true">
+            <circle
+              cx="11"
+              cy="11"
+              r="9"
+              fill="none"
+              stroke="var(--green)"
+              strokeWidth="1.2"
+            />
+            <circle cx="11" cy="11" r="4" fill="var(--green)" />
+          </svg>
+          <span>实心外环：里程碑（该阶段最早的一条证据）</span>
+        </li>
+        <li data-key="no-evidence">
+          <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true">
+            <rect
+              x="2"
+              y="4"
+              width="18"
+              height="14"
+              rx="2"
+              fill="none"
+              stroke="var(--muted)"
+              strokeWidth="1"
+              strokeDasharray="3 3"
+            />
+          </svg>
+          <span>虚线空槽：无证据（该阶段一条证据都没有，见里程碑轨道）</span>
+        </li>
+        <li data-key="no-date">
           <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true">
             <circle
               cx="11"
@@ -385,7 +415,7 @@ function Legend({ galaxy }: { galaxy: Galaxy | null }) {
               strokeDasharray="2 3"
             />
           </svg>
-          <span>虚线表示无证据或无日期；实心外环表示里程碑</span>
+          <span>虚线圆环：无日期（有证据，未定日，画在最外圈）</span>
         </li>
       </ul>
       {galaxy && galaxy.ticks.length > 0 && (

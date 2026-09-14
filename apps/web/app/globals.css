@@ -1040,6 +1040,11 @@ details textarea {
 .universe-svg text {
   font-family: inherit;
 }
+/* The default colour of a label sits on the svg rather than on every text node: a
+   rule on `.universe-svg text` outranks the classes that colour one. */
+.universe-svg {
+  fill: var(--ink);
+}
 .visually-hidden {
   position: absolute;
   width: 1px;

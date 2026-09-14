@@ -98,7 +98,6 @@ export function StarGlyph({
           fill="none"
           stroke={style.color}
           strokeWidth={1.2}
-          strokeDasharray="2 3"
         />
       )}
       {active && (
