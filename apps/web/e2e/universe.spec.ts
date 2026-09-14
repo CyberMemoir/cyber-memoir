@@ -162,23 +162,46 @@ async function buildFixture(request: APIRequestContext): Promise<Fixture> {
 
 let fixture: Fixture;
 
+/**
+ * The suite shares one synthetic database, and workflow.spec.ts asserts on an empty
+ * catalogue. Withdrawing these memes afterwards puts the catalogue back as this run
+ * found it, and it exercises the retraction path on the way out. The names are looked
+ * up again rather than trusted from the fixture, so a partly built fixture is still
+ * cleaned up.
+ */
+async function withdraw(request: APIRequestContext): Promise<void> {
+  for (const name of [CHILD, PARENT]) {
+    const found = await request.get(
+      `${API}/v1/memes?name=${encodeURIComponent(name)}`,
+    );
+    if (!found.ok()) continue;
+    for (const meme of await found.json()) {
+      const withdrawn = await request.post(
+        `${API}/v1/reviews/memes/${meme.id}/retract`,
+        {
+          headers: REVIEWER,
+          data: { reason: "合成星图夹具，浏览器验收结束，撤回。" },
+        },
+      );
+      expect(withdrawn.ok()).toBeTruthy();
+    }
+  }
+  // 404 rather than 200 is what the rest of the suite depends on being true.
+  await expect
+    .poll(async () => {
+      const still = await request.get(`${API}/v1/memes?name=${encodeURIComponent(CHILD)}`);
+      return (await still.json()).length;
+    })
+    .toBe(0);
+}
+
 test.beforeAll(async ({ request }) => {
+  await withdraw(request); // in case an interrupted run left a fixture behind
   fixture = await buildFixture(request);
 });
 
-/**
- * The suite shares one synthetic database, and workflow.spec.ts asserts on an empty
- * catalogue. Withdrawing these memes at the end puts the catalogue back as the run
- * found it, and it exercises the retraction path on the way out.
- */
 test.afterAll(async ({ request }) => {
-  for (const id of [fixture.childId, fixture.parentId]) {
-    const withdrawn = await request.post(`${API}/v1/reviews/memes/${id}/retract`, {
-      headers: REVIEWER,
-      data: { reason: "合成星图夹具，浏览器验收结束，撤回。" },
-    });
-    expect(withdrawn.ok()).toBeTruthy();
-  }
+  await withdraw(request);
 });
 
 test("宇宙视图画时间轴，点击星系进入并显示里程碑轨道", async ({ page }) => {
