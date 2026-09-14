@@ -122,15 +122,14 @@ chunk at all.
 - **Gold set**: 22 cases (14 positive, 8 negative). Baseline recall@10 1.00, MRR 1.00 — not
   impressive on 6 memes queried by their own names. The informative number was abstention:
   6/8 without the score floor, **8/8 with it**.
-- **Branches**: 11 pushed to origin (`pr-popularized-by`, `pr-model-cache` and
-  `pr-meme-by-name` are the new ones); `pr-ingest-pacing` is local only. `integration`
-  is a local merge of all of them and is what the running stack is built from — no
-  single branch carries both the migration chain and the newer API work, so nothing
-  else will start. Never commit novel work on `integration`: make it on a PR branch and
-  merge it in. Stacking is real where
-  it exists — `pr-source-annotations` chains off `pr-event-source-link` for the migration
-  order, and API branches sit on `pr-windows-encoding` because `make contracts` cannot run
-  on Windows without it.
+- **Branches**: everything is on origin, including `integration` and
+  `archive/bundled-all-six`. `main` is still the V1 alpha and has none of this work.
+  `integration` is the merge of every PR branch and **the only branch that runs** - no
+  single branch carries both the migration chain and the newer API work, so anything
+  else fails at `alembic upgrade`. Never commit novel work on `integration`: make it on
+  a PR branch and merge it in. Stacking is real where it exists - `pr-source-annotations`
+  chains off `pr-event-source-link` for the migration order, and API branches sit on
+  `pr-windows-encoding` because `make contracts` cannot run on Windows without it.
 - **`test_backup.py` fails and always has** (`Unexpected artifact key in backup`), on `main`,
   unrelated to any of this work. The backup path is unverified.
 
