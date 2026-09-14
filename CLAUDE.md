@@ -91,10 +91,18 @@ the other.
 
 ## Current state (2026-09-13)
 
-**Search works, slowly.** Reranker weights were fetched by hand into the `models`
-volume (`ops/install_reranker.py`, `HF_HUB_OFFLINE=1`). A gold run takes 67-81 minutes;
-`RETRIEVAL_CANDIDATE_CAP=20` saved 20% and is recorded in
+**Search works, slowly, and one at a time.** Reranker weights were fetched by hand into
+the `models` volume (`ops/install_reranker.py`, `HF_HUB_OFFLINE=1`). A gold run takes
+67-81 minutes; `RETRIEVAL_CANDIDATE_CAP=20` saved 20% and is recorded in
 `evals/results-2026-09-13-cap.md` with its criteria committed before the run.
+
+Reranking is serialised (`pr-rerank-concurrency`). Three simultaneous searches used to
+finish none of them inside 30s while the container sat pegged and the Next **dev proxy**
+answered a plain-text 500 - the API itself never returned a 5xx and never saw those
+requests. It queues instead of degrading, because an uncalibrated run cannot enforce the
+retrieval floor and the archive would answer where it should abstain. Verified after the
+fix: three at once, all 200, 42/86/169s. A dev-only aggravator remains - React
+StrictMode double-invokes the catalogue search, so a page load costs two reranks.
 
 **14 memes published, one copy each.** 32 duplicates were retracted on 2026-09-13
 (`evals/curation/_keep.csv` records which). The loader now passes `meme_id`, so reruns
@@ -154,13 +162,20 @@ numbers, and check real data on the live stack — the e2e harness only has synt
 
 ## Next
 
-1. DeepSeek builds `pr-web-universe`; Claude reviews it against `task_prompt.txt`.
-2. Reranker per-pair cost (2.3-3.5 s) is the eval bottleneck, not the candidate cap.
-   Next suspect is memory in the 8 GB Docker VM. Unverified.
-3. Gold set positives all name their meme, so recall is saturated and cannot see what
-   the cap (now 20) costs. It needs queries that do not contain the answer's name.
-4. Grow the corpus. `gengbaike_catalogue.txt` has ~28 unprocessed episodes.
-5. Re-measure platform pacing now that cookies work (`pr-ingest-pacing`, 300 s).
+1. Grow the corpus - it is now the binding constraint on everything. 13 of 14 galaxies
+   have 1-4 stars and 13 have no `popularized_by`, so the star map reads mostly as
+   absence, and recall stays saturated. `gengbaike_catalogue.txt` has ~28 unprocessed
+   episodes. Every round also retires `out_of_corpus` negatives, so Vincent owes a few
+   new ones each time (`fabricated` ones do not perish).
+2. Gold set positives all name their meme, so recall cannot see what the candidate cap
+   (now 20) costs. It needs queries that do not contain the answer's name.
+3. Atmosphere for the star map, if wanted: SVG/CSS glow first, a Canvas 2D starfield
+   behind the SVG second. The data layer stays SVG - stars are focusable elements with
+   aria-labels and e2e selectors. Decoration must never share the four stage shapes or
+   colours, or a reader cannot tell ornament from evidence.
+4. Re-measure platform pacing now that cookies work (`pr-ingest-pacing`, 300 s).
+5. Reranker per-pair cost is 2.3-3.5 s. Serialisation fixed the collapse, not the speed;
+   a rented server is the answer, not a smaller model.
 
 ## Open architecture gaps
 
