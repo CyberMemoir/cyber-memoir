@@ -1167,6 +1167,17 @@ details textarea {
   fill: var(--muted);
   font-size: 11px;
 }
+/* A dashed annulus runs under the captions, so each caption carries its own solid
+   background; the paint order in the SVG is not enough on its own. */
+.band-caption-bg {
+  fill: #fbfdfc;
+  fill-opacity: 0.92;
+  stroke: none;
+}
+.band-caption .band-label,
+.band-caption .band-dates {
+  stroke: none;
+}
 .time-axis {
   stroke: #8d9a92;
   stroke-width: 1.2;

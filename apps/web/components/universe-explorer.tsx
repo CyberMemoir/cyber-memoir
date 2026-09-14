@@ -110,8 +110,14 @@ export function UniverseExplorer({ initialMemeId }: { initialMemeId: string }) {
       });
     };
     const onWheel = (event: WheelEvent) => {
+      /* A plain wheel belongs to the page: the picture is taller than the viewport,
+         and the rail and the legend under it are how the picture gets explained.
+         Ctrl or Cmd means zoom, which is also what a trackpad pinch sends. */
+      if (!event.ctrlKey && !event.metaKey) return;
       event.preventDefault();
-      zoomAt(Math.exp(-event.deltaY * WHEEL_STEP), local(event));
+      /* Firefox reports lines rather than pixels, so one notch would barely move. */
+      const delta = event.deltaMode === 1 ? event.deltaY * 16 : event.deltaY;
+      zoomAt(Math.exp(-delta * WHEEL_STEP), local(event));
     };
     const onPointerDown = (event: PointerEvent) => {
       if (event.button !== 0) return;
@@ -326,9 +332,10 @@ export function UniverseExplorer({ initialMemeId }: { initialMemeId: string }) {
 
       <Legend galaxy={galaxy} />
 
-      {!galaxy && !listView && (
+      {!listView && (
         <p className="muted universe-hint">
-          滚动缩放，拖动平移。点一个梗进入它的星系。
+          Ctrl + 滚轮缩放，拖动平移。
+          {!galaxy && " 点一个梗进入它的星系。"}
         </p>
       )}
 

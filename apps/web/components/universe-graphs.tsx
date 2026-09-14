@@ -45,10 +45,11 @@ export function UniverseGraph({
     ...universe.galaxies.map((galaxy) => galaxy.emergence.date),
     ...universe.axis.ticks.map((tick) => tick.date),
   ]);
-  /* The bands run most of the height so a quiet stretch reads as a wall the eye
-     has to cross; the galaxies sit below the axis, in lanes of their own. */
+  /* The bands run from above the axis down to just past it and stop: a galaxy is
+     never inside a quiet period - that is what the band means - so the rectangles
+     must not reach the glyphs. They stop well above the first lane. */
   const y0 = AXIS_Y - 330;
-  const y1 = AXIS_Y + 130;
+  const y1 = AXIS_Y + 40;
 
   return (
     <>
@@ -242,58 +243,58 @@ export function GalaxyGraph({
     ...galaxy.ticks.map((tick) => tick.date),
     ...galaxy.bands.flatMap((band) => [band.date_from, band.date_to]),
   ]);
+  /**
+   * Each date sits just inside its own ring, on a diagonal away from the radial axis
+   * and the 早/晚 labels, drawn with its outer end against the ring it names. Where
+   * two rings are too close for both labels to be legible - the early sources of a
+   * galaxy like 闹吃VS古振兴 are days apart - the inner one is dropped; the list view
+   * and the star panel still carry every date.
+   */
+  const ringLabels: { key: string; date: string; x: number; y: number }[] = [];
+  const DIAGONAL = Math.PI / 4;
+  const cos = Math.cos(DIAGONAL);
+  const sin = Math.sin(DIAGONAL);
+  /* How far apart two labelled rings must be. A month-based axis puts a galaxy's
+     earliest sources days apart, and at that density the radius step can be smaller
+     than one label is tall, so the requirement grows with the number of dates. */
+  const step = Math.max(18, Math.floor(170 / Math.max(galaxy.ticks.length - 1, 1)));
+  let lastRadius = -Infinity;
+  for (const tick of [...galaxy.ticks].sort((a, b) => a.t - b.t)) {
+    const radius = radiusAt(tick.t) - 10;
+    if (radius - lastRadius < step) continue;
+    lastRadius = radius;
+    ringLabels.push({
+      key: `${tick.t}-${tick.date}`,
+      date: drawDate(tick.date, oneYear),
+      x: cx + radius * cos,
+      y: cy - radius * sin,
+    });
+  }
   return (
     <>
       <g className="galaxy-static">
-        {/* Ticks are the dates worth naming and the ring is where that date sits.
-            The galaxy's early sources are days apart, so printing each date on its
-            own ring stacks six labels in one spot. The dates instead run down the
-            right edge, in time order, each on a leader line back to its ring. */}
-        {(() => {
-          const column = galaxy.ticks.map((tick, index) => ({
-            tick,
-            radius: radiusAt(tick.t),
-            y: cy - ((galaxy.ticks.length - 1) * 22) / 2 + index * 22,
-            anchor: cx + rOut + 34,
-            x: cx + rOut + 46,
-          }));
-          return column.map(({ tick, radius, y, anchor, x }) => {
-            const [ex, ey] = polar(radius, 0);
-            const [ix, iy] = polar(radius, Math.PI);
-            return (
-              <g className="galaxy-tick" key={`${tick.t}-${tick.date}`}>
-                <circle
-                  cx={cx}
-                  cy={cy}
-                  r={radius}
-                  fill="none"
-                  className="tick-ring"
-                />
-                <line className="tick-spoke" x1={ix} y1={iy} x2={ex} y2={ey} />
-                <line
-                  className="tick-leader"
-                  x1={ex}
-                  y1={ey}
-                  x2={anchor}
-                  y2={y}
-                />
-                <text className="tick-date" x={x} y={y + 4}>
-                  {drawDate(tick.date, oneYear)}
-                </text>
-              </g>
-            );
-          });
-        })()}
+        {galaxy.ticks.map((tick) => {
+          const radius = radiusAt(tick.t);
+          const [ex, ey] = polar(radius, 0);
+          const [ix, iy] = polar(radius, Math.PI);
+          return (
+            <g className="galaxy-tick" key={`${tick.t}-${tick.date}`}>
+              <circle
+                cx={cx}
+                cy={cy}
+                r={radius}
+                fill="none"
+                className="tick-ring"
+              />
+              <line className="tick-spoke" x1={ix} y1={iy} x2={ex} y2={ey} />
+            </g>
+          );
+        })}
         {/* Quiet periods as dashed annuli: cut out of the radius, but the label
-            still carries the true number of days, since the drawn ring does not.
-            The labels are stacked above the axis on the left, in ring order, which
-            keeps them legible when four bands share almost the same radius. */}
-        {galaxy.bands.map((band, index) => {
+            still carries the true number of days, since the drawn ring does not. */}
+        {galaxy.bands.map((band) => {
           const outer = radiusAt(band.start);
           const inner = radiusAt(band.end);
-          const right = Math.min(cx - inner - 6, cx - 120);
-          const stack = galaxy.bands.length - index;
-          const y = cy - 40 - stack * 55;
           return (
             <g
               className="quiet-band galaxy-band"
@@ -307,25 +308,6 @@ export function GalaxyGraph({
                 x2={cx - inner}
                 y2={cy}
               />
-              <line
-                className="tick-leader"
-                x1={cx - inner}
-                y1={cy}
-                x2={right}
-                y2={y + 7}
-              />
-              <text className="band-label" x={right} y={y} textAnchor="end">
-                {bandLabel(band.days)}
-              </text>
-              <text
-                className="band-dates"
-                x={right}
-                y={y + 18}
-                textAnchor="end"
-              >
-                {drawDate(band.date_from, oneYear)} →{" "}
-                {drawDate(band.date_to, oneYear)}
-              </text>
             </g>
           );
         })}
@@ -341,12 +323,58 @@ export function GalaxyGraph({
           className="axis-arrow"
           d={`M ${cx + rOut + 26} ${cy} l -13 -6 l 0 12 Z`}
         />
-        <text className="axis-direction radial" x={cx + rIn + 4} y={cy + 22}>
+        <text className="axis-direction radial" x={cx + rIn - 210} y={cy - 10}>
           早 →
         </text>
-        <text className="axis-direction radial" x={cx + rOut - 4} y={cy + 22}>
+        <text className="axis-direction radial" x={cx + rOut - 130} y={cy - 10}>
           晚
         </text>
+        {/* Every label after every shape it could be drawn under, which is why the
+            dates and the band captions come last. */}
+        {ringLabels.map(({ key, date, x, y }) => (
+          <text className="tick-date" key={key} x={x} y={y} textAnchor="end">
+            {date}
+          </text>
+        ))}
+        {galaxy.bands.map((band, index) => {
+          const outer = radiusAt(band.start);
+          const inner = radiusAt(band.end);
+          const right = Math.min(cx - inner - 6, cx - 120);
+          const left = right - 118;
+          /* Bands can share almost the same radius, so their captions are stacked
+             upwards to the left of the centre, innermost first. The stack starts
+             high enough to clear the dates that run inside the rings diagonally. */
+          const stack = galaxy.bands.length - index;
+          const y = cy - 146 - stack * 55;
+          const dates = `${drawDate(band.date_from, oneYear)} → ${drawDate(
+            band.date_to,
+            oneYear,
+          )}`;
+          return (
+            <g className="band-caption" key={`caption-${band.start}-${band.end}`}>
+              <line
+                className="tick-leader"
+                x1={cx - inner}
+                y1={cy}
+                x2={right}
+                y2={y + 7}
+              />
+              <rect
+                className="band-caption-bg"
+                x={left}
+                y={y - 16}
+                width={right - left + 8}
+                height={39}
+              />
+              <text className="band-label" x={right} y={y} textAnchor="end">
+                {bandLabel(band.days)}
+              </text>
+              <text className="band-dates" x={right} y={y + 18} textAnchor="end">
+                {dates}
+              </text>
+            </g>
+          );
+        })}
         <circle className="centre" cx={cx} cy={cy} r={3} />
         {hasUndated && (
           <g className="undated-ring">
