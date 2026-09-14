@@ -1,4 +1,5 @@
 import json
+import threading
 from functools import lru_cache
 
 import httpx
@@ -19,17 +20,39 @@ def embed(texts: list[str]) -> list[list[float]] | None:
     return embedder().encode(texts, batch_size=8, max_length=1024)["dense_vecs"].tolist()
 
 
+# One rerank at a time. The model is a 568M-parameter cross-encoder scoring on CPU,
+# and a single call already spreads across every core: measured 2026-09-14 on the
+# development box, one search took 1.2-3.5s warm, three at once finished none of them
+# inside 30s while the container sat pegged and the proxy in front of it returned 500.
+# The lock also covers building the model, because lru_cache does not hold anything
+# while the wrapped function runs - two cold callers would each load 2.3GB of weights.
+#
+# Queueing makes the second caller wait. It does not make anyone answer without
+# calibrated scores, which is the alternative worth refusing: an uncalibrated run
+# cannot enforce the retrieval floor, so the archive would answer where it should
+# abstain. If the queue is the bottleneck, the fix is more machine, not a looser answer.
+_RERANK = threading.Lock()
+
+
 @lru_cache
 def reranker():
     from FlagEmbedding import FlagReranker
 
+    threads = settings().reranker_threads
+    if threads > 0:
+        import torch
+
+        # Left alone by default: torch picks a sensible count per machine. Set it to
+        # keep a shared box responsive while a rerank runs.
+        torch.set_num_threads(threads)
     return FlagReranker(settings().reranker_model, use_fp16=False)
 
 
 def rerank(query: str, texts: list[str]) -> list[float] | None:
     if settings().reranker_backend != "local" or not texts:
         return None
-    scores = reranker().compute_score([[query, text] for text in texts], normalize=True)
+    with _RERANK:
+        scores = reranker().compute_score([[query, text] for text in texts], normalize=True)
     return [float(scores)] if isinstance(scores, (float, int)) else [float(x) for x in scores]
 
 

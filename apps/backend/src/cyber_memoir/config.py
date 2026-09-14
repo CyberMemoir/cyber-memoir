@@ -24,6 +24,8 @@ class Settings(BaseSettings):
     embedding_model: str = "BAAI/bge-m3"
     reranker_backend: str = "disabled"
     reranker_model: str = "BAAI/bge-reranker-v2-m3"
+    # 0 leaves torch's own choice alone; set it to cap what one rerank may occupy.
+    reranker_threads: int = 0
     llm_base_url: str = ""
     llm_api_key: str = ""
     llm_model: str = ""
