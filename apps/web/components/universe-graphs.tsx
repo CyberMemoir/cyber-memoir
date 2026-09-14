@@ -9,8 +9,10 @@ import {
   NAME_LIMIT,
   UNIVERSE_VIEW,
   UNDATED_X,
+  allInOneYear,
   axisEnd,
   bandLabel,
+  drawDate,
   layoutUniverse,
   placeStars,
   polar,
@@ -37,6 +39,12 @@ export function UniverseGraph({
   const { placed, undated } = layoutUniverse(universe);
   const byId = new Map(placed.map((item) => [item.galaxy.meme_id, item]));
   const end = axisEnd(universe);
+  /* Whether the year can be dropped is a property of this picture, decided from its
+     own dates: one calendar year may say 08-20, a span of years may not. */
+  const oneYear = allInOneYear([
+    ...universe.galaxies.map((galaxy) => galaxy.emergence.date),
+    ...universe.axis.ticks.map((tick) => tick.date),
+  ]);
   /* The bands run most of the height so a quiet stretch reads as a wall the eye
      has to cross; the galaxies sit below the axis, in lanes of their own. */
   const y0 = AXIS_Y - 330;
@@ -91,7 +99,7 @@ export function UniverseGraph({
               y={AXIS_Y + 30}
               textAnchor="middle"
             >
-              {tick.date}
+              {drawDate(tick.date, oneYear)}
             </text>
           </g>
         ))}
@@ -143,6 +151,7 @@ export function UniverseGraph({
           <GalaxyGlyph
             key={item.galaxy.meme_id}
             item={item}
+            oneYear={oneYear}
             onOpen={onOpenGalaxy}
           />
         ))}
@@ -151,17 +160,13 @@ export function UniverseGraph({
   );
 }
 
-/** `2026-08-20` under a glyph is five characters of a year nobody needs twice:
- *  the axis above and the list view both carry it in full. */
-function shortDay(date: string | null): string {
-  return date ? date.slice(5) : "无日期";
-}
-
 function GalaxyGlyph({
   item,
+  oneYear,
   onOpen,
 }: {
   item: PlacedGalaxy;
+  oneYear: boolean;
   onOpen: (galaxy: Galaxy) => void;
 }) {
   const { galaxy, x, y, radius, stacked, row } = item;
@@ -205,7 +210,10 @@ function GalaxyGlyph({
         y={y + radius + 35}
         textAnchor="middle"
       >
-        {galaxy.stars.length} 星 · {shortDay(galaxy.emergence.date)}
+        {galaxy.stars.length} 星 ·{" "}
+        {galaxy.emergence.date
+          ? drawDate(galaxy.emergence.date, oneYear)
+          : "无日期"}
       </text>
     </g>
   );
@@ -227,6 +235,13 @@ export function GalaxyGraph({
   const placed = placeStars(galaxy.stars);
   const { cx, cy, rIn, rOut, rUndated } = GALAXY_VIEW;
   const hasUndated = galaxy.stars.some((star) => star.t === null);
+  /* Whether the year can be dropped is decided from this galaxy's own dates, since
+     it is this picture the reader compares: 2021 to 2026 must say so. */
+  const oneYear = allInOneYear([
+    ...galaxy.stars.map((star) => star.date),
+    ...galaxy.ticks.map((tick) => tick.date),
+    ...galaxy.bands.flatMap((band) => [band.date_from, band.date_to]),
+  ]);
   return (
     <>
       <g className="galaxy-static">
@@ -263,7 +278,7 @@ export function GalaxyGraph({
                   y2={y}
                 />
                 <text className="tick-date" x={x} y={y + 4}>
-                  {tick.date.slice(5)}
+                  {drawDate(tick.date, oneYear)}
                 </text>
               </g>
             );
@@ -308,7 +323,8 @@ export function GalaxyGraph({
                 y={y + 18}
                 textAnchor="end"
               >
-                {band.date_from.slice(5)} → {band.date_to.slice(5)}
+                {drawDate(band.date_from, oneYear)} →{" "}
+                {drawDate(band.date_to, oneYear)}
               </text>
             </g>
           );

@@ -63,21 +63,32 @@ export function stageLabel(stage: string): string {
   return STAGE_STYLE[stage as Stage]?.label ?? stage;
 }
 
-/** Autumn leaves with a single decimal; the band's drawn width says nothing. */
+/**
+ * The duration a band swallowed, which its drawn width does not show. A band is cut
+ * out of the axis and given a fixed width, so the number is the only honest part of
+ * it. Past a year the reader gets years and one decimal; under it, days.
+ */
 export function bandLabel(days: number): string {
   if (days >= 365) return `沉寂 ${(days / 365).toFixed(1)} 年`;
   return `沉寂 ${days} 天`;
 }
 
-/** `date` leaves the API already read in Beijing; never derive a day from `at`. */
-export function starDate(star: Pick<Star, "date">): string | null {
-  return star.date ?? null;
+/**
+ * Whether one picture can drop the year from its dates. A galaxy whose stars all fell
+ * in one calendar year reads better as 05-04; one that spans 2021 to 2026 does not,
+ * because 08-28 → 04-29 beside "沉寂 2.7 年" would claim eight months and the label
+ * would contradict it. Undated entries say nothing about a year.
+ */
+export function allInOneYear(years: (string | null | undefined)[]): boolean {
+  const present = new Set(
+    years.filter((value): value is string => Boolean(value)).map((v) => v.slice(0, 4)),
+  );
+  return present.size <= 1;
 }
 
-export function starAriaLabel(star: Star): string {
-  const parts = [stageLabel(star.stage), star.date ?? "无日期", star.label];
-  if (star.milestone) parts.push("里程碑");
-  return parts.filter(Boolean).join("，");
+/** `2026-08-20` when the year matters, `08-20` when every date shares one year. */
+export function drawDate(date: string, oneYear: boolean): string {
+  return oneYear ? date.slice(5) : date;
 }
 
 /**
