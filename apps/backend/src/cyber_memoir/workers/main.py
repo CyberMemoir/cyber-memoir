@@ -21,7 +21,11 @@ log = logging.getLogger(__name__)
 # Only these reach the platform; indexing and extraction are local and must keep flowing
 # even while fetching is paused.
 PLATFORM_KINDS = ("ingest", "media")
-_last_fetch = [0.0]
+# None means no fetch has happened in this process. 0.0 would be a lie: time.monotonic()
+# counts from boot, so on a freshly started host every early moment sits within `interval`
+# of zero and the gate would refuse the first fetch for up to five minutes. The dev machine
+# never saw it - 5.7 days of uptime - and CI, which boots a runner per job, failed on it.
+_last_fetch: list[float | None] = [None]
 
 
 def _claim_fetch_slot(redis, interval: int) -> bool:
@@ -39,7 +43,8 @@ def _claim_fetch_slot(redis, interval: int) -> bool:
     try:
         return bool(redis.set("memoir:platform:gate", "1", nx=True, ex=interval))
     except Exception:
-        if time.monotonic() - _last_fetch[0] < interval:
+        previous = _last_fetch[0]
+        if previous is not None and time.monotonic() - previous < interval:
             return False
         _last_fetch[0] = time.monotonic()
         return True
