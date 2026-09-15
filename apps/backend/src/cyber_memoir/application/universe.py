@@ -57,7 +57,10 @@ def _star(stage, kind, key, at, *, target_id, label, url=None, bvid=None, tier=N
 
 def _source_star(stage, key, source: Source, evidence_ids):
     return _star(
-        stage, "source", key, source.platform_published_at,
+        stage,
+        "source",
+        key,
+        source.platform_published_at,
         target_id=source.id,
         label=source.title or source.platform_item_id,
         url=source.canonical_url,
@@ -89,7 +92,9 @@ def build(db: Session) -> dict:
                 evidence[("relation", link.relation_id)].add(link.evidence_id)
             if link.event_id:
                 evidence[("event", link.event_id)].add(link.evidence_id)
-    wanted = {r.to_source_id for r in relations if r.to_source_id} | {e.to_source_id for e in events if e.to_source_id}
+    wanted = {r.to_source_id for r in relations if r.to_source_id} | {
+        e.to_source_id for e in events if e.to_source_id
+    }
     sources = {s.id: s for s in db.scalars(select(Source).where(Source.id.in_(wanted)))} if wanted else {}
 
     stars: dict[str, list[dict]] = {mid: [] for mid in ids}
@@ -110,8 +115,15 @@ def build(db: Session) -> dict:
             # The event's own date is the reviewed one; the source's is its fallback.
             star["at"] = e.occurred_at_start or star["at"]
         else:
-            star = _star("derivative", "source", e.id, e.occurred_at_start,
-                         target_id=None, label=e.description, evidence_ids=refs)
+            star = _star(
+                "derivative",
+                "source",
+                e.id,
+                e.occurred_at_start,
+                target_id=None,
+                label=e.description,
+                evidence_ids=refs,
+            )
         stars[e.meme_id].append(star)
 
     # Emergence reads only a meme's own source-kind stars, so it is settled before any
@@ -119,15 +131,34 @@ def build(db: Session) -> dict:
     emergence = {mid: _emergence(stars[mid]) for mid in ids}
     for child, parent in meme_edges:
         for owner, other, stage in ((child, parent, "source"), (parent, child, "derived_meme")):
-            refs = {i for r in relations if r.meme_id == child and r.to_meme_id == parent
-                    for i in evidence[("relation", r.id)]}
-            stars[owner].append(_star(stage, "meme", "%s>%s" % (child, parent), emergence[other][0],
-                                      target_id=other, label=memes[other].canonical_name,
-                                      evidence_ids=refs))
+            refs = {
+                i
+                for r in relations
+                if r.meme_id == child and r.to_meme_id == parent
+                for i in evidence[("relation", r.id)]
+            }
+            stars[owner].append(
+                _star(
+                    stage,
+                    "meme",
+                    "%s>%s" % (child, parent),
+                    emergence[other][0],
+                    target_id=other,
+                    label=memes[other].canonical_name,
+                    evidence_ids=refs,
+                )
+            )
 
     universe_scale = timescale.build([emergence[mid][0] for mid in ids])
     galaxies = []
-    for mid in sorted(ids, key=lambda m: (emergence[m][0] is None, emergence[m][0] and timescale.as_utc(emergence[m][0]), memes[m].canonical_name)):
+    for mid in sorted(
+        ids,
+        key=lambda m: (
+            emergence[m][0] is None,
+            emergence[m][0] and timescale.as_utc(emergence[m][0]),
+            memes[m].canonical_name,
+        ),
+    ):
         own = stars[mid]
         scale = timescale.build([s["at"] for s in own])
         for s in own:
@@ -136,30 +167,38 @@ def build(db: Session) -> dict:
         milestones = {}
         for stage in STAGES:
             members = [s for s in own if s["stage"] == stage]
-            dated = sorted((s for s in members if s["at"]), key=lambda s: (timescale.as_utc(s["at"]), s["id"]))
+            dated = sorted(
+                (s for s in members if s["at"]), key=lambda s: (timescale.as_utc(s["at"]), s["id"])
+            )
             first = dated[0] if dated else (sorted(members, key=lambda s: s["id"])[0] if members else None)
             milestones[stage] = first["id"] if first else None
         for s in own:
             s["milestone"] = s["id"] in milestones.values()
         at, basis = emergence[mid]
-        galaxies.append({
-            "meme_id": mid,
-            "name": memes[mid].canonical_name,
-            "definition": memes[mid].definition,
-            "emergence": {"at": at, "date": timescale.china_date(at), "basis": basis},
-            "u": universe_scale.at(at),
-            "stars": sorted(own, key=lambda s: (s["t"] is None, s["t"] or 0.0, s["id"])),
-            "milestones": milestones,
-            "bands": [vars(b) for b in scale.bands],
-            "ticks": [vars(t) for t in scale.ticks],
-        })
+        galaxies.append(
+            {
+                "meme_id": mid,
+                "name": memes[mid].canonical_name,
+                "definition": memes[mid].definition,
+                "emergence": {"at": at, "date": timescale.china_date(at), "basis": basis},
+                "u": universe_scale.at(at),
+                "stars": sorted(own, key=lambda s: (s["t"] is None, s["t"] or 0.0, s["id"])),
+                "milestones": milestones,
+                "bands": [vars(b) for b in scale.bands],
+                "ticks": [vars(t) for t in scale.ticks],
+            }
+        )
 
     return {
         "timezone": timescale.CHINA.tzname(None),
         "quiet_gap_days": timescale.QUIET_GAP_DAYS,
-        "axis": {"bands": [vars(b) for b in universe_scale.bands],
-                 "ticks": [vars(t) for t in universe_scale.ticks]},
+        "axis": {
+            "bands": [vars(b) for b in universe_scale.bands],
+            "ticks": [vars(t) for t in universe_scale.ticks],
+        },
         "galaxies": galaxies,
-        "links": [{"from_meme_id": c, "to_meme_id": p, "predicate": "derived_from"}
-                  for c, p in sorted(set(meme_edges))],
+        "links": [
+            {"from_meme_id": c, "to_meme_id": p, "predicate": "derived_from"}
+            for c, p in sorted(set(meme_edges))
+        ],
     }
