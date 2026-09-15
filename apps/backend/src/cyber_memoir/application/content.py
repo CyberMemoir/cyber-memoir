@@ -270,9 +270,7 @@ def target_refs(db: Session, items) -> dict[tuple[str, str], dict]:
                 "tier": source.source_tier,
             }
     if wanted["meme"]:
-        public = set(
-            db.scalars(select(Meme.id).where(Meme.id.in_(wanted["meme"]), publication_is_valid()))
-        )
+        public = set(db.scalars(select(Meme.id).where(Meme.id.in_(wanted["meme"]), publication_is_valid())))
         for target in db.scalars(select(Meme).where(Meme.id.in_(wanted["meme"]))):
             shown = target.id in public
             refs[("meme", target.id)] = {
