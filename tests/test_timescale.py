@@ -14,8 +14,15 @@ def day(y, m, d):
 
 # 闹吃VS古振兴, as dated by the platform: FNF mods 2021-2024, then the burst.
 NAOCHI = [
-    day(2021, 5, 4), day(2021, 6, 3), day(2021, 8, 28), day(2024, 4, 29),
-    day(2026, 7, 26), day(2026, 7, 26), day(2026, 8, 5), day(2026, 8, 16), day(2026, 8, 20),
+    day(2021, 5, 4),
+    day(2021, 6, 3),
+    day(2021, 8, 28),
+    day(2024, 4, 29),
+    day(2026, 7, 26),
+    day(2026, 7, 26),
+    day(2026, 8, 5),
+    day(2026, 8, 16),
+    day(2026, 8, 20),
 ]
 
 
@@ -36,8 +43,10 @@ def test_order_is_never_changed():
     rng = random.Random(20260913)
     base = day(2020, 1, 1)
     for _ in range(300):
-        points = [base + timedelta(days=rng.choice([rng.randint(0, 20), rng.randint(0, 3000)]))
-                  for _ in range(rng.randint(2, 25))]
+        points = [
+            base + timedelta(days=rng.choice([rng.randint(0, 20), rng.randint(0, 3000)]))
+            for _ in range(rng.randint(2, 25))
+        ]
         scale = build(points)
         ordered = sorted(set(points))
         ts = [scale.at(p) for p in ordered]
@@ -66,7 +75,10 @@ def test_the_burst_is_visible_instead_of_one_pixel():
 
 def test_bands_name_the_calendar_dates_either_side():
     scale = build(NAOCHI)
-    assert (scale.bands[-1].date_from, scale.bands[-1].date_to) == ("2024-04-29", "2026-07-26")
+    assert (scale.bands[-1].date_from, scale.bands[-1].date_to) == (
+        "2024-04-29",
+        "2026-07-26",
+    )
     assert scale.ticks[0].date == "2021-05-04"
     assert scale.ticks[-1].date == "2026-08-20"
 

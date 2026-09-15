@@ -19,7 +19,11 @@ def revise(client, made, reason, **fields):
     assert revision.status_code == 201, revision.text
     approved = client.post(
         f"/v1/reviews/{revision.json()['id']}/decision",
-        json={"decision": "approve", "reason": reason, "verified_evidence_ids": [made["evidence"]["id"]]},
+        json={
+            "decision": "approve",
+            "reason": reason,
+            "verified_evidence_ids": [made["evidence"]["id"]],
+        },
         headers=AUTH,
     )
     assert approved.status_code == 200, approved.text
@@ -38,17 +42,21 @@ def test_a_source_target_is_named_linked_dated_and_tiered(client, prepared):
         client,
         made,
         "合成测试：记录来源端点",
-        relations=[{
-            "predicate": "documented_in",
-            "target_type": "source",
-            "target_id": source_id,
-            "evidence_ids": [made["evidence"]["id"]],
-        }],
+        relations=[
+            {
+                "predicate": "documented_in",
+                "target_type": "source",
+                "target_id": source_id,
+                "evidence_ids": [made["evidence"]["id"]],
+            }
+        ],
     )
 
     target = client.get(f"/v1/memes/{made['meme_id']}").json()["relations"][0]["target"]
     assert target["type"] == "source" and target["id"] == source_id
-    assert target["label"], "a source edge must carry something readable, never only its id"
+    assert target["label"], (
+        "a source edge must carry something readable, never only its id"
+    )
     assert target["url"].startswith("https://www.bilibili.com/video/")
     assert target["tier"] == "A"
     assert "published_at" in target and "availability" in target
@@ -61,15 +69,17 @@ def test_an_event_names_the_work_it_is_about(client, prepared):
         client,
         made,
         "合成测试：事件指向作品",
-        events=[{
-            "event_type": "remix",
-            "description": "合成测试衍生作品",
-            "occurred_at_start": "2026-08-20T00:00:00+08:00",
-            "time_precision": "day",
-            "time_basis": "合成测试",
-            "to_source_id": source_id,
-            "evidence_ids": [made["evidence"]["id"]],
-        }],
+        events=[
+            {
+                "event_type": "remix",
+                "description": "合成测试衍生作品",
+                "occurred_at_start": "2026-08-20T00:00:00+08:00",
+                "time_precision": "day",
+                "time_basis": "合成测试",
+                "to_source_id": source_id,
+                "evidence_ids": [made["evidence"]["id"]],
+            }
+        ],
     )
 
     event = client.get(f"/v1/memes/{made['meme_id']}").json()["events"][0]
@@ -90,16 +100,25 @@ def test_a_meme_target_stops_being_named_once_retracted(client, prepared):
         client,
         child,
         "合成测试：梗衍生自梗",
-        relations=[{
-            "predicate": "derived_from",
-            "target_type": "meme",
-            "target_id": parent["meme_id"],
-            "evidence_ids": [child["evidence"]["id"]],
-        }],
+        relations=[
+            {
+                "predicate": "derived_from",
+                "target_type": "meme",
+                "target_id": parent["meme_id"],
+                "evidence_ids": [child["evidence"]["id"]],
+            }
+        ],
     )
 
-    before = client.get(f"/v1/memes/{child['meme_id']}").json()["relations"][0]["target"]
-    assert before == {**before, "type": "meme", "label": "合成被引用梗", "availability": "published"}
+    before = client.get(f"/v1/memes/{child['meme_id']}").json()["relations"][0][
+        "target"
+    ]
+    assert before == {
+        **before,
+        "type": "meme",
+        "label": "合成被引用梗",
+        "availability": "published",
+    }
 
     retracted = client.post(
         f"/v1/reviews/memes/{parent['meme_id']}/retract",
