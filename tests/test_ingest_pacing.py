@@ -92,6 +92,7 @@ def test_the_gate_allows_one_fetch_per_interval():
     assert _claim_fetch_slot(redis, 60) is False
     assert _claim_fetch_slot(redis, 0) is True
 
+
 def test_the_gate_lets_the_first_fetch_through_on_a_freshly_booted_host(monkeypatch):
     """time.monotonic() counts from boot, so early moments are close to zero.
 
