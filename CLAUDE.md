@@ -122,16 +122,21 @@ chunk at all.
 - **Gold set**: 22 cases (14 positive, 8 negative). Baseline recall@10 1.00, MRR 1.00 — not
   impressive on 6 memes queried by their own names. The informative number was abstention:
   6/8 without the score floor, **8/8 with it**.
-- **Branches**: everything is on origin, including `integration` and
-  `archive/bundled-all-six`. `main` is still the V1 alpha and has none of this work.
-  `integration` is the merge of every PR branch and **the only branch that runs** - no
-  single branch carries both the migration chain and the newer API work, so anything
-  else fails at `alembic upgrade`. Never commit novel work on `integration`: make it on
-  a PR branch and merge it in. Stacking is real where it exists - `pr-source-annotations`
+- **Branches**: **`main` now carries everything** - PR #5 merged `integration` into it on
+  2026-09-15, with a merge commit, so every commit message survives. `integration` stays
+  as the assembly point and is what the running stack is built from; keep making work on
+  a PR branch and merging it there, then raise one PR to `main`. Never commit novel work
+  on `integration` itself. Stacking is real where it exists - `pr-source-annotations`
   chains off `pr-event-source-link` for the migration order, and API branches sit on
   `pr-windows-encoding` because `make contracts` cannot run on Windows without it.
-- **`test_backup.py` fails and always has** (`Unexpected artifact key in backup`), on `main`,
-  unrelated to any of this work. The backup path is unverified.
+- **CI runs lint and tests on every push**, and it caught three things the dev machine
+  could not: MinIO had vanished from Docker Hub so a fresh `compose up` died (now pulled
+  from quay.io); the pacing gate refused the first fetch on a freshly booted host,
+  invisible here under 5.7 days of uptime; and ruff was being run from the repo root,
+  where it picks up the wrong config - CI runs it from `apps/backend`.
+- **`test_backup.py` fails on Windows only** (`Unexpected artifact key in backup`); it
+  passes in CI on Linux, so it looks like a path-separator bug in the artifact key
+  rather than a broken backup path. Still worth chasing.
 
 ## Web UI — decided 2026-09-13
 
