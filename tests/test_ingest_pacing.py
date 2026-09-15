@@ -14,6 +14,7 @@ from sqlalchemy.orm import Session
 
 from cyber_memoir.domain.models import Job, Source, now
 from cyber_memoir.ingestion import media
+from cyber_memoir.workers import main
 from cyber_memoir.workers.main import _claim_fetch_slot, run_once
 
 
@@ -90,3 +91,22 @@ def test_the_gate_allows_one_fetch_per_interval():
     assert _claim_fetch_slot(redis, 60) is True
     assert _claim_fetch_slot(redis, 60) is False
     assert _claim_fetch_slot(redis, 0) is True
+
+
+def test_the_gate_lets_the_first_fetch_through_on_a_freshly_booted_host(monkeypatch):
+    """time.monotonic() counts from boot, so early moments are close to zero.
+
+    With 0.0 standing for "last fetch", a host up for less than the interval refused its
+    first platform fetch for up to five minutes. A developer machine with days of uptime
+    can never see this; CI boots a runner per job and failed on it.
+    """
+
+    class DeadRedis:
+        def set(self, *args, **kwargs):
+            raise ConnectionError("redis down")
+
+    monkeypatch.setattr(main, "_last_fetch", [None])
+    monkeypatch.setattr(main.time, "monotonic", lambda: 30.0)
+    assert main._claim_fetch_slot(DeadRedis(), 60) is True, "a fresh host was refused its first fetch"
+    # And the gate still closes behind it.
+    assert main._claim_fetch_slot(DeadRedis(), 60) is False
