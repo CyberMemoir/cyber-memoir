@@ -50,3 +50,40 @@
 `make test`、`make check`、`make contracts`、`cd apps/web && npx playwright test`。
 
 真实服务：`MEMOIR_INTEGRATION=1 uv run --env-file ../../.env pytest -q ../../tests/test_live_stack.py`（在 `apps/backend` 执行）。
+
+## 2026-09-14 复核（星图与检索上线后）
+
+在 Windows 开发机上实测，命令与输出见下。日期为北京时间。
+
+| 检查 | 结果 |
+|---|---|
+| 后端自动化测试 `pytest tests/` | **106 通过、1 跳过、1 失败**，耗时 2:45 |
+| 唯一失败 `test_backup.py` | `Unexpected artifact key in backup`；在 `main` 上同样失败，与本轮工作无关，备份路径仍未验证 |
+| `npm run typecheck` | 通过（exit 0） |
+| `npm run build` | 通过（exit 0），6 个路由 |
+| Playwright `npm run test:e2e` | **8 通过**，耗时 1:42（含星图 5 项） |
+
+### 这一轮真正补上的外部验收
+
+上一节说「没有下载并运行模型权重」「没有把合成结果当作真实检索指标」。现在这两条各补上一半：
+
+- **BGE Reranker v2-m3 权重已手动装入 `models` 卷并真实参与检索**（`ops/install_reranker.py`，
+  `HF_HUB_OFFLINE=1`）。检索返回 `channels` 含 `bge_reranker`、`scores_calibrated: true`。
+  首次加载约 70-125 秒，之后单次检索 1.2-3.5 秒（预热后），每对打分 2.3-3.5 秒。
+- **真实语料金标准 40 条**（正例 30、反例 10），14 条人工策展记录、584 个 chunk：
+  recall@10 **1.00**、MRR **1.00**、弃答 **10/10**。
+
+  必须连同保留意见一起读：**recall 与 MRR 不具信息量**——每条正例查询都包含梗名本身，
+  exact-alias 通道即可命中，换掉重排器也是 1.00。有信息量的是弃答，且其中只有 **6 条**
+  是评分下限真正拒绝了候选，另外 **4 条**根本没有匹配到任何 chunk，弃答是白拿的。
+- **并发**：修复前 3 个并发检索无一在 30 秒内完成，容器占满所有核心，前面的 dev 代理返回
+  纯文本 500（API 自身从未返回 5xx，也没收到这些请求）。序列化之后 3 并发全部 200，
+  耗时 42 / 86 / 169 秒——排队换正确性：未标定的打分无法执行评分下限，档案会在该弃答时作答。
+
+### 仍未验证
+
+- pgvector / embeddings 通路（`EMBEDDING_BACKEND=disabled`，本轮刻意关闭，避免模型输出污染人工策展）。
+- LLM 生成路径、抖音平台、备份恢复路径（见上表失败项）。
+- Bilibili 官方播放器嵌入只确认了响应头不禁止 iframe（无 X-Frame-Options / frame-ancestors），
+  未在真机上确认能播放。
+- 星图的 e2e 夹具是合成数据；真实数据（2021-05-04 不是 05-03、三个空槽等）由人工在实测栈上核对。
