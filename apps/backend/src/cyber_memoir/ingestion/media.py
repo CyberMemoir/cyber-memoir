@@ -8,25 +8,50 @@ from pathlib import Path
 from cyber_memoir.config import settings
 
 
+class PlatformRateLimited(Exception):
+    """The platform refused the request for volume, not because the item is unavailable.
+
+    Distinct from every other failure: nothing is wrong with the source and no human needs
+    to supply anything. The only correct response is to wait and ask again later.
+    """
+
+
+# yt-dlp already signs requests (wbi) and seeds buvid3, so a 412 here is a rate verdict
+# rather than a protocol error - its own message says "please wait and try later".
+_RATE_LIMIT_MARKERS = ("412", "blocked by server", "风控", "请求过于频繁", "-799")
+
+
+def _platform_args() -> list[str]:
+    cookies = settings().platform_cookies_file
+    return ["--cookies", cookies] if cookies else []
+
+
 def metadata(url: str) -> dict:
-    result = subprocess.run(
-        [
-            sys.executable,
-            "-m",
-            "yt_dlp",
-            "--dump-single-json",
-            "--skip-download",
-            "--no-playlist",
-            "--no-warnings",
-            "--socket-timeout",
-            "10",
-            "--",
-            url,
-        ],
-        capture_output=True,
-        timeout=120,
-        check=True,
-    )
+    try:
+        result = subprocess.run(
+            [
+                sys.executable,
+                "-m",
+                "yt_dlp",
+                "--dump-single-json",
+                "--skip-download",
+                "--no-playlist",
+                "--no-warnings",
+                "--socket-timeout",
+                "10",
+                *_platform_args(),
+                "--",
+                url,
+            ],
+            capture_output=True,
+            timeout=120,
+            check=True,
+        )
+    except subprocess.CalledProcessError as exc:
+        stderr = (exc.stderr or b"").decode("utf-8", "replace")
+        if any(marker in stderr for marker in _RATE_LIMIT_MARKERS):
+            raise PlatformRateLimited(url) from exc
+        raise
     if len(result.stdout) > 10_000_000:
         raise ValueError("Metadata too large")
     return json.loads(result.stdout)

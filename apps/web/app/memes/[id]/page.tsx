@@ -10,6 +10,7 @@ const predicates: Record<string, string> = {
   claimed_origin: "起源主张",
   documented_in: "记录于",
   mentions: "涉及实体",
+  popularized_by: "走红于",
 };
 export default function MemePage({
   params,
@@ -119,10 +120,29 @@ export default function MemePage({
                           ? "有争议"
                           : "有证据支持"}
                       </span>
-                      {r.to_meme_id ? (
+                      {/* The far end of a relation arrives named and linked. A
+                          withdrawn meme comes back with no label and is named only
+                          as withdrawn, so a retraction cannot stay readable here.
+                          Dates are left out on purpose: the universe page is where
+                          dates live, and published_at is UTC. */}
+                      {r.target?.availability === "withdrawn" ? (
+                        <span className="muted">已撤回</span>
+                      ) : r.target?.url ? (
+                        <a
+                          href={r.target.url}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {r.target.label} <Icon name="arrow" size={16} />
+                        </a>
+                      ) : r.target?.type === "meme" &&
+                        r.target.label &&
+                        r.to_meme_id ? (
                         <Link href={`/memes/${r.to_meme_id}`}>
-                          查看关联梗 <Icon name="arrow" size={16} />
+                          {r.target.label} <Icon name="arrow" size={16} />
                         </Link>
+                      ) : r.target?.label ? (
+                        <span>{r.target.label}</span>
                       ) : (
                         <span className="small-code">
                           {r.to_source_id || r.to_entity_id}

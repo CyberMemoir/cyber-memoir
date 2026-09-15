@@ -1,0 +1,74 @@
+# 由 evals/feasibility/prep.py drafts 从 lineage.csv 生成
+# definition / usage_context / claims 需要人工补齐，evidence 入库后再填 ID
+slug: meme-13
+resolved: true
+
+canonical_name: 轻松绷住
+aliases: []
+
+# definition 必填，且 claims 里要有逐字相同的 statement（用 |- 块标量）
+definition: "出自熊出没夏日连连看P42，熊大跟熊二讲道理突然坐正，一本正经严肃端坐很反差"
+usage_context: "使用熊大轻松绷住表情包，在评论中表达自己成功憋住不笑，但这个评论本身好笑"
+
+origin_status: unknown
+origin_type: unknown
+origin_ref: ""
+
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+
+sources:
+  - url: https://www.bilibili.com/video/BV1HBPazHEs5
+    role: derivative
+    note: "威龙红皮实战（BV1PkgE69EoL 画面中引用）"
+  - url: https://www.bilibili.com/video/BV1yNLJ6vEbb
+    role: derivative
+    note: "轻松绷住（BV1PkgE69EoL 画面中引用）"
+
+evidence_map:
+  ocr-narration-BV1PkgE69EoL: f6316d3e-de67-45a6-a532-ceba04f5654c
+  ocr-BV1HBPazHEs5: 871eaae2-f1d5-4eef-9abe-c4f076a504b4
+  ocr-BV1yNLJ6vEbb: 18ae495e-84fd-4f5e-9532-afbcc13f92ce
+
+claims:
+  - key: definition
+    statement: "出自熊出没夏日连连看P42，熊大跟熊二讲道理突然坐正，一本正经严肃端坐很反差"
+    evidence: [ocr-narration-BV1PkgE69EoL]
+    stance: supports
+  - key: usage_context
+    statement: "使用熊大轻松绷住表情包，在评论中表达自己成功憋住不笑，但这个评论本身好笑"
+    evidence: [ocr-narration-BV1PkgE69EoL]
+    stance: supports
+
+events:
+  - event_type: remix
+    description: "轻松绷住 出现衍生作品《威龙红皮实战》"
+    occurred_at_start: 2026-03-07T00:00:00+08:00
+    time_precision: day
+    time_basis: 平台显示的投稿时间，经 BV1PkgE69EoL 画面引用发现
+    evidence: [ocr-BV1HBPazHEs5]
+  - event_type: remix
+    description: "轻松绷住 出现衍生作品《轻松绷住》"
+    occurred_at_start: 2026-05-17T00:00:00+08:00
+    time_precision: day
+    time_basis: 平台显示的投稿时间，经 BV1PkgE69EoL 画面引用发现
+    evidence: [ocr-BV1yNLJ6vEbb]
+
+relations: []
+
+gold:
+  canonical:
+    - 轻松绷住
+  alias: []
+  origin_intent:
+    - 轻松绷住的出处
+  must_not_return: []
+
+curation:
+  curator: ""
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+    - 衍生关系来自 BV1PkgE69EoL 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+    - 传播区间 2026-03-07 .. 2026-05-17（2 条）

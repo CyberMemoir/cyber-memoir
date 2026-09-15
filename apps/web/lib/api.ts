@@ -7,6 +7,12 @@ export type Relation = components["schemas"]["RelationOut"];
 export type Meme = components["schemas"]["MemeOut"];
 export type SearchResult = components["schemas"]["SearchOut"];
 export type Answer = components["schemas"]["AnswerOut"];
+export type Universe = components["schemas"]["UniverseOut"];
+export type Galaxy = components["schemas"]["Galaxy"];
+export type Star = components["schemas"]["Star"];
+export type UniverseBand = components["schemas"]["UniverseBand"];
+export type UniverseTick = components["schemas"]["UniverseTick"];
+export type TargetRef = components["schemas"]["TargetRef"];
 export type Draft = {
   canonical_name: string;
   aliases: string[];

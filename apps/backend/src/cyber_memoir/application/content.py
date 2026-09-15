@@ -194,19 +194,26 @@ def review(db: Session, revision_id: str, action: ReviewAction, reviewer: str):
         for claim in payload.claims:
             link(claim.evidence_ids, claim.key, claim.statement, claim.stance)
         for item in payload.events:
+            if item.to_source_id:
+                require(db, Source, item.to_source_id)
             event = Event(meme_id=meme.id, revision=number, **item.model_dump(exclude={"evidence_ids"}))
             db.add(event)
             db.flush()
             link(item.evidence_ids, "event", item.description, event_id=event.id)
+        # derived_from takes either end: a meme built on another meme, or a meme built on
+        # upstream material that is itself no meme (a film, a clip, an off-platform post).
         allowed = {
-            "derived_from": "meme",
-            "variant_of": "meme",
-            "claimed_origin": "source",
-            "documented_in": "source",
-            "mentions": "entity",
+            "derived_from": {"meme", "source"},
+            "variant_of": {"meme"},
+            "claimed_origin": {"source"},
+            # The work that made a meme spread, which is neither where it came from nor a
+            # thing made from it - and routinely postdates the earliest known instance.
+            "popularized_by": {"source"},
+            "documented_in": {"source"},
+            "mentions": {"entity"},
         }
         for item in payload.relations:
-            if allowed[item.predicate] != item.target_type:
+            if item.target_type not in allowed[item.predicate]:
                 raise HTTPException(422, "关系端点类型不匹配")
             model = {"meme": Meme, "source": Source, "entity": Entity}[item.target_type]
             target = require(db, model, item.target_id)
@@ -229,6 +236,29 @@ def review(db: Session, revision_id: str, action: ReviewAction, reviewer: str):
     return dump(revision)
 
 
+def find_by_name(db: Session, name: str) -> list[dict]:
+    """Published memes whose canonical name normalises to this one.
+
+    A list, not a single row: nothing stops two published memes sharing a name, and
+    pretending otherwise would hand back an arbitrary one of them. A caller wanting
+    exactly one has to see the ambiguity to refuse it.
+    """
+    rows = db.scalars(
+        select(Meme)
+        .where(Meme.normalized_name == normalize(name), publication_is_valid())
+        .order_by(Meme.created_at.asc())
+    ).all()
+    return [
+        {
+            "id": x.id,
+            "canonical_name": x.canonical_name,
+            "published_revision": x.published_revision,
+            "created_at": x.created_at,
+        }
+        for x in rows
+    ]
+
+
 def public_meme(db: Session, meme_id: str):
     meme = require(db, Meme, meme_id)
     if meme.status == "merged":
@@ -236,6 +266,59 @@ def public_meme(db: Session, meme_id: str):
     if not db.scalar(select(Meme.id).where(Meme.id == meme_id, publication_is_valid())):
         raise HTTPException(404, "未公开的条目或其证据已失效")
     return meme
+
+
+def target_refs(db: Session, items) -> dict[tuple[str, str], dict]:
+    """(type, id) -> enough to name, link and date the far end of an event or relation.
+
+    Without this every relation to a source reached the reader as a bare UUID, so a
+    lineage of seven sources read as the same unlabelled line seven times, and drawing
+    anything on a time axis took one request per edge.
+
+    A meme target is named only while it is publicly valid. Review checks the target is
+    published, but it can be retracted afterwards - thirty-two memes were in a single
+    pass - and a relation must not keep a withdrawn name readable through a live page.
+    """
+    wanted: dict[str, set[str]] = defaultdict(set)
+    for item in items:
+        for kind in ("meme", "source", "entity"):
+            value = getattr(item, "to_%s_id" % kind, None)
+            if value:
+                wanted[kind].add(value)
+    refs: dict[tuple[str, str], dict] = {}
+    if wanted["source"]:
+        for source in db.scalars(select(Source).where(Source.id.in_(wanted["source"]))):
+            refs[("source", source.id)] = {
+                "type": "source",
+                "id": source.id,
+                "label": source.title or source.platform_item_id,
+                "url": source.canonical_url,
+                "published_at": source.platform_published_at,
+                "availability": source.availability,
+                "tier": source.source_tier,
+            }
+    if wanted["meme"]:
+        public = set(db.scalars(select(Meme.id).where(Meme.id.in_(wanted["meme"]), publication_is_valid())))
+        for target in db.scalars(select(Meme).where(Meme.id.in_(wanted["meme"]))):
+            shown = target.id in public
+            refs[("meme", target.id)] = {
+                "type": "meme",
+                "id": target.id,
+                "label": target.canonical_name if shown else "",
+                "availability": "published" if shown else "withdrawn",
+            }
+    if wanted["entity"]:
+        for entity in db.scalars(select(Entity).where(Entity.id.in_(wanted["entity"]))):
+            refs[("entity", entity.id)] = {"type": "entity", "id": entity.id, "label": entity.name}
+    return refs
+
+
+def ref_for(item, refs: dict[tuple[str, str], dict]) -> dict | None:
+    for kind in ("meme", "source", "entity"):
+        value = getattr(item, "to_%s_id" % kind, None)
+        if value:
+            return refs.get((kind, value))
+    return None
 
 
 def detail(db: Session, meme_id: str):
@@ -253,6 +336,15 @@ def detail(db: Session, meme_id: str):
         source = db.get(Source, item.source_id)
         evidence[item.id] = {**dump(item), "source": dump(source)}
         claims[(link.claim_key, link.statement, link.stance)].append(item.id)
+    events = db.scalars(
+        select(Event)
+        .where(Event.meme_id == meme.id, Event.revision == meme.published_revision)
+        .order_by(Event.occurred_at_start.asc().nulls_last())
+    ).all()
+    relations = db.scalars(
+        select(Relation).where(Relation.meme_id == meme.id, Relation.revision == meme.published_revision)
+    ).all()
+    refs = target_refs(db, [*events, *relations])
     return {
         **dump(meme),
         "evidence": list(evidence.values()),
@@ -261,23 +353,20 @@ def detail(db: Session, meme_id: str):
             for (k, s, st), ids in claims.items()
         ],
         "events": [
-            {**dump(x), "evidence_ids": list({link.evidence_id for link in links if link.event_id == x.id})}
-            for x in db.scalars(
-                select(Event)
-                .where(Event.meme_id == meme.id, Event.revision == meme.published_revision)
-                .order_by(Event.occurred_at_start.asc().nulls_last())
-            )
+            {
+                **dump(x),
+                "target": ref_for(x, refs),
+                "evidence_ids": list({link.evidence_id for link in links if link.event_id == x.id}),
+            }
+            for x in events
         ],
         "relations": [
             {
                 **dump(x),
+                "target": ref_for(x, refs),
                 "evidence_ids": list({link.evidence_id for link in links if link.relation_id == x.id}),
             }
-            for x in db.scalars(
-                select(Relation).where(
-                    Relation.meme_id == meme.id, Relation.revision == meme.published_revision
-                )
-            )
+            for x in relations
         ],
     }
 

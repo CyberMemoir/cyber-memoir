@@ -1,0 +1,65 @@
+# 由 evals/feasibility/prep.py drafts 从 lineage.csv 生成
+# definition / usage_context / claims 需要人工补齐，evidence 入库后再填 ID
+slug: niu-lai
+resolved: true
+
+canonical_name: 牛来
+aliases: []
+
+# definition 必填，且 claims 里要有逐字相同的 statement（用 |- 块标量）
+definition: "一部叫|牛来|的电影像自学三年动画做的大片，票房猛涨"
+usage_context: "谈论牛来电影本身"
+
+origin_status: unknown
+origin_type: unknown
+origin_ref: ""
+
+taxonomy:
+  - event
+platform_primary: bilibili
+material_path: ocr
+
+sources:
+  - url: https://www.bilibili.com/video/BV1n28K6cEqg
+    role: derivative
+    note: 黄色兄弟三人行（BV1a9816ZER9 画面中引用）
+
+evidence_map:
+  asr-BV1XabQ6VEWS: 98c37444-9983-441b-945c-26c7f8711b3c
+  ocr-BV1n28K6cEqg: 0e11ccf8-f013-45e8-a204-708f3b035118
+
+claims:
+  - key: definition
+    statement: "一部叫|牛来|的电影像自学三年动画做的大片，票房猛涨"
+    evidence: [asr-BV1XabQ6VEWS]
+    stance: supports
+  - key: usage_context
+    statement: "谈论牛来电影本身"
+    evidence: [asr-BV1XabQ6VEWS]
+    stance: supports
+
+events:
+  - event_type: remix
+    description: 牛来 出现衍生作品《黄色兄弟三人行》
+    occurred_at_start: 2026-08-21T00:00:00+08:00
+    time_precision: day
+    time_basis: 平台显示的投稿时间，经 BV1a9816ZER9 画面引用发现
+    evidence: [ocr-BV1n28K6cEqg]
+
+relations: []
+
+gold:
+  canonical:
+    - 牛来
+  alias: []
+  origin_intent:
+    - 牛来的出处
+  must_not_return: []
+
+curation:
+  curator: ""
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+    - 衍生关系来自 BV1a9816ZER9 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+    - 传播区间 2026-08-21 .. 2026-08-21（1 条）

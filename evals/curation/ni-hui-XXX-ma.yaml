@@ -1,0 +1,103 @@
+# 由 evals/feasibility/prep.py drafts 从 lineage.csv 生成
+# definition / usage_context / claims 需要人工补齐，evidence 入库后再填 ID
+slug: ni-hui-XXX-ma
+resolved: true
+
+canonical_name: 你会XXX吗
+aliases: []
+
+# definition 必填，且 claims 里要有逐字相同的 statement（用 |- 块标量）
+definition: "瓦洛兰特师徒杯阿辙在进点时质疑希咩咩实力"
+usage_context: "质疑或者压力团队成员，但现在因为梗的存在更表示调侃"
+
+origin_status: unknown
+origin_type: unknown
+origin_ref: ""
+
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+
+sources:
+  - url: https://www.bilibili.com/video/BV1NsKQ6zEwG
+    role: source
+    note: "【babyblue】阿辙爆了！直接一句你会玩霓虹吗希咩咩？！赛后承认自己不过脑不（BV1Xsuc67E8r 画面中引用）"
+  - url: https://www.bilibili.com/video/BV1pUKD6PEZ7
+    role: derivative
+    note: "辙哥开源“你会XX吗” 赛后复盘莲哥看悠一拆包失误“你会拆包吗”（BV1Xsuc67E8r 画面中引用）"
+  - url: https://www.bilibili.com/video/BV17iTY6VE1B
+    role: derivative
+    note: "众人把阿辙拉进房间，集体质问你会玩火男吗？没别的意思，我就是想问你玩得舒不舒服！（BV1Xsuc67E8r 画面中引用）"
+  - url: https://www.bilibili.com/video/BV15pT166Eks
+    role: derivative
+    note: "【阿梓】你会玩暮蝶吗yxh！我的意思是你玩的舒服吗？（BV1Xsuc67E8r 画面中引用）"
+  - url: https://www.bilibili.com/video/BV1b4NL6BEgD
+    role: derivative
+    note: "【纸飞机】压力切片man 你会做切片吗？（BV1Xsuc67E8r 画面中引用）"
+
+evidence_map:
+  ocr-narration-BV1Xsuc67E8r: 4d670e33-626d-469c-967f-20485992296a
+  ocr-BV1NsKQ6zEwG: f7f79076-9418-44ee-bf66-d730218382ed
+  ocr-BV1pUKD6PEZ7: 8fba7d3e-ef11-49b8-94ff-e58ebdf8ae09
+  ocr-BV17iTY6VE1B: b9225a17-a82a-4a98-86d5-c4ee46b20673
+  ocr-BV15pT166Eks: 18d78a24-6108-485d-89ec-5ba5830696d2
+  ocr-BV1b4NL6BEgD: 4483866e-7c5c-4bb1-97d7-2584b3db83ee
+
+claims:
+  - key: definition
+    statement: "瓦洛兰特师徒杯阿辙在进点时质疑希咩咩实力"
+    evidence: [ocr-narration-BV1Xsuc67E8r]
+    stance: supports
+  - key: usage_context
+    statement: "质疑或者压力团队成员，但现在因为梗的存在更表示调侃"
+    evidence: [ocr-narration-BV1Xsuc67E8r]
+    stance: supports
+
+events:
+  - event_type: remix
+    description: "azhe 出现衍生作品《辙哥开源“你会XX吗” 赛后复盘莲哥看悠一拆包失误“你会拆包》"
+    occurred_at_start: 2026-06-29T00:00:00+08:00
+    time_precision: day
+    time_basis: 平台显示的投稿时间，经 BV1Xsuc67E8r 画面引用发现
+    evidence: [ocr-BV1pUKD6PEZ7]
+  - event_type: remix
+    description: "azhe 出现衍生作品《众人把阿辙拉进房间，集体质问你会玩火男吗？没别的意思，我就是》"
+    occurred_at_start: 2026-07-01T00:00:00+08:00
+    time_precision: day
+    time_basis: 平台显示的投稿时间，经 BV1Xsuc67E8r 画面引用发现
+    evidence: [ocr-BV17iTY6VE1B]
+  - event_type: remix
+    description: "azhe 出现衍生作品《【阿梓】你会玩暮蝶吗yxh！我的意思是你玩的舒服吗？》"
+    occurred_at_start: 2026-07-05T00:00:00+08:00
+    time_precision: day
+    time_basis: 平台显示的投稿时间，经 BV1Xsuc67E8r 画面引用发现
+    evidence: [ocr-BV15pT166Eks]
+  - event_type: remix
+    description: "azhe 出现衍生作品《【纸飞机】压力切片man 你会做切片吗？》"
+    occurred_at_start: 2026-07-10T00:00:00+08:00
+    time_precision: day
+    time_basis: 平台显示的投稿时间，经 BV1Xsuc67E8r 画面引用发现
+    evidence: [ocr-BV1b4NL6BEgD]
+
+relations:
+  - predicate: derived_from
+    target_type: source
+    target_bv: BV1NsKQ6zEwG
+    assertion_status: supported
+    evidence: [ocr-BV1NsKQ6zEwG]
+
+gold:
+  canonical:
+    - azhe
+  alias: []
+  origin_intent:
+    - azhe的出处
+  must_not_return: []
+
+curation:
+  curator: ""
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+    - 衍生关系来自 BV1Xsuc67E8r 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+    - 传播区间 2026-06-29 .. 2026-07-10（4 条）

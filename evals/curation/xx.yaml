@@ -1,0 +1,93 @@
+# 由 evals/feasibility/prep.py drafts 从 lineage.csv 生成
+# definition / usage_context / claims 需要人工补齐，evidence 入库后再填 ID
+slug: xx
+resolved: true
+
+canonical_name: XX人吃到美食
+aliases: []
+
+# definition 必填，且 claims 里要有逐字相同的 statement（用 |- 块标量）
+definition: "本地人以为能吃到家乡菜结果吃到很诡异的创新菜"
+usage_context: "表示厌恶不理解这个做法，因为它破坏了原本好的做法"
+
+origin_status: unknown
+origin_type: unknown
+origin_ref: ""
+
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+
+sources:
+  - url: https://www.bilibili.com/video/BV1a4KU66EoX
+    role: source
+    note: "吃到美食的天津人belike（BV1vwG369EkM 画面中引用）"
+  - url: https://www.bilibili.com/video/BV1Hj3M69EFK
+    role: derivative
+    note: "东北人吃到美食belike （喵小乐配音）（BV1vwG369EkM 画面中引用）"
+  - url: https://www.bilibili.com/video/BV1Wv3F6zEZz
+    role: derivative
+    note: "四川人吃到美食belike（BV1vwG369EkM 画面中引用）"
+  - url: https://www.bilibili.com/video/BV1v73w6fEBj
+    role: derivative
+    note: "平纪沪语《把上海人送走只需要》（BV1vwG369EkM 画面中引用）"
+
+evidence_map:
+  ocr-narration-BV1vwG369EkM: af21ce5d-15a5-4a85-85f1-d596fa39ac23
+  ocr-BV1a4KU66EoX: 7e171924-9dde-4578-8fe7-5901bba36c88
+  ocr-BV1Hj3M69EFK: 056f0827-8fce-4b67-8787-a8b8ec65e7bb
+  ocr-BV1Wv3F6zEZz: e9573ef8-2098-492e-be06-991db9cfbbd9
+  ocr-BV1v73w6fEBj: 327b6e61-ebc7-4675-aa46-c8737c457980
+
+claims:
+  - key: definition
+    statement: "本地人以为能吃到家乡菜结果吃到很诡异的创新菜"
+    evidence: [ocr-narration-BV1vwG369EkM]
+    stance: supports
+  - key: usage_context
+    statement: "表示厌恶不理解这个做法，因为它破坏了原本好的做法"
+    evidence: [ocr-narration-BV1vwG369EkM]
+    stance: supports
+
+events:
+  - event_type: remix
+    description: "XX人吃到美食 出现衍生作品《东北人吃到美食belike （喵小乐配音）》"
+    occurred_at_start: 2026-07-25T00:00:00+08:00
+    time_precision: day
+    time_basis: 平台显示的投稿时间，经 BV1vwG369EkM 画面引用发现
+    evidence: [ocr-BV1Hj3M69EFK]
+  - event_type: remix
+    description: "XX人吃到美食 出现衍生作品《四川人吃到美食belike》"
+    occurred_at_start: 2026-07-27T00:00:00+08:00
+    time_precision: day
+    time_basis: 平台显示的投稿时间，经 BV1vwG369EkM 画面引用发现
+    evidence: [ocr-BV1Wv3F6zEZz]
+  - event_type: remix
+    description: "XX人吃到美食 出现衍生作品《平纪沪语《把上海人送走只需要》》"
+    occurred_at_start: 2026-07-27T00:00:00+08:00
+    time_precision: day
+    time_basis: 平台显示的投稿时间，经 BV1vwG369EkM 画面引用发现
+    evidence: [ocr-BV1v73w6fEBj]
+
+relations:
+  - predicate: derived_from
+    target_type: source
+    target_bv: BV1a4KU66EoX
+    assertion_status: supported
+    evidence: [ocr-BV1a4KU66EoX]
+
+gold:
+  canonical:
+    - XX人吃到美食
+  alias: []
+  origin_intent:
+    - XX人吃到美食的出处
+  must_not_return: []
+
+curation:
+  curator: ""
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+    - 衍生关系来自 BV1vwG369EkM 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+    - 传播区间 2026-07-25 .. 2026-07-27（3 条）

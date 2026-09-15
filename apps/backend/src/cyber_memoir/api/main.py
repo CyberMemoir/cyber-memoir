@@ -4,7 +4,7 @@ import time
 from collections import defaultdict, deque
 from typing import Annotated
 
-from fastapi import Depends, FastAPI, File, HTTPException, Request, UploadFile
+from fastapi import Depends, FastAPI, File, HTTPException, Query, Request, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, Response
 from pydantic import BaseModel, Field
@@ -16,11 +16,11 @@ from sqlalchemy.orm import Session
 from cyber_memoir.adapters import storage
 from cyber_memoir.api.auth import reviewer, submitter
 from cyber_memoir.api.body_limit import BodyLimitMiddleware
-from cyber_memoir.application import content
+from cyber_memoir.application import content, universe
 from cyber_memoir.config import settings
 from cyber_memoir.db import session
 from cyber_memoir.domain.models import Alias, Entity, Evidence, EvidenceLink, Job, Meme, Revision, Source, now
-from cyber_memoir.domain.responses import AnswerOut, EvidenceOut, MemeOut, SearchOut
+from cyber_memoir.domain.responses import AnswerOut, EvidenceOut, MemeOut, MemeRef, SearchOut, UniverseOut
 from cyber_memoir.domain.schemas import (
     Material,
     MemeDraft,
@@ -28,7 +28,9 @@ from cyber_memoir.domain.schemas import (
     Reason,
     ReviewAction,
     SearchRequest,
+    SourceMetadata,
     Submission,
+    TierAction,
     normalize,
 )
 from cyber_memoir.rag.answer import answer
@@ -213,6 +215,27 @@ def evidence_artifact(evidence_id: str, db: DB):
     )
 
 
+@app.get("/v1/memes", response_model=list[MemeRef])
+def memes_by_name(db: DB, name: str = Query(min_length=1, max_length=200)):
+    """Exact lookup by canonical name, so a tool that knows the name need not search.
+
+    Search is the wrong instrument for this: it is ranked, it is approximate, and it
+    drags in the reranker, so a name a caller already knows exactly cannot be turned
+    into an id while any of that is unavailable.
+    """
+    return content.find_by_name(db, name)
+
+
+@app.get("/v1/universe", response_model=UniverseOut)
+def universe_api(db: DB):
+    """Every published meme as a galaxy of dated stars, with the time axes to draw them on.
+
+    Read-only and uncached: it is a handful of queries over the published set, and a cache
+    would be one more place a retraction could fail to take effect.
+    """
+    return universe.build(db)
+
+
 @app.get("/v1/memes/{meme_id}", response_model=MemeOut)
 def meme_detail(meme_id: str, db: DB):
     return content.detail(db, meme_id)
@@ -271,6 +294,37 @@ def review_source(source_id: str, db: DB, who: Reviewer):
 def review_evidence(evidence_id: str, db: DB, who: Reviewer):
     item = content.require(db, Evidence, evidence_id)
     return {**content.dump(item), "source": content.dump(db.get(Source, item.source_id))}
+
+
+@app.post("/v1/reviews/sources/{source_id}/tier")
+def set_source_tier(source_id: str, body: TierAction, db: DB, who: Reviewer):
+    """Authority of the source itself (rubric A-D), which Evidence.kind does not capture.
+
+    A reviewer's judgement, not a submitter's claim, so an explainer video cannot
+    present itself as a primary record.
+    """
+    source = content.require(db, Source, source_id)
+    source.source_tier, source.source_tier_reason = body.tier, body.reason
+    db.commit()
+    return {"id": source.id, "source_tier": source.source_tier}
+
+
+@app.post("/v1/reviews/sources/{source_id}/metadata")
+def set_source_metadata(source_id: str, body: SourceMetadata, db: DB, who: Reviewer):
+    """Record platform facts by hand when the platform can no longer be asked.
+
+    Refreshing is the right path while a source is still fetchable; this exists for the
+    ones that are gone, where an earlier observation is the only record left. The note
+    keeps that provenance visible rather than passing it off as a fetched value.
+    """
+    source = content.require(db, Source, source_id)
+    if body.title is not None:
+        source.title = body.title
+    if body.platform_published_at is not None:
+        source.platform_published_at = body.platform_published_at
+    source.metadata_note = body.reason
+    db.commit()
+    return content.dump(source)
 
 
 @app.post("/v1/reviews/sources/{source_id}/refresh", status_code=202)

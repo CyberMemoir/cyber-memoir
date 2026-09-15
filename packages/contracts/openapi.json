@@ -413,6 +413,71 @@
         }
       }
     },
+    "/v1/memes": {
+      "get": {
+        "summary": "Memes By Name",
+        "description": "Exact lookup by canonical name, so a tool that knows the name need not search.\n\nSearch is the wrong instrument for this: it is ranked, it is approximate, and it\ndrags in the reranker, so a name a caller already knows exactly cannot be turned\ninto an id while any of that is unavailable.",
+        "operationId": "memes_by_name_v1_memes_get",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200,
+              "title": "Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MemeRef"
+                  },
+                  "title": "Response Memes By Name V1 Memes Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/universe": {
+      "get": {
+        "summary": "Universe Api",
+        "description": "Every published meme as a galaxy of dated stars, with the time axes to draw them on.\n\nRead-only and uncached: it is a handful of queries over the published set, and a cache\nwould be one more place a retraction could fail to take effect.",
+        "operationId": "universe_api_v1_universe_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UniverseOut"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/memes/{meme_id}": {
       "get": {
         "summary": "Meme Detail",
@@ -722,6 +787,122 @@
             }
           }
         ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/reviews/sources/{source_id}/tier": {
+      "post": {
+        "summary": "Set Source Tier",
+        "description": "Authority of the source itself (rubric A-D), which Evidence.kind does not capture.\n\nA reviewer's judgement, not a submitter's claim, so an explainer video cannot\npresent itself as a primary record.",
+        "operationId": "set_source_tier_v1_reviews_sources__source_id__tier_post",
+        "parameters": [
+          {
+            "name": "source_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Source Id"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TierAction"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/reviews/sources/{source_id}/metadata": {
+      "post": {
+        "summary": "Set Source Metadata",
+        "description": "Record platform facts by hand when the platform can no longer be asked.\n\nRefreshing is the right path while a source is still fetchable; this exists for the\nones that are gone, where an earlier observation is the only record left. The note\nkeeps that provenance visible rather than passing it off as a fetched value.",
+        "operationId": "set_source_metadata_v1_reviews_sources__source_id__metadata_post",
+        "parameters": [
+          {
+            "name": "source_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Source Id"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SourceMetadata"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -1532,6 +1713,51 @@
         ],
         "title": "ClaimOut"
       },
+      "Emergence": {
+        "properties": {
+          "at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "At"
+          },
+          "date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Date"
+          },
+          "basis": {
+            "type": "string",
+            "enum": [
+              "derivative",
+              "popularized_by",
+              "source",
+              "none"
+            ],
+            "title": "Basis"
+          }
+        },
+        "type": "object",
+        "required": [
+          "at",
+          "date",
+          "basis"
+        ],
+        "title": "Emergence",
+        "description": "When the meme is first evidenced as a meme: its first derivative, else the work that\npopularized it, else its earliest upstream source. basis says which, so a galaxy dated\nonly by old material can be drawn as such."
+      },
       "EntityInput": {
         "properties": {
           "entity_type": {
@@ -1625,6 +1851,17 @@
             "minLength": 1,
             "title": "Time Basis"
           },
+          "to_source_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "To Source Id"
+          },
           "evidence_ids": {
             "items": {
               "type": "string"
@@ -1689,6 +1926,27 @@
           "time_basis": {
             "type": "string",
             "title": "Time Basis"
+          },
+          "to_source_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "To Source Id"
+          },
+          "target": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TargetRef"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "evidence_ids": {
             "items": {
@@ -1779,6 +2037,85 @@
           "created_at"
         ],
         "title": "EvidenceOut"
+      },
+      "Galaxy": {
+        "properties": {
+          "meme_id": {
+            "type": "string",
+            "title": "Meme Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "definition": {
+            "type": "string",
+            "title": "Definition"
+          },
+          "emergence": {
+            "$ref": "#/components/schemas/Emergence"
+          },
+          "u": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "U"
+          },
+          "stars": {
+            "items": {
+              "$ref": "#/components/schemas/Star"
+            },
+            "type": "array",
+            "title": "Stars"
+          },
+          "milestones": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "type": "object",
+            "title": "Milestones",
+            "description": "The first star of each stage by date. null means the stage has no evidence at all - draw an empty slot - which differs from a stage whose stars are merely undated."
+          },
+          "bands": {
+            "items": {
+              "$ref": "#/components/schemas/UniverseBand"
+            },
+            "type": "array",
+            "title": "Bands"
+          },
+          "ticks": {
+            "items": {
+              "$ref": "#/components/schemas/UniverseTick"
+            },
+            "type": "array",
+            "title": "Ticks"
+          }
+        },
+        "type": "object",
+        "required": [
+          "meme_id",
+          "name",
+          "definition",
+          "emergence",
+          "u",
+          "stars",
+          "milestones",
+          "bands",
+          "ticks"
+        ],
+        "title": "Galaxy"
       },
       "HTTPValidationError": {
         "properties": {
@@ -1978,6 +2315,17 @@
             },
             "type": "array",
             "title": "Matches"
+          },
+          "retrieval_score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Retrieval Score"
           }
         },
         "type": "object",
@@ -1995,6 +2343,36 @@
           "relations"
         ],
         "title": "MemeOut"
+      },
+      "MemeRef": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "canonical_name": {
+            "type": "string",
+            "title": "Canonical Name"
+          },
+          "published_revision": {
+            "type": "integer",
+            "title": "Published Revision"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "canonical_name",
+          "published_revision",
+          "created_at"
+        ],
+        "title": "MemeRef",
+        "description": "Enough to address a meme and to tell two same-named ones apart."
       },
       "MergeRequest": {
         "properties": {
@@ -2039,6 +2417,7 @@
               "derived_from",
               "variant_of",
               "claimed_origin",
+              "popularized_by",
               "mentions",
               "documented_in"
             ],
@@ -2132,6 +2511,16 @@
             "type": "string",
             "title": "Assertion Status"
           },
+          "target": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TargetRef"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "evidence_ids": {
             "items": {
               "type": "string"
@@ -2217,6 +2606,11 @@
             "type": "boolean",
             "title": "Total Is Candidate Count",
             "default": false
+          },
+          "scores_calibrated": {
+            "type": "boolean",
+            "title": "Scores Calibrated",
+            "default": false
           }
         },
         "type": "object",
@@ -2294,6 +2688,46 @@
         "type": "object",
         "title": "SearchRequest"
       },
+      "SourceMetadata": {
+        "properties": {
+          "reason": {
+            "type": "string",
+            "maxLength": 2000,
+            "minLength": 3,
+            "title": "Reason"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 500
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "platform_published_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Platform Published At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "reason"
+        ],
+        "title": "SourceMetadata",
+        "description": "Reviewer-supplied platform facts, for sources the platform will not serve again."
+      },
       "SourceOut": {
         "properties": {
           "id": {
@@ -2332,6 +2766,28 @@
             "type": "string",
             "title": "Availability"
           },
+          "source_tier": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Tier"
+          },
+          "metadata_note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Metadata Note"
+          },
           "created_at": {
             "type": "string",
             "format": "date-time",
@@ -2350,6 +2806,143 @@
           "created_at"
         ],
         "title": "SourceOut"
+      },
+      "Star": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "stage": {
+            "type": "string",
+            "enum": [
+              "source",
+              "popularized_by",
+              "derivative",
+              "derived_meme"
+            ],
+            "title": "Stage"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "source",
+              "meme"
+            ],
+            "title": "Kind"
+          },
+          "target_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Target Id"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url"
+          },
+          "bvid": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bvid"
+          },
+          "tier": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tier"
+          },
+          "at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "At"
+          },
+          "date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Date"
+          },
+          "t": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "T"
+          },
+          "milestone": {
+            "type": "boolean",
+            "title": "Milestone"
+          },
+          "evidence_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Evidence Ids"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "stage",
+          "kind",
+          "target_id",
+          "label",
+          "url",
+          "bvid",
+          "tier",
+          "at",
+          "date",
+          "t",
+          "milestone",
+          "evidence_ids"
+        ],
+        "title": "Star",
+        "description": "One dated piece of a meme's lineage.\n\nt is its position on the galaxy's time axis, 0 at the earliest star, and null when\nthe star has no date - an undated star is evidence without a time, which is not the\nsame as a missing stage. date is the calendar day in Beijing; never derive it from\nat, which is UTC."
       },
       "Submission": {
         "properties": {
@@ -2371,6 +2964,243 @@
           "url"
         ],
         "title": "Submission"
+      },
+      "TargetRef": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "meme",
+              "source",
+              "entity"
+            ],
+            "title": "Type"
+          },
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url"
+          },
+          "published_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Published At"
+          },
+          "availability": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Availability"
+          },
+          "tier": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tier"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "id",
+          "label"
+        ],
+        "title": "TargetRef",
+        "description": "The far end of an event or relation, named and dated, so a reader needs no second\nrequest to label an edge or place it in time.\n\navailability means different things by type, so switch on type before reading it.\nFor a source it is the archive's ingestion state - pending, needs_material,\nmaterial_available - and says nothing about whether the video is still up on the\nplatform; no takedown status is recorded anywhere. For a meme it is published or\nwithdrawn, and a withdrawn target comes back with no label.\n\npublished_at is an instant in UTC. A video posted at 00:00 in Beijing comes back as\n16:00 the previous day, so slicing the first ten characters reads the wrong date;\nrender it in Asia/Shanghai."
+      },
+      "TierAction": {
+        "properties": {
+          "reason": {
+            "type": "string",
+            "maxLength": 2000,
+            "minLength": 3,
+            "title": "Reason"
+          },
+          "tier": {
+            "type": "string",
+            "enum": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "title": "Tier"
+          }
+        },
+        "type": "object",
+        "required": [
+          "reason",
+          "tier"
+        ],
+        "title": "TierAction"
+      },
+      "UniverseAxis": {
+        "properties": {
+          "bands": {
+            "items": {
+              "$ref": "#/components/schemas/UniverseBand"
+            },
+            "type": "array",
+            "title": "Bands"
+          },
+          "ticks": {
+            "items": {
+              "$ref": "#/components/schemas/UniverseTick"
+            },
+            "type": "array",
+            "title": "Ticks"
+          }
+        },
+        "type": "object",
+        "required": [
+          "bands",
+          "ticks"
+        ],
+        "title": "UniverseAxis"
+      },
+      "UniverseBand": {
+        "properties": {
+          "start": {
+            "type": "number",
+            "title": "Start"
+          },
+          "end": {
+            "type": "number",
+            "title": "End"
+          },
+          "date_from": {
+            "type": "string",
+            "title": "Date From"
+          },
+          "date_to": {
+            "type": "string",
+            "title": "Date To"
+          },
+          "days": {
+            "type": "integer",
+            "title": "Days"
+          }
+        },
+        "type": "object",
+        "required": [
+          "start",
+          "end",
+          "date_from",
+          "date_to",
+          "days"
+        ],
+        "title": "UniverseBand",
+        "description": "A quiet period cut out of the axis. start and end are axis positions; days is how\nlong the silence really was, which the band must show since its width does not."
+      },
+      "UniverseLink": {
+        "properties": {
+          "from_meme_id": {
+            "type": "string",
+            "title": "From Meme Id"
+          },
+          "to_meme_id": {
+            "type": "string",
+            "title": "To Meme Id"
+          },
+          "predicate": {
+            "type": "string",
+            "title": "Predicate"
+          }
+        },
+        "type": "object",
+        "required": [
+          "from_meme_id",
+          "to_meme_id",
+          "predicate"
+        ],
+        "title": "UniverseLink"
+      },
+      "UniverseOut": {
+        "properties": {
+          "timezone": {
+            "type": "string",
+            "title": "Timezone"
+          },
+          "quiet_gap_days": {
+            "type": "integer",
+            "title": "Quiet Gap Days"
+          },
+          "axis": {
+            "$ref": "#/components/schemas/UniverseAxis"
+          },
+          "galaxies": {
+            "items": {
+              "$ref": "#/components/schemas/Galaxy"
+            },
+            "type": "array",
+            "title": "Galaxies"
+          },
+          "links": {
+            "items": {
+              "$ref": "#/components/schemas/UniverseLink"
+            },
+            "type": "array",
+            "title": "Links"
+          }
+        },
+        "type": "object",
+        "required": [
+          "timezone",
+          "quiet_gap_days",
+          "axis",
+          "galaxies",
+          "links"
+        ],
+        "title": "UniverseOut"
+      },
+      "UniverseTick": {
+        "properties": {
+          "t": {
+            "type": "number",
+            "title": "T"
+          },
+          "date": {
+            "type": "string",
+            "title": "Date"
+          }
+        },
+        "type": "object",
+        "required": [
+          "t",
+          "date"
+        ],
+        "title": "UniverseTick"
       },
       "ValidationError": {
         "properties": {

@@ -24,13 +24,40 @@ class Settings(BaseSettings):
     embedding_model: str = "BAAI/bge-m3"
     reranker_backend: str = "disabled"
     reranker_model: str = "BAAI/bge-reranker-v2-m3"
+    # 0 leaves torch's own choice alone; set it to cap what one rerank may occupy.
+    reranker_threads: int = 0
     llm_base_url: str = ""
     llm_api_key: str = ""
     llm_model: str = ""
     asr_model: str = "small"
     auto_media: bool = False
     task_timeout_seconds: int = 1800
+    # Platform fetching. Bilibili answers bursts with HTTP 412 no matter how correctly the
+    # request is signed, so the constraint is volume over time, not protocol.
+    #
+    # Measured over four paced passes: roughly a dozen requests get through before throttling
+    # begins, whatever the spacing - 40s and 60s intervals both hit it - and what restores
+    # service is a long quiet period, with a 20-minute cooldown giving the best recovery. So
+    # the budget is per window rather than per request, and 300s spreads about a dozen fetches
+    # across an hour instead of burning them in ten minutes and stalling.
+    platform_fetch_interval_seconds: int = 300
+    platform_block_backoff_seconds: int = 3600
+    platform_block_max_attempts: int = 48
+    job_max_attempts: int = 3
+    # A cookies.txt readable inside the container; browser profiles are not available there.
+    platform_cookies_file: str = ""
     max_material_bytes: int = 16 * 1024 * 1024
+    # Retrieval fusion. Tunable so the gold set can sweep them; see ADR 0004.
+    rrf_k: int = 60
+    rrf_weight_exact_alias: float = 3.0
+    rrf_weight_bm25: float = 1.0
+    rrf_weight_vector: float = 1.0
+    retrieval_channel_limit: int = 100
+    retrieval_per_source_cap: int = 4
+    retrieval_candidate_cap: int = 50
+    # Reranker score below which a chunk cannot support an answer (ADR 0004).
+    # Only enforceable when a calibrated scorer ran; 0 disables the floor entirely.
+    answer_score_floor: float = 0.35
 
 
 @lru_cache

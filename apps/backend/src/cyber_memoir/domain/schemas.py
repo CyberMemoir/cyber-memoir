@@ -35,6 +35,7 @@ class EventInput(BaseModel):
     occurred_at_end: datetime | None = None
     time_precision: Literal["unknown", "year", "month", "day", "second"] = "unknown"
     time_basis: str = Field(min_length=1, max_length=500)
+    to_source_id: str | None = None
     evidence_ids: list[str] = Field(min_length=1, max_length=30)
 
     @model_validator(mode="after")
@@ -50,7 +51,9 @@ class EventInput(BaseModel):
 
 
 class RelationInput(BaseModel):
-    predicate: Literal["derived_from", "variant_of", "claimed_origin", "mentions", "documented_in"]
+    predicate: Literal[
+        "derived_from", "variant_of", "claimed_origin", "popularized_by", "mentions", "documented_in"
+    ]
     target_type: Literal["meme", "source", "entity"]
     target_id: str
     assertion_status: Literal["supported", "disputed"] = "supported"
@@ -89,3 +92,22 @@ class Reason(BaseModel):
 
 class MergeRequest(Reason):
     target_id: str
+
+
+class TierAction(Reason):
+    tier: Literal["A", "B", "C", "D"]
+
+
+class SourceMetadata(Reason):
+    """Reviewer-supplied platform facts, for sources the platform will not serve again."""
+
+    title: str | None = Field(default=None, max_length=500)
+    platform_published_at: datetime | None = None
+
+    @model_validator(mode="after")
+    def something_to_set(self):
+        if self.title is None and self.platform_published_at is None:
+            raise ValueError("至少要提供 title 或 platform_published_at 之一")
+        if self.platform_published_at and self.platform_published_at.tzinfo is None:
+            raise ValueError("时间必须包含时区")
+        return self

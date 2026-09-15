@@ -10,6 +10,7 @@ export function Header() {
         </Link>
         <nav aria-label="主导航">
           <Link href="/">记忆索引</Link>
+          <Link href="/universe">梗的星图</Link>
           <Link href="/submit">提交来源</Link>
           <Link href="/review">审核工作台</Link>
         </nav>

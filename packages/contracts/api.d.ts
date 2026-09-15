@@ -191,6 +191,53 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/memes": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Memes By Name
+         * @description Exact lookup by canonical name, so a tool that knows the name need not search.
+         *
+         *     Search is the wrong instrument for this: it is ranked, it is approximate, and it
+         *     drags in the reranker, so a name a caller already knows exactly cannot be turned
+         *     into an id while any of that is unavailable.
+         */
+        get: operations["memes_by_name_v1_memes_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/universe": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Universe Api
+         * @description Every published meme as a galaxy of dated stars, with the time axes to draw them on.
+         *
+         *     Read-only and uncached: it is a handful of queries over the published set, and a cache
+         *     would be one more place a retraction could fail to take effect.
+         */
+        get: operations["universe_api_v1_universe_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/memes/{meme_id}": {
         parameters: {
             query?: never;
@@ -321,6 +368,53 @@ export interface paths {
         get: operations["review_evidence_v1_reviews_evidence__evidence_id__get"];
         put?: never;
         post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/reviews/sources/{source_id}/tier": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Set Source Tier
+         * @description Authority of the source itself (rubric A-D), which Evidence.kind does not capture.
+         *
+         *     A reviewer's judgement, not a submitter's claim, so an explainer video cannot
+         *     present itself as a primary record.
+         */
+        post: operations["set_source_tier_v1_reviews_sources__source_id__tier_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/reviews/sources/{source_id}/metadata": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Set Source Metadata
+         * @description Record platform facts by hand when the platform can no longer be asked.
+         *
+         *     Refreshing is the right path while a source is still fetchable; this exists for the
+         *     ones that are gone, where an earlier observation is the only record left. The note
+         *     keeps that provenance visible rather than passing it off as a fetched value.
+         */
+        post: operations["set_source_metadata_v1_reviews_sources__source_id__metadata_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -592,6 +686,23 @@ export interface components {
             /** Evidence Ids */
             evidence_ids: string[];
         };
+        /**
+         * Emergence
+         * @description When the meme is first evidenced as a meme: its first derivative, else the work that
+         *     popularized it, else its earliest upstream source. basis says which, so a galaxy dated
+         *     only by old material can be drawn as such.
+         */
+        Emergence: {
+            /** At */
+            at: string | null;
+            /** Date */
+            date: string | null;
+            /**
+             * Basis
+             * @enum {string}
+             */
+            basis: "derivative" | "popularized_by" | "source" | "none";
+        };
         /** EntityInput */
         EntityInput: {
             /** Entity Type */
@@ -626,6 +737,8 @@ export interface components {
             time_precision: "unknown" | "year" | "month" | "day" | "second";
             /** Time Basis */
             time_basis: string;
+            /** To Source Id */
+            to_source_id?: string | null;
             /** Evidence Ids */
             evidence_ids: string[];
         };
@@ -645,6 +758,9 @@ export interface components {
             time_precision: string;
             /** Time Basis */
             time_basis: string;
+            /** To Source Id */
+            to_source_id?: string | null;
+            target?: components["schemas"]["TargetRef"] | null;
             /** Evidence Ids */
             evidence_ids?: string[];
         };
@@ -676,6 +792,31 @@ export interface components {
              */
             created_at: string;
             source?: components["schemas"]["SourceOut"] | null;
+        };
+        /** Galaxy */
+        Galaxy: {
+            /** Meme Id */
+            meme_id: string;
+            /** Name */
+            name: string;
+            /** Definition */
+            definition: string;
+            emergence: components["schemas"]["Emergence"];
+            /** U */
+            u: number | null;
+            /** Stars */
+            stars: components["schemas"]["Star"][];
+            /**
+             * Milestones
+             * @description The first star of each stage by date. null means the stage has no evidence at all - draw an empty slot - which differs from a stage whose stars are merely undated.
+             */
+            milestones: {
+                [key: string]: string | null;
+            };
+            /** Bands */
+            bands: components["schemas"]["UniverseBand"][];
+            /** Ticks */
+            ticks: components["schemas"]["UniverseTick"][];
         };
         /** HTTPValidationError */
         HTTPValidationError: {
@@ -761,6 +902,25 @@ export interface components {
             matches?: {
                 [key: string]: unknown;
             }[];
+            /** Retrieval Score */
+            retrieval_score?: number | null;
+        };
+        /**
+         * MemeRef
+         * @description Enough to address a meme and to tell two same-named ones apart.
+         */
+        MemeRef: {
+            /** Id */
+            id: string;
+            /** Canonical Name */
+            canonical_name: string;
+            /** Published Revision */
+            published_revision: number;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
         };
         /** MergeRequest */
         MergeRequest: {
@@ -780,7 +940,7 @@ export interface components {
              * Predicate
              * @enum {string}
              */
-            predicate: "derived_from" | "variant_of" | "claimed_origin" | "mentions" | "documented_in";
+            predicate: "derived_from" | "variant_of" | "claimed_origin" | "popularized_by" | "mentions" | "documented_in";
             /**
              * Target Type
              * @enum {string}
@@ -811,6 +971,7 @@ export interface components {
             to_entity_id: string | null;
             /** Assertion Status */
             assertion_status: string;
+            target?: components["schemas"]["TargetRef"] | null;
             /** Evidence Ids */
             evidence_ids?: string[];
         };
@@ -843,6 +1004,11 @@ export interface components {
              * @default false
              */
             total_is_candidate_count: boolean;
+            /**
+             * Scores Calibrated
+             * @default false
+             */
+            scores_calibrated: boolean;
         };
         /** SearchRequest */
         SearchRequest: {
@@ -868,6 +1034,18 @@ export interface components {
              */
             offset: number;
         };
+        /**
+         * SourceMetadata
+         * @description Reviewer-supplied platform facts, for sources the platform will not serve again.
+         */
+        SourceMetadata: {
+            /** Reason */
+            reason: string;
+            /** Title */
+            title?: string | null;
+            /** Platform Published At */
+            platform_published_at?: string | null;
+        };
         /** SourceOut */
         SourceOut: {
             /** Id */
@@ -884,11 +1062,58 @@ export interface components {
             platform_published_at: string | null;
             /** Availability */
             availability: string;
+            /** Source Tier */
+            source_tier?: string | null;
+            /** Metadata Note */
+            metadata_note?: string | null;
             /**
              * Created At
              * Format: date-time
              */
             created_at: string;
+        };
+        /**
+         * Star
+         * @description One dated piece of a meme's lineage.
+         *
+         *     t is its position on the galaxy's time axis, 0 at the earliest star, and null when
+         *     the star has no date - an undated star is evidence without a time, which is not the
+         *     same as a missing stage. date is the calendar day in Beijing; never derive it from
+         *     at, which is UTC.
+         */
+        Star: {
+            /** Id */
+            id: string;
+            /**
+             * Stage
+             * @enum {string}
+             */
+            stage: "source" | "popularized_by" | "derivative" | "derived_meme";
+            /**
+             * Kind
+             * @enum {string}
+             */
+            kind: "source" | "meme";
+            /** Target Id */
+            target_id: string | null;
+            /** Label */
+            label: string;
+            /** Url */
+            url: string | null;
+            /** Bvid */
+            bvid: string | null;
+            /** Tier */
+            tier: string | null;
+            /** At */
+            at: string | null;
+            /** Date */
+            date: string | null;
+            /** T */
+            t: number | null;
+            /** Milestone */
+            milestone: boolean;
+            /** Evidence Ids */
+            evidence_ids: string[];
         };
         /** Submission */
         Submission: {
@@ -899,6 +1124,102 @@ export interface components {
              * @default
              */
             title: string;
+        };
+        /**
+         * TargetRef
+         * @description The far end of an event or relation, named and dated, so a reader needs no second
+         *     request to label an edge or place it in time.
+         *
+         *     availability means different things by type, so switch on type before reading it.
+         *     For a source it is the archive's ingestion state - pending, needs_material,
+         *     material_available - and says nothing about whether the video is still up on the
+         *     platform; no takedown status is recorded anywhere. For a meme it is published or
+         *     withdrawn, and a withdrawn target comes back with no label.
+         *
+         *     published_at is an instant in UTC. A video posted at 00:00 in Beijing comes back as
+         *     16:00 the previous day, so slicing the first ten characters reads the wrong date;
+         *     render it in Asia/Shanghai.
+         */
+        TargetRef: {
+            /**
+             * Type
+             * @enum {string}
+             */
+            type: "meme" | "source" | "entity";
+            /** Id */
+            id: string;
+            /** Label */
+            label: string;
+            /** Url */
+            url?: string | null;
+            /** Published At */
+            published_at?: string | null;
+            /** Availability */
+            availability?: string | null;
+            /** Tier */
+            tier?: string | null;
+        };
+        /** TierAction */
+        TierAction: {
+            /** Reason */
+            reason: string;
+            /**
+             * Tier
+             * @enum {string}
+             */
+            tier: "A" | "B" | "C" | "D";
+        };
+        /** UniverseAxis */
+        UniverseAxis: {
+            /** Bands */
+            bands: components["schemas"]["UniverseBand"][];
+            /** Ticks */
+            ticks: components["schemas"]["UniverseTick"][];
+        };
+        /**
+         * UniverseBand
+         * @description A quiet period cut out of the axis. start and end are axis positions; days is how
+         *     long the silence really was, which the band must show since its width does not.
+         */
+        UniverseBand: {
+            /** Start */
+            start: number;
+            /** End */
+            end: number;
+            /** Date From */
+            date_from: string;
+            /** Date To */
+            date_to: string;
+            /** Days */
+            days: number;
+        };
+        /** UniverseLink */
+        UniverseLink: {
+            /** From Meme Id */
+            from_meme_id: string;
+            /** To Meme Id */
+            to_meme_id: string;
+            /** Predicate */
+            predicate: string;
+        };
+        /** UniverseOut */
+        UniverseOut: {
+            /** Timezone */
+            timezone: string;
+            /** Quiet Gap Days */
+            quiet_gap_days: number;
+            axis: components["schemas"]["UniverseAxis"];
+            /** Galaxies */
+            galaxies: components["schemas"]["Galaxy"][];
+            /** Links */
+            links: components["schemas"]["UniverseLink"][];
+        };
+        /** UniverseTick */
+        UniverseTick: {
+            /** T */
+            t: number;
+            /** Date */
+            date: string;
         };
         /** ValidationError */
         ValidationError: {
@@ -1248,6 +1569,57 @@ export interface operations {
             };
         };
     };
+    memes_by_name_v1_memes_get: {
+        parameters: {
+            query: {
+                name: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MemeRef"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    universe_api_v1_universe_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UniverseOut"];
+                };
+            };
+        };
+    };
     meme_detail_v1_memes__meme_id__get: {
         parameters: {
             query?: never;
@@ -1485,6 +1857,80 @@ export interface operations {
             cookie?: never;
         };
         requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    set_source_tier_v1_reviews_sources__source_id__tier_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path: {
+                source_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TierAction"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    set_source_metadata_v1_reviews_sources__source_id__metadata_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path: {
+                source_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SourceMetadata"];
+            };
+        };
         responses: {
             /** @description Successful Response */
             200: {

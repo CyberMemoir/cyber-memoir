@@ -13,11 +13,13 @@ export default function ArchivePage() {
   const [answer, setAnswer] = useState<Answer | null>(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
+  const [elapsed, setElapsed] = useState(0);
   const serial = useRef(0);
   async function run(nextPlatform = platform, offset = 0) {
     const id = ++serial.current;
     setError("");
     setLoading(true);
+    setElapsed(0);
     setAnswer(null);
     try {
       const body = { query, platform: nextPlatform, limit: 20, offset };
@@ -41,6 +43,14 @@ export default function ArchivePage() {
   useEffect(() => {
     void run(); /* initial catalog */
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  /* An answer is not instant, so the wait has to look like work rather than a hang,
+     without promising a duration this deployment cannot keep. Nothing here fires on
+     a keystroke: the run is submitted with the form. */
+  useEffect(() => {
+    if (!loading) return;
+    const timer = window.setInterval(() => setElapsed((n) => n + 1), 1000);
+    return () => window.clearInterval(timer);
+  }, [loading]);
   return (
     <main id="main" className="archive-main">
       <section className="intro">
@@ -66,9 +76,14 @@ export default function ArchivePage() {
           onChange={(e) => setQuery(e.target.value)}
         />
         <button type="submit" disabled={loading}>
-          {loading ? "检索中…" : "搜索记忆"}
+          {loading && elapsed > 0 ? `检索中… ${elapsed}s` : "搜索记忆"}
         </button>
       </form>
+      {loading && elapsed > 2 && (
+        <p className="retrieval-note" role="status">
+          正在检索并核对证据，请勿关闭页面。
+        </p>
+      )}
       <div className="filter-bar">
         <div className="tabs" aria-label="平台筛选">
           {[
@@ -114,10 +129,16 @@ export default function ArchivePage() {
               {result?.total ?? "—"} 条{query ? "相关" : "已审核"}记录
             </span>
           </div>
+          {/* An abstention is a result. When `claims` is empty the answer text and
+              the uncertainties are still the API's own, so they are rendered in the
+              same place and the same style as any other answer - never as an error. */}
           {answer && (
             <section className="answer">
               <h3>基于证据的回答</h3>
               <p className="answer-text">{answer.answer}</p>
+              {answer.claims.length === 0 && (
+                <p className="retrieval-note">本次回答没有可引用的证据断言。</p>
+              )}
               {answer.uncertainties.map((t) => (
                 <p className="uncertainty" key={t}>
                   <Icon name="info" size={17} />
@@ -135,6 +156,17 @@ export default function ArchivePage() {
                   </li>
                 ))}
               </ol>
+              {/* How the answer was produced is our plumbing, not the reader's
+                  question, so it is folded away. The degraded-channel line stays
+                  where it always was, below the whole page. */}
+              <details className="answer-details">
+                <summary>检索细节</summary>
+                <p className="retrieval-note">
+                  回答模式：{answer.mode}
+                  {answer.channels.length > 0 &&
+                    ` ｜ 检索通道：${answer.channels.join(" · ")}`}
+                </p>
+              </details>
             </section>
           )}
           {!loading && !result?.items.length && !error && (
@@ -170,6 +202,12 @@ export default function ArchivePage() {
                 </span>
                 <span>
                   {meme.evidence.length} 份证据 · 修订 {meme.published_revision}
+                  {/* A retrieval score is only a score when the pipeline says its
+                      scores are calibrated; otherwise the number would be noise. */}
+                  {result.scores_calibrated &&
+                  typeof meme.retrieval_score === "number"
+                    ? ` · 检索分 ${meme.retrieval_score.toFixed(3)}`
+                    : ""}
                 </span>
               </div>
               <Link href={`/memes/${meme.id}`}>
@@ -190,7 +228,10 @@ export default function ArchivePage() {
                       ? "来源存在争议"
                       : "有证据支持的来源主张"}
                 </span>
-                <Link href={`/memes/${meme.id}`}>查看语境与证据</Link>
+                <span className="row-links">
+                  <Link href={`/universe?meme=${meme.id}`}>在星图中查看</Link>
+                  <Link href={`/memes/${meme.id}`}>查看语境与证据</Link>
+                </span>
               </div>
             </article>
           ))}

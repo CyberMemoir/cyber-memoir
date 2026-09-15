@@ -2,7 +2,13 @@
 
 import os
 import secrets
+import sys
 from pathlib import Path
+
+# Windows consoles default to cp1252 and would fail on the Chinese success message,
+# reporting a non-zero exit for a run that already wrote .env.
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 root = Path(__file__).resolve().parents[1]
 target = root / ".env"

@@ -16,6 +16,11 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+# Split so one capability can be installed without the others: enabling a reranker
+# should not drag in the OCR and ASR stacks. `models` stays as the union.
+embeddings = ["FlagEmbedding>=1.3,<2"]
+asr = ["faster-whisper>=1.1,<2"]
+ocr = ["Pillow>=11,<13", "paddleocr>=3,<4", "paddlepaddle>=3,<4"]
 models = ["FlagEmbedding>=1.3,<2", "faster-whisper>=1.1,<2", "Pillow>=11,<13", "paddleocr>=3,<4", "paddlepaddle>=3,<4"]
 
 [dependency-groups]
