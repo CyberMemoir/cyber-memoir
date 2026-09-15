@@ -54,9 +54,7 @@ def test_a_source_target_is_named_linked_dated_and_tiered(client, prepared):
 
     target = client.get(f"/v1/memes/{made['meme_id']}").json()["relations"][0]["target"]
     assert target["type"] == "source" and target["id"] == source_id
-    assert target["label"], (
-        "a source edge must carry something readable, never only its id"
-    )
+    assert target["label"], "a source edge must carry something readable, never only its id"
     assert target["url"].startswith("https://www.bilibili.com/video/")
     assert target["tier"] == "A"
     assert "published_at" in target and "availability" in target
@@ -110,9 +108,7 @@ def test_a_meme_target_stops_being_named_once_retracted(client, prepared):
         ],
     )
 
-    before = client.get(f"/v1/memes/{child['meme_id']}").json()["relations"][0][
-        "target"
-    ]
+    before = client.get(f"/v1/memes/{child['meme_id']}").json()["relations"][0]["target"]
     assert before == {
         **before,
         "type": "meme",
