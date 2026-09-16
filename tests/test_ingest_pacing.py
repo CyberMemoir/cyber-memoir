@@ -110,3 +110,59 @@ def test_the_gate_lets_the_first_fetch_through_on_a_freshly_booted_host(monkeypa
     assert main._claim_fetch_slot(DeadRedis(), 60) is True, "a fresh host was refused its first fetch"
     # And the gate still closes behind it.
     assert main._claim_fetch_slot(DeadRedis(), 60) is False
+
+
+def test_an_idle_poll_does_not_consume_a_fetch_slot(env, monkeypatch):
+    calls = []
+    monkeypatch.setattr(main, "_claim_fetch_slot", lambda *_: calls.append(True) or True)
+
+    assert main.run_once() is False
+    assert calls == []
+
+
+def test_a_local_job_does_not_consume_a_fetch_slot(env, monkeypatch):
+    with Session(env) as db:
+        job = Job(kind="index", payload={"meme_id": "missing"}, dedupe_key="local-index")
+        db.add(job)
+        db.commit()
+        job_id = job.id
+
+    calls = []
+    monkeypatch.setattr(main, "_claim_fetch_slot", lambda *_: calls.append(True) or True)
+
+    assert main.run_once() is True
+    assert calls == []
+    with Session(env) as db:
+        assert db.get(Job, job_id).status == "succeeded"
+
+
+def test_a_platform_job_claims_a_fetch_slot(env, monkeypatch):
+    with Session(env) as db:
+        job = Job(kind="ingest", payload={}, dedupe_key="platform-ingest")
+        db.add(job)
+        db.commit()
+
+    calls = []
+    monkeypatch.setattr(main, "_claim_fetch_slot", lambda *_: calls.append(True) or True)
+    monkeypatch.setattr(main, "ingest", lambda *_args, **_kwargs: None)
+
+    assert main.run_once() is True
+    assert calls == [True]
+
+
+def test_a_closed_fetch_gate_still_allows_local_work(env, monkeypatch):
+    with Session(env) as db:
+        ingest = Job(kind="ingest", payload={"source_id": "not-run"}, dedupe_key="platform-ingest")
+        local = Job(kind="index", payload={"meme_id": "missing"}, dedupe_key="local-index")
+        db.add_all([ingest, local])
+        db.commit()
+        ingest_id, local_id = ingest.id, local.id
+
+    calls = []
+    monkeypatch.setattr(main, "_claim_fetch_slot", lambda *_: calls.append(True) or False)
+
+    assert main.run_once() is True
+    assert calls == [True]
+    with Session(env) as db:
+        assert db.get(Job, ingest_id).status == "pending"
+        assert db.get(Job, local_id).status == "succeeded"
