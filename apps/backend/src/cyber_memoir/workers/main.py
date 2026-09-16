@@ -18,9 +18,9 @@ from cyber_memoir.search.indexing import index_meme
 
 log = logging.getLogger(__name__)
 
-# Only these reach the platform; indexing and extraction are local and must keep flowing
-# even while fetching is paused.
-PLATFORM_KINDS = ("ingest", "media")
+# Only ingestion reaches the platform. Uploaded-media processing, indexing and extraction
+# are local and must keep flowing even while fetching is paused.
+PLATFORM_KINDS = ("ingest",)
 # None means no fetch has happened in this process. 0.0 would be a lie: time.monotonic()
 # counts from boot, so on a freshly started host every early moment sits within `interval`
 # of zero and the gate would refuse the first fetch for up to five minutes. The dev machine
@@ -71,13 +71,20 @@ def run_once() -> bool:
             (Job.status == "running")
             & (Job.started_at < now() - timedelta(seconds=cfg.task_timeout_seconds)),
         )
-        if not _claim_fetch_slot(redis, cfg.platform_fetch_interval_seconds):
-            eligible = eligible & Job.kind.notin_(PLATFORM_KINDS)
         query = (
             select(Job).where(eligible).order_by(Job.created_at).with_for_update(skip_locked=True).limit(1)
         )
         job = db.scalar(query.where(Job.id == hint)) if hint else None
         job = job or db.scalar(query)
+        # Claim the scarce platform slot only for work that will actually use it. Claiming
+        # before selecting a job lets an idle worker renew the gate forever without making
+        # a request, and local work can consume the slot just as easily.
+        if (
+            job
+            and job.kind in PLATFORM_KINDS
+            and not _claim_fetch_slot(redis, cfg.platform_fetch_interval_seconds)
+        ):
+            job = db.scalar(query.where(Job.kind.notin_(PLATFORM_KINDS)))
         if not job:
             return False
         job.status, job.started_at = "running", now()
