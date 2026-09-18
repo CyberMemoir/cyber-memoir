@@ -39,9 +39,11 @@ python evals/feasibility/prep.py derivatives <BV> --cookies bili-cookies.txt --n
 python evals/feasibility/prep.py resolve --cookies bili-cookies.txt --sleep 20
 python evals/feasibility/prep.py sheet          # -> lineage.csv, fill `role` by hand
 python evals/feasibility/prep.py drafts         # -> one curation YAML per meme
-# human writes definition + usage_context
+# model drafts definition + usage_context from subtitle OCR; human reviews, sets confirmed_by
+# (name-free gold queries go in evals/curation/_descriptions.yaml before any draft exists)
 python evals/validate_curation.py evals/curation/
-python evals/load_curation.py                   # submit → material → tier → draft → approve
+python evals/load_curation.py <files>           # submit → material → tier → draft → approve
+                                                # no files = every record, re-revising all
 python evals/build_gold.py && python evals/run.py evals/gold.jsonl
 ```
 
@@ -89,8 +91,11 @@ title-card name guess is junk ("8/9", "便百科山山"). They give meaning but 
 origin, 轻松绷住's P42, 泥肘's gloss 你走, 牛来 (ASR-only), and 真人版HIM's quote
 "神不会流血，但你会" - whose second half the OCR *had* but `build_materials.py` dropped,
 because `MIN_CHARS = 6` discards short lines. Quoted lines are often short, so that filter
-costs drafts their quotations. Changing it rehashes Evidence for published episodes; for
-new ones it is worth reconsidering.
+costs drafts their quotations. **Fixed 2026-09-18 for new episodes:** a 2-5 character line
+now survives if it persists across 2+ frames (fragments flicker, subtitles stay up). It
+recovered all three losses and more (子琪不吃, 周五夜放克, @handles) at the cost of some UI
+chrome (分享, 回复). The 14 published episodes keep the old flat floor and must never be
+rebuilt - evidence is keyed on content hash, so a rebuild posts a second piece of evidence.
 
 **One episode can cover several memes.** BV1ii4C6QEk8 covers three. Split ids by the
 `seen_at` column — it records when each appeared on screen, so the split is mechanical. The
@@ -172,6 +177,15 @@ Universe level is every meme on a horizontal time axis; click one to zoom into i
 21 days are compressed into bands that carry their true length; 21 came from measuring
 29 gaps first (bursts ≤ 15 days, silences ≥ 30). Dates leave the server already in
 Beijing time — `at` is UTC and must never be displayed.
+
+**Corpus loop (from 2026-09-18):** DeepSeek and Vincent grow the corpus without Claude,
+per `ai_context/work_loop.txt`; `ai_context/loop_state.txt` holds whose turn it is and
+`loop_log.txt` one block per batch. Claude returns at the CHECKPOINT (30 published memes,
+batch 3 done, or a stop) to audit drafts against OCR, run gold with `description` recall
+reported apart from name queries, then refine the web UI. Phase 0 (4 blind drafts of
+published memes) passed the checker but showed what it cannot see: 轻松绷住's usage was
+drafted as "绷不住" - a real quote, the opposite meaning - and usage_context drifted into
+describing spread. Rules D-10..D-15 in the loop file answer those.
 
 **Split:** DeepSeek builds the UI; Claude owns the API and the time scale, and reviews.
 Handoff lives in `ai_context/` (gitignored): `task_prompt.txt` is the spec with ten

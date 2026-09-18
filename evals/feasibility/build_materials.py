@@ -5,8 +5,9 @@
 
 Material 0 is the whole episode's on-screen text in time order, each distinct
 string kept only the first time it appears - a line held on screen for thirty
-frames is one observation, not thirty - with the channel's own furniture and the
-sub-six-character fragments OCR invents dropped. Material N is the single frame in
+frames is one observation, not thirty - with the channel's own furniture dropped, and
+short lines kept only if they persist across frames: OCR's fragments of a split box
+flicker for one frame, real subtitles stay up. Material N is the single frame in
 which a cited work's BV id appeared, kept raw, because that frame is the evidence
 an event or relation points at and trimming it would trim the id's context.
 
@@ -21,6 +22,7 @@ import csv
 import json
 import re
 import sys
+from collections import Counter
 from pathlib import Path
 
 for _stream in (sys.stdout, sys.stderr):
@@ -38,17 +40,26 @@ def stamp(seconds: float) -> str:
 FURNITURE = re.compile(r"bilibili|bilisili|梗百科")
 # A box holding only digits and punctuation is a timer, a counter or a version.
 COUNTER = re.compile(r"^[\d\s.:+=]+$")
-# Below six characters OCR mostly returns fragments of a longer box it split.
+# Below six characters OCR often returns fragments of a longer box it split. A flat
+# floor also threw away real short lines - the meme's own name 松针大油边, the quote
+# "但你会", the line "你走" - so a short line now survives if it persists: a fragment
+# flickers for one frame, a subtitle stays up for several. Episodes already published
+# were built with the flat floor and must not be rebuilt (see --force).
 MIN_CHARS = 6
+MIN_SHORT = 2
+PERSIST_FRAMES = 2
 
 
 def narration(frames: list[dict], episode: str) -> dict:
+    persist = Counter(t.strip() for f in frames for t in set(f.get("text") or []))
     seen: set[str] = set()
     lines = []
     for frame in frames:
         for text in frame.get("text") or []:
             line = text.strip()
-            if len(line) < MIN_CHARS or line in seen:
+            if line in seen or len(line) < MIN_SHORT:
+                continue
+            if len(line) < MIN_CHARS and persist[line] < PERSIST_FRAMES:
                 continue
             if FURNITURE.search(line) or COUNTER.match(line):
                 continue
@@ -57,7 +68,7 @@ def narration(frames: list[dict], episode: str) -> dict:
     return {
         "text": "\n".join(lines),
         "kind": "ocr",
-        "locator": {"start_ms": 0, "note": "%s 画面内嵌字幕全文，RapidOCR 每秒取帧" % episode},
+        "locator": {"start_ms": 0, "note": "%s 画面内嵌字幕全文，RapidOCR 每秒取帧，短行须跨帧持续" % episode},
     }
 
 

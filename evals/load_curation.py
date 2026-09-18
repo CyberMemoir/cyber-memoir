@@ -282,6 +282,10 @@ def main() -> int:
     parser.add_argument("--api", default="http://localhost:8100")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--pace", type=float, default=1.1)
+    parser.add_argument(
+        "records", nargs="*", type=Path,
+        help="load only these files; default is every record, and each run revises every meme it loads",
+    )
     args = parser.parse_args()
 
     index = load_material_index()
@@ -291,7 +295,9 @@ def main() -> int:
     tiered: set[str] = set()
     failures = 0
 
-    paths = [p for p in sorted(CURATION.glob("*.yaml")) if not p.name.startswith("_")]
+    paths = sorted(p.resolve() for p in args.records) or [
+        p for p in sorted(CURATION.glob("*.yaml")) if not p.name.startswith("_")
+    ]
     docs = {path: yaml.safe_load(path.read_text(encoding="utf-8")) for path in paths}
 
     for path in order_by_dependency(paths, docs):

@@ -27,7 +27,9 @@ ROOT = Path(__file__).resolve().parents[1]
 CURATION = ROOT / "evals" / "curation"
 TARGET = ROOT / "evals" / "gold.jsonl"
 # must_not_return is a cross-check note, not a case the harness can score.
-POSITIVE_BUCKETS = ("canonical", "alias", "origin_intent", "polysemy", "adversarial")
+# description: the curator's own words for the meme, never containing its name or aliases.
+# The only bucket where recall can move, and the one that shows what drafted text does to it.
+POSITIVE_BUCKETS = ("canonical", "alias", "origin_intent", "polysemy", "adversarial", "description")
 
 
 def normalize(text) -> str:
@@ -52,7 +54,7 @@ def main() -> int:
             surfaces[normalize(value)] = name
         for bucket in POSITIVE_BUCKETS:
             for query in (doc.get("gold") or {}).get(bucket) or []:
-                rows.append({"query": str(query), "expected_names": [name], "answerable": True})
+                rows.append({"query": str(query), "expected_names": [name], "answerable": True, "bucket": bucket})
                 kinds[bucket] += 1
 
     negatives = yaml.safe_load((CURATION / "_negatives.yaml").read_text(encoding="utf-8")) or {}
@@ -62,7 +64,7 @@ def main() -> int:
         if hit:
             print("  ! 跳过反例 %r：它其实是已收录的《%s》" % (query, hit))
             continue
-        rows.append({"query": query, "expected_names": [], "answerable": False})
+        rows.append({"query": query, "expected_names": [], "answerable": False, "bucket": "negative"})
         kinds["negative:" + str(item.get("kind", "?"))] += 1
 
     seen: dict[str, int] = {}
