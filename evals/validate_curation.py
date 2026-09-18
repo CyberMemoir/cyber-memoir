@@ -12,6 +12,7 @@ Exit code 1 if any record has errors. Warnings do not fail the run.
 
 from __future__ import annotations
 
+import re
 import sys
 import unicodedata
 from collections import Counter, defaultdict
@@ -22,6 +23,9 @@ try:
     import yaml
 except ImportError:
     sys.exit("需要 PyYAML: pip install pyyaml")
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from materials_index import load_material_index, resolve_placeholder  # noqa: E402
 
 # Windows consoles default to cp1252 and would crash on Chinese output.
 for _stream in (sys.stdout, sys.stderr):
@@ -310,6 +314,77 @@ def check_curation_log(r: Record) -> None:
         r.warn("resolved=true 但 curation.curator 为空")
 
 
+# What a drafting model must have copied rather than composed: anything quoted or titled,
+# @handles, numeric expressions (7月28日, 3分), and Latin runs (FNF, VS). These are the
+# parts of a definition a reader would cite, and the parts ASR got wrong on 松针大油边 -
+# name, popularizer and cut of meat, all three. Paraphrase around them is not checked.
+QUOTED = re.compile(r"\|([^|]+)\||「([^」]+)」|《([^》]+)》|“([^”]+)”|\"([^\"]+)\"")
+# A number keeps one leading letter (P42 is an episode, not 42). Latin splits where a
+# capitals run meets lowercase, so "PKrap" is checked as PK + rap: two words run together
+# are not an invented name. Single letters are too common to mean anything.
+LITERAL = re.compile(
+    r"@[^\s，。、；：|「」《》“”()（）]+"
+    r"|[A-Za-z]?\d[\d.:：/年月日号万亿千百个次期集分秒岁-]*"
+    r"|[A-Z]{2,}|[A-Z]?[a-z]{2,}"
+)
+STAMP = re.compile(r"^\d+(?:\.\d+)?s\s", re.M)
+_MATERIALS: dict[str, list[dict]] | None = None
+
+
+def flat(text: str) -> str:
+    """Compare on content, not layout: OCR breaks a quoted line where the frame did, so
+    "神不会流血" and "但你会" arrive as two lines with no comma between them."""
+    text = unicodedata.normalize("NFKC", STAMP.sub("", text)).casefold()
+    return "".join(ch for ch in text if not ch.isspace() and not unicodedata.category(ch).startswith("P"))
+
+
+def literals(statement: str, exempt: list[str]) -> list[str]:
+    text = statement
+    for name in sorted(exempt, key=len, reverse=True):
+        if name:
+            text = text.replace(name, " ")
+    spans = ["".join(m.groups(default="")) for m in QUOTED.finditer(text)]
+    text = QUOTED.sub(" ", text)
+    spans += LITERAL.findall(text)
+    return [s for s in (x.strip() for x in spans) if s]
+
+
+def check_drafted(r: Record) -> None:
+    """A model-drafted definition may only quote what the cited OCR actually shows."""
+    global _MATERIALS
+    curation = r.get("curation") or {}
+    if not isinstance(curation, dict) or not text_of(curation.get("drafted_by")).strip():
+        return
+    if not text_of(curation.get("confirmed_by")).strip():
+        r.warn("模型起草，尚未人工审定（curation.confirmed_by 为空）；load_curation 会拒绝加载")
+    if _MATERIALS is None:
+        _MATERIALS = load_material_index()
+    exempt = [text_of(r.get("canonical_name"))] + [text_of(a) for a in r.get("aliases") or []]
+    for i, claim in enumerate(r.get("claims") or []):
+        if claim.get("key") not in ("definition", "usage_context"):
+            continue
+        refs = claim.get("evidence") or []
+        if not any(str(ref).startswith("ocr-narration-") for ref in refs):
+            r.err("claims[%d] 为模型起草，必须引用 ocr-narration-<EP>（画面字幕），不能只凭其他证据" % i)
+        texts = []
+        for ref in refs:
+            if str(ref).startswith("asr-"):
+                r.err("claims[%d] 为模型起草，不得引用 %s：语音转写在 松针大油边 上把名字、"
+                      "博主和食材全部认错，起草只能依据画面字幕 OCR" % (i, ref))
+                continue
+            found = resolve_placeholder(str(ref), _MATERIALS)
+            if not found:
+                r.err("claims[%d] 引用的 %s 在 evals/feasibility/materials/ 中找不到原文" % (i, ref))
+                continue
+            texts.append(found[1]["text"])
+        source = flat("\n".join(texts))
+        missing = [s for s in literals(text_of(claim.get("statement")), exempt) if flat(s) not in source]
+        if texts and missing:
+            r.err("claims[%d]（%s）中这些引用片段在所引证据原文里找不到：%s。"
+                  "名字、引语、数字只能照抄画面字幕，不能改写或补全"
+                  % (i, claim.get("key"), "、".join(repr(m) for m in missing)))
+
+
 CHECKS = (
     check_identity,
     check_enums,
@@ -320,6 +395,7 @@ CHECKS = (
     check_evidence,
     check_gold,
     check_curation_log,
+    check_drafted,
 )
 
 
