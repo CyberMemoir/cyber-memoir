@@ -80,6 +80,18 @@ an id that did resolve (0/o, C/c, i/1, z/Z). Bad OCR costs recall, never correct
 Corpus accuracy 33/37 = 89% over answered requests. BLOCKED ≠ NOT FOUND: a refused request
 says nothing about the id.
 
+**About 4 in 10 episodes show no BV ids at all** - 6 of the first 16 - and for those the
+title-card name guess is junk ("8/9", "便百科山山"). They give meaning but no timeline, and
+`drafts` skips them. Plan corpus growth at roughly 60% yield per episode.
+
+**The subtitle checker found where the curator knew more than the screen.** Run over the
+14 hand-written records as if drafted, it refuses 5, and each is real: 狼王撕衣's twitter
+origin, 轻松绷住's P42, 泥肘's gloss 你走, 牛来 (ASR-only), and 真人版HIM's quote
+"神不会流血，但你会" - whose second half the OCR *had* but `build_materials.py` dropped,
+because `MIN_CHARS = 6` discards short lines. Quoted lines are often short, so that filter
+costs drafts their quotations. Changing it rehashes Evidence for published episodes; for
+new ones it is worth reconsidering.
+
 **One episode can cover several memes.** BV1ii4C6QEk8 covers three. Split ids by the
 `seen_at` column — it records when each appeared on screen, so the split is mechanical. The
 one-draft-per-source constraint lives in `extract()` (the LLM path we don't use); the manual
@@ -117,8 +129,11 @@ chunk at all.
   unresolved), **all 10 curation records published**, each at revision 2.
   才是王道 is the first meme derived from another meme, and 闹吃VS古振兴 the first
   carrying both a source and a popularized_by.
-- **`lineage.csv`**: 59 rows, **26 with a blank `role`** — the newest OCR batch, awaiting
-  the human role pass. The 26 also need resolving (`prep.py resolve`) for their dates.
+- **`lineage.csv`**: 59 rows, **52 judged; the role pass is done.** The 7 blank rows are
+  exactly the 7 rows with no `upload_date` — ids that never resolved, so there is nothing
+  to judge. Several are visibly OCR variants of a row that did resolve (`BV1v73w6fEBi` vs
+  `BV1v73W6fEBi`; `BViesbf6wEkc` is `BV1esbf6wEkc` with i-for-1), which is the usual
+  pattern and costs recall only.
 - **Gold set**: 22 cases (14 positive, 8 negative). Baseline recall@10 1.00, MRR 1.00 — not
   impressive on 6 memes queried by their own names. The informative number was abstention:
   6/8 without the score floor, **8/8 with it**.
@@ -200,8 +215,19 @@ numbers, and check real data on the live stack — the e2e harness only has synt
 
 ## Working agreements
 
-- Claude does not supply facts about memes. Definitions, names, roles and origin judgements
-  are Vincent's; an answer key written by a model cannot grade a model.
+- Models do not supply facts about memes. Names, aliases, roles, origin judgements and gold
+  queries are Vincent's; an answer key written by a model cannot grade a model.
+- **Amended 2026-09-18:** a model may *draft* `definition` and `usage_context` prose, from
+  the on-screen subtitle OCR only (`ocr-narration-*`, never ASR, never its own knowledge).
+  Every name and spoken line in a draft goes in 「」 or |...| and must be found verbatim in
+  the cited OCR; digits and Latin words are checked marked or not. The record carries
+  `curation.drafted_by`, the loader refuses it until `confirmed_by` is set, and the
+  approved revision's `review_reason` says "模型起草、人工审定". Tier alone cannot carry
+  this - hand-written and drafted definitions are both Tier C.
+  **Limit:** an unmarked Chinese name is not checked; Vincent's review is the only net.
+  **Precondition:** gold queries that do not name their meme must exist before the first
+  drafted batch loads. Drafted text will be keyword-rich and uniform, which can inflate
+  recall, and recall on self-naming queries is already 1.00 and cannot show it.
 - Thresholds get written down *before* a test runs, never adjusted to fit the result.
 - Report the caveat with the number. The score floor commit says 0.35 sits inside a wide
   safe margin rather than being validated — that honesty is the point of the project.
