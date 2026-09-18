@@ -1,0 +1,52 @@
+"""Where an evidence_map placeholder's text lives on disk.
+
+Shared by load_curation.py, which posts that text as Evidence, and validate_curation.py,
+which checks drafted claims against it. One copy, so the two cannot disagree about what
+a key such as ocr-narration-<EP> points at.
+"""
+
+from __future__ import annotations
+
+import json
+import re
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+FEASIBILITY = ROOT / "evals" / "feasibility"
+BV = re.compile(r"BV[0-9A-Za-z]{10}")
+
+
+def load_material_index() -> dict[str, list[dict]]:
+    """episode id -> its Material payloads, narration first."""
+    index = {}
+    for path in sorted(FEASIBILITY.glob("materials/*.materials.json")):
+        episode = path.name.replace(".materials.json", "")
+        index[episode] = json.loads(path.read_text(encoding="utf-8"))["materials"]
+    return index
+
+
+def resolve_placeholder(key: str, index: dict[str, list[dict]]) -> tuple[str, dict] | None:
+    """Map an evidence_map key onto (episode, Material). Keys look like
+    ocr-narration-<EP>, ocr-<BV of a cited work>, or asr-<EP>."""
+    if key.startswith("ocr-narration-"):
+        episode = key[len("ocr-narration-") :]
+        return (episode, index[episode][0]) if episode in index else None
+    if key.startswith("asr-"):
+        episode = key[len("asr-") :]
+        transcript = FEASIBILITY / ("%s.transcript.txt" % episode)
+        if not transcript.exists():
+            return None
+        return episode, {
+            "text": transcript.read_text(encoding="utf-8"),
+            "kind": "asr",
+            "locator": {"start_ms": 0, "note": "%s 语音转写全文（faster-whisper）" % episode},
+        }
+    found = BV.search(key)
+    if not found:
+        return None
+    target = found.group(0)
+    for episode, materials in index.items():
+        for material in materials[1:]:
+            if target in material["locator"].get("note", ""):
+                return episode, material
+    return None
