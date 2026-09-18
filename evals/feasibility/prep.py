@@ -471,6 +471,20 @@ def build_drafts(sheet: Path, out: Path) -> int:
     out.mkdir(parents=True, exist_ok=True)
     # Never overwrite a record a human has touched: match on canonical_name, not filename,
     # so files renamed to proper pinyin slugs are still recognised.
+    # The curator writes name-free queries during the role pass, before any draft exists,
+    # so they cannot borrow a drafted definition's wording. Keyed by meme name.
+    described: dict[str, list[str]] = {}
+    queue = out / "_descriptions.yaml"
+    if queue.exists():
+        import yaml
+
+        for key, queries in (yaml.safe_load(queue.read_text(encoding="utf-8")) or {}).items():
+            bad = [q for q in queries or [] if not isinstance(q, str)]
+            if bad:
+                # "带冒号: 的查询" unquoted parses as a mapping; storing its repr would be garbage.
+                print("! _descriptions.yaml 中《%s》有查询不是纯文本：%s。含冒号的查询请加引号。" % (key, bad))
+                return 2
+            described[str(key)] = list(queries or [])
     existing: dict[str, str] = {}
     for path in out.glob("*.y*ml"):
         if path.name.startswith("_"):
@@ -566,6 +580,8 @@ def build_drafts(sheet: Path, out: Path) -> int:
             "",
             "gold:", "  canonical:", "    - %s" % name,
             "  alias: []", "  origin_intent:", "    - %s的出处" % name,
+            "  # 用自己的话描述这个梗、不含梗名与别名的查询；模型起草的记录至少要一条",
+            "  description:" + ("".join("\n    - " + _scalar(q) for q in described.get(name, [])) or " []"),
             "  must_not_return: []", "",
             "curation:", '  curator: ""',
             "  # 模型起草 definition/usage_context 时填模型名；非空时 validate 会逐项核对引用片段，",

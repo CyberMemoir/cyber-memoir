@@ -65,7 +65,9 @@ PREDICATE_TARGET = {
     "documented_in": {"source"},
     "mentions": {"entity"},
 }
-GOLD_BUCKETS = ("canonical", "alias", "origin_intent", "polysemy", "adversarial", "must_not_return")
+GOLD_BUCKETS = (
+    "canonical", "alias", "origin_intent", "polysemy", "adversarial", "description", "must_not_return",
+)
 ORIGIN_WORDS = ("起源", "来源", "最早", "谁先", "首创", "出处")
 
 
@@ -357,6 +359,17 @@ def check_drafted(r: Record) -> None:
         return
     if not text_of(curation.get("confirmed_by")).strip():
         r.warn("模型起草，尚未人工审定（curation.confirmed_by 为空）；load_curation 会拒绝加载")
+    # The precondition from 2026-09-18, enforced here so it cannot be forgotten: drafted
+    # text may inflate recall, and only a query that does not name the meme can show it.
+    names = [normalize(n) for n in [r.get("canonical_name"), *(r.get("aliases") or [])] if n]
+    free = [q for q in (r.get("gold") or {}).get("description") or []
+            if not any(n in normalize(q) for n in names)]
+    if not free:
+        r.err("模型起草的记录需要至少一条 gold.description 查询：策展人自己的话，"
+              "不含梗名与别名，且应在读草稿之前写")
+    for q in (r.get("gold") or {}).get("description") or []:
+        if q not in free:
+            r.err("gold.description 查询 %r 含有梗名或别名，起不到检验作用" % q)
     if _MATERIALS is None:
         _MATERIALS = load_material_index()
     exempt = [text_of(r.get("canonical_name"))] + [text_of(a) for a in r.get("aliases") or []]
