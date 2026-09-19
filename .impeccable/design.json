@@ -1,0 +1,601 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-19T16:08:38+00:00",
+  "title": "Design System: Cyber Memoir",
+  "extensions": {
+    "colorMeta": {
+      "sky-0": {
+        "role": "neutral",
+        "displayName": "Dome Black",
+        "canonical": "#030305",
+        "tonalRamp": [
+          "oklch(15% 0.012 265)",
+          "oklch(27% 0.012 265)",
+          "oklch(39% 0.012 265)",
+          "oklch(51% 0.012 265)",
+          "oklch(63% 0.012 265)",
+          "oklch(75% 0.012 265)",
+          "oklch(85% 0.012 265)",
+          "oklch(95% 0.012 265)"
+        ]
+      },
+      "sky-1": {
+        "role": "neutral",
+        "displayName": "Night 1",
+        "canonical": "#050608",
+        "tonalRamp": [
+          "oklch(15% 0.012 265)",
+          "oklch(27% 0.012 265)",
+          "oklch(39% 0.012 265)",
+          "oklch(51% 0.012 265)",
+          "oklch(63% 0.012 265)",
+          "oklch(75% 0.012 265)",
+          "oklch(85% 0.012 265)",
+          "oklch(95% 0.012 265)"
+        ]
+      },
+      "sky-2": {
+        "role": "neutral",
+        "displayName": "Night 2",
+        "canonical": "#0b0c10",
+        "tonalRamp": [
+          "oklch(15% 0.012 265)",
+          "oklch(27% 0.012 265)",
+          "oklch(39% 0.012 265)",
+          "oklch(51% 0.012 265)",
+          "oklch(63% 0.012 265)",
+          "oklch(75% 0.012 265)",
+          "oklch(85% 0.012 265)",
+          "oklch(95% 0.012 265)"
+        ]
+      },
+      "sky-3": {
+        "role": "neutral",
+        "displayName": "Night 3",
+        "canonical": "#17191f",
+        "tonalRamp": [
+          "oklch(15% 0.012 265)",
+          "oklch(27% 0.012 265)",
+          "oklch(39% 0.012 265)",
+          "oklch(51% 0.012 265)",
+          "oklch(63% 0.012 265)",
+          "oklch(75% 0.012 265)",
+          "oklch(85% 0.012 265)",
+          "oklch(95% 0.012 265)"
+        ]
+      },
+      "panel": {
+        "role": "neutral",
+        "displayName": "Instrument Glass",
+        "canonical": "rgba(8, 9, 12, 0.8)",
+        "tonalRamp": [
+          "oklch(15% 0.012 265)",
+          "oklch(27% 0.012 265)",
+          "oklch(39% 0.012 265)",
+          "oklch(51% 0.012 265)",
+          "oklch(63% 0.012 265)",
+          "oklch(75% 0.012 265)",
+          "oklch(85% 0.012 265)",
+          "oklch(95% 0.012 265)"
+        ]
+      },
+      "panel-solid": {
+        "role": "neutral",
+        "displayName": "Instrument Glass, Solid",
+        "canonical": "#08090c",
+        "tonalRamp": [
+          "oklch(15% 0.012 265)",
+          "oklch(27% 0.012 265)",
+          "oklch(39% 0.012 265)",
+          "oklch(51% 0.012 265)",
+          "oklch(63% 0.012 265)",
+          "oklch(75% 0.012 265)",
+          "oklch(85% 0.012 265)",
+          "oklch(95% 0.012 265)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Starlight Ink",
+        "canonical": "#e8edf7",
+        "tonalRamp": [
+          "oklch(15% 0.015 265)",
+          "oklch(27% 0.015 265)",
+          "oklch(39% 0.015 265)",
+          "oklch(51% 0.015 265)",
+          "oklch(63% 0.015 265)",
+          "oklch(75% 0.015 265)",
+          "oklch(85% 0.015 265)",
+          "oklch(95% 0.015 265)"
+        ]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Dim Ink",
+        "canonical": "#bcc0c9",
+        "tonalRamp": [
+          "oklch(15% 0.012 265)",
+          "oklch(27% 0.012 265)",
+          "oklch(39% 0.012 265)",
+          "oklch(51% 0.012 265)",
+          "oklch(63% 0.012 265)",
+          "oklch(75% 0.012 265)",
+          "oklch(85% 0.012 265)",
+          "oklch(95% 0.012 265)"
+        ]
+      },
+      "ink-3": {
+        "role": "neutral",
+        "displayName": "Faint Ink",
+        "canonical": "#8d929d",
+        "tonalRamp": [
+          "oklch(15% 0.012 265)",
+          "oklch(27% 0.012 265)",
+          "oklch(39% 0.012 265)",
+          "oklch(51% 0.012 265)",
+          "oklch(63% 0.012 265)",
+          "oklch(75% 0.012 265)",
+          "oklch(85% 0.012 265)",
+          "oklch(95% 0.012 265)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "rgba(205, 210, 222, 0.12)",
+        "tonalRamp": [
+          "oklch(15% 0.012 265)",
+          "oklch(27% 0.012 265)",
+          "oklch(39% 0.012 265)",
+          "oklch(51% 0.012 265)",
+          "oklch(63% 0.012 265)",
+          "oklch(75% 0.012 265)",
+          "oklch(85% 0.012 265)",
+          "oklch(95% 0.012 265)"
+        ]
+      },
+      "line-2": {
+        "role": "neutral",
+        "displayName": "Hairline, Strong",
+        "canonical": "rgba(205, 210, 222, 0.24)",
+        "tonalRamp": [
+          "oklch(15% 0.012 265)",
+          "oklch(27% 0.012 265)",
+          "oklch(39% 0.012 265)",
+          "oklch(51% 0.012 265)",
+          "oklch(63% 0.012 265)",
+          "oklch(75% 0.012 265)",
+          "oklch(85% 0.012 265)",
+          "oklch(95% 0.012 265)"
+        ]
+      },
+      "signal": {
+        "role": "primary",
+        "displayName": "Projector Mint",
+        "canonical": "#7fe3c0",
+        "tonalRamp": [
+          "oklch(15% 0.11 168)",
+          "oklch(27% 0.11 168)",
+          "oklch(39% 0.11 168)",
+          "oklch(51% 0.11 168)",
+          "oklch(63% 0.11 168)",
+          "oklch(75% 0.11 168)",
+          "oklch(85% 0.11 168)",
+          "oklch(95% 0.11 168)"
+        ]
+      },
+      "signal-hi": {
+        "role": "primary",
+        "displayName": "Projector Mint, Bright",
+        "canonical": "#b4f2dc",
+        "tonalRamp": [
+          "oklch(15% 0.08 168)",
+          "oklch(27% 0.08 168)",
+          "oklch(39% 0.08 168)",
+          "oklch(51% 0.08 168)",
+          "oklch(63% 0.08 168)",
+          "oklch(75% 0.08 168)",
+          "oklch(85% 0.08 168)",
+          "oklch(95% 0.08 168)"
+        ]
+      },
+      "signal-dim": {
+        "role": "primary",
+        "displayName": "Projector Mint, Veil",
+        "canonical": "rgba(127, 227, 192, 0.12)",
+        "tonalRamp": [
+          "oklch(15% 0.11 168)",
+          "oklch(27% 0.11 168)",
+          "oklch(39% 0.11 168)",
+          "oklch(51% 0.11 168)",
+          "oklch(63% 0.11 168)",
+          "oklch(75% 0.11 168)",
+          "oklch(85% 0.11 168)",
+          "oklch(95% 0.11 168)"
+        ]
+      },
+      "signal-ink": {
+        "role": "primary",
+        "displayName": "Console Ink",
+        "canonical": "#03170f",
+        "tonalRamp": [
+          "oklch(15% 0.05 165)",
+          "oklch(27% 0.05 165)",
+          "oklch(39% 0.05 165)",
+          "oklch(51% 0.05 165)",
+          "oklch(63% 0.05 165)",
+          "oklch(75% 0.05 165)",
+          "oklch(85% 0.05 165)",
+          "oklch(95% 0.05 165)"
+        ]
+      },
+      "absent": {
+        "role": "neutral",
+        "displayName": "Absence Grey",
+        "canonical": "rgba(200, 205, 216, 0.46)",
+        "tonalRamp": [
+          "oklch(15% 0.012 265)",
+          "oklch(27% 0.012 265)",
+          "oklch(39% 0.012 265)",
+          "oklch(51% 0.012 265)",
+          "oklch(63% 0.012 265)",
+          "oklch(75% 0.012 265)",
+          "oklch(85% 0.012 265)",
+          "oklch(95% 0.012 265)"
+        ]
+      },
+      "stage-source": {
+        "role": "tertiary",
+        "displayName": "Source Amber",
+        "canonical": "#f5b556",
+        "tonalRamp": [
+          "oklch(15% 0.13 75)",
+          "oklch(27% 0.13 75)",
+          "oklch(39% 0.13 75)",
+          "oklch(51% 0.13 75)",
+          "oklch(63% 0.13 75)",
+          "oklch(75% 0.13 75)",
+          "oklch(85% 0.13 75)",
+          "oklch(95% 0.13 75)"
+        ]
+      },
+      "stage-popular": {
+        "role": "tertiary",
+        "displayName": "Popular Coral",
+        "canonical": "#ff7766",
+        "tonalRamp": [
+          "oklch(15% 0.17 28)",
+          "oklch(27% 0.17 28)",
+          "oklch(39% 0.17 28)",
+          "oklch(51% 0.17 28)",
+          "oklch(63% 0.17 28)",
+          "oklch(75% 0.17 28)",
+          "oklch(85% 0.17 28)",
+          "oklch(95% 0.17 28)"
+        ]
+      },
+      "stage-derivative": {
+        "role": "tertiary",
+        "displayName": "Derivative Blue",
+        "canonical": "#71b7ff",
+        "tonalRamp": [
+          "oklch(15% 0.13 250)",
+          "oklch(27% 0.13 250)",
+          "oklch(39% 0.13 250)",
+          "oklch(51% 0.13 250)",
+          "oklch(63% 0.13 250)",
+          "oklch(75% 0.13 250)",
+          "oklch(85% 0.13 250)",
+          "oklch(95% 0.13 250)"
+        ]
+      },
+      "stage-derived": {
+        "role": "tertiary",
+        "displayName": "Derived Violet",
+        "canonical": "#c8a2ff",
+        "tonalRamp": [
+          "oklch(15% 0.13 300)",
+          "oklch(27% 0.13 300)",
+          "oklch(39% 0.13 300)",
+          "oklch(51% 0.13 300)",
+          "oklch(63% 0.13 300)",
+          "oklch(75% 0.13 300)",
+          "oklch(85% 0.13 300)",
+          "oklch(95% 0.13 300)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The two-line dome headline on the home page only."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Inner page titles."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Section titles, meme names in the index, star panel title (24-28px)."
+      },
+      "title-sm": {
+        "displayName": "Title, small",
+        "purpose": "Panel headings, sky caption name, milestone rail heading (20-22px)."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Running text; definitions and answers cap at 68ch."
+      },
+      "body-long": {
+        "displayName": "Body, long",
+        "purpose": "The meme page definition, 66ch."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Metadata, hints and legend notes in Faint Ink (12.5-13.5px)."
+      },
+      "numeral": {
+        "displayName": "Numeral",
+        "purpose": "Every date and count; lining tabular Jost."
+      },
+      "wordmark": {
+        "displayName": "Wordmark",
+        "purpose": "CYBER MEMOIR in the header only, uppercase."
+      }
+    },
+    "shadows": [
+      {
+        "name": "floating-instrument",
+        "value": "0 24px 60px -30px rgba(0, 0, 0, 0.9)",
+        "purpose": "The search console at rest."
+      },
+      {
+        "name": "console-focus",
+        "value": "0 0 0 4px rgba(127, 227, 192, 0.08), 0 24px 60px -30px rgba(0, 0, 0, 0.9)",
+        "purpose": "The console while the reader types."
+      },
+      {
+        "name": "field-focus",
+        "value": "0 0 0 4px rgba(127, 227, 192, 0.09)",
+        "purpose": "Form fields on focus."
+      },
+      {
+        "name": "caption",
+        "value": "0 18px 40px -18px rgba(0, 0, 0, 0.9)",
+        "purpose": "The sky caption under the projector beam."
+      },
+      {
+        "name": "side-panel",
+        "value": "-24px 0 60px -20px rgba(0, 0, 0, 0.9)",
+        "purpose": "The star panel sliding in from the dome's edge."
+      },
+      {
+        "name": "projector-glow",
+        "value": "drop-shadow(0 0 6px rgba(127, 227, 192, 0.85))",
+        "purpose": "filter: the projector pointer, time sweep and cursor knob."
+      },
+      {
+        "name": "nav-dot-glow",
+        "value": "0 0 10px 1px rgba(127, 227, 192, 0.7)",
+        "purpose": "The 4px mint dot under the current nav link."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Default easing for every state change, ignition and arrival."
+      },
+      {
+        "name": "ease-in",
+        "value": "cubic-bezier(0.55, 0, 1, 0.45)",
+        "purpose": "Leaving only: the universe flying out as a galaxy opens."
+      },
+      {
+        "name": "state",
+        "value": "160-220ms",
+        "purpose": "Colour, border and background changes on controls."
+      },
+      {
+        "name": "panel",
+        "value": "440-520ms",
+        "purpose": "Star panel slide, sky caption arrival, fly-out."
+      },
+      {
+        "name": "flight",
+        "value": "760ms",
+        "purpose": "The view transition into a galaxy (fly-in)."
+      },
+      {
+        "name": "ignite",
+        "value": "900-1100ms, staggered",
+        "purpose": "Galaxies and stars lighting up in date order."
+      },
+      {
+        "name": "projector-travel",
+        "value": "1150ms",
+        "purpose": "The pointer and caption moving between galaxies on the dome."
+      },
+      {
+        "name": "sidereal",
+        "value": "900s linear infinite",
+        "purpose": "The dome's slow rotation. Removed with every other decorative loop under prefers-reduced-motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "narrow",
+        "value": "1050px"
+      },
+      {
+        "name": "phone",
+        "value": "760px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Solid mint projector button; console submit and form submits.",
+      "html": "<button class=\"ds-btn-primary\">搜索记忆</button>",
+      "css": ".ds-btn-primary{min-height:48px;padding:0 26px;border:0;border-radius:10px;background:var(--signal,#7fe3c0);color:var(--signal-ink,#03170f);font-weight:600;letter-spacing:.08em;font-size:16px;cursor:pointer;transition:background 180ms cubic-bezier(.16,1,.3,1),transform 120ms cubic-bezier(.16,1,.3,1)}.ds-btn-primary:hover{background:var(--signal-hi,#b4f2dc)}.ds-btn-primary:active{transform:scale(.97)}.ds-btn-primary:focus-visible{outline:2px solid var(--signal,#7fe3c0);outline-offset:3px}"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Mint hairline button for secondary actions such as 列表视图 and 重置视图.",
+      "html": "<button class=\"ds-btn-outline\">列表视图</button>",
+      "css": ".ds-btn-outline{min-height:38px;padding:6px 15px;font-size:14.5px;border-radius:10px;border:1px solid rgba(127,227,192,.5);background:transparent;color:var(--signal,#7fe3c0);cursor:pointer;transition:background 180ms cubic-bezier(.16,1,.3,1),color 180ms cubic-bezier(.16,1,.3,1)}.ds-btn-outline:hover{background:var(--signal-dim,rgba(127,227,192,.12));color:var(--signal-hi,#b4f2dc)}.ds-btn-outline:active{transform:scale(.97)}.ds-btn-outline:focus-visible{outline:2px solid var(--signal,#7fe3c0);outline-offset:3px}"
+    },
+    {
+      "name": "Search Console",
+      "kind": "input",
+      "refersTo": "search-console",
+      "description": "The projector's control strip on the horizon; its border dashes when the archive abstains.",
+      "html": "<form class=\"ds-console\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\"><circle cx=\"11\" cy=\"11\" r=\"6.5\"/><path d=\"M16 16l4 4\"/></svg><input placeholder=\"搜索梗、别名、创作者或一句话...\"><button type=\"button\">搜索记忆</button></form>",
+      "css": ".ds-console{height:62px;display:flex;align-items:center;border:1px solid rgba(205,210,222,.24);border-radius:14px;background:rgba(8,9,12,.82);box-shadow:0 24px 60px -30px rgba(0,0,0,.9);overflow:hidden;transition:border-color 220ms cubic-bezier(.16,1,.3,1),box-shadow 320ms cubic-bezier(.16,1,.3,1)}.ds-console:focus-within{border-color:rgba(127,227,192,.55);box-shadow:0 0 0 4px rgba(127,227,192,.08),0 24px 60px -30px rgba(0,0,0,.9)}.ds-console svg{margin:0 12px 0 20px;color:#8d929d}.ds-console input{flex:1;min-width:0;height:100%;border:0;background:none;color:#e8edf7;font-size:17px;outline:none}.ds-console input::placeholder{color:#8d929d}.ds-console button{height:calc(100% - 12px);margin-right:6px;padding:0 26px;border:0;border-radius:10px;background:#7fe3c0;color:#03170f;font-weight:600;letter-spacing:.08em;cursor:pointer}.ds-console button:hover{background:#b4f2dc}.ds-console button:focus-visible{outline:2px solid #7fe3c0;outline-offset:3px}"
+    },
+    {
+      "name": "Field",
+      "kind": "input",
+      "refersTo": "field-input",
+      "description": "Form field on the submission and review pages.",
+      "html": "<label class=\"ds-field\"><span>来源链接</span><input placeholder=\"https://www.bilibili.com/video/BV...\"></label>",
+      "css": ".ds-field{display:flex;flex-direction:column;gap:8px}.ds-field span{font-size:14.5px;font-weight:500;color:#bcc0c9}.ds-field input{min-height:48px;padding:11px 14px;border:1px solid rgba(205,210,222,.24);border-radius:10px;background:rgba(8,9,12,.8);color:#e8edf7;font-size:16px;transition:border-color 200ms cubic-bezier(.16,1,.3,1),box-shadow 200ms cubic-bezier(.16,1,.3,1)}.ds-field input::placeholder{color:#8d929d}.ds-field input:focus-visible{outline:none;border-color:rgba(127,227,192,.6);box-shadow:0 0 0 4px rgba(127,227,192,.09)}"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Header links; a glowing mint dot rises under the current page.",
+      "html": "<nav class=\"ds-nav\"><a href=\"#\" aria-current=\"page\">记忆索引</a><a href=\"#\">梗的星图</a><a href=\"#\">提交来源</a></nav>",
+      "css": ".ds-nav{display:flex;gap:36px;font-size:15px}.ds-nav a{position:relative;color:#bcc0c9;padding:6px 0;text-decoration:none;transition:color 160ms cubic-bezier(.16,1,.3,1)}.ds-nav a::after{content:'';position:absolute;left:50%;bottom:-3px;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:#7fe3c0;box-shadow:0 0 10px 1px rgba(127,227,192,.7);opacity:0;transform:scale(.2);transition:opacity 220ms cubic-bezier(.16,1,.3,1),transform 320ms cubic-bezier(.16,1,.3,1)}.ds-nav a[aria-current=page]{color:#e8edf7}.ds-nav a[aria-current=page]::after,.ds-nav a:hover::after{opacity:1;transform:scale(1)}.ds-nav a:focus-visible{outline:2px solid #7fe3c0;outline-offset:3px;border-radius:4px}"
+    },
+    {
+      "name": "Tabs",
+      "kind": "chip",
+      "refersTo": "tab-active",
+      "description": "Pill-track filter; the active tab takes the mint veil.",
+      "html": "<div class=\"ds-tabs\"><button class=\"on\">全部</button><button>名称</button><button>语义</button></div>",
+      "css": ".ds-tabs{display:inline-flex;gap:6px;padding:4px;border-radius:999px;border:1px solid rgba(205,210,222,.12);background:rgba(8,9,12,.6)}.ds-tabs button{border:0;background:none;padding:7px 16px;border-radius:999px;font-size:14.5px;color:#bcc0c9;cursor:pointer;transition:background 200ms cubic-bezier(.16,1,.3,1),color 200ms cubic-bezier(.16,1,.3,1)}.ds-tabs button:hover{color:#e8edf7}.ds-tabs button.on{background:rgba(127,227,192,.12);color:#7fe3c0;box-shadow:inset 0 0 0 1px rgba(127,227,192,.35)}.ds-tabs button:focus-visible{outline:2px solid #7fe3c0;outline-offset:3px}"
+    },
+    {
+      "name": "Stage Chips",
+      "kind": "chip",
+      "refersTo": "stage-chip-source",
+      "description": "Role labels; the only chips allowed a stage colour.",
+      "html": "<div class=\"ds-chips\"><span class=\"ds-chip s\">素材来源</span><span class=\"ds-chip p\">走红作品</span><span class=\"ds-chip d\">衍生视频</span><span class=\"ds-chip m\">衍生梗</span></div>",
+      "css": ".ds-chips{display:flex;gap:8px;flex-wrap:wrap}.ds-chip{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;padding:3px 11px 3px 9px;border-radius:999px;border:1px solid currentColor}.ds-chip::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor;box-shadow:0 0 8px currentColor}.ds-chip.s{color:#f5b556}.ds-chip.p{color:#ff7766}.ds-chip.d{color:#71b7ff}.ds-chip.m{color:#c8a2ff}"
+    },
+    {
+      "name": "Evidence Stars",
+      "kind": "custom",
+      "refersTo": "stage-chip-source",
+      "description": "The four evidence glyphs (diamond, square, dot, ring), a milestone with diffraction spikes, and an undated dashed ring.",
+      "html": "<svg class=\"ds-stars\" viewBox=\"0 0 300 60\" width=\"300\" height=\"60\"><g style=\"--stage:#f5b556\"><circle class=\"g\" cx=\"30\" cy=\"30\" r=\"18\"/><path class=\"k\" d=\"M30 20 L40 30 L30 40 L20 30 Z\"/><circle class=\"c\" cx=\"30\" cy=\"30\" r=\"3.4\"/></g><g style=\"--stage:#ff7766\"><circle class=\"g\" cx=\"90\" cy=\"30\" r=\"18\"/><rect class=\"k\" x=\"80\" y=\"20\" width=\"20\" height=\"20\" rx=\"1.5\"/><circle class=\"c\" cx=\"90\" cy=\"30\" r=\"4\"/></g><g style=\"--stage:#71b7ff\"><circle class=\"g\" cx=\"150\" cy=\"30\" r=\"14\"/><circle class=\"k\" cx=\"150\" cy=\"30\" r=\"8.5\"/><circle class=\"c\" cx=\"150\" cy=\"30\" r=\"2.3\"/></g><g style=\"--stage:#c8a2ff\"><circle class=\"g\" cx=\"210\" cy=\"30\" r=\"18\"/><path class=\"sp\" d=\"M188 30 H232 M210 8 V52\"/><circle class=\"k\" cx=\"210\" cy=\"30\" r=\"11\" stroke-width=\"2.4\"/><circle class=\"c\" cx=\"210\" cy=\"30\" r=\"4.3\"/></g><circle cx=\"270\" cy=\"30\" r=\"10\" fill=\"none\" stroke=\"rgba(200,205,216,.46)\" stroke-dasharray=\"2 2.5\"/></svg>",
+      "css": ".ds-stars{background:#030305;border-radius:12px}.ds-stars .g{fill:var(--stage);opacity:.18}.ds-stars .k{fill:none;stroke:var(--stage);stroke-width:1.3;opacity:.85;transition:stroke-width 200ms,opacity 200ms}.ds-stars .c{fill:#fff;filter:drop-shadow(0 0 3px var(--stage))}.ds-stars .sp{stroke:var(--stage);stroke-width:.9;opacity:.6;stroke-linecap:round}.ds-stars g:hover .k{stroke-width:2;opacity:1}"
+    },
+    {
+      "name": "Milestone Slot, empty",
+      "kind": "card",
+      "refersTo": "panel",
+      "description": "A stage with no evidence keeps its slot: dashed, empty, labelled 无证据.",
+      "html": "<div class=\"ds-slot\"><span class=\"lab\">走红作品</span><span class=\"none\">无证据</span></div>",
+      "css": ".ds-slot{position:relative;padding:6px 16px 8px 32px;display:flex;flex-direction:column;gap:6px;min-height:84px;color:#e8edf7}.ds-slot::before{content:'';position:absolute;left:14px;top:12px;width:7px;height:7px;border-radius:50%;border:1px dashed rgba(200,205,216,.46)}.ds-slot .lab{font-size:12.5px;letter-spacing:.06em;color:#8d929d}.ds-slot .none{align-self:flex-start;padding:4px 12px;border:1px dashed rgba(200,205,216,.46);border-radius:6px;color:#8d929d;font-size:15px;letter-spacing:.3em}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Planetarium Show",
+    "overview": "The whole site is one night dome. A reader sits under a sky of colourless starlight, asks a question at a console on the horizon, and the dome turns to a meme's galaxy, where every lit star is a dated piece of evidence. The system refuses the encyclopedia page of cards and paragraphs: a meme is shown as a picture of time, not as an article.\n\nColour is scarce because colour carries meaning. The sky, its dust and every ornament are colourless; one mint projector light marks everything a reader can act on; the four role colours belong to evidence and to nothing else. A reader should tell ornament from evidence without a legend. Absence is drawn, never hidden: an empty stage is a dashed slot that says 无证据, an undated star is a dashed ring that says 无日期.\n\nDensity is low and instrument-like. Hairline rules, dotted rails and small tabular numerals do the structural work; a serif carries names and headings; motion is slow and sidereal and disappears entirely for readers who ask for less.",
+    "keyCharacteristics": [
+      "A near-black dome (sky-0) under every page, drawn once and turned by the compositor.",
+      "One mint accent for controls; four role colours reserved for evidence.",
+      "Noto Serif SC 500 for names and headings; Jost for numerals, dates and the wordmark.",
+      "Hairline instruments: 1px rules at 12% and 24% white, dotted and dashed rails.",
+      "Position comes from date only; decoration is seeded by meme id and never reshuffles.",
+      "Absence drawn as dashed outlines, never tinted."
+    ],
+    "rules": [
+      {
+        "name": "The Evidence Owns Colour Rule",
+        "body": "The four stage colours appear only on evidence: stars, stage chips, milestone slots, the legend that explains them, and relations between memes. Decoration stays colourless (warm or cool white, never above about 15% saturation), and chrome never borrows a stage hue.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Projector Rule",
+        "body": "Mint marks controls and the projector's own output (its pointer, beam, cursor and the heading of the console's answer), and nothing else. Mint is never used for evidence, for decoration or for a page or section heading.",
+        "section": "colors"
+      },
+      {
+        "name": "The Drawn Absence Rule",
+        "body": "Missing things are outlined in dashed Absence Grey and left empty inside. Never fill, tint or colour an absence, and never draw a present, dated thing in Absence Grey dashes.",
+        "section": "colors"
+      },
+      {
+        "name": "The Serif Names Things Rule",
+        "body": "A meme's name, a page title, a section heading or a star label is set in the serif. Numbers, dates and controls are not.",
+        "section": "typography"
+      },
+      {
+        "name": "The Legible Map Rule",
+        "body": "Text drawn inside a scalable map is sized as calc(Npx * var(--label-scale)), where the explorer measures how far the SVG has shrunk and sets the scale to at least 1, so map text stays at about 11px or more on screen. The meme page's still thumbnail uses a fixed scale of 1.5 and hides its labels entirely, because the time rail below it names every star.",
+        "section": "typography"
+      },
+      {
+        "name": "The Single Weight Rule",
+        "body": "The display face ships at 500 only. Headings do not ask for bold; hierarchy comes from size and ink level.",
+        "section": "typography"
+      },
+      {
+        "name": "The Date Is The Position Rule",
+        "body": "A star's or galaxy's place is computed only from its date. Colour, shape and size may say what it is; nothing about its role may move it.",
+        "section": "layout"
+      },
+      {
+        "name": "The Time Is Always Drawn Rule",
+        "body": "Every time picture carries its direction: 时间 → on the universe axis, 早 → 晚 radially in a galaxy, 晚 → on the meme page's rail.",
+        "section": "layout"
+      },
+      {
+        "name": "The Glow Means Light Rule",
+        "body": "A glow says something is lit: evidence, the projector, the current page. It is never used as decoration on a panel or a heading.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Reserved Glyph Rule",
+        "body": "Diamond, square, dot and ring in a stage colour mean evidence; diffraction spikes mean a milestone and appear nowhere else except the legend explaining them. Decoration never takes these shapes.",
+        "section": "shapes"
+      },
+      {
+        "name": "The Seeded Sky Rule",
+        "body": "Every decorative element that belongs to a meme (its galaxy art, its dust, its motes) is generated from a seed hashed from the meme id, and the dome itself from a fixed seed, so the picture is identical on every load.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "**Do** put the dome (sky-0 under the fixed night sky) behind every page; the site is one world.",
+      "**Do** compute every star's and galaxy's position from its date alone: x by date on the universe axis, radius by date in a galaxy, the arm angle as a function of t.",
+      "**Do** reserve the four stage colours, the four stage shapes and diffraction spikes for evidence; milestones alone carry spikes.",
+      "**Do** mark every control, and only controls and the projector, with mint (#7fe3c0); hover goes to bright mint (#b4f2dc).",
+      "**Do** draw a missing stage as a dashed 无证据 slot and an undated star as a dashed ring, in Absence Grey, empty inside.",
+      "**Do** draw the direction of time on every time picture (时间 →, 早 → 晚).",
+      "**Do** size map text as calc(Npx * var(--label-scale)) so it stays about 11px or more however far the SVG shrinks.",
+      "**Do** seed decoration from the meme id (and the dome from its fixed seed) so nothing reshuffles between loads.",
+      "**Do** remove every decorative loop (sidereal rotation, twinkles, meteors, dust drift, time sweep, pulses, the flight transition) under prefers-reduced-motion, keeping state readable through colour, opacity and the dashed/solid vocabulary.",
+      "**Do** set names and headings in the serif at 500 and every date and count in Jost with tabular numerals."
+    ],
+    "donts": [
+      "**Don't** let a stage decide where a star sits, or sort a galaxy's stars by stage.",
+      "**Don't** give decoration a hue: dust, motes, twinkles, meteors and the Milky Way stay warm or cool white, small and not interactive.",
+      "**Don't** tint, fill or colour an absence, and don't hide an empty stage to tidy a galaxy.",
+      "**Don't** use mint on evidence, ornament or page and section headings, or a stage colour on chrome.",
+      "**Don't** shrink map labels below legibility to fit a phone; let the map scroll sideways at its minimum width instead.",
+      "**Don't** add hard or offset shadows, or glows on panels and headings; depth in this world is light.",
+      "**Don't** add eyebrow or kicker labels above headings, or letter-spaced uppercase Latin outside the wordmark.",
+      "**Don't** display a UTC instant; dates are shown in Beijing time as the API sends them."
+    ]
+  }
+}

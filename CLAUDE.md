@@ -192,6 +192,28 @@ Universe level is every meme on a horizontal time axis; click one to zoom into i
 - **No takedown checking, ever.** `availability` is ingestion state, not whether a video
   is online, and nothing records that.
 
+**Redesigned 2026-09-19 as a planetarium** (Vincent: more motion, a real-looking galaxy,
+whole site dark; details in `PRODUCT.md`, the contract comment in `app/layout.tsx`, and
+`DESIGN.md`). What changed and what must stay true:
+- A meme's galaxy is a **two-armed spiral whose arms are time**. Radius is still date and
+  nothing else (the e2e test measuring an undated star's distance from centre still
+  holds); the arm only fixes the angle, which is itself a function of `t`
+  (`universe-layout.ts`, `armAngle`). Quiet periods are dust lanes that thin the arms.
+- **Colour belongs to evidence.** Dust, sky, motes are colourless; one mint "projector"
+  colour marks controls; the four role colours mark evidence; diffraction spikes mark
+  milestones only. Decoration is generated from a seed of the meme id, so it never
+  reshuffles.
+- Motion carries meaning: galaxies ignite as a sweep passes their first date; stars ignite
+  outward in date order; motes drift outward along the arm (the direction of time); a
+  time cursor on the universe axis dims what did not exist yet. Ambient sky rotation,
+  twinkles and meteors are CSS transforms on a canvas drawn once.
+- **Everything animated is skipped under `prefers-reduced-motion`**, and Playwright runs
+  with `reducedMotion: "reduce"` - a moving target is never "stable" enough to click.
+- Fonts are self-hosted: Noto Serif SC 500 in two `unicode-range` slices (GB2312 level 1 +
+  every character the UI and data use; the rest loads on demand), Jost for numerals. Windows
+  had been rendering headings in SimSun. Adding a meme with rare characters needs no action:
+  a missing glyph falls back to the system serif.
+
 `GET /v1/universe` (`pr-universe`) serves all of it in one ~2s request. Quiet gaps over
 21 days are compressed into bands that carry their true length; 21 came from measuring
 29 gaps first (bursts ≤ 15 days, silences ≥ 30). Dates leave the server already in

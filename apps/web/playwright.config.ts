@@ -19,6 +19,10 @@ export default defineConfig({
   use: {
     baseURL: "http://127.0.0.1:3101",
     viewport: { width: 1505, height: 1045 },
+    // The interface animates - ignition, a rotating sky, drifting dust - and a
+    // moving target is never "stable" enough for Playwright to click. The suite
+    // tests behaviour, so it runs the reduced-motion path real readers can choose.
+    reducedMotion: "reduce",
     trace: "retain-on-failure",
   },
   webServer: [
