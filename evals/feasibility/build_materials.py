@@ -46,6 +46,7 @@ def stamp(seconds: float) -> str:
 
 # The channel's watermark and its logo, on screen in almost every frame.
 FURNITURE = re.compile(r"bilibili|bilisili|梗百科")
+BV_ID = re.compile(r"BV[0-9A-Za-z]{10}")
 # A box holding only digits and punctuation is a timer, a counter or a version.
 COUNTER = re.compile(r"^[\d\s.:+=]+$")
 # Below six characters OCR often returns fragments of a longer box it split. A flat
@@ -148,7 +149,11 @@ def narration_by_position(frames: list[dict], episode: str) -> tuple[dict, dict]
             said.append("%s %s" % (stamp(frame["at"]), narrator))
             last = narrator
         for line in others:
-            if line in seen or len(line) < MIN_SHORT or FURNITURE.search(line) or COUNTER.match(line):
+            # A line carrying a BV id is evidence even when it also says bilibili: a pasted
+            # link "https://www.bilibili.com/video/BV1oWMH6yE9s/..." was being dropped as
+            # watermark, and with it the only on-screen mention of that id.
+            furniture = FURNITURE.search(line) and not BV_ID.search(line)
+            if line in seen or len(line) < MIN_SHORT or furniture or COUNTER.match(line):
                 continue
             if len(line) < MIN_CHARS and persist[line] < PERSIST_FRAMES:
                 continue
