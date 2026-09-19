@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { api, type Evidence, type Star } from "@/lib/api";
 import { STAGE_STYLE, type Stage } from "./universe-layout";
+import { describeKind, describeLocator } from "@/lib/evidence";
 
 /** Every excerpt, kind, locator and hash below is the API's own text. */
 export function StarPanel({
@@ -102,11 +103,11 @@ function EvidenceItem({ evidenceId }: { evidenceId: string }) {
       {evidence && (
         <>
           <div className="evidence-head">
-            <span>{evidence.kind}</span>
+            <span>{describeKind(evidence.kind)}</span>
             <span className="small-code">{evidence.id.slice(0, 8)}</span>
           </div>
           <blockquote>{evidence.text}</blockquote>
-          <p className="small-code">定位：{JSON.stringify(evidence.locator)}</p>
+          <p className="evidence-where">{describeLocator(evidence.locator)}</p>
           <p className="small-code">
             内容哈希：{evidence.content_hash.slice(0, 12)}
           </p>

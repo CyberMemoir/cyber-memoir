@@ -113,22 +113,22 @@ export function milestoneStar(galaxy: Galaxy, stage: string): Star | null {
 
 /* ------------------------------- universe view ---------------------------- */
 
-export const UNIVERSE_VIEW = { width: 1680, height: 1060 };
+export const UNIVERSE_VIEW = { width: 1680, height: 880 };
 
 /** u = 0 must not touch the page edge, and u = 1 must not run under the
  *  无日期 column, so the axis is inset inside the viewBox. */
 export const AXIS_X0 = 130;
 export const AXIS_X1 = 1150;
-export const AXIS_Y = 480;
+export const AXIS_Y = 200;
 /** A galaxy whose `u` is null waits in this column, outside the time axis. */
 export const UNDATED_X = 1400;
 /** Dated galaxies within this distance of each other share the axis position. */
 const SAME_INSTANT = 0.002;
 /** One lane holds a glyph, its name and its count; lanes must not collide. */
-const LANE = 118;
+const LANE = 96;
 /** The first lane clears the axis and its date labels. */
 const LANE_TOP = 110;
-const LANE_LIMIT = 4;
+const LANE_LIMIT = 6;
 /** Characters drawn from a name before it is clipped with an ellipsis. */
 export const NAME_LIMIT = 13;
 
@@ -194,7 +194,7 @@ function chooseLane(
 
 /** Glyph area grows with the star count, so a nine-star galaxy reads as bigger. */
 function glyphRadius(galaxy: Galaxy): number {
-  return 12 + Math.sqrt(galaxy.stars.length) * 4.5;
+  return 15 + Math.sqrt(galaxy.stars.length) * 5;
 }
 
 export function layoutUniverse(universe: Universe): {
@@ -229,7 +229,7 @@ export function layoutUniverse(universe: Universe): {
     .map((galaxy, index) => ({
       galaxy,
       x: UNDATED_X,
-      y: AXIS_Y - 200 + index * LANE,
+      y: AXIS_Y + 110 + index * LANE,
       row: index,
       stacked: false,
       radius: glyphRadius(galaxy),
@@ -279,20 +279,77 @@ export type PlacedStar = {
 };
 
 /**
- * Radius is time and nothing else. `t = 0` is the inner ring rather than the
- * centre, so the earliest star is still a position on an axis. Angle is free, so
- * stars sharing a date are handed the golden angle apart instead of overlapping.
+ * A meme's galaxy is a two-armed spiral whose arms are time. Radius is still time and
+ * nothing else - `t = 0` sits on the inner rim, `t = 1` on the outer - and the arm
+ * only decides the angle, which is itself a function of `t`. So a star's date alone
+ * fixes how far out it sits, and the arm it rides adds no claim of its own.
+ *
+ * The arms start at the core's rim pointing up-left and wind clockwise by `turn`
+ * over the whole span, so the eye can follow early to late the way a real arm reads.
  */
+export const ARM = { start: -Math.PI * 0.74, turn: Math.PI * 1.25 };
+/** Two stars on one arm within this much `t` of each other would overlap. */
+const SAME_DATE = 0.025;
+/** Sideways step, in radians, between stars that share a date on the same arm. */
+const LANE_STEP = 0.075;
+
+export function armAngle(t: number, arm: number): number {
+  return ARM.start + arm * Math.PI + ARM.turn * t;
+}
+
+/**
+ * Where the dust sits at a given `t`. Inside `t = 0` the arm winds into the core, so
+ * the decoration is continuous; no star is ever placed there.
+ */
+export function dustRadius(t: number): number {
+  const { rIn, rOut } = GALAXY_VIEW;
+  return t >= 0 ? rIn + t * (rOut - rIn) : Math.max(rIn * (1 + t / 0.42), 0);
+}
+
+export function armPoint(t: number, arm: number, spread = 0): [number, number] {
+  const { cx, cy } = GALAXY_VIEW;
+  const radius = dustRadius(t);
+  const angle = armAngle(t, arm) + spread;
+  return [cx + radius * Math.cos(angle), cy + radius * Math.sin(angle)];
+}
+
+/** The arm as an SVG path, sampled finely enough to read as a curve at any zoom. */
+export function armPath(arm: number, from = 0, to = 1, steps = 72): string {
+  const points: string[] = [];
+  for (let step = 0; step <= steps; step += 1) {
+    const [x, y] = armPoint(from + ((to - from) * step) / steps, arm);
+    points.push(`${step ? "L" : "M"} ${x.toFixed(1)} ${y.toFixed(1)}`);
+  }
+  return points.join(" ");
+}
+
 export function placeStars(stars: Star[]): PlacedStar[] {
-  const { cx, cy, rIn, rOut, rUndated } = GALAXY_VIEW;
+  const { cx, cy, rUndated } = GALAXY_VIEW;
   const GOLDEN = Math.PI * (3 - Math.sqrt(5));
+  const onArm: { t: number; arm: number }[] = [];
   return orderedStars(stars).map((star, index) => {
-    const angle = -Math.PI / 2 + index * GOLDEN;
-    const [radius, extra] =
-      star.t === null || star.t === undefined
-        ? [rUndated, GOLDEN]
-        : [rIn + star.t * (rOut - rIn), 0];
-    const theta = angle + extra;
+    if (star.t === null || star.t === undefined) {
+      /* Evidenced but undated: outside the rim, off the arms, never on time. */
+      const theta = -Math.PI / 2 + index * GOLDEN + GOLDEN;
+      return {
+        star,
+        x: cx + rUndated * Math.cos(theta),
+        y: cy + rUndated * Math.sin(theta),
+        r: rUndated,
+        index,
+      };
+    }
+    const t = star.t;
+    const arm = index % 2;
+    /* Stars sharing a date on one arm step sideways, alternating, never along it:
+       moving along the arm would move them in time. */
+    const crowd = onArm.filter(
+      (other) => other.arm === arm && Math.abs(other.t - t) < SAME_DATE,
+    ).length;
+    onArm.push({ t, arm });
+    const lane = crowd === 0 ? 0 : Math.ceil(crowd / 2) * (crowd % 2 ? 1 : -1);
+    const radius = GALAXY_VIEW.rIn + t * (GALAXY_VIEW.rOut - GALAXY_VIEW.rIn);
+    const theta = armAngle(t, arm) + lane * LANE_STEP;
     return {
       star,
       x: cx + radius * Math.cos(theta),

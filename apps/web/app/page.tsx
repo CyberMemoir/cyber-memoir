@@ -1,9 +1,19 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { api, post, type SearchResult, type Answer } from "@/lib/api";
+import {
+  api,
+  post,
+  type SearchResult,
+  type Answer,
+  type Universe,
+} from "@/lib/api";
 import { Principles } from "@/components/shell";
 import { Icon } from "@/components/icons";
+import { SkyBand } from "@/components/sky-band";
+import { useReducedMotion } from "@/lib/motion";
+
+type ConsoleState = "idle" | "searching" | "answered" | "abstained" | "error";
 
 export default function ArchivePage() {
   const [query, setQuery] = useState("");
@@ -11,11 +21,15 @@ export default function ArchivePage() {
   const [rag, setRag] = useState(false);
   const [result, setResult] = useState<SearchResult | null>(null);
   const [answer, setAnswer] = useState<Answer | null>(null);
+  const [universe, setUniverse] = useState<Universe | null>(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
   const [elapsed, setElapsed] = useState(0);
   const serial = useRef(0);
-  async function run(nextPlatform = platform, offset = 0) {
+  const index = useRef<HTMLDivElement | null>(null);
+  const reduced = useReducedMotion();
+
+  async function run(nextPlatform = platform, offset = 0, reveal = false) {
     const id = ++serial.current;
     setError("");
     setLoading(true);
@@ -34,6 +48,14 @@ export default function ArchivePage() {
         const response = await api<Answer>("/v1/answers", post(body));
         if (serial.current === id) setAnswer(response);
       }
+      /* A search asked from the console should land where its results are; the
+         initial catalogue load should not move the page at all. */
+      if (reveal && serial.current === id) {
+        index.current?.scrollIntoView({
+          behavior: reduced ? "auto" : "smooth",
+          block: "start",
+        });
+      }
     } catch (e) {
       if (serial.current === id) setError((e as Error).message);
     } finally {
@@ -43,6 +65,13 @@ export default function ArchivePage() {
   useEffect(() => {
     void run(); /* initial catalog */
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  /* The sky is decoration and a way in; if it fails the page still works, so a
+     failure here is silent rather than an error beside the search. */
+  useEffect(() => {
+    api<Universe>("/v1/universe")
+      .then(setUniverse)
+      .catch(() => setUniverse(null));
+  }, []);
   /* An answer is not instant, so the wait has to look like work rather than a hang,
      without promising a duration this deployment cannot keep. Nothing here fires on
      a keystroke: the run is submitted with the form. */
@@ -51,68 +80,86 @@ export default function ArchivePage() {
     const timer = window.setInterval(() => setElapsed((n) => n + 1), 1000);
     return () => window.clearInterval(timer);
   }, [loading]);
+
+  const state: ConsoleState = error
+    ? "error"
+    : loading
+      ? "searching"
+      : answer
+        ? answer.claims.length
+          ? "answered"
+          : "abstained"
+        : "idle";
+
   return (
     <main id="main" className="archive-main">
-      <section className="intro">
-        <h1>
-          记住一个梗，
-          <br />
-          <span>也记住它从哪里来。</span>
-        </h1>
-        <p>梗、语境与传播轨迹。每一个解释，都有证据可循。</p>
-      </section>
-      <form
-        className="search-form"
-        onSubmit={(e) => {
-          e.preventDefault();
-          void run();
-        }}
-      >
-        <Icon name="search" size={22} />
-        <input
-          aria-label="搜索记忆"
-          placeholder="搜索梗、别名、创作者或一句话…"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-        />
-        <button type="submit" disabled={loading}>
-          {loading && elapsed > 0 ? `检索中… ${elapsed}s` : "搜索记忆"}
-        </button>
-      </form>
-      {loading && elapsed > 2 && (
-        <p className="retrieval-note" role="status">
-          正在检索并核对证据，请勿关闭页面。
-        </p>
-      )}
-      <div className="filter-bar">
-        <div className="tabs" aria-label="平台筛选">
-          {[
-            [null, "全部平台"],
-            ["bilibili", "Bilibili"],
-            ["douyin", "抖音"],
-          ].map(([id, label]) => (
-            <button
-              key={label}
-              aria-pressed={platform === id}
-              className={platform === id ? "active" : ""}
-              onClick={() => {
-                setPlatform(id);
-                void run(id);
-              }}
-            >
-              {label}
+      <section className="dome" aria-labelledby="dome-title">
+        <SkyBand universe={universe} />
+        <div className="dome-console">
+          <h1 id="dome-title" className="dome-title">
+            记住一个梗，
+            <br />
+            <span>也记住它从哪里来。</span>
+          </h1>
+          <p className="dome-sub">梗、语境与传播轨迹。每一个解释，都有证据可循。</p>
+          <div className="horizon" aria-hidden="true" />
+          <form
+            className="search-form"
+            data-state={state}
+            onSubmit={(e) => {
+              e.preventDefault();
+              void run(platform, 0, true);
+            }}
+          >
+            <Icon name="search" size={21} />
+            <input
+              aria-label="搜索记忆"
+              placeholder="搜索梗、别名、创作者或一句话…"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
+            <button type="submit" disabled={loading}>
+              {loading && elapsed > 0 ? `检索中… ${elapsed}s` : "搜索记忆"}
             </button>
-          ))}
+            <span className="scan-line" aria-hidden="true" />
+          </form>
+          <div className="filter-bar">
+            <div className="tabs" aria-label="平台筛选">
+              {[
+                [null, "全部平台"],
+                ["bilibili", "Bilibili"],
+                ["douyin", "抖音"],
+              ].map(([id, label]) => (
+                <button
+                  key={label}
+                  aria-pressed={platform === id}
+                  className={platform === id ? "active" : ""}
+                  onClick={() => {
+                    setPlatform(id);
+                    void run(id);
+                  }}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+            <label className="check-label">
+              <input
+                type="checkbox"
+                checked={rag}
+                onChange={(e) => setRag(e.target.checked)}
+              />
+              基于证据回答
+            </label>
+          </div>
+          {loading && elapsed > 2 && (
+            <p className="retrieval-note console-status" role="status">
+              正在检索并核对证据，请勿关闭页面。
+            </p>
+          )}
         </div>
-        <label className="check-label">
-          <input
-            type="checkbox"
-            checked={rag}
-            onChange={(e) => setRag(e.target.checked)}
-          />
-          基于证据回答
-        </label>
-      </div>
+      </section>
+
       {error && (
         <div className="error" role="alert">
           {error}
@@ -121,7 +168,7 @@ export default function ArchivePage() {
           </button>
         </div>
       )}
-      <div className="archive-columns">
+      <div className="archive-columns" ref={index}>
         <section className="archive-panel" aria-busy={loading}>
           <div className="panel-heading">
             <h2>记忆索引</h2>
@@ -133,7 +180,9 @@ export default function ArchivePage() {
               the uncertainties are still the API's own, so they are rendered in the
               same place and the same style as any other answer - never as an error. */}
           {answer && (
-            <section className="answer">
+            <section
+              className={`answer${answer.claims.length ? "" : " is-abstained"}`}
+            >
               <h3>基于证据的回答</h3>
               <p className="answer-text">{answer.answer}</p>
               {answer.claims.length === 0 && (
@@ -190,51 +239,51 @@ export default function ArchivePage() {
               正在连接记忆索引…
             </div>
           )}
-          {result?.items.map((meme) => (
-            <article className="meme-row" key={meme.id}>
-              <div className="row-meta">
-                <span>
-                  {Array.from(
-                    new Set(meme.evidence.map((e) => e.source?.platform)),
-                  )
-                    .map((p) => (p === "bilibili" ? "Bilibili" : "抖音"))
-                    .join(" / ")}
-                </span>
-                <span>
-                  {meme.evidence.length} 份证据 · 修订 {meme.published_revision}
-                  {/* A retrieval score is only a score when the pipeline says its
-                      scores are calibrated; otherwise the number would be noise. */}
-                  {result.scores_calibrated &&
-                  typeof meme.retrieval_score === "number"
-                    ? ` · 检索分 ${meme.retrieval_score.toFixed(3)}`
-                    : ""}
-                </span>
-              </div>
-              <Link href={`/memes/${meme.id}`}>
-                <h3>
-                  {meme.canonical_name}
-                  <Icon name="arrow" />
-                </h3>
-              </Link>
-              {meme.aliases.length > 0 && (
-                <p className="aliases">也叫 {meme.aliases.join(" / ")}</p>
-              )}
-              <p>{meme.definition}</p>
-              <div className="row-meta">
-                <span>
-                  {meme.origin_status === "unknown"
-                    ? "起源尚未确认"
-                    : meme.origin_status === "disputed"
-                      ? "来源存在争议"
-                      : "有证据支持的来源主张"}
-                </span>
-                <span className="row-links">
-                  <Link href={`/universe?meme=${meme.id}`}>在星图中查看</Link>
-                  <Link href={`/memes/${meme.id}`}>查看语境与证据</Link>
-                </span>
-              </div>
-            </article>
-          ))}
+          <div className="meme-rows" key={`${query}|${platform}|${result?.total ?? ""}`}>
+            {result?.items.map((meme, position) => (
+              <article
+                className="meme-row"
+                key={meme.id}
+                style={{ "--row": Math.min(position, 8) } as React.CSSProperties}
+              >
+                <Link href={`/memes/${meme.id}`}>
+                  <h3>
+                    {meme.canonical_name}
+                    <Icon name="arrow" />
+                  </h3>
+                </Link>
+                {meme.aliases.length > 0 && (
+                  <p className="aliases">也叫 {meme.aliases.join(" / ")}</p>
+                )}
+                <p>{meme.definition}</p>
+                <div className="row-meta">
+                  <span>
+                    {Array.from(new Set(meme.evidence.map((e) => e.source?.platform)))
+                      .map((p) => (p === "bilibili" ? "Bilibili" : "抖音"))
+                      .join(" / ")}
+                    {" · "}
+                    {meme.evidence.length} 份证据 · 修订 {meme.published_revision}
+                    {" · "}
+                    {meme.origin_status === "unknown"
+                      ? "起源尚未确认"
+                      : meme.origin_status === "disputed"
+                        ? "来源存在争议"
+                        : "有证据支持的来源主张"}
+                    {/* A retrieval score is only a score when the pipeline says its
+                        scores are calibrated; otherwise the number would be noise. */}
+                    {result.scores_calibrated &&
+                    typeof meme.retrieval_score === "number"
+                      ? ` · 检索分 ${meme.retrieval_score.toFixed(3)}`
+                      : ""}
+                  </span>
+                  <span className="row-links">
+                    <Link href={`/universe?meme=${meme.id}`}>在星图中查看</Link>
+                    <Link href={`/memes/${meme.id}`}>查看语境与证据</Link>
+                  </span>
+                </div>
+              </article>
+            ))}
+          </div>
           {result && result.items.length < result.total && (
             <button
               className="load-more"

@@ -1,9 +1,21 @@
 "use client";
 import { use, useEffect, useState } from "react";
 import Link from "next/link";
-import { api, date, type Meme } from "@/lib/api";
+import { api, date, type Galaxy, type Meme, type Universe } from "@/lib/api";
 import { Icon } from "@/components/icons";
+import { GalaxyGraph } from "@/components/universe-graphs";
+import { GALAXY_VIEW } from "@/components/universe-layout";
+import { TimeStrip } from "@/components/time-strip";
+import { describeKind, describeLocator } from "@/lib/evidence";
 
+/** How precisely an event's date is known, in the reader's words. */
+const PRECISION: Record<string, string> = {
+  second: "精确到秒",
+  day: "精确到日",
+  month: "精确到月",
+  year: "精确到年",
+  unknown: "日期未知",
+};
 const predicates: Record<string, string> = {
   derived_from: "衍生自",
   variant_of: "变体关系",
@@ -20,6 +32,20 @@ export default function MemePage({
   const { id } = use(params);
   const [meme, setMeme] = useState<Meme | null>(null);
   const [error, setError] = useState("");
+  const [galaxy, setGalaxy] = useState<Galaxy | null>(null);
+  /* The page opens on this meme's own galaxy. It is a picture of the same evidence
+     listed below, so if it cannot load the page simply goes without it. */
+  useEffect(() => {
+    let active = true;
+    api<Universe>("/v1/universe")
+      .then((data) => {
+        if (active) setGalaxy(data.galaxies.find((g) => g.meme_id === id) ?? null);
+      })
+      .catch(() => {});
+    return () => {
+      active = false;
+    };
+  }, [id]);
   useEffect(() => {
     let active = true;
     api<Meme>(`/v1/memes/${id}`)
@@ -46,7 +72,8 @@ export default function MemePage({
       {!meme && !error && <p role="status">正在读取证据…</p>}
       {meme && (
         <>
-          <header className="detail-header">
+          <header className={`detail-header${galaxy ? " has-galaxy" : ""}`}>
+            <div className="detail-heading">
             <h1 className="page-title">{meme.canonical_name}</h1>
             {meme.aliases.length > 0 && (
               <p className="aliases">也叫：{meme.aliases.join(" / ")}</p>
@@ -64,6 +91,36 @@ export default function MemePage({
                     : "有证据支持的来源主张"}
               </span>
             </div>
+            <Link
+              className="button outline small galaxy-link-button"
+              href={`/universe?meme=${encodeURIComponent(meme.id)}`}
+            >
+              在星图中查看它的星系 →
+            </Link>
+            </div>
+            {galaxy && (
+              <Link
+                href={`/universe?meme=${encodeURIComponent(meme.id)}`}
+                className="detail-galaxy"
+                aria-label={`${meme.canonical_name} 的星系：${galaxy.stars.length} 颗证据星。进入星图。`}
+              >
+                <svg
+                  viewBox={`0 0 ${GALAXY_VIEW.width} ${GALAXY_VIEW.height}`}
+                  className="universe-svg detail-galaxy-svg"
+                  aria-hidden="true"
+                  style={{ "--label-scale": 1.5 } as React.CSSProperties}
+                >
+                  <GalaxyGraph
+                    galaxy={galaxy}
+                    activeStarId={null}
+                    onSelectStar={() => {}}
+                    onHoverStar={() => {}}
+                    labelScale={1.5}
+                    still
+                  />
+                </svg>
+              </Link>
+            )}
           </header>
           <div className="detail-columns">
             <div>
@@ -92,6 +149,7 @@ export default function MemePage({
                 <p className="muted">
                   事件时间与采集时间分开记录，时间未知时不补写日期。
                 </p>
+                {galaxy && <TimeStrip galaxy={galaxy} />}
                 {meme.events.length ? (
                   <ol className="timeline">
                     {meme.events.map((event) => (
@@ -99,7 +157,7 @@ export default function MemePage({
                         <time>{date(event.occurred_at_start)}</time>
                         <p>{event.description}</p>
                         <small className="muted">
-                          精度：{event.time_precision} · 时间依据：
+                          {PRECISION[event.time_precision] ?? event.time_precision} · 时间依据：
                           {event.time_basis}
                         </small>
                       </li>
@@ -168,14 +226,12 @@ export default function MemePage({
                 >
                   <div className="evidence-head">
                     <span>
-                      证据 {i + 1} · {e.kind}
+                      证据 {i + 1} · {describeKind(e.kind)}
                     </span>
                     <span>已人工核对</span>
                   </div>
                   <blockquote>{e.text}</blockquote>
-                  <p className="small-code">
-                    定位：{JSON.stringify(e.locator)}
-                  </p>
+                  <p className="evidence-where">{describeLocator(e.locator)}</p>
                   <p className="small-code">SHA-256: {e.content_hash}</p>
                   <a
                     href={e.source?.canonical_url}

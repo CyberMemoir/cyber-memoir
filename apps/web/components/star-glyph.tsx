@@ -2,8 +2,17 @@ import type { Star } from "@/lib/api";
 import { STAGE_STYLE, type Stage } from "./universe-layout";
 
 /**
- * One star glyph. Stage decides colour, size and shape; `milestone` adds a halo;
- * the hovered star gets an outer ring. Nothing here reads `t`, `at` or `date`.
+ * One evidence star. What it looks like is the only thing stage decides:
+ *
+ * - a white-hot core inside a glow in the role's colour - colour marks evidence, and
+ *   nothing decorative on the map carries one;
+ * - the role's shape drawn around the core as a thin catalogue mark, always present,
+ *   so the stage survives a colour-blind reader and a greyscale print;
+ * - diffraction spikes on milestones only, the way the brightest stars in a
+ *   telescope image carry them, so "first of its stage" reads at a glance.
+ *
+ * Nothing here reads `t`, `at` or `date` except the ignition delay, which is how
+ * the stars light up in the order they happened.
  */
 export function StarGlyph({
   star,
@@ -11,6 +20,7 @@ export function StarGlyph({
   y,
   active,
   scale = 1,
+  inert = false,
   onSelect,
   onHover,
 }: {
@@ -19,65 +29,68 @@ export function StarGlyph({
   y: number;
   active?: boolean;
   scale?: number;
+  /** Drawn only: a thumbnail's stars are not focus stops or buttons. */
+  inert?: boolean;
   onSelect: (star: Star) => void;
   onHover?: (starId: string | null) => void;
 }) {
   const style = STAGE_STYLE[star.stage as Stage] ?? STAGE_STYLE.derivative;
-  const size = style.size * scale * (star.milestone ? 1.5 : 1);
-  const hit = Math.max(size + 9, 13);
-  const body = () => {
+  const size = style.size * scale * (star.milestone ? 1.35 : 1);
+  const hit = Math.max(size + 10, 15);
+  const mark = size + 3.5;
+  const shape = () => {
     switch (style.shape) {
       case "diamond":
         return (
           <path
-            d={`M ${x} ${y - size} L ${x + size} ${y} L ${x} ${y + size} L ${
-              x - size
+            className="star-mark"
+            d={`M ${x} ${y - mark * 1.2} L ${x + mark * 1.2} ${y} L ${x} ${y + mark * 1.2} L ${
+              x - mark * 1.2
             } ${y} Z`}
-            fill={style.color}
           />
         );
       case "square":
         return (
           <rect
-            x={x - size}
-            y={y - size}
-            width={size * 2}
-            height={size * 2}
+            className="star-mark"
+            x={x - mark}
+            y={y - mark}
+            width={mark * 2}
+            height={mark * 2}
             rx={1.5}
-            fill={style.color}
           />
         );
       case "ring":
-        return (
-          <circle
-            cx={x}
-            cy={y}
-            r={size}
-            fill="none"
-            stroke={style.color}
-            strokeWidth={Math.max(2.4, size * 0.5)}
-          />
-        );
+        return <circle className="star-mark ring" cx={x} cy={y} r={mark} />;
       default:
-        return <circle cx={x} cy={y} r={size} fill={style.color} />;
+        return <circle className="star-mark" cx={x} cy={y} r={mark} />;
     }
   };
+  const spike = size * 4.2;
   return (
     <g
       className={`star stage-${star.stage}${star.milestone ? " milestone" : ""}${
         active ? " is-active" : ""
-      }`}
-      role="button"
-      tabIndex={0}
-      aria-label={`${star.milestone ? "里程碑：" : ""}${ariaFor(star)}`}
+      }${star.t === null ? " is-undated" : ""}`}
+      role={inert ? undefined : "button"}
+      tabIndex={inert ? undefined : 0}
+      aria-hidden={inert || undefined}
+      aria-label={inert ? undefined : `${star.milestone ? "里程碑：" : ""}${ariaFor(star)}`}
       data-star-id={star.id}
       data-kind={star.kind}
+      style={
+        {
+          "--stage": style.color,
+          "--ignite": `${Math.round(260 + (star.t ?? 1.08) * 1500)}ms`,
+        } as React.CSSProperties
+      }
       onClick={(event) => {
+        if (inert) return;
         event.stopPropagation();
         onSelect(star);
       }}
       onKeyDown={(event) => {
-        if (event.key === "Enter" || event.key === " ") {
+        if (!inert && (event.key === "Enter" || event.key === " ")) {
           event.preventDefault();
           event.stopPropagation();
           onSelect?.(star);
@@ -88,40 +101,18 @@ export function StarGlyph({
       onFocus={() => onHover?.(star.id)}
       onBlur={() => onHover?.(null)}
     >
-      <circle cx={x} cy={y} r={hit} fill="transparent" />
+      <circle className="star-hit" cx={x} cy={y} r={hit} />
+      <circle className="star-glow" cx={x} cy={y} r={size * 2.9} />
       {star.milestone && (
-        <circle
-          className="star-halo"
-          cx={x}
-          cy={y}
-          r={size + 7}
-          fill="none"
-          stroke={style.color}
-          strokeWidth={1.2}
+        <path
+          className="star-spikes"
+          d={`M ${x - spike} ${y} L ${x + spike} ${y} M ${x} ${y - spike} L ${x} ${y + spike}`}
         />
       )}
-      {active && (
-        <circle
-          className="star-active-ring"
-          cx={x}
-          cy={y}
-          r={size + 11}
-          fill="none"
-          stroke={style.color}
-          strokeWidth={1.4}
-        />
-      )}
-      {body()}
-      {star.kind === "meme" && (
-        <circle
-          cx={x}
-          cy={y}
-          r={Math.max(size * 0.28, 1.6)}
-          fill="var(--bg)"
-          stroke={style.color}
-          strokeWidth={1}
-        />
-      )}
+      {star.milestone && <circle className="star-halo" cx={x} cy={y} r={mark + 6} />}
+      {active && <circle className="star-active-ring" cx={x} cy={y} r={mark + 11} />}
+      {shape()}
+      <circle className="star-core" cx={x} cy={y} r={Math.max(size * 0.46, 2.2)} />
     </g>
   );
 }
