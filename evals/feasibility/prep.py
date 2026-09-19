@@ -209,6 +209,82 @@ def transcribe(tokens: list[str], out: Path, model_name: str, sleep: float = 4.0
     return 0
 
 
+def ocr_video(path: Path, every: float, ocr, cv2, use_cls: bool = True) -> tuple[list[dict], list[dict]]:
+    """One OCR pass: the text per sampled frame, and the same boxes with their positions.
+
+    Positions are what tell the narrator's subtitle from everything else on screen - it
+    sits in a fixed band near the bottom, while quoted clips, comments and credits sit
+    elsewhere. They are stored as fractions of the frame so 480p and 1080p compare."""
+    capture = cv2.VideoCapture(str(path))
+    fps = capture.get(cv2.CAP_PROP_FPS) or 25.0
+    width = capture.get(cv2.CAP_PROP_FRAME_WIDTH) or 1.0
+    height = capture.get(cv2.CAP_PROP_FRAME_HEIGHT) or 1.0
+    step = max(1, int(fps * every))
+    frame_text: list[dict] = []
+    frame_boxes: list[dict] = []
+    index = 0
+    while True:
+        ok, frame = capture.read()
+        if not ok:
+            break
+        if index % step == 0:
+            result, _ = ocr(frame, use_cls=use_cls)
+            stamp = round(index / fps, 1)
+            texts = [str(line[1]) for line in (result or [])]
+            if texts:
+                frame_text.append({"at": stamp, "text": texts})
+                boxes = []
+                for box, text, score in result:
+                    xs = [float(p[0]) for p in box]
+                    ys = [float(p[1]) for p in box]
+                    boxes.append([
+                        str(text),
+                        round(sum(ys) / 4 / height, 4),       # vertical centre
+                        round(min(xs) / width, 4),
+                        round(max(xs) / width, 4),
+                        round((max(ys) - min(ys)) / height, 4),  # box height
+                        round(float(score), 3),
+                    ])
+                frame_boxes.append({"at": stamp, "boxes": boxes})
+        index += 1
+    capture.release()
+    return frame_text, frame_boxes
+
+
+def write_boxes(target: Path, frame_boxes: list[dict]) -> None:
+    """[text, y_centre, x_left, x_right, height, confidence] per box, all fractions of the frame."""
+    target.write_text(
+        json.dumps({"fields": ["text", "y", "x0", "x1", "h", "conf"], "frames": frame_boxes},
+                   ensure_ascii=False),
+        encoding="utf-8",
+    )
+
+
+def rebox(tokens: list[str], out: Path, every: float) -> int:
+    """Re-OCR videos already on disk, writing positions only. Never touches ocr.json,
+    derivatives.csv or materials: published evidence was built from those."""
+    try:
+        import cv2
+        from rapidocr_onnxruntime import RapidOCR
+    except ImportError:
+        print("需要 opencv 与 rapidocr-onnxruntime")
+        return 2
+    ocr = RapidOCR()
+    for token in tokens:
+        vid = video_id(token)
+        videos = [p for p in out.glob("%s.video.*" % vid) if p.suffix != ".json"]
+        if not videos:
+            print("  %s  没有本地视频，跳过（不会去平台下载）" % vid)
+            continue
+        started = time.time()
+        # No angle classifier: subtitles are horizontal. Measured on 20 frames of a 1080p
+        # episode: 2.36 s/frame against 2.86, narrator lines identical on all 20.
+        _, frame_boxes = ocr_video(videos[0], every, ocr, cv2, use_cls=False)
+        write_boxes(out / ("%s.boxes.json" % vid), frame_boxes)
+        print("  %s  %d 帧  %.0fs" % (vid, len(frame_boxes), time.time() - started))
+    return 0
+
+
 def extract_derivatives(
     tokens: list[str], out: Path, every: float, sleep: float,
     video_path: Path | None = None, resolve: bool = True,
@@ -253,29 +329,15 @@ def extract_derivatives(
                           "\n      prep.py derivatives %s --video 路径.mp4 --no-resolve" % vid)
                 continue
             existing = [p for p in out.glob("%s.video.*" % vid) if p.suffix != ".json"]
-        capture = cv2.VideoCapture(str(existing[0]))
-        fps = capture.get(cv2.CAP_PROP_FPS) or 25.0
-        step = max(1, int(fps * every))
+        frame_text, frame_boxes = ocr_video(existing[0], every, ocr, cv2)
         hits: dict[str, float] = {}
-        frame_text: list[dict] = []
-        index = 0
-        while True:
-            ok, frame = capture.read()
-            if not ok:
-                break
-            if index % step == 0:
-                result, _ = ocr(frame)
-                texts = [str(line[1]) for line in (result or [])]
-                stamp = index / fps
-                for found in pattern.findall(" ".join(texts)):
-                    hits.setdefault(found, stamp)
-                if texts:
-                    frame_text.append({"at": round(stamp, 1), "text": texts})
-            index += 1
-        capture.release()
+        for item in frame_text:
+            for found in pattern.findall(" ".join(item["text"])):
+                hits.setdefault(found, item["at"])
         (out / ("%s.ocr.json" % vid)).write_text(
             json.dumps(frame_text, ensure_ascii=False, indent=2), encoding="utf-8"
         )
+        write_boxes(out / ("%s.boxes.json" % vid), frame_boxes)
         print("  frames OCR'd: %d   BV ids found: %d" % (len(frame_text), len(hits)))
         # 0/o and 1/l confusions produce two ids for one card; flag them so counts stay honest.
         ordered = sorted(hits.items(), key=lambda kv: kv[1])
@@ -751,6 +813,10 @@ def main() -> int:
     deriv.add_argument("--no-proxy", action="store_true", help="bypass any system proxy for bilibili")
     deriv.add_argument("--video", type=Path, help="OCR this local file instead of downloading")
     deriv.add_argument("--no-resolve", action="store_true", help="skip the resolve pass; OCR only")
+    bx = sub.add_parser("boxes", help="re-OCR local videos keeping text positions; touches nothing else")
+    bx.add_argument("tokens", nargs="+", metavar="BV")
+    bx.add_argument("--out", type=Path, default=HERE)
+    bx.add_argument("--every", type=float, default=1.0)
     res = sub.add_parser("resolve", help="resolve pending rows in *.derivatives.csv without re-OCR")
     res.add_argument("--out", type=Path, default=HERE)
     res.add_argument("--sleep", type=float, default=12.0)
@@ -794,6 +860,8 @@ def main() -> int:
         return build_drafts(args.sheet, args.out)
     if args.mode == "sheet":
         return build_sheet(args.out)
+    if args.mode == "boxes":
+        return rebox(args.tokens, args.out, args.every)
     if args.mode == "resolve":
         EXTRA.extend(["--add-header", "Referer:https://www.bilibili.com/",
                       "--retries", "3", "--extractor-retries", "3"])

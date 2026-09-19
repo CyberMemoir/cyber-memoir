@@ -27,10 +27,19 @@ def load_material_index() -> dict[str, list[dict]]:
 
 def resolve_placeholder(key: str, index: dict[str, list[dict]]) -> tuple[str, dict] | None:
     """Map an evidence_map key onto (episode, Material). Keys look like
-    ocr-narration-<EP>, ocr-<BV of a cited work>, or asr-<EP>."""
+    ocr-narration-<EP>, ocr-screen-<EP>, ocr-<BV of a cited work>, or asr-<EP>.
+
+    ocr-narration is material 0. Episodes OCR'd with positions split the screen in two:
+    material 0 is then only the narrator's subtitle band, and ocr-screen - material 1 -
+    is everything else shown (quoted clips' captions, comments, credits)."""
     if key.startswith("ocr-narration-"):
         episode = key[len("ocr-narration-") :]
         return (episode, index[episode][0]) if episode in index else None
+    if key.startswith("ocr-screen-"):
+        episode = key[len("ocr-screen-") :]
+        materials = index.get(episode) or []
+        split = len(materials) > 1 and "画面其他文字" in materials[1]["locator"].get("note", "")
+        return (episode, materials[1]) if split else None
     if key.startswith("asr-"):
         episode = key[len("asr-") :]
         transcript = FEASIBILITY / ("%s.transcript.txt" % episode)
@@ -47,6 +56,9 @@ def resolve_placeholder(key: str, index: dict[str, list[dict]]) -> tuple[str, di
     target = found.group(0)
     for episode, materials in index.items():
         for material in materials[1:]:
-            if target in material["locator"].get("note", ""):
+            note = material["locator"].get("note", "")
+            # Only citation frames: the screen material's note names its own episode, and an
+            # episode can cite another explainer episode by id.
+            if "画面出现" in note and target in note.split("画面出现", 1)[1]:
                 return episode, material
     return None
