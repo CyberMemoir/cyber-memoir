@@ -24,6 +24,11 @@ episodes. Once roles are model-drafted, no such key exists again. So the test ru
   date, title — with `role` and `notes` removed, plus the episode's OCR materials.
   Task: `ai_context/role_calibration/task.txt`.
 - Allowed answers: the five roles, or `?` when the screen does not decide.
+- **Amended 2026-09-19, before any answer existed:** the OCR input is the episode's screen
+  as a timeline labelled by position - `解说` for the narrator's subtitle band, `画面` for
+  everything else - built from a positioned re-OCR (`prep.py boxes`), instead of the mixed
+  materials. Motivated by Vincent's question whether OCR can tell subtitles apart, not by
+  any result. The criteria below are unchanged.
 - Claude scores against `lineage.csv` as it stands at commit time.
 
 ## Criteria
