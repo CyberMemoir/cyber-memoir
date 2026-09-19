@@ -65,4 +65,45 @@ listed individually.
 
 ## Results
 
-_Not yet run._
+Run 2026-09-19 by DeepSeek v4.1 flash in a fresh session, from the position-labelled
+screens. All 117 rows answered (one `?`). Scored by `evals/score_roles.py` against the key
+in commit 2dfbf11.
+
+| # | measure | needed | result | |
+|---|---|---|---|---|
+| 1 | false origin claims | ≤ 2 of 94 | **3** | FAIL |
+| 2 | origin recall | ≥ 17 of 23 | **4** | FAIL |
+| 3 | non-origin agreement | ≥ 80 of 94 | **78** | FAIL |
+
+36 disagreements; 1 source ↔ popularized_by swap.
+
+**Outcome, per the criteria written before the run: no role drafting.** `role` stays
+Vincent's, and the corpus loop keeps its L-2 human role pass.
+
+### What the failure is made of
+
+The model does not find origins. It caught 4 of 23, calling 7 of Vincent's `source` rows
+`derivative` and 6 `reference`, and 5 `popularized_by` rows `derivative`. Reading its
+basis lines, the reason is consistent: it judged by where a clip sits in the narration
+rather than by what the narration says the clip *is*, so an old work shown as the origin
+reads to it as just another cited video.
+
+Not all 36 disagreements are model errors, and the criteria say to read them:
+
+- **你会XXX吗, six rows** (#39, #41–#46): Vincent marked tournament clips `irrelevant`;
+  the model called them `derivative`. They are cited in a list of 爆梗 from the same event.
+  Worth a second look - if they are derivative works, the key is wrong here, not the model.
+- **胆子真是肥嘟嘟的 #47, 宗主第二招 #27**: `irrelevant` vs `reference`. `reference`
+  exists for exactly this (shown for context), and Vincent's own role vocabulary allows it.
+- **AVGN舞 #14**: the model says the 解说 names this as the source of the meme's music half;
+  Vincent marked it `derivative`. One to check against the screen.
+
+Re-scoring after any label change is not allowed: the table above is computed on the key as
+committed, and a changed label is reported here with its reason instead.
+
+### What this does not say
+
+It does not say the screen lacks the answer; it says this model did not read it out. A
+different prompt, or a model that is shown the four-stage model with worked examples, might
+do better - but that would be a second run against a key this run has now seen, so it would
+not be blind, and it cannot use these 117 rows again.
