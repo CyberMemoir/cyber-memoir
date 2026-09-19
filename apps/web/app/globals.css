@@ -84,7 +84,7 @@ body {
   border-radius: 99px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #1d2946;
+  background: #26272d;
 }
 button,
 input,
@@ -695,7 +695,8 @@ textarea {
   border-color: var(--absent);
 }
 .search-form[data-state="error"] {
-  border-color: rgba(255, 150, 130, 0.55);
+  border-color: rgba(240, 242, 247, 0.7);
+  border-width: 2px;
 }
 @keyframes scan {
   from {
@@ -895,12 +896,15 @@ textarea {
   color: var(--ink-2);
   margin-top: 3px;
 }
+/* Errors and danger carry no hue: every warm colour here is a role colour, and a red
+   error beside a coral 走红作品 star would read as evidence. A heavier white outline
+   and the words themselves carry the warning. */
 .error,
 .notice {
   padding: 14px 18px;
-  border: 1px solid rgba(255, 150, 130, 0.4);
-  background: rgba(60, 16, 12, 0.55);
-  color: #ffc9bd;
+  border: 2px solid rgba(240, 242, 247, 0.55);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--ink);
   border-radius: 10px;
   margin: 18px 0;
   overflow-wrap: anywhere;
@@ -1268,12 +1272,12 @@ textarea {
   flex-wrap: wrap;
 }
 .danger {
-  border: 1px solid rgba(255, 150, 130, 0.45);
-  color: #ffb4a4;
+  border: 2px solid rgba(240, 242, 247, 0.55);
+  color: var(--ink);
   background: transparent;
 }
 .danger:hover {
-  background: rgba(255, 120, 100, 0.08);
+  background: rgba(255, 255, 255, 0.08);
 }
 .divider {
   border: 0;
