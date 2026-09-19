@@ -25,3 +25,10 @@ bili-cookies.txt
 ops/models/
 # Scratch for handing work to other models; not a project artefact
 ai_context/
+
+# impeccable design tooling: machine-local config and review captures
+.impeccable/config.local.json
+.impeccable/review/
+.impeccable/build/
+.impeccable/mocks/
+.impeccable/hook.cache.json
