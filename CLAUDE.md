@@ -97,6 +97,16 @@ recovered all three losses and more (子琪不吃, 周五夜放克, @handles) at
 chrome (分享, 回复). The 14 published episodes keep the old flat floor and must never be
 rebuilt - evidence is keyed on content hash, so a rebuild posts a second piece of evidence.
 
+**The narrator's subtitle is found by position, not guessed** (2026-09-19). OCR boxes
+carry positions (`<EP>.boxes.json`; `prep.py boxes` re-OCRs a video on disk, `derivatives`
+writes them for new episodes). 梗百科's narrator is one centred row at a fixed height per
+episode - 86.6%, 89.4% or 92.0% of the frame across 21 episodes, box height 0.052-0.058 -
+so the row is measured per episode, and height separates a clip's own bottom subtitles
+sharing it (闹吃's rap lyrics: same row, 0.08-0.09 tall). New episodes get two materials:
+`ocr-narration-<EP>` is the narrator only, `ocr-screen-<EP>` everything else shown. The 9
+published episodes keep the old mixed layout. OCR runs ~3 s/frame here; dropping the angle
+classifier saved 18% with identical narrator lines.
+
 **ASR errs on the narrator too, not only on clip audio** (measured 2026-09-19 on
 BV1xWtJ6iEGs, the one episode with both ASR and OCR). Clip audio is garbage (软弱烤一花 for
 软糯烤地瓜), but in the narrator's clean stretches (0-41s, 68-77s) about half the lines differ
