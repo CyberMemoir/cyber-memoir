@@ -97,6 +97,15 @@ recovered all three losses and more (子琪不吃, 周五夜放克, @handles) at
 chrome (分享, 回复). The 14 published episodes keep the old flat floor and must never be
 rebuilt - evidence is keyed on content hash, so a rebuild posts a second piece of evidence.
 
+**ASR errs on the narrator too, not only on clip audio** (measured 2026-09-19 on
+BV1xWtJ6iEGs, the one episode with both ASR and OCR). Clip audio is garbage (软弱烤一花 for
+软糯烤地瓜), but in the narrator's clean stretches (0-41s, 68-77s) about half the lines differ
+from the on-screen subtitle, including every name: 松珍/松针, 子奇/子琪, 肤腥/护心, 油煸/油边.
+The errors are fluent, so judging "explanation vs messy clip sound" does not catch them, and
+the sound does not carry the characters (子琪 and 子奇 are both zǐqí). The transcript also
+held no narrator line the OCR lacked. ASR may be read for meaning; names, quotes and
+evidence come from OCR. Whisper `small`; n = 1 episode.
+
 **One episode can cover several memes.** BV1ii4C6QEk8 covers three. Split ids by the
 `seen_at` column — it records when each appeared on screen, so the split is mechanical. The
 one-draft-per-source constraint lives in `extract()` (the LLM path we don't use); the manual
