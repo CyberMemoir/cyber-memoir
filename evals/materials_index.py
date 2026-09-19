@@ -54,11 +54,17 @@ def resolve_placeholder(key: str, index: dict[str, list[dict]]) -> tuple[str, di
     if not found:
         return None
     target = found.group(0)
-    for episode, materials in index.items():
-        for material in materials[1:]:
-            note = material["locator"].get("note", "")
-            # Only citation frames: the screen material's note names its own episode, and an
-            # episode can cite another explainer episode by id.
-            if "画面出现" in note and target in note.split("画面出现", 1)[1]:
-                return episode, material
+    # Only citation frames: the screen material's note names its own episode, and an
+    # episode can cite another explainer episode by id. An exact match wins; an id that
+    # differs only in letter case is the usual OCR misread (BV1XyJA6BEBN on screen for
+    # BV1xyJA6BEBN, which is the id the platform resolved), so it is accepted second.
+    for insensitive in (False, True):
+        for episode, materials in index.items():
+            for material in materials[1:]:
+                note = material["locator"].get("note", "")
+                if "画面出现" not in note:
+                    continue
+                cited = note.split("画面出现", 1)[1]
+                if target in cited or (insensitive and target.lower() in cited.lower()):
+                    return episode, material
     return None

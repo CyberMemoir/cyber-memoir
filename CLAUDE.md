@@ -78,7 +78,11 @@ construction.
 every `open()`/`write_text()` needs `encoding="utf-8"`. Five such bugs found so far.
 
 **OCR misreads are self-verifying.** Every NOT FOUND id has been a one-character variant of
-an id that did resolve (0/o, C/c, i/1, z/Z). Bad OCR costs recall, never correctness.
+an id that did resolve (0/o, C/c, i/1, z/Z, **and letter case**: BV1XyJA6BEBN on screen for
+BV1xyJA6BEBN). Search the screen case-insensitively before concluding an id is absent -
+doing it case-sensitively once cost 大狗叫 a true popularized_by relation for a day, and
+`materials_index.resolve_placeholder` now accepts a case variant after an exact match
+fails. Bad OCR costs recall, never correctness.
 Corpus accuracy 33/37 = 89% over answered requests. BLOCKED ≠ NOT FOUND: a refused request
 says nothing about the id.
 
