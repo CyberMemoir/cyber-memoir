@@ -1,8 +1,8 @@
 ﻿episode_id,meme_name,bv_id,upload_date,title,role,notes
-BV1ysME67Em9,大狗叫,BV1eG4y1r72j,20220824,海南普通话版喊你做核酸，大喇叭硬核喊话太有那个味了,derivative,def: 之前是听通知，戴口罩的空耳；现在是一段魔性的音乐歌词，歌词大意：无
+BV1ysME67Em9,大狗叫,BV1eG4y1r72j,20220824,海南普通话版喊你做核酸，大喇叭硬核喊话太有那个味了,source,def: 之前是听通知，戴口罩的空耳；现在是一段魔性的音乐歌词，歌词大意：无；role 2026-09-19 derivative->source：解说指名此片是梗某一部分的出处；策展人判定「部件的出处也是出处」
 BV1ysME67Em9,大狗叫,BV1Ee4y1Z7NZ,20220826,动漫版海南魔性“叮咚鸡”来啦！,source,usage context: 笑这个抽象的歌，串云原神
 BV1ysME67Em9,大狗叫,BV1gK4y1F7Vp,20230920,0920圆和圆的位置关系,derivative,
-BV1ysME67Em9,大狗叫,BV1ic411D7xo,20231208,《云·原神》动画短片——第二篇,derivative,
+BV1ysME67Em9,大狗叫,BV1ic411D7xo,20231208,《云·原神》动画短片——第二篇,source,role 2026-09-19 derivative->source：解说指名此片是梗某一部分的出处；策展人判定「部件的出处也是出处」
 BV1ysME67Em9,大狗叫,BV1gxoUYzEoh,20250324,【重置版】跳楼鸡,derivative,
 BV1ysME67Em9,大狗叫,BV18wYtzhEeB,20250818,薯~鸡~薯~鸡~带~薯~鸡~,derivative,
 BV1ysME67Em9,大狗叫,BV1rVoQB9EHD,20260425,叫🗣SET!【1小时纯享版】🗣🗣🗣,derivative,
@@ -21,7 +21,7 @@ BV1P8Gw6yEjS,许愿柳,BV1KBTC6QEcP,20260705,看完痴迷后be like..,derivative
 BV1P8Gw6yEjS,许愿柳,BV1DVgd6TEqj,20260726,当我买到许愿柳,derivative,usage context: 卡许愿柳bug，用神奇的脑回路许愿
 BV1P8Gw6yEjS,许愿柳,BV1cE3k6nEwD,20260729,非常灵的螺纹钢许愿棒，痴迷同款一愿柳，十分甚至九分的好用,derivative,
 BV1BiKP6dEPr,AVGN舞,BV1vJ4m1H7k8,20240425,朝霞与晚霞都消失不见,derivative,def：一个FNF游戏模组的舞蹈
-BV1BiKP6dEPr,AVGN舞,BV1YoZ6BUEZ2,,Kwik Flip,derivative,usage context：讨论这个舞蹈的二创
+BV1BiKP6dEPr,AVGN舞,BV1YoZ6BUEZ2,,Kwik Flip,source,usage context：讨论这个舞蹈的二创；role 2026-09-19 derivative->source：解说指名此片是梗某一部分的出处；策展人判定「部件的出处也是出处」
 BV1vwG369EkM,XX人吃到美食,BV1a4KU66EoX,20260720,吃到美食的天津人belike,source,
 BV1vwG369EkM,XX人吃到美食,BV1Hj3M69EFK,20260725,东北人吃到美食belike （喵小乐配音）,derivative,
 BV1vwG369EkM,XX人吃到美食,BV1Wv3F6zEZz,20260727,四川人吃到美食belike,derivative,
