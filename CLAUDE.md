@@ -126,7 +126,8 @@ evidence come from OCR. Whisper `small`; n = 1 episode.
 videos and says where the meme came from in one or two sentences - 32 sentences across
 21 episodes against 117 cited ids - so the scarce thing is the sentence, not the id.
 Asking a model to role each id failed (4 of 23 origins); asking it which sentence states
-an origin puts 21 of 25 in front of the curator inside 46 rows of 117
+an origin puts 22 of 25 in front of the curator inside 50 rows of 117 - the other 3
+being unreachable, not missed
 (`origin_cues.py`, fitted on that set, so it is a description and not yet a result).
 The narrator names the origin and *then* cuts to the clip, so the window runs -20s to
 +45s around the sentence, not symmetrically. Position in the episode is not a signal:

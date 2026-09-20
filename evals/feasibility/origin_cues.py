@@ -15,16 +15,21 @@ by default, and nobody has to judge it.
 
 WHAT THE NUMBERS ARE, AND WHAT THEY ARE NOT
   CUES was written by reading the 21 calibration episodes, and the window was fitted to
-  the same 117 rows, so `21 of the 25 origins inside a 46-row shortlist of 117` is a
+  the same 117 rows, so `22 of the 25 origins inside a 50-row shortlist of 117` is a
   description of that data and not a prediction. Both are frozen here so the next batch is an honest
   test: criteria go in evals/results-*.md before it runs.
 
-  Of the 4 origins it misses, 2 are in episodes with no cue sentence at all - the
-  episode never says where the meme came from, so no reading of it recovers them - and
-  1 was never on screen at all (the curator added it by hand). That leaves one real
-  miss. 5 of 21 episodes have no cue sentence, and their citations are all derivative
-  by default. Ids are joined case-insensitively: counting them exactly hid one origin
-  that was on the shortlist under the spelling the OCR read.
+  All 3 origins it misses are unreachable rather than missed: 2 are in episodes with
+  no cue sentence at all - the episode never says where the meme came from - and 1 was
+  never on screen (the curator added it by hand). 5 of 21 episodes have no cue
+  sentence, and their citations are all derivative by default. Ids are joined
+  case-insensitively: counting them exactly hid one origin that was on the shortlist
+  under the spelling the OCR read.
+
+  源头 and 火了 were added to CUES after they were seen to be missing - 源头呢不是他自己
+  跳的 and 最近一种配音视频模板就火了 are origin sentences the first list walked past.
+  That is one more turn of fitting on data already spent, and the reason the criteria
+  for the real test are frozen in evals/results-2026-09-19-roles.md before it runs.
 
   The id lands AFTER the sentence: the narrator names the origin, then cuts to the clip
   with its BV id burned on. Hence the window is forward-biased rather than centred, which
@@ -54,7 +59,7 @@ HERE = Path(__file__).resolve().parent
 # appears in 搜索右上角出处支持原作者, a watermark the channel puts on borrowed clips.
 CUES = [
     "出处", "出自", "最早", "最初", "原版", "原视频", "原画面", "追溯", "源于",
-    "来源", "来自", "火起来", "爆火", "走红", "带火", "红了", "兴起",
+    "源头", "来源", "来自", "火起来", "火了", "爆火", "走红", "带火", "红了", "兴起",
 ]
 BACK, FORWARD = 20.0, 45.0  # seconds either side of the sentence
 CONTEXT = 8.0  # narration either side of the sentence, for reading
