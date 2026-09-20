@@ -125,6 +125,9 @@ gold:
   alias: []
   origin_intent:
     - 闹吃VS古振兴的出处
+  # 用自己的话描述这个梗、不含梗名与别名的查询；模型起草的记录至少要一条
+  description:
+    - "我的世界和迷你世界大战二周目"
   must_not_return: []
 
 curation:

@@ -52,6 +52,9 @@ gold:
   alias: []
   origin_intent:
     - 熊大回眸的出处
+  # 用自己的话描述这个梗、不含梗名与别名的查询；模型起草的记录至少要一条
+  description:
+    - "最近很难绷的熊大动画"
   must_not_return: []
 
 curation:
