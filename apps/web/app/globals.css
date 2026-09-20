@@ -16,9 +16,14 @@
   --sky-3: #17191f;
   --panel: rgba(8, 9, 12, 0.8);
   --panel-solid: #08090c;
-  --ink: #e8edf7;
-  --ink-2: #bcc0c9;
-  --ink-3: #8d929d;
+  --ink: #eef1f8;
+  /* Reading greys sit high for a page printed on black. A mid grey that measures a
+     comfortable contrast on a white page loses its stroke weight against the sky -
+     CJK body text at 15px is thin to begin with, and the glow of the surrounding
+     black eats what is left. These are the levels that read at arm's length:
+     ink-2 ~14.5:1, ink-3 ~8.4:1 against --sky-0. */
+  --ink-2: #d4d8e1;
+  --ink-3: #9ea4b1;
   --line: rgba(205, 210, 222, 0.12);
   --line-2: rgba(205, 210, 222, 0.24);
   --signal: #7fe3c0;
@@ -263,7 +268,9 @@ textarea {
   top: 0;
   z-index: 30;
   height: 72px;
-  background: linear-gradient(180deg, rgba(2, 4, 10, 0.88), rgba(2, 4, 10, 0.55));
+  /* Opaque enough that what scrolls under it stays under it: at 0.55 the mint search
+     button glowed through the nav as a smear, and mint is this site's one signal. */
+  background: linear-gradient(180deg, rgba(2, 4, 10, 0.94), rgba(2, 4, 10, 0.8));
   backdrop-filter: blur(10px) saturate(1.1);
   border-bottom: 1px solid var(--line);
 }
@@ -484,8 +491,13 @@ textarea {
 .sky-caption-row {
   --caption-w: min(340px, 78vw);
   position: relative;
-  height: 118px;
+  /* Room for the tallest caption the clamped content can produce - name, meta, two
+     lines of definition, the link - measured at 159px, with slack for a fallback font.
+     A floor only: the caption is also measured at runtime and the row told what it
+     actually needed, so no font can make it print over the headline below. */
+  min-height: 172px;
   margin-top: -2px;
+  margin-bottom: 24px;
 }
 .sky-caption {
   position: absolute;
@@ -532,6 +544,13 @@ textarea {
   color: var(--ink-2);
   line-height: 1.6;
   margin-top: 4px;
+  /* Two lines at most, so the caption's height is bounded and the row below it can
+     reserve the right space without JavaScript. */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
 }
 .sky-caption-go {
   margin-top: 6px;
@@ -2333,7 +2352,8 @@ details textarea {
     gap: 8px;
   }
   .sky-caption-row {
-    height: 116px;
+    min-height: 116px;
+    margin-bottom: 16px;
   }
   .sky-caption {
     padding: 10px 12px;
@@ -2564,8 +2584,14 @@ details textarea {
    on the darker floor where the audience is. */
 .horizon {
   position: relative;
-  height: 420px;
-  margin: 0 calc(-1 * var(--gutter)) -420px;
+  /* The floor darkens the sky behind the console and must end inside the dome. The
+     console is positioned, so it paints above the index below it whatever the source
+     order says; a floor deeper than the dome printed its 0.65 black over the first
+     220px of the memory index, and the first record read as if it were disabled.
+     There are 164px between the horizon line and the end of the dome (136px on a
+     phone), and the height and the margin cancel, so this changes nothing but reach. */
+  height: 136px;
+  margin: 0 calc(-1 * var(--gutter)) -136px;
   overflow: hidden;
   pointer-events: none;
 }
@@ -2580,7 +2606,15 @@ details textarea {
   border-top: 1px solid rgba(232, 234, 240, 0.2);
   background:
     radial-gradient(40% 12% at 50% 0%, rgba(232, 234, 240, 0.08), rgba(232, 234, 240, 0) 100%),
-    linear-gradient(180deg, rgba(3, 3, 5, 0.1) 0, rgba(3, 3, 5, 0.7) 240px);
+    /* Offsets are in this ellipse's own box, which starts 30px above the floor, so
+       the darkness is spent by 166px - the floor's own bottom edge - and the clip
+       there cuts nothing visible. */
+    linear-gradient(
+      180deg,
+      rgba(3, 3, 5, 0.1) 0,
+      rgba(3, 3, 5, 0.72) 96px,
+      rgba(3, 3, 5, 0) 166px
+    );
 }
 .dome-console {
   z-index: 1;

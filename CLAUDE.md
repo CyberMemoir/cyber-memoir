@@ -213,6 +213,14 @@ whole site dark; details in `PRODUCT.md`, the contract comment in `app/layout.ts
   twinkles and meteors are CSS transforms on a canvas drawn once.
 - **Everything animated is skipped under `prefers-reduced-motion`**, and Playwright runs
   with `reducedMotion: "reduce"` - a moving target is never "stable" enough to click.
+- **A guessed height overlaps something.** Both of the home page's overlays were
+  sized by eye and both covered live text: the horizon floor was 420px deep with 164px
+  of dome under it and printed 0.65 black over the first 220px of the memory index
+  (the first record read as disabled), and the sky caption was 159px tall in a row
+  reserving 118px and printed over the headline. Neither throws, neither changes a
+  computed style, and the console is positioned, so it paints over the index whatever
+  the source order says. `e2e/dome-layout.spec.ts` measures both, and each assertion
+  was confirmed to fail against the code it describes.
 - Fonts are self-hosted: Noto Serif SC 500 in two `unicode-range` slices (GB2312 level 1 +
   every character the UI and data use; the rest loads on demand), Jost for numerals. Windows
   had been rendering headings in SimSun. Adding a meme with rare characters needs no action:

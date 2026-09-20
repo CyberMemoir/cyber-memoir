@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import type { Galaxy, Universe } from "@/lib/api";
 import { galaxySprite } from "@/lib/galaxy-art";
@@ -99,13 +99,32 @@ export function SkyBand({ universe }: { universe: Universe | null }) {
   const [sprites, setSprites] = useState<Record<string, string>>({});
   const [focus, setFocus] = useState(0);
   const [pausedUntil, setPausedUntil] = useState(0);
+  const [captionHeight, setCaptionHeight] = useState(0);
   const reduced = useReducedMotion();
+
+  /* The caption row has to reserve space for the caption, which is absolutely
+     positioned so it can slide sideways without the page reflowing. A fixed height
+     guesses, and a definition that wraps one line further than the guess prints over
+     the headline below. So the row is told what the tallest caption so far needed:
+     measured, never shrinking, so the tour cannot make the page jump either. */
+  const measure = useCallback((node: HTMLAnchorElement) => {
+    const observer = new ResizeObserver(([entry]) => {
+      const height = entry.borderBoxSize?.[0]?.blockSize ?? node.offsetHeight;
+      setCaptionHeight((tallest) => Math.max(tallest, Math.ceil(height)));
+    });
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const node = wrapper.current;
     if (!node) return;
     const observer = new ResizeObserver(([entry]) => {
-      setFrame(entry.contentRect.width < 720 ? NARROW : WIDE);
+      setFrame((current) => {
+        const next = entry.contentRect.width < 720 ? NARROW : WIDE;
+        if (next !== current) setCaptionHeight(0);
+        return next;
+      });
     });
     observer.observe(node);
     return () => observer.disconnect();
@@ -254,11 +273,15 @@ export function SkyBand({ universe }: { universe: Universe | null }) {
       </svg>
       {/* The caption hangs below the sky, never over it, on the beam dropped from the
           galaxy being shown. */}
-      <div className="sky-caption-row">
+      <div
+        className="sky-caption-row"
+        style={captionHeight ? { height: `${captionHeight}px` } : undefined}
+      >
         {target && (
           <Link
             href={`/universe?meme=${encodeURIComponent(target.galaxy.meme_id)}`}
             className="sky-caption"
+            ref={measure}
             style={{
               left: `clamp(8px, calc(${pct(target.x, frame.width)} - var(--caption-w) / 2), calc(100% - var(--caption-w) - 8px))`,
             }}
