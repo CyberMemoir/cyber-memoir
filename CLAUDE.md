@@ -37,7 +37,9 @@ Two memes show *old material, sudden revival*: 狼王撕衣 (2021 → 2026-08) a
 ```bash
 python evals/feasibility/prep.py derivatives <BV> --cookies bili-cookies.txt --no-resolve
 python evals/feasibility/prep.py resolve --cookies bili-cookies.txt --sleep 20
-python evals/feasibility/prep.py sheet          # -> lineage.csv, fill `role` by hand
+python evals/feasibility/prep.py sheet          # -> lineage.csv
+python evals/feasibility/origin_cues.py <EP>... -o cues.txt   # the origin sentences
+#   model proposes origins -> origins.csv; --check verifies; --apply writes the sheet
 python evals/feasibility/prep.py drafts         # -> one curation YAML per meme
 # model drafts definition + usage_context from subtitle OCR; human reviews, sets confirmed_by
 # (name-free gold queries go in evals/curation/_descriptions.yaml before any draft exists)
@@ -119,6 +121,19 @@ The errors are fluent, so judging "explanation vs messy clip sound" does not cat
 the sound does not carry the characters (子琪 and 子奇 are both zǐqí). The transcript also
 held no narrator line the OCR lacked. ASR may be read for meaning; names, quotes and
 evidence come from OCR. Whisper `small`; n = 1 episode.
+
+**The origin is one sentence, and the id comes after it.** An episode cites about six
+videos and says where the meme came from in one or two sentences - 32 sentences across
+21 episodes against 117 cited ids - so the scarce thing is the sentence, not the id.
+Asking a model to role each id failed (4 of 23 origins); asking it which sentence states
+an origin puts 21 of 25 in front of the curator inside 46 rows of 117
+(`origin_cues.py`, fitted on that set, so it is a description and not yet a result).
+The narrator names the origin and *then* cuts to the clip, so the window runs -20s to
++45s around the sentence, not symmetrically. Position in the episode is not a signal:
+only 8 of 27 memes have their origin as the first id shown. **5 of 21 episodes never
+state an origin at all**, and an off-platform origin - a tweet, a screenshot - never
+gets a BV id and so can never appear (ADR 0003). `reference` is not a role Vincent uses:
+zero of 137 judged rows, and offering it to a model cost 7 origins.
 
 **One episode can cover several memes.** BV1ii4C6QEk8 covers three. Split ids by the
 `seen_at` column — it records when each appeared on screen, so the split is mechanical. The

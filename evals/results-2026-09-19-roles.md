@@ -107,3 +107,77 @@ It does not say the screen lacks the answer; it says this model did not read it 
 different prompt, or a model that is shown the four-stage model with worked examples, might
 do better - but that would be a second run against a key this run has now seen, so it would
 not be blind, and it cannot use these 117 rows again.
+
+---
+
+## Afterwards: three labels revised, and a different question (2026-09-19)
+
+### The label changes the criteria asked for
+
+Reading the disagreements, as the section above requires, Vincent reversed three of his
+own labels. In each, the narration names the clip as where **one component** of the meme
+came from, and he ruled that a component's origin is an origin:
+
+| row | meme | id | was | now |
+|---|---|---|---|---|
+| #14 | AVGN舞 | BV1YoZ6BUEZ2 | derivative | source |
+| #108 | 大狗叫 | BV1eG4y1r72j | derivative | source |
+| #113 | 大狗叫 | BV1ic411D7xo | derivative | source |
+
+These were all three of the run's false origins. **The table above is not re-scored** —
+it is the result on the key as committed, and it stands. For the record only: with these
+labels, criterion 1 would have passed with 0 false origins, and criteria 2 and 3 would
+still have failed (origin recall 7 of 26, non-origin agreement 78 of 91 against a bar of
+80). The outcome is unchanged. The rule is now in `role_task.txt` as O-4, with these
+three as its worked examples.
+
+The 你会XXX吗 rows were left as `irrelevant`.
+
+### Two of the three faults were in the prompt
+
+- **`reference` is not a role Vincent uses.** Zero of 137 judged rows. I offered it
+  anyway; the model spent 12 of its 36 wrong answers there, 7 of them origins. Dropped.
+- **I asked for caution and then scored recall.** The prompt said a false origin costs
+  more than a lost one, which is true, and the criteria then demanded 17 of 23. The
+  model was conservative because I told it to be.
+
+### The third fault was the shape of the question
+
+Measured on the 117 rows afterwards:
+
+- An episode cites about 6 videos and states an origin in **one or two sentences**: 32
+  such sentences across 21 episodes, against 117 cited ids. Asking 117 times "is this
+  the origin?" spends almost every question on a video that plainly is not.
+- **The id follows the sentence.** Vincent, from watching: the narrator names the origin,
+  then cuts to the clip with its BV id burned on. Offsets from sentence to id: median
+  +11s, range -20s to +41s (one outlier at -108s). So the window is lopsided,
+  `[-20s, +45s]`, not centred.
+- **Position in the episode is not a signal**, contrary to intuition: only 8 of the 27
+  memes have their origin as the first id shown, and the first three ids of each meme
+  hold just 13 of 21 origins.
+- **5 of 21 episodes never state an origin at all.** Their citations are all derivative,
+  and no reading recovers what the episode does not say.
+
+`evals/feasibility/origin_cues.py` turns an episode into its origin sentences with the
+ids that appear under each. On this set it puts **21 of the 25 origins in front of the
+reader inside 46 rows of 117**; of the 4 it misses, 2 are episodes with no origin
+sentence and 1 was never on screen.
+
+**That number is fitted, not a result.** The cue words were written by reading these
+same episodes and the window was tuned on these same rows. It is a description of the
+data it came from. Per the rule above, these 117 rows are spent and cannot test this.
+
+### Criteria for the next batch, written now
+
+The next batch processed under L-1b is the test. Vincent additionally skims the sheet's
+"默认 derivative" list once, which he otherwise never reads, so recall is observable that
+one time.
+
+1. **Precision** — of the origins DeepSeek proposes, Vincent keeps **≥ 4 in 5**.
+2. **Recall** — origins he finds in the leftover list: **≤ 1 per 10 episodes**.
+3. **Form** — `origin_cues.py --check` refuses **0** rows of the submitted file.
+
+Failing 1 means the sentences are being over-read and the model should propose fewer.
+Failing 2 means the cue list or the window is too narrow and both need widening before
+the corpus grows further on them. Failing 3 means the quoting discipline did not hold,
+and nothing else in the run can be trusted.
