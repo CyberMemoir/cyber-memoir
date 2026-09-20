@@ -159,9 +159,11 @@ Measured on the 117 rows afterwards:
   and no reading recovers what the episode does not say.
 
 `evals/feasibility/origin_cues.py` turns an episode into its origin sentences with the
-ids that appear under each. On this set it puts **21 of the 25 origins in front of the
-reader inside 46 rows of 117**; of the 4 it misses, 2 are episodes with no origin
-sentence and 1 was never on screen.
+ids that appear under each. On this set it puts **22 of the 25 origins in front of the
+reader inside 50 rows of 117**, and all 3 it misses are unreachable rather than missed:
+2 are episodes that never state an origin, and 1 was never on screen. Two cue words
+(源头, 火了) were added after being caught missing, which is one more turn of fitting on
+spent data.
 
 **That number is fitted, not a result.** The cue words were written by reading these
 same episodes and the window was tuned on these same rows. It is a description of the
