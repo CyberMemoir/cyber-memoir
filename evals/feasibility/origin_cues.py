@@ -173,6 +173,8 @@ def check(path: Path) -> int:
     the check and the sheet cannot drift apart the way validate_curation.py and
     content.py's review() already did once.
     """
+    if not path.exists():
+        raise SystemExit("%s 不存在：先按 ai_context/role_task.txt 写出提案再来核对" % path)
     rows = list(csv.DictReader(path.open(encoding="utf-8-sig")))
     cache: dict[str, list[tuple[float, str, str]]] = {}
     works: dict[str, list[dict]] = {}
@@ -221,6 +223,8 @@ def apply(path: Path) -> int:
     never overwritten, so running it twice is safe and so is running it after he has
     marked a few rows `irrelevant`.
     """
+    if not path.exists():
+        raise SystemExit("%s 不存在" % path)
     rows = list(csv.DictReader(path.open(encoding="utf-8-sig")))
     named = {(r["episode_id"], r["bv_id"].lower()): r["role"] for r in rows}
     episodes = {r["episode_id"] for r in rows}
