@@ -178,9 +178,15 @@ chunk at all.
   to judge. Several are visibly OCR variants of a row that did resolve (`BV1v73w6fEBi` vs
   `BV1v73W6fEBi`; `BViesbf6wEkc` is `BV1esbf6wEkc` with i-for-1), which is the usual
   pattern and costs recall only.
-- **Gold set**: 22 cases (14 positive, 8 negative). Baseline recall@10 1.00, MRR 1.00 — not
-  impressive on 6 memes queried by their own names. The informative number was abstention:
-  6/8 without the score floor, **8/8 with it**.
+- **Gold set**: 93 cases. **Recall on name queries is 1.00 and means nothing** - 54 of
+  the 82 positives are the meme's own name or name + 的出处, all at rank 1. The
+  informative bucket is the 28 name-free `description` queries Vincent wrote on
+  2026-09-20: **recall@10 0.893, MRR 0.781**, rank 1 for 20 of the 25 it finds.
+  Always split with `evals/score_buckets.py`; the 0.963 aggregate is mostly spelling.
+  All three misses are vocabulary gaps and two returned *zero* candidates - with
+  embeddings off, BM25 cannot cross a gap, and the archive then abstains on a question
+  it could answer. The 11/11 abstention score only measures the other direction.
+  Full baseline in `evals/results-2026-09-20-baseline.md`.
 - **Branches**: **`main` now carries everything** - PR #5 merged `integration` into it on
   2026-09-15, with a merge commit, so every commit message survives. `integration` stays
   as the assembly point and is what the running stack is built from; keep making work on
