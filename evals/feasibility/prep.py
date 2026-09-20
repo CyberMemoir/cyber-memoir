@@ -521,6 +521,79 @@ def _scalar(value: str) -> str:
     return json.dumps(value, ensure_ascii=False)
 
 
+def load_descriptions(out: Path) -> dict[str, list[str]] | None:
+    """The curator's name-free gold queries, keyed by meme name. None if the file is bad.
+
+    One copy, read by both `drafts` (which copies them into a new skeleton) and
+    `descriptions` (which fills them into a record written before they existed).
+    """
+    queue = out / "_descriptions.yaml"
+    if not queue.exists():
+        return {}
+    import yaml
+
+    described: dict[str, list[str]] = {}
+    for key, queries in (yaml.safe_load(queue.read_text(encoding="utf-8")) or {}).items():
+        bad = [q for q in queries or [] if not isinstance(q, str)]
+        if bad:
+            # "带冒号: 的查询" unquoted parses as a mapping; storing its repr would be garbage.
+            print("! _descriptions.yaml 中《%s》有查询不是纯文本：%s。含冒号的查询请加引号。" % (key, bad))
+            return None
+        described[str(key)] = list(queries or [])
+    return described
+
+
+def fill_descriptions(out: Path) -> int:
+    """Copy the curator's queries into records that were written before he wrote them.
+
+    `drafts` puts _descriptions.yaml into every new skeleton, but it never touches a
+    record that already exists, so the twelve written before that file had any content
+    carry `gold.description: []` and would never reach the gold set. That matters more
+    than it looks: once drafted prose starts loading there is no human-written baseline
+    left to compare its recall against, and every gold query today is the meme's own name.
+
+    Only an empty list is filled. A record that already has a query keeps exactly what it
+    has, so this is safe to re-run, and the text is copied verbatim - nothing here writes
+    a query, which is the curator's alone.
+    """
+    described = load_descriptions(out)
+    if described is None:
+        return 2
+    filled, already, absent = 0, 0, []
+    for path in sorted(out.glob("*.y*ml")):
+        if path.name.startswith("_"):
+            continue
+        text = path.read_text(encoding="utf-8")
+        match = re.search(r"^canonical_name:\s*(.+)$", text, re.M)
+        if not match:
+            continue
+        name = match.group(1).strip().strip('"')
+        queries = described.get(name) or []
+        empty = "\n  description: []" in text
+        # The records written before 2026-09-18 have no description key at all, only the
+        # four gold fields that existed then. Those need the key inserted, not filled.
+        missing = not re.search(r"^  description:", text, re.M)
+        if not (empty or missing):
+            already += 1
+            continue
+        if not queries:
+            absent.append(name)
+            continue
+        block = ("\n  # 用自己的话描述这个梗、不含梗名与别名的查询；模型起草的记录至少要一条"
+                 "\n  description:" + "".join("\n    - " + _scalar(q) for q in queries))
+        if empty:
+            text = text.replace("\n  description: []", block, 1)
+        else:
+            text = text.replace("\n  must_not_return:", block + "\n  must_not_return:", 1)
+        path.write_text(text, encoding="utf-8")
+        print("  %-28s %s 条查询 -> %s" % (name, len(queries), path.name))
+        filled += 1
+    print("填入 %d 个记录，%d 个已有查询未动" % (filled, already))
+    for name in absent:
+        print("  ! %s 在 _descriptions.yaml 里还没有查询" % name)
+    return 0
+
+
 def build_drafts(sheet: Path, out: Path) -> int:
     """lineage.csv -> one curation YAML per meme, in the ADR 0002 format."""
     with sheet.open(encoding="utf-8-sig", newline="") as handle:
@@ -535,18 +608,9 @@ def build_drafts(sheet: Path, out: Path) -> int:
     # so files renamed to proper pinyin slugs are still recognised.
     # The curator writes name-free queries during the role pass, before any draft exists,
     # so they cannot borrow a drafted definition's wording. Keyed by meme name.
-    described: dict[str, list[str]] = {}
-    queue = out / "_descriptions.yaml"
-    if queue.exists():
-        import yaml
-
-        for key, queries in (yaml.safe_load(queue.read_text(encoding="utf-8")) or {}).items():
-            bad = [q for q in queries or [] if not isinstance(q, str)]
-            if bad:
-                # "带冒号: 的查询" unquoted parses as a mapping; storing its repr would be garbage.
-                print("! _descriptions.yaml 中《%s》有查询不是纯文本：%s。含冒号的查询请加引号。" % (key, bad))
-                return 2
-            described[str(key)] = list(queries or [])
+    described = load_descriptions(out)
+    if described is None:
+        return 2
     existing: dict[str, str] = {}
     for path in out.glob("*.y*ml"):
         if path.name.startswith("_"):
@@ -827,6 +891,9 @@ def main() -> int:
     dr = sub.add_parser("drafts", help="turn lineage.csv into curation YAML per meme")
     dr.add_argument("--sheet", type=Path, default=HERE / "lineage.csv")
     dr.add_argument("--out", type=Path, default=HERE.parent / "curation")
+    desc = sub.add_parser("descriptions",
+                          help="把 _descriptions.yaml 的查询填进 gold.description 为空的记录")
+    desc.add_argument("--out", type=Path, default=HERE.parent / "curation")
     cnmeme = sub.add_parser("cnmeme", help="pull competitor entries for the same memes")
     cnmeme.add_argument("names", nargs="+")
     cnmeme.add_argument("--out", type=Path, default=HERE)
@@ -858,6 +925,8 @@ def main() -> int:
                                    args.video, not args.no_resolve)
     if args.mode == "drafts":
         return build_drafts(args.sheet, args.out)
+    if args.mode == "descriptions":
+        return fill_descriptions(args.out)
     if args.mode == "sheet":
         return build_sheet(args.out)
     if args.mode == "boxes":

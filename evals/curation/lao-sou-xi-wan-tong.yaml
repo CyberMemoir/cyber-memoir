@@ -66,6 +66,9 @@ gold:
     - "顽童戏老叟"
   origin_intent:
     - 老叟戏顽童的出处
+  # 用自己的话描述这个梗、不含梗名与别名的查询；模型起草的记录至少要一条
+  description:
+    - "被戏耍了"
   must_not_return: []
 
 curation:

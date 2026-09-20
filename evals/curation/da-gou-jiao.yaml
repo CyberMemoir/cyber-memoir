@@ -155,7 +155,9 @@ gold:
   origin_intent:
     - 大狗叫的出处
   # 用自己的话描述这个梗、不含梗名与别名的查询；模型起草的记录至少要一条
-  description: []
+  description:
+    - "大狗和焦混乱出现组成非常雷霆且猎奇的音频，会有一只狗表情狰狞张着嘴"
+    - "刷到焦~"
   must_not_return: []
 
 curation:

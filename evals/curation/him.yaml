@@ -62,6 +62,9 @@ gold:
   alias: []
   origin_intent:
     - 真人版HIM的出处
+  # 用自己的话描述这个梗、不含梗名与别名的查询；模型起草的记录至少要一条
+  description:
+    - "白色眼睛方块人"
   must_not_return: []
 
 curation:

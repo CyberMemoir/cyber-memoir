@@ -128,6 +128,9 @@ gold:
   alias: []
   origin_intent:
     - 才是王道的出处
+  # 用自己的话描述这个梗、不含梗名与别名的查询；模型起草的记录至少要一条
+  description:
+    - "像素风没有技巧是何意味"
   must_not_return: []
 
 curation:
