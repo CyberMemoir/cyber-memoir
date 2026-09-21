@@ -1,7 +1,7 @@
 # 由 evals/feasibility/prep.py drafts 从 lineage.csv 生成
 # definition / usage_context / claims 需要人工补齐，evidence 入库后再填 ID
 slug: da-gou-jiao
-resolved: false
+resolved: true
 
 canonical_name: 大狗叫
 aliases: []
@@ -56,18 +56,18 @@ sources:
     note: "【最终版】像大狗一样叫呐（BV1ysME67Em9 画面中引用）"
 
 evidence_map:
-  ocr-narration-BV1ysME67Em9: null
-  ocr-BV1Ee4y1Z7NZ: null
-  ocr-BV1DWTu6AEQt: null
-  ocr-BV1xyJA6BEBN: null
-  ocr-BV1eG4y1r72j: null
-  ocr-BV1gK4y1F7Vp: null
-  ocr-BV1ic411D7xo: null
-  ocr-BV1gxoUYzEoh: null
-  ocr-BV18wYtzhEeB: null
-  ocr-BV1rVoQB9EHD: null
-  ocr-BV1c2jH6uEut: null
-  ocr-BV1pSTs6hEYu: null
+  ocr-narration-BV1ysME67Em9: 26ab78f4-862a-4840-8157-9a88d855643a
+  ocr-BV1Ee4y1Z7NZ: d048c0ae-0c91-466d-a5b4-f1ee2f231e15
+  ocr-BV1DWTu6AEQt: 28621e37-dbb3-4a01-9898-6daa4ddf9899
+  ocr-BV1xyJA6BEBN: 20a094a0-e9c2-40f0-abe2-cb500b40dc74
+  ocr-BV1eG4y1r72j: e4b2f7d6-18cd-456e-a394-f09361b04492
+  ocr-BV1gK4y1F7Vp: ee9e99ba-35c3-45b6-8644-6c9de5a2314c
+  ocr-BV1ic411D7xo: fd3f443f-6a8a-4847-b6d9-c32354a01552
+  ocr-BV1gxoUYzEoh: ff128317-d35e-486f-b7b3-b9afc14fd72c
+  ocr-BV18wYtzhEeB: 7b8f1e4b-891b-45b7-bdd9-750936f2e1a9
+  ocr-BV1rVoQB9EHD: 0d9cd1ee-38cf-4166-991e-3c0ee63e6fab
+  ocr-BV1c2jH6uEut: c114cd36-8df3-4bf3-9d92-75fb5f08957b
+  ocr-BV1pSTs6hEYu: 985a03f7-f58c-4357-96c4-fef9e5616d7d
 
 claims:
   - key: definition
