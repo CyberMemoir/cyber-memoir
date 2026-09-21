@@ -27,7 +27,11 @@ def ensure_index():
                         "evidence_id": {"type": "keyword"},
                         "revision": {"type": "integer"},
                         "name": {"type": "text", "analyzer": "cjk"},
-                        "aliases": {"type": "keyword"},
+                        # Analysed like the name, not stored as a keyword. As a keyword
+                        # the field matched only a whole-string query, and it was not in
+                        # the BM25 field list at all, so an alias counted solely through
+                        # the exact_alias channel: 叮咚鸡 found 大狗叫, 叮咚鸡是什么 did not.
+                        "aliases": {"type": "text", "analyzer": "cjk"},
                         "text": {"type": "text", "analyzer": "cjk"},
                         "platform": {"type": "keyword"},
                         "published_at": {"type": "date"},
