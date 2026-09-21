@@ -56,8 +56,14 @@ PACKETS = ROOT / "ai_context" / "alias_packets"
 AT_TOLERANCE = 2.0  # seconds either side of `at` in which the cited line must appear
 
 
+# The OCR mixes quote styles inside one line (“大狗叫” next to "大狗嚼"), and a viewer can
+# flatten them, so a line copied faithfully from a packet could fail to match. Quote
+# style never carries meaning here; fold every kind to one before comparing.
+QUOTES = str.maketrans({c: '"' for c in "“”‘’「」『』'"})
+
+
 def flat(text: str) -> str:
-    return "".join(unicodedata.normalize("NFKC", str(text)).split()).lower()
+    return "".join(unicodedata.normalize("NFKC", str(text)).translate(QUOTES).split()).lower()
 
 
 def records() -> dict[str, tuple[Path, dict]]:

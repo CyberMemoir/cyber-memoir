@@ -4,7 +4,7 @@ slug: da-gou-jiao
 resolved: true
 
 canonical_name: 大狗叫
-aliases: []
+aliases: ["大狗大狗叫叫叫", "大狗嚼俱乐部布鲁斯1号", "叮咚鸡", "大狗叫叫叫"]
 
 # definition 必填，且 claims 里要有逐字相同的 statement（用 |- 块标量）
 definition: |-

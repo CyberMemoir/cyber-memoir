@@ -4,7 +4,7 @@ slug: meme-01
 resolved: true
 
 canonical_name: 大葱哥
-aliases: []
+aliases: ["CyberLeek", "葱哥"]
 
 # definition 必填，且 claims 里要有逐字相同的 statement（用 |- 块标量）
 definition: "外网Cyberleek自称黑客爆料R星游戏获得流量，头像是墨镜大葱。引起关注后套现加密货币"
