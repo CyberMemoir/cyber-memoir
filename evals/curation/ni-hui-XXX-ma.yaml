@@ -4,7 +4,7 @@ slug: ni-hui-XXX-ma
 resolved: true
 
 canonical_name: 你会XXX吗
-aliases: []
+aliases: ["你会XXX吗？", "你会玩霓虹吗希吖吖？！", "你会玩霓虹吗", "你会玩暮蝶吗", "霓虹"]
 
 # definition 必填，且 claims 里要有逐字相同的 statement（用 |- 块标量）
 definition: "瓦洛兰特师徒杯阿辙在进点时质疑希咩咩实力"

@@ -4,7 +4,7 @@ slug: xx
 resolved: true
 
 canonical_name: XX人吃到美食
-aliases: []
+aliases: ["XXX吃到美食belike", "东北人吃到美食belike", "东北人吃到美食", "河南人吃到美食belike"]
 
 # definition 必填，且 claims 里要有逐字相同的 statement（用 |- 块标量）
 definition: "本地人以为能吃到家乡菜结果吃到很诡异的创新菜"

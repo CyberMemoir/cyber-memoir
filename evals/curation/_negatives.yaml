@@ -15,18 +15,9 @@ negatives:
   - query: OMG你吓到我了
     kind: out_of_corpus
     reason: 真实流行梗，未收录；同时检验含英文字母的查询不会误命中
-  - query: 大狗大狗叫叫叫
-    kind: out_of_corpus
-    reason: 真实流行梗，未收录；叠词结构，检验分词不会误匹配已收录条目
   - query: 青蛙教练
     kind: out_of_corpus
     reason: 真实流行梗，未收录；用于检验无证据时是否弃答
-  - query: 爹系男友
-    kind: out_of_corpus
-    reason: 真实流行梗，未收录；通用词汇组合，检验不会被向量通道拉到相近条目
-  - query: 被生活磨平了妙脆角
-    kind: out_of_corpus
-    reason: 真实流行梗，未收录；长句式查询，检验长查询下的弃答行为
   - query: Verity
     kind: out_of_corpus
     reason: 真实流行梗，未收录；
@@ -37,6 +28,18 @@ negatives:
     kind: fabricated
     reason: 虚构语句
   - query: 要不算了吧
+    kind: fabricated
+    reason: 虚构语句
+  - query: miasma
+    kind: fabricated
+    reason: 虚构语句
+  - query: 给你了给你了
+    kind: fabricated
+    reason: 虚构语句
+  - query: 要不要给你颁个奖啊
+    kind: fabricated
+    reason: 虚构语句
+  - query: 好累啊怎么都要自己写
     kind: fabricated
     reason: 虚构语句
   

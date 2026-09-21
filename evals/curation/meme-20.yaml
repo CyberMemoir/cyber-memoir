@@ -4,7 +4,7 @@ slug: meme-20
 resolved: true
 
 canonical_name: 章鱼哥的美妙音乐
-aliases: []
+aliases: ["章鱼哥吹奏《青花瓷》", "章鱼哥"]
 
 # definition 必填，且 claims 里要有逐字相同的 statement（用 |- 块标量）
 definition: |-

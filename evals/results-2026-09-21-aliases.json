@@ -1,0 +1,438 @@
+{
+  "cases": [
+    {
+      "query": "一个游戏人物莫名其妙开始双手上下摆动跳舞",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "像素风没有技巧是何意味",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 0.5,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "大狗和焦混乱出现组成非常雷霆且猎奇的音频，会有一只狗表情狰狞张着嘴",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "刷到焦~",
+      "recall_at_10": 0.0,
+      "reciprocal_rank": 0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "胆子挺大啊敢抢我单子",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "白色眼睛方块人",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "击杀集锦突然嗷呜了一声",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "被戏耍了",
+      "recall_at_10": 0.0,
+      "reciprocal_rank": 0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "这个带着墨镜的大葱是谁",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "左边画个虫虫",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "佛得角是怎么跟强队打平的",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "我跟特朗普是什么关系",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "他们为什么要拆cp",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "蔡徐坤跳舞",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "一个头像外面套了个芝士球",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "那假如我绷住了呢",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "为什么都喜欢聊天记录用suno写成很燃的歌",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 0.3333333333333333,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "这个黑管好难听",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "这个特效给我猫耳朵丢了",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "对着一根可以掰断的东西许下愿望，然后它就以意想不到的方式实现了",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "觉得一个东西像 THe Monkey's Paw",
+      "recall_at_10": 0.0,
+      "reciprocal_rank": 0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "为什么全在骂阿辙",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 0.5,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "你欺负人怎么换成更可爱的说法",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 0.3333333333333333,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "很火的那个自学3d建模做出来的电影是啥",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "美食视频旁边有个人一直捧哏是啥意思",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "我的世界和迷你世界大战二周目",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "最近很难绷的熊大动画",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "一只乌龟用很力竭的声音说可是他们在辣椒炒肉里放糖",
+      "recall_at_10": 1.0,
+      "reciprocal_rank": 1.0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": null,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "中国人能飞",
+      "recall_at_10": null,
+      "reciprocal_rank": 0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": true,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "OMG你吓到我了",
+      "recall_at_10": null,
+      "reciprocal_rank": 0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": true,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "青蛙教练",
+      "recall_at_10": null,
+      "reciprocal_rank": 0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": true,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "Verity",
+      "recall_at_10": null,
+      "reciprocal_rank": 0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": true,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "严肃脸",
+      "recall_at_10": null,
+      "reciprocal_rank": 0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": true,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "接成绩",
+      "recall_at_10": null,
+      "reciprocal_rank": 0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": true,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "要不算了吧",
+      "recall_at_10": null,
+      "reciprocal_rank": 0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": true,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "miasma",
+      "recall_at_10": null,
+      "reciprocal_rank": 0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": true,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "给你了给你了",
+      "recall_at_10": null,
+      "reciprocal_rank": 0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": true,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "要不要给你颁个奖啊",
+      "recall_at_10": null,
+      "reciprocal_rank": 0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": true,
+      "degraded": [
+        "vector_disabled"
+      ]
+    },
+    {
+      "query": "好累啊怎么都要自己写",
+      "recall_at_10": null,
+      "reciprocal_rank": 0,
+      "citations_resolve": true,
+      "structural_citation_coverage": true,
+      "correct_abstention": true,
+      "degraded": [
+        "vector_disabled"
+      ]
+    }
+  ],
+  "recall_at_10": 0.8928571428571429,
+  "mrr": 0.8095238095238095,
+  "note": "引用可解析和结构覆盖不等于语义支持率；语义支持与起源判断仍需人工金标准。",
+  "correct_abstention": 1.0,
+  "correct_abstention_n": 11
+}

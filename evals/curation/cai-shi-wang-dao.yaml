@@ -4,7 +4,7 @@ slug: meme-02
 resolved: true
 
 canonical_name: 才是王道
-aliases: []
+aliases: ["像笨蛋一样的硬核才是王道", "像素方块的硬核才是王道", "妙趣横生的音乐才是王道", "法棍才是王道", "悦刻五代的硬核才是王道", "硬核才是王道"]
 
 # definition 必填，且 claims 里要有逐字相同的 statement（用 |- 块标量）
 definition: "闹吃VS古振兴说唱PK中的爆火歌词，这个韵脚比较符合B站剪辑的抽象填词，很多这类视频都有这句歌词，本质赞美自己支持的游戏"
