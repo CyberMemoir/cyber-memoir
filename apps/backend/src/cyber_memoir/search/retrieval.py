@@ -130,7 +130,10 @@ def search(db: Session, request: SearchRequest):
                                 {
                                     "multi_match": {
                                         "query": query,
-                                        "fields": ["name^4", "text"],
+                                        # aliases below name: another name for the
+                                        # meme, but one the curator added rather than
+                                        # the one it is known by.
+                                        "fields": ["name^4", "aliases^3", "text"],
                                         "type": "best_fields",
                                     }
                                 }

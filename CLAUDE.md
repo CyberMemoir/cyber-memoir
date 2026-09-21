@@ -136,6 +136,20 @@ state an origin at all**, and an off-platform origin - a tweet, a screenshot - n
 gets a BV id and so can never appear (ADR 0003). `reference` is not a role Vincent uses:
 zero of 137 judged rows, and offering it to a model cost 7 origins.
 
+**Aliases were written to the index and never searched** (fixed 2026-09-20). `aliases`
+was mapped `keyword` and left out of the BM25 field list, so an alias counted only
+through `exact_alias`, a whole-string match: 叮咚鸡 would find 大狗叫 and 叮咚鸡是什么
+would not. It is now cjk text and searched at `aliases^3`, in index **memoir-v2** - a
+field cannot change type inside an index, so the name was bumped and `POST
+/v1/reviews/reindex` refilled it. memoir-v1 is stale and can be deleted. The cjk analyzer
+makes bigrams, so no alias bridges a near-synonym (戏耍 and 戏弄 share no bigram); that
+gap is what embeddings are for. Alias proposals: `alias_packets.py`, blind packets that
+omit every gold field, with `apply` the only command that reads the gold set.
+
+**MinIO's host ports are 39000/39001**, moved off 59000 when a Hyper-V reservation
+(58991-59090) swallowed them and every material POST 500'd. The reservations move on
+reboot: `netsh interface ipv4 show excludedportrange protocol=tcp`.
+
 **One episode can cover several memes.** BV1ii4C6QEk8 covers three. Split ids by the
 `seen_at` column — it records when each appeared on screen, so the split is mechanical. The
 one-draft-per-source constraint lives in `extract()` (the LLM path we don't use); the manual
