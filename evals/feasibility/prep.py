@@ -287,7 +287,7 @@ def rebox(tokens: list[str], out: Path, every: float) -> int:
 
 def extract_derivatives(
     tokens: list[str], out: Path, every: float, sleep: float,
-    video_path: Path | None = None, resolve: bool = True,
+    video_path: Path | None = None, resolve: bool = True, force: bool = False,
 ) -> int:
     """OCR burned-in BV ids off the canvas, then resolve each against the platform.
 
@@ -310,6 +310,14 @@ def extract_derivatives(
     for token in tokens:
         url, vid = as_url(token), video_id(token)
         print("\n=== %s ===" % vid)
+        # OCR is the slow part - about ten minutes an episode - and it used to run again on
+        # every call, so a batch runner restarting after a rate-limit block re-OCR'd every
+        # episode it had already finished. The csv is written even when no id is found (4 in
+        # 10 episodes), so together with the boxes it means this episode is done.
+        if not force and (out / ("%s.derivatives.csv" % vid)).exists() \
+                and (out / ("%s.boxes.json" % vid)).exists():
+            print("  已完成，跳过（--force 重做）")
+            continue
         existing = [video_path] if video_path else [
             p for p in out.glob("%s.video.*" % vid) if p.suffix != ".json"
         ]
@@ -383,7 +391,41 @@ def extract_derivatives(
     return 0
 
 
-def resolve_ids(out: Path, sleep: float) -> int:
+NEWLINE = chr(10)
+GENGBAIKE = "https://space.bilibili.com/1544008396/video"
+
+
+def list_catalogue(out: Path, limit: int) -> int:
+    """The channel's newest `limit` episodes, one BV id a line, newest first.
+
+    One listing request rather than one per episode. Which episodes are already done is
+    not written here: the batch runner reads that from disk (an episode with a
+    derivatives csv and boxes has been OCR'd), so the list never goes stale on its own."""
+    got = run(["--flat-playlist", "--playlist-end", str(limit), "--print", "%(id)s",
+               "--no-warnings", "--", GENGBAIKE], timeout=900)
+    ids = [line.strip() for line in got.stdout.splitlines() if re.fullmatch(r"BV[0-9A-Za-z]{10}", line.strip())]
+    if not ids:
+        tail = (got.stderr.strip().splitlines() or ["?"])[-1][:200]
+        print("没有拿到列表：%s" % tail)
+        if "412" in tail:
+            print("BLOCKED-STOP 风控 412；等 20-30 分钟再试")
+            return 3
+        return 1
+    done = sum(1 for bv in ids if (out / ("%s.derivatives.csv" % bv)).exists())
+    target = out / "gengbaike_catalogue.txt"
+    header = ["# 梗百科 (uploader_id 1544008396) - newest %d, pulled %s via prep.py catalogue"
+              % (len(ids), time.strftime("%Y-%m-%d")),
+              "# done is read from disk by the batch runner, not recorded here"]
+    target.write_text(NEWLINE.join(header + ids) + NEWLINE, encoding="utf-8")
+    print("-> %s   %d 集，其中 %d 集已处理，%d 集待处理" % (target.name, len(ids), done, len(ids) - done))
+    return 0
+
+
+BLOCKED_STREAK = 3
+NETWORK_ERRORS = ("timed out", "Timeout", "Connection", "Temporary failure", "Errno", "SSL")
+
+
+def resolve_ids(out: Path, sleep: float, retry_missing: bool = False) -> int:
     """Resolve rows left unresolved by --no-resolve, without re-running OCR."""
     paths = sorted(out.glob("*.derivatives.csv"))
     if not paths:
@@ -391,11 +433,14 @@ def resolve_ids(out: Path, sleep: float) -> int:
         return 1
     fields = ["bv_id", "seen_at", "resolved", "title", "uploader", "upload_date", "duration"]
     # A refused request says nothing about OCR quality; only an answered one does.
-    done = not_found = blocked = 0
+    done = not_found = blocked = streak = 0
+    stopped = False
     for path in paths:
         with path.open(encoding="utf-8-sig", newline="") as handle:
             rows = list(csv.DictReader(handle))
-        pending = [r for r in rows if (r.get("resolved") or "").strip().lower() not in {"true", "1"}]
+        state = lambda r: (r.get("resolved") or "").strip().lower()
+        pending = [r for r in rows if state(r) not in {"true", "1"}
+                   and (retry_missing or state(r) != "notfound")]
         if not pending:
             continue
         print("\n=== %s  (%d pending) ===" % (path.name, len(pending)))
@@ -406,11 +451,26 @@ def resolve_ids(out: Path, sleep: float) -> int:
                 tail = (probe.stderr.strip().splitlines() or ["?"])[-1]
                 if "412" in tail:
                     blocked += 1
+                    streak += 1
                     print("    %s  BLOCKED     风控 412（未判定，稍后重跑）" % row["bv_id"])
+                    if streak >= BLOCKED_STREAK:
+                        # Every refused request extends the block, so knocking on the rest
+                        # of the list only lengthens the wait. Save what was answered and
+                        # hand the wait to the caller.
+                        stopped = True
+                        break
+                elif any(k in tail for k in NETWORK_ERRORS):
+                    print("    %s  NETWORK     %s（未判定，稍后重跑）" % (row["bv_id"], tail[:60]))
                 else:
+                    # Answered, and the answer was no. Nearly always an OCR misread of an
+                    # id that did resolve. Marked so it is never requested again: left as
+                    # False it was retried on every run, and at ~11% of ids that becomes a
+                    # rate-limit wall's worth of dead requests per batch.
                     not_found += 1
+                    row["resolved"] = "NotFound"
                     print("    %s  NOT FOUND   %s" % (row["bv_id"], tail[:60]))
                 continue
+            streak = 0
             data = json.loads(probe.stdout)
             row.update({
                 "resolved": "True", "title": data.get("title"), "uploader": data.get("uploader"),
@@ -422,12 +482,19 @@ def resolve_ids(out: Path, sleep: float) -> int:
             writer = csv.DictWriter(handle, fieldnames=fields)
             writer.writeheader()
             writer.writerows([{k: r.get(k, "") for k in fields} for r in rows])
+        if stopped:
+            break
     answered = done + not_found
     if answered:
         print("\nOCR 准确率 %.0f%% (%d/%d 已应答请求)" % (done / answered * 100, done, answered))
     if blocked:
         print("另有 %d 条被风控拒绝，未计入准确率 —— 那是限流，不是识别错误。" % blocked)
     print("失败行保留 resolved=False，稍后重跑即可，不会丢。")
+    if stopped:
+        # A distinct line and exit code so a batch runner can wait and resume rather than
+        # scrape the text. Already-answered rows are saved; the rerun picks up the rest.
+        print("BLOCKED-STOP 连续 %d 次 412，已停止；等 20-30 分钟再跑 resolve" % BLOCKED_STREAK)
+        return 3
     return 0
 
 
@@ -877,6 +944,7 @@ def main() -> int:
     deriv.add_argument("--no-proxy", action="store_true", help="bypass any system proxy for bilibili")
     deriv.add_argument("--video", type=Path, help="OCR this local file instead of downloading")
     deriv.add_argument("--no-resolve", action="store_true", help="skip the resolve pass; OCR only")
+    deriv.add_argument("--force", action="store_true", help="redo episodes already OCR'd")
     bx = sub.add_parser("boxes", help="re-OCR local videos keeping text positions; touches nothing else")
     bx.add_argument("tokens", nargs="+", metavar="BV")
     bx.add_argument("--out", type=Path, default=HERE)
@@ -886,6 +954,13 @@ def main() -> int:
     res.add_argument("--sleep", type=float, default=12.0)
     res.add_argument("--cookies-from-browser", metavar="BROWSER")
     res.add_argument("--cookies", metavar="FILE", help="cookies.txt; works with the browser open")
+    res.add_argument("--retry-missing", action="store_true",
+                     help="also retry ids the platform said do not exist (resolved=NotFound)")
+    cat = sub.add_parser("catalogue", help="list 梗百科's newest episodes into gengbaike_catalogue.txt")
+    cat.add_argument("--limit", type=int, default=200)
+    cat.add_argument("--out", type=Path, default=HERE)
+    cat.add_argument("--cookies-from-browser", metavar="BROWSER")
+    cat.add_argument("--cookies", metavar="FILE", help="cookies.txt; works with the browser open")
     sheet = sub.add_parser("sheet", help="build lineage.csv for the human role pass")
     sheet.add_argument("--out", type=Path, default=HERE)
     dr = sub.add_parser("drafts", help="turn lineage.csv into curation YAML per meme")
@@ -922,7 +997,7 @@ def main() -> int:
         if args.no_proxy:
             EXTRA.extend(["--proxy", ""])
         return extract_derivatives(args.tokens, args.out, args.every, args.sleep,
-                                   args.video, not args.no_resolve)
+                                   args.video, not args.no_resolve, args.force)
     if args.mode == "drafts":
         return build_drafts(args.sheet, args.out)
     if args.mode == "descriptions":
@@ -938,7 +1013,14 @@ def main() -> int:
             EXTRA.extend(["--cookies-from-browser", args.cookies_from_browser])
         if getattr(args, "cookies", None):
             EXTRA.extend(["--cookies", args.cookies])
-        return resolve_ids(args.out, args.sleep)
+        return resolve_ids(args.out, args.sleep, args.retry_missing)
+    if args.mode == "catalogue":
+        EXTRA.extend(["--add-header", "Referer:https://www.bilibili.com/"])
+        if args.cookies_from_browser:
+            EXTRA.extend(["--cookies-from-browser", args.cookies_from_browser])
+        if getattr(args, "cookies", None):
+            EXTRA.extend(["--cookies", args.cookies])
+        return list_catalogue(args.out, args.limit)
     if args.mode == "asr":
         EXTRA.extend([
             "--add-header", "Referer:https://www.bilibili.com/",
