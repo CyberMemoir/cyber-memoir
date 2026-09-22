@@ -35,6 +35,8 @@ Two memes show *old material, sudden revival*: 狼王撕衣 (2021 → 2026-08) a
 ## Curation workflow
 
 ```bash
+python evals/feasibility/prep.py catalogue --limit 200 --cookies bili-cookies.txt  # episode list
+# ai_context/run_l1.ps1 -Batch <n> -Count 20 runs the next three steps unattended
 python evals/feasibility/prep.py derivatives <BV> --cookies bili-cookies.txt --no-resolve
 python evals/feasibility/prep.py resolve --cookies bili-cookies.txt --sleep 20
 python evals/feasibility/prep.py sheet          # -> lineage.csv
@@ -149,6 +151,19 @@ omit every gold field, with `apply` the only command that reads the gold set.
 **MinIO's host ports are 39000/39001**, moved off 59000 when a Hyper-V reservation
 (58991-59090) swallowed them and every material POST 500'd. The reservations move on
 reboot: `netsh interface ipv4 show excludedportrange protocol=tcp`.
+
+**Three things only broke at scale, found before the 2026-09-22 expansion.** `derivatives`
+skipped the download of a finished episode but re-ran its OCR (~10 min) every time, and
+the batch runner restarted from the top after a block, so every block re-OCR'd the whole
+batch; it now skips an episode with a derivatives csv and boxes (`--force` redoes).
+`resolve` left an id the platform said does not exist as `resolved=False`, the same as a
+blocked one, so it was re-requested on every run - at ~11% misreads, a rate-limit wall of
+dead requests per batch; it is now `NotFound` and never asked again (`--retry-missing`).
+And once blocked, `resolve` kept requesting the rest of the list, each refusal extending
+the block; it now stops after 3 consecutive 412s, saves what was answered, and exits 3.
+`run_l1.ps1` waits out a block (30 min, up to 8 times) instead of stopping. Measured
+cost: ~10 min an episode to download and OCR, ~22 min to resolve a batch of 8, ~7 MB of
+video each.
 
 **One episode can cover several memes.** BV1ii4C6QEk8 covers three. Split ids by the
 `seen_at` column — it records when each appeared on screen, so the split is mechanical. The
@@ -269,8 +284,10 @@ Beijing time — `at` is UTC and must never be displayed.
 
 **Corpus loop (from 2026-09-18):** DeepSeek and Vincent grow the corpus without Claude,
 per `ai_context/work_loop.txt`; `ai_context/loop_state.txt` holds whose turn it is and
-`loop_log.txt` one block per batch. Claude returns at the CHECKPOINT (30 published memes,
-batch 3 done, or a stop) to audit drafts against OCR, run gold with `description` recall
+`loop_log.txt` one block per batch. Claude returns at the CHECKPOINT (batch 3 loaded -
+the first batch whose definitions a model drafted - then every 50 more memes, or a
+stop; changed 2026-09-22 when Vincent chose a large expansion to see what breaks at
+scale) to audit drafts against OCR, run gold with `description` recall
 reported apart from name queries, then refine the web UI. Phase 0 (4 blind drafts of
 published memes) passed the checker but showed what it cannot see: 轻松绷住's usage was
 drafted as "绷不住" - a real quote, the opposite meaning - and usage_context drifted into
