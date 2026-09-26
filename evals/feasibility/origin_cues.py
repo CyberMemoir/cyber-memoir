@@ -93,6 +93,18 @@ def cited(episode: str) -> list[dict]:
     return [row for row in rows if row["seen_at"] is not None]
 
 
+def episode_title(episode: str) -> str:
+    """The episode's own title - 【梗百科】XX是啥梗？ - so the reader knows which meme the
+    origin sentences are about (evals/feasibility/episode_titles.csv, from prep.py titles)."""
+    path = HERE / "episode_titles.csv"
+    if not path.exists():
+        return ""
+    for row in csv.DictReader(path.open(encoding="utf-8-sig")):
+        if row["episode_id"] == episode:
+            return row["title"]
+    return ""
+
+
 def memes(episode: str) -> dict[str, str]:
     """bv_id -> the meme the curator filed it under, where the sheet already says."""
     path = HERE / "lineage.csv"
@@ -119,6 +131,9 @@ def sheet(episode: str) -> tuple[list[str], list[dict]]:
         if kind == "解说" and any(cue in text for cue in CUES)
     ]
     out = ["=" * 78, "EPISODE %s   %d 条引用，%d 句可能的出处解说" % (episode, len(works), len(cues))]
+    title = episode_title(episode)
+    if title:
+        out.append("标题  %s" % title)
     if not cues:
         out += ["", "  这一集没有出处解说。所有引用一律 derivative，除非策展人另有判断。"]
     shortlist = []
