@@ -165,6 +165,18 @@ the block; it now stops after 3 consecutive 412s, saves what was answered, and e
 cost: ~10 min an episode to download and OCR, ~22 min to resolve a batch of 8, ~7 MB of
 video each.
 
+**The meme's name comes from the episode title, never OCR** (2026-09-25, Vincent).
+梗百科 titles episodes `【梗百科】XX是啥梗？<tagline>`; `name_from_title` takes XX. The
+old OCR title-card guess returned narration fragments for most of batches 3-5 (回复,
+出自节目, a bare BV id, 这两个图是由两位不同的人制作的). Titles live in
+`evals/feasibility/episode_titles.csv`: `prep.py titles --batch N` fetches them (one
+request each, JSON - `--print` drops CJK through the Windows console encoding, 1 of 7
+came back), a fresh download gets its title free via `--write-info-json`, and the
+channel listing (`catalogue`) carries none at all (yt-dlp returns NA). `sheet` renames
+only rows still holding the machine guess with no role; `prep.py names --batch N`
+renames a batch's guess-named rows even after roles were judged, and refuses once a
+curation record carries the old name.
+
 **One episode can cover several memes.** BV1ii4C6QEk8 covers three. Split ids by the
 `seen_at` column — it records when each appeared on screen, so the split is mechanical. The
 one-draft-per-source constraint lives in `extract()` (the LLM path we don't use); the manual

@@ -324,7 +324,11 @@ def extract_derivatives(
         if not existing:
             # Bilibili serves DASH, so `best` (a single muxed file) often does not exist.
             # OCR needs pictures only, so take a video-only stream and skip the ffmpeg merge.
-            target_arg = ["-o", str(out / ("%s.video.%%(ext)s" % vid)), "--", url]
+            # The title comes with the download's own extraction, so it costs nothing. An
+            # info json rather than --print-to-file, which goes through the console encoding.
+            info_file = out / ("%s.video.info.json" % vid)
+            target_arg = ["--write-info-json",
+                          "-o", str(out / ("%s.video.%%(ext)s" % vid)), "--", url]
             got = run(["-f", "bv*[height<=1080]/bv*", "--no-warnings", *target_arg], timeout=600)
             if got.returncode != 0 and "not available" in got.stderr:
                 print("  format selector missed; retrying with yt-dlp defaults")
@@ -337,6 +341,15 @@ def extract_derivatives(
                           "\n      prep.py derivatives %s --video 路径.mp4 --no-resolve" % vid)
                 continue
             existing = [p for p in out.glob("%s.video.*" % vid) if p.suffix != ".json"]
+            if info_file.exists():
+                try:
+                    info = json.loads(info_file.read_text(encoding="utf-8"))
+                    text = str(info.get("title") or info.get("fulltitle") or "").strip()
+                    if text and text != "NA":
+                        save_titles(out, {vid: text})
+                except ValueError:
+                    pass
+                info_file.unlink()
         frame_text, frame_boxes = ocr_video(existing[0], every, ocr, cv2)
         hits: dict[str, float] = {}
         for item in frame_text:
@@ -392,6 +405,67 @@ def extract_derivatives(
 
 
 NEWLINE = chr(10)
+TAB = chr(9)
+TITLES = "episode_titles.csv"
+
+
+def load_titles(out: Path) -> dict[str, str]:
+    path = out / TITLES
+    if not path.exists():
+        return {}
+    return {r["episode_id"]: r["title"] for r in csv.DictReader(path.open(encoding="utf-8-sig"))}
+
+
+def save_titles(out: Path, new: dict[str, str]) -> None:
+    if not new:
+        return
+    titles = load_titles(out)
+    titles.update(new)
+    with (out / TITLES).open("w", encoding="utf-8-sig", newline="") as handle:
+        writer = csv.writer(handle)
+        writer.writerow(["episode_id", "title"])
+        writer.writerows(sorted(titles.items()))
+
+
+def fetch_titles(out: Path, episodes: list[str], sleep: float) -> int:
+    """Each episode's own title, one metadata request per episode, for those missing one.
+
+    The title names the meme - 梗百科 titles its episodes “XX是什么梗？” - where the
+    OCR title-card guess picked narration fragments (回复, 出自节目, a bare BV id). Same
+    manners as resolve: saved as it goes, stops after BLOCKED_STREAK consecutive 412s,
+    exit 3, so a caller can wait and rerun without asking for anything twice."""
+    have = load_titles(out)
+    todo = [e for e in dict.fromkeys(episodes) if e not in have]
+    print("%d 集，其中 %d 集已有标题，%d 集待取" % (len(set(episodes)), len(set(episodes)) - len(todo), len(todo)))
+    streak = got_n = 0
+    for index, episode in enumerate(todo):
+        if index:
+            time.sleep(sleep)
+        # JSON, not --print: --print writes through the Windows console encoding and
+        # silently drops a CJK title, which returned 1 of 7 on the first try.
+        probe = run(["--dump-single-json", "--skip-download", "--no-warnings", "--", as_url(episode)])
+        try:
+            data = json.loads(probe.stdout)
+            title = str(data.get("title") or data.get("fulltitle") or "").strip()
+        except ValueError:
+            title = ""
+        if probe.returncode != 0 or not title or title == "NA":
+            tail = (probe.stderr.strip().splitlines() or ["?"])[-1]
+            if "412" in tail:
+                streak += 1
+                print("    %s  BLOCKED" % episode)
+                if streak >= BLOCKED_STREAK:
+                    print("BLOCKED-STOP 连续 %d 次 412，已停止；已取到的已保存" % BLOCKED_STREAK)
+                    return 3
+            else:
+                print("    %s  失败  %s" % (episode, tail[:60]))
+            continue
+        streak = 0
+        got_n += 1
+        save_titles(out, {episode: title})
+        print("    %s  %s" % (episode, title))
+    print("取到 %d 个标题 -> %s" % (got_n, TITLES))
+    return 0
 GENGBAIKE = "https://space.bilibili.com/1544008396/video"
 
 
@@ -401,9 +475,11 @@ def list_catalogue(out: Path, limit: int) -> int:
     One listing request rather than one per episode. Which episodes are already done is
     not written here: the batch runner reads that from disk (an episode with a
     derivatives csv and boxes has been OCR'd), so the list never goes stale on its own."""
-    got = run(["--flat-playlist", "--playlist-end", str(limit), "--print", "%(id)s",
+    got = run(["--flat-playlist", "--playlist-end", str(limit), "--print", "%(id)s" + TAB + "%(title)s",
                "--no-warnings", "--", GENGBAIKE], timeout=900)
-    ids = [line.strip() for line in got.stdout.splitlines() if re.fullmatch(r"BV[0-9A-Za-z]{10}", line.strip())]
+    listed = [line.split(TAB, 1) for line in got.stdout.splitlines() if TAB in line]
+    listed = [(bv.strip(), title.strip()) for bv, title in listed if re.fullmatch(r"BV[0-9A-Za-z]{10}", bv.strip())]
+    ids = [bv for bv, _ in listed]
     if not ids:
         tail = (got.stderr.strip().splitlines() or ["?"])[-1][:200]
         print("没有拿到列表：%s" % tail)
@@ -417,6 +493,12 @@ def list_catalogue(out: Path, limit: int) -> int:
               % (len(ids), time.strftime("%Y-%m-%d")),
               "# done is read from disk by the batch runner, not recorded here"]
     target.write_text(NEWLINE.join(header + ids) + NEWLINE, encoding="utf-8")
+    # The episode's own title names its meme (“XX是什么梗？”), where the OCR guess
+    # picked narration fragments. Kept beside the catalogue, merged so an episode that has
+    # dropped out of the newest N keeps its title.
+    # yt-dlp's flat listing of a bilibili space carries no titles (every one comes back
+    # "NA"), so none are stored from here; `prep.py titles` fetches them per episode.
+    save_titles(out, {bv: t for bv, t in listed if t and t != "NA"})
     print("-> %s   %d 集，其中 %d 集已处理，%d 集待处理" % (target.name, len(ids), done, len(ids) - done))
     return 0
 
@@ -517,6 +599,79 @@ def guess_meme_name(ocr_path: Path) -> str:
     return counts.most_common(1)[0][0] if counts else ""
 
 
+# 梗百科 titles its episodes 【梗百科】NAME是啥梗？<tagline>. The name is what precedes the
+# first of these; the tagline after it is often a second question and is not the name.
+TITLE_ASKS = ("是什么梗", "是啥梗", "是什么意思", "是啥意思", "是什么", "是啥", "什么梗", "啥梗")
+TITLE_TRIM = "“”\"'‘’「」『』《》〈〉【】[]()（）:：,，、 "
+
+
+def name_from_title(title: str) -> str:
+    """The meme's name as the episode's own title states it; "" if it is not recognisable.
+
+    Replaces the OCR title-card guess, which on batches 3-5 returned narration fragments
+    for most episodes: 回复, 出自节目, a bare BV id, 这两个图是由两位不同的人制作的. A title
+    without the pattern (DU BIST GUT GENUG) is taken up to its first question or
+    exclamation mark. Either way it is a proposal the curator corrects at L-2 - an
+    episode covering two memes titles them together and is split by seen_at."""
+    text = re.sub(r"^\s*(【[^】]*】|\[[^\]]*\])\s*", "", title or "").strip()
+    cut = [text.find(ask) for ask in TITLE_ASKS if ask in text]
+    if cut:
+        text = text[:min(cut)]
+    else:
+        text = re.split(r"[？?！!｜|]", text, 1)[0]
+    return text.strip(TITLE_TRIM).strip()
+
+
+def rename_batch(out: Path, batch: str) -> int:
+    """Give a batch's rows the name their episode's title states, where the name is still
+    exactly the OCR guess - even on rows already judged, which build_sheet leaves alone.
+
+    For a batch whose roles were judged before titles existed (batch 3, 2026-09-25). A
+    name the curator typed differs from the guess and is kept; roles and notes are never
+    touched. Refuses once a curation record carries the old name, because renaming the
+    sheet then would make `drafts` start a second record beside it."""
+    listing = HERE.parents[1] / "ai_context" / ("batch%s.txt" % batch)
+    if not listing.exists():
+        print("%s 不存在" % listing)
+        return 2
+    scope = {l.strip() for l in listing.read_text(encoding="utf-8").splitlines() if l.strip().startswith("BV")}
+    titles = load_titles(out)
+    target = out / "lineage.csv"
+    rows = list(csv.DictReader(target.open(encoding="utf-8-sig", newline="")))
+    fields = list(rows[0].keys())
+    recorded = set()
+    for path in (HERE.parent / "curation").glob("*.y*ml"):
+        found = re.search(r"^canonical_name:\s*(.+)$", path.read_text(encoding="utf-8"), re.M)
+        if found:
+            recorded.add(found.group(1).strip().strip('"'))
+    guesses, changes = {}, {}
+    for row in rows:
+        episode = row["episode_id"]
+        if episode not in scope:
+            continue
+        titled = name_from_title(titles.get(episode, ""))
+        if episode not in guesses:
+            ocr = out / ("%s.ocr.json" % episode)
+            guesses[episode] = guess_meme_name(ocr) if ocr.exists() else ""
+        if titled and row["meme_name"] == guesses[episode] and row["meme_name"] != titled:
+            if row["meme_name"] in recorded:
+                print("  ! %s 已有记录《%s》，不改名" % (episode, row["meme_name"]))
+                continue
+            changes[episode] = (row["meme_name"], titled)
+            row["meme_name"] = titled
+    missing = sorted(e for e in scope if not titles.get(e) and any(r["episode_id"] == e for r in rows))
+    with target.open("w", encoding="utf-8-sig", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fields)
+        writer.writeheader()
+        writer.writerows(rows)
+    for episode, (old, new) in sorted(changes.items()):
+        print("  %s  %s  ->  %s" % (episode, old, new))
+    print("batch %s：%d 集按标题改名；role / notes 未动" % (batch, len(changes)))
+    if missing:
+        print("! 还没有标题的集：%s —— 先跑 prep.py titles --batch %s" % (" ".join(missing), batch))
+    return 0
+
+
 def build_sheet(out: Path) -> int:
     """Join resolved ids with their episode's meme name for the human role pass."""
     target = out / "lineage.csv"
@@ -535,22 +690,36 @@ def build_sheet(out: Path) -> int:
                 if stamp and not (stamp.isdigit() and len(stamp) == 8):
                     rewritten.append(row["bv_id"])
     rows = []
+    titles = load_titles(out)
+    untitled, renamed = [], 0
     for path in sorted(out.glob("*.derivatives.csv")):
         episode = path.name.replace(".derivatives.csv", "")
         ocr_path = out / ("%s.ocr.json" % episode)
-        meme = guess_meme_name(ocr_path) if ocr_path.exists() else ""
+        # The name comes from the episode's title, never from OCR. The OCR guess is still
+        # computed, but only to recognise a name nobody has touched: a row whose name is
+        # still the machine guess and whose role is still blank takes the title's name;
+        # anything the curator wrote or judged is left alone.
+        guess = guess_meme_name(ocr_path) if ocr_path.exists() else ""
+        titled = name_from_title(titles.get(episode, ""))
         with path.open(encoding="utf-8-sig", newline="") as handle:
-            for row in csv.DictReader(handle):
+            episode_rows = list(csv.DictReader(handle))
+        for row in episode_rows:
                 keep = prior.get(row["bv_id"], {})
+                name = keep.get("meme_name") or ""
+                untouched = not name or (name == guess and not keep.get("role", "").strip())
+                if titled and untouched and name != titled:
+                    name = titled
+                    renamed += 1
                 rows.append({
                     "episode_id": episode,
-                    "meme_name": keep.get("meme_name") or meme,
+                    "meme_name": name,
                     "bv_id": row["bv_id"],
                     "upload_date": row.get("upload_date", ""),
                     "title": row.get("title", ""),
                     "role": keep.get("role", ""),
                     "notes": keep.get("notes", ""),
                 })
+    untitled = sorted({r["episode_id"] for r in rows if not r["meme_name"].strip()})
     rows.sort(key=lambda r: (r["meme_name"], r["upload_date"] or "9"))
     with target.open("w", encoding="utf-8-sig", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=fields)
@@ -566,7 +735,13 @@ def build_sheet(out: Path) -> int:
         print("  已从 *.derivatives.csv 重新生成日期与标题；role / meme_name / notes 原样保留。"
               "编辑请用纯文本编辑器。")
     print("role 取值：source | popularized_by | derivative | reference | irrelevant（留空表示待判定）")
-    print("meme_name 是从 OCR 首屏猜的，错了直接改，重跑不会覆盖你填过的内容。")
+    print("meme_name 取自该集标题（【梗百科】XX是啥梗？ 取 XX），错了直接改，重跑不会覆盖你改过的或已判定的行。")
+    if renamed:
+        print("  本次按标题改名 %d 行（原先是 OCR 猜的名字且尚未判定）" % renamed)
+    if untitled:
+        print("! %d 集的 meme_name 为空（还没取到标题），drafts 会跳过这些梗：%s%s"
+              % (len(untitled), " ".join(untitled[:6]), " 等" if len(untitled) > 6 else ""))
+        print("  先跑：prep.py titles --batch <N> --cookies bili-cookies.txt，再重跑 sheet")
     return 0
 
 
@@ -956,6 +1131,16 @@ def main() -> int:
     res.add_argument("--cookies", metavar="FILE", help="cookies.txt; works with the browser open")
     res.add_argument("--retry-missing", action="store_true",
                      help="also retry ids the platform said do not exist (resolved=NotFound)")
+    nm = sub.add_parser("names", help="rename a batch's rows from episode titles where the name is still the OCR guess")
+    nm.add_argument("--batch", required=True, metavar="N")
+    nm.add_argument("--out", type=Path, default=HERE)
+    tit = sub.add_parser("titles", help="fetch episode titles (they name the meme) for episodes missing one")
+    tit.add_argument("episodes", nargs="*", metavar="BV")
+    tit.add_argument("--batch", action="append", default=[], metavar="N",
+                     help="take the episodes from ai_context/batch<N>.txt; repeatable")
+    tit.add_argument("--out", type=Path, default=HERE)
+    tit.add_argument("--sleep", type=float, default=12.0)
+    tit.add_argument("--cookies", metavar="FILE", help="cookies.txt; works with the browser open")
     cat = sub.add_parser("catalogue", help="list 梗百科's newest episodes into gengbaike_catalogue.txt")
     cat.add_argument("--limit", type=int, default=200)
     cat.add_argument("--out", type=Path, default=HERE)
@@ -1014,6 +1199,23 @@ def main() -> int:
         if getattr(args, "cookies", None):
             EXTRA.extend(["--cookies", args.cookies])
         return resolve_ids(args.out, args.sleep, args.retry_missing)
+    if args.mode == "names":
+        return rename_batch(args.out, args.batch)
+    if args.mode == "titles":
+        EXTRA.extend(["--add-header", "Referer:https://www.bilibili.com/"])
+        if getattr(args, "cookies", None):
+            EXTRA.extend(["--cookies", args.cookies])
+        episodes = list(args.episodes)
+        for n in args.batch:
+            listing = HERE.parents[1] / "ai_context" / ("batch%s.txt" % n)
+            if not listing.exists():
+                print("%s 不存在" % listing)
+                return 2
+            episodes += [l.strip() for l in listing.read_text(encoding="utf-8").splitlines() if l.strip().startswith("BV")]
+        if not episodes:
+            print("给出集号，或 --batch N")
+            return 2
+        return fetch_titles(args.out, episodes, args.sleep)
     if args.mode == "catalogue":
         EXTRA.extend(["--add-header", "Referer:https://www.bilibili.com/"])
         if args.cookies_from_browser:
