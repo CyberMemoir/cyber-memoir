@@ -215,19 +215,39 @@ def check(path: Path) -> int:
     return 1 if refused else 0
 
 
-def apply(path: Path) -> int:
-    """Write the confirmed origins into lineage.csv, and derivative for everything else.
+BATCHES = HERE.parents[1] / "ai_context"
+
+
+def apply(path: Path, batch: str) -> int:
+    """Write the confirmed origins into lineage.csv, and derivative for everything else
+    in the batch.
 
     Run by the curator, never by the model, and only after he has been through
     origins.csv. It fills blank roles only: a role he has already written by hand is
     never overwritten, so running it twice is safe and so is running it after he has
     marked a few rows `irrelevant`.
+
+    The batch sets the scope, not the csv. It used to be the episodes the csv named, but
+    an episode with no origin sentence gets no row by design (O-7), so its citations were
+    left blank and `drafts` skipped the meme without a word. Batch 3's csv named 1 of its
+    7 episodes; applying it would have kept 3 rows and silently dropped the other 22 (DeepSeek
+    caught this on 2026-09-25). Nor can it be every blank row in the sheet: batches ahead
+    at L-1 are blank too, and defaulting them would mark their videos derivative before
+    anyone read their origin sentences.
     """
     if not path.exists():
         raise SystemExit("%s 不存在" % path)
+    listing = BATCHES / ("batch%s.txt" % batch)
+    if not listing.exists():
+        raise SystemExit("%s 不存在：run_l1.ps1 在 L-1 写出它，--batch 要和那一批的编号一致" % listing)
+    scope = [l.strip() for l in listing.read_text(encoding="utf-8").splitlines() if l.strip().startswith("BV")]
     rows = list(csv.DictReader(path.open(encoding="utf-8-sig")))
     named = {(r["episode_id"], r["bv_id"].lower()): r["role"] for r in rows}
-    episodes = {r["episode_id"] for r in rows}
+    stray = sorted({r["episode_id"] for r in rows} - set(scope))
+    if stray:
+        raise SystemExit("origins.csv 提到了不在 batch%s 里的集：%s。批号对吗？"
+                         % (batch, "、".join(stray)))
+    episodes = set(scope)
     sheet_path = HERE / "lineage.csv"
     lineage = list(csv.DictReader(sheet_path.open(encoding="utf-8-sig")))
     fields = list(lineage[0].keys())
@@ -246,8 +266,13 @@ def apply(path: Path) -> int:
         writer = csv.DictWriter(handle, fieldnames=fields)
         writer.writeheader()
         writer.writerows(lineage)
-    print("lineage.csv：写入出处 %d 条，其余 %d 条记为 derivative，原有 %d 条未动"
-          % (origins, defaults, kept))
+    print("batch %s：写入出处 %d 条，其余 %d 条记为 derivative，原有 %d 条未动"
+          % (batch, origins, defaults, kept))
+    for episode in scope:
+        mine = [r for r in lineage if r["episode_id"] == episode]
+        found = sum(1 for (ep, _) in named if ep == episode)
+        print("  %s  %2d 条引用  %s" % (episode, len(mine),
+              "无 BV 号" if not mine else ("出处 %d" % found if found else "无出处解说，全部 derivative")))
     missing = sorted(set(named) - {(r["episode_id"], r["bv_id"].lower()) for r in lineage})
     for episode, bv in missing:
         print("  ! %s %s 不在 lineage.csv 里，没有写入" % (episode, bv))
@@ -262,12 +287,16 @@ def main() -> int:
     parser.add_argument("--check", type=Path, metavar="FILE",
                         help="核对提案的 origins.csv：解说原文、措辞、窗口")
     parser.add_argument("--apply", type=Path, metavar="FILE",
-                        help="把确认过的 origins.csv 写进 lineage.csv，其余记为 derivative")
+                        help="把确认过的 origins.csv 写进 lineage.csv，本批其余记为 derivative")
+    parser.add_argument("--batch", metavar="N",
+                        help="--apply 必填：批号，读 ai_context/batch<N>.txt 定范围")
     args = parser.parse_args()
     if args.check:
         return check(args.check)
     if args.apply:
-        return apply(args.apply)
+        if not args.batch:
+            parser.error("--apply 需要 --batch N：范围是整批，不是 csv 里出现的那几集")
+        return apply(args.apply, args.batch)
     if not (args.episodes and args.out):
         parser.error("要么 --check/--apply FILE，要么 <EP>... -o FILE")
     text: list[str] = []

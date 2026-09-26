@@ -41,7 +41,7 @@ python evals/feasibility/prep.py derivatives <BV> --cookies bili-cookies.txt --n
 python evals/feasibility/prep.py resolve --cookies bili-cookies.txt --sleep 20
 python evals/feasibility/prep.py sheet          # -> lineage.csv
 python evals/feasibility/origin_cues.py <EP>... -o cues.txt   # the origin sentences
-#   model proposes origins -> origins.csv; --check verifies; --apply writes the sheet
+#   model proposes origins -> origins.csv; --check verifies; --apply --batch N writes the sheet
 python evals/feasibility/prep.py drafts         # -> one curation YAML per meme
 # model drafts definition + usage_context from subtitle OCR; human reviews, sets confirmed_by
 # (name-free gold queries go in evals/curation/_descriptions.yaml before any draft exists)
