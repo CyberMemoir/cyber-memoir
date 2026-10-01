@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: "Cyber Memoir · 赛博回忆录",
   description:
     "面向人类与 AI 的中文互联网文化记忆与检索基础设施。每一个解释，都有证据可循。",
+  authors: [{ name: "Cogstruct AI", url: "https://github.com/Cogstruct-ai" }],
+  creator: "Cogstruct AI",
+  publisher: "CyberMemoir",
 };
 
 export const viewport: Viewport = {

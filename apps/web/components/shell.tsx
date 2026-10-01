@@ -42,7 +42,13 @@ export function Footer() {
   return (
     <footer className="site-footer">
       <span className="footer-line">记忆会流动，证据应当留下。</span>
-      <span className="footer-meta">开源 · Evidence First</span>
+      <div className="footer-meta">
+        <span>开源 · Evidence First</span>
+        <span className="footer-attribution">
+          属于 <a href="https://github.com/CyberMemoir">CyberMemoir</a>
+          {" · "}由 <a href="https://github.com/Cogstruct-ai">Cogstruct AI</a> 开发和维护
+        </span>
+      </div>
     </footer>
   );
 }

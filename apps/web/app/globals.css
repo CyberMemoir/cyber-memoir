@@ -395,6 +395,13 @@ textarea {
   text-transform: uppercase;
   font-size: 12px;
 }
+.footer-attribution {
+  display: block;
+  margin-top: 8px;
+  letter-spacing: normal;
+  text-transform: none;
+  line-height: 1.7;
+}
 
 /* ---------------------------------------------------------- home: dome ----- */
 .archive-main {
