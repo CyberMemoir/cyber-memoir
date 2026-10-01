@@ -142,7 +142,7 @@ export default function SubmitPage() {
           <form className="form-stack" onSubmit={submit}>
             <label className="field">
               <span>
-                <span className="step-label">01</span>Bilibili / 抖音视频链接
+                Bilibili / 抖音视频链接
               </span>
               <input
                 type="url"

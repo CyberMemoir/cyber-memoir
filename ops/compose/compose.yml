@@ -71,7 +71,14 @@ services:
     environment:
       MINIO_ROOT_USER: ${S3_ACCESS_KEY:?run make configure}
       MINIO_ROOT_PASSWORD: ${S3_SECRET_KEY:?run make configure}
-    ports: ["127.0.0.1:59000:9000", "127.0.0.1:59001:9001"]
+    # 39000, not 59000: Windows reserves shifting dynamic ranges for Hyper-V, and on
+    # 2026-09-20 one of them (58991-59090) had moved over both of MinIO's host ports, so
+    # `up -d` died with "An attempt was made to access a socket in a way forbidden by its
+    # access permissions" and every material POST 500'd on a MinIO it could not reach.
+    # The reservations move on reboot; these ports are only for a human opening the
+    # console, since the API reaches MinIO as http://minio:9000 inside the network.
+    # `netsh interface ipv4 show excludedportrange protocol=tcp` lists the ranges.
+    ports: ["127.0.0.1:39000:9000", "127.0.0.1:39001:9001"]
     volumes: ["objects:/data"]
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]

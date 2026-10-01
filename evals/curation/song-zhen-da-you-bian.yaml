@@ -4,7 +4,7 @@ slug: song-zhen-da-you-bian
 resolved: true
 
 canonical_name: 松针大油边
-aliases: []
+aliases: ["子琪不吃", "我去好香啊"]
 
 # definition 必填，且 claims 里要有逐字相同的 statement（用 |- 块标量）
 definition: "本义是猪护心肉带层脂肪加松树叶子，子琪不吃发视频老式烤炉边烤边报菜名，报一个一句捧哏，|我去好香啊|"
@@ -55,6 +55,9 @@ gold:
   alias: []
   origin_intent:
     - 松针大油边的出处
+  # 用自己的话描述这个梗、不含梗名与别名的查询；模型起草的记录至少要一条
+  description:
+    - "美食视频旁边有个人一直捧哏是啥意思"
   must_not_return: []
 
 curation:

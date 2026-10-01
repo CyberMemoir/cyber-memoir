@@ -8,10 +8,13 @@ class Settings(BaseSettings):
     database_url: str = "postgresql+psycopg://memoir:memoir@localhost:55432/memoir"
     redis_url: str = "redis://localhost:56379/0"
     opensearch_url: str = "http://localhost:59200"
-    search_index: str = "memoir-v1"
+    # v2 on 2026-09-20: `aliases` changed from keyword to cjk text, and a field's type
+    # cannot change inside an existing index. ensure_index() creates v2 on first use and
+    # POST /v1/reindex fills it; memoir-v1 can be deleted once v2 answers.
+    search_index: str = "memoir-v2"
     storage_backend: str = "s3"
     storage_path: str = ".data/artifacts"
-    s3_endpoint: str = "http://localhost:59000"
+    s3_endpoint: str = "http://localhost:39000"
     s3_access_key: str = ""
     s3_secret_key: str = ""
     s3_bucket: str = "memoir-evidence"

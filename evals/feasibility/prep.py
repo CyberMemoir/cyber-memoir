@@ -209,9 +209,85 @@ def transcribe(tokens: list[str], out: Path, model_name: str, sleep: float = 4.0
     return 0
 
 
+def ocr_video(path: Path, every: float, ocr, cv2, use_cls: bool = True) -> tuple[list[dict], list[dict]]:
+    """One OCR pass: the text per sampled frame, and the same boxes with their positions.
+
+    Positions are what tell the narrator's subtitle from everything else on screen - it
+    sits in a fixed band near the bottom, while quoted clips, comments and credits sit
+    elsewhere. They are stored as fractions of the frame so 480p and 1080p compare."""
+    capture = cv2.VideoCapture(str(path))
+    fps = capture.get(cv2.CAP_PROP_FPS) or 25.0
+    width = capture.get(cv2.CAP_PROP_FRAME_WIDTH) or 1.0
+    height = capture.get(cv2.CAP_PROP_FRAME_HEIGHT) or 1.0
+    step = max(1, int(fps * every))
+    frame_text: list[dict] = []
+    frame_boxes: list[dict] = []
+    index = 0
+    while True:
+        ok, frame = capture.read()
+        if not ok:
+            break
+        if index % step == 0:
+            result, _ = ocr(frame, use_cls=use_cls)
+            stamp = round(index / fps, 1)
+            texts = [str(line[1]) for line in (result or [])]
+            if texts:
+                frame_text.append({"at": stamp, "text": texts})
+                boxes = []
+                for box, text, score in result:
+                    xs = [float(p[0]) for p in box]
+                    ys = [float(p[1]) for p in box]
+                    boxes.append([
+                        str(text),
+                        round(sum(ys) / 4 / height, 4),       # vertical centre
+                        round(min(xs) / width, 4),
+                        round(max(xs) / width, 4),
+                        round((max(ys) - min(ys)) / height, 4),  # box height
+                        round(float(score), 3),
+                    ])
+                frame_boxes.append({"at": stamp, "boxes": boxes})
+        index += 1
+    capture.release()
+    return frame_text, frame_boxes
+
+
+def write_boxes(target: Path, frame_boxes: list[dict]) -> None:
+    """[text, y_centre, x_left, x_right, height, confidence] per box, all fractions of the frame."""
+    target.write_text(
+        json.dumps({"fields": ["text", "y", "x0", "x1", "h", "conf"], "frames": frame_boxes},
+                   ensure_ascii=False),
+        encoding="utf-8",
+    )
+
+
+def rebox(tokens: list[str], out: Path, every: float) -> int:
+    """Re-OCR videos already on disk, writing positions only. Never touches ocr.json,
+    derivatives.csv or materials: published evidence was built from those."""
+    try:
+        import cv2
+        from rapidocr_onnxruntime import RapidOCR
+    except ImportError:
+        print("需要 opencv 与 rapidocr-onnxruntime")
+        return 2
+    ocr = RapidOCR()
+    for token in tokens:
+        vid = video_id(token)
+        videos = [p for p in out.glob("%s.video.*" % vid) if p.suffix != ".json"]
+        if not videos:
+            print("  %s  没有本地视频，跳过（不会去平台下载）" % vid)
+            continue
+        started = time.time()
+        # No angle classifier: subtitles are horizontal. Measured on 20 frames of a 1080p
+        # episode: 2.36 s/frame against 2.86, narrator lines identical on all 20.
+        _, frame_boxes = ocr_video(videos[0], every, ocr, cv2, use_cls=False)
+        write_boxes(out / ("%s.boxes.json" % vid), frame_boxes)
+        print("  %s  %d 帧  %.0fs" % (vid, len(frame_boxes), time.time() - started))
+    return 0
+
+
 def extract_derivatives(
     tokens: list[str], out: Path, every: float, sleep: float,
-    video_path: Path | None = None, resolve: bool = True,
+    video_path: Path | None = None, resolve: bool = True, force: bool = False,
 ) -> int:
     """OCR burned-in BV ids off the canvas, then resolve each against the platform.
 
@@ -234,13 +310,25 @@ def extract_derivatives(
     for token in tokens:
         url, vid = as_url(token), video_id(token)
         print("\n=== %s ===" % vid)
+        # OCR is the slow part - about ten minutes an episode - and it used to run again on
+        # every call, so a batch runner restarting after a rate-limit block re-OCR'd every
+        # episode it had already finished. The csv is written even when no id is found (4 in
+        # 10 episodes), so together with the boxes it means this episode is done.
+        if not force and (out / ("%s.derivatives.csv" % vid)).exists() \
+                and (out / ("%s.boxes.json" % vid)).exists():
+            print("  已完成，跳过（--force 重做）")
+            continue
         existing = [video_path] if video_path else [
             p for p in out.glob("%s.video.*" % vid) if p.suffix != ".json"
         ]
         if not existing:
             # Bilibili serves DASH, so `best` (a single muxed file) often does not exist.
             # OCR needs pictures only, so take a video-only stream and skip the ffmpeg merge.
-            target_arg = ["-o", str(out / ("%s.video.%%(ext)s" % vid)), "--", url]
+            # The title comes with the download's own extraction, so it costs nothing. An
+            # info json rather than --print-to-file, which goes through the console encoding.
+            info_file = out / ("%s.video.info.json" % vid)
+            target_arg = ["--write-info-json",
+                          "-o", str(out / ("%s.video.%%(ext)s" % vid)), "--", url]
             got = run(["-f", "bv*[height<=1080]/bv*", "--no-warnings", *target_arg], timeout=600)
             if got.returncode != 0 and "not available" in got.stderr:
                 print("  format selector missed; retrying with yt-dlp defaults")
@@ -253,29 +341,24 @@ def extract_derivatives(
                           "\n      prep.py derivatives %s --video 路径.mp4 --no-resolve" % vid)
                 continue
             existing = [p for p in out.glob("%s.video.*" % vid) if p.suffix != ".json"]
-        capture = cv2.VideoCapture(str(existing[0]))
-        fps = capture.get(cv2.CAP_PROP_FPS) or 25.0
-        step = max(1, int(fps * every))
+            if info_file.exists():
+                try:
+                    info = json.loads(info_file.read_text(encoding="utf-8"))
+                    text = str(info.get("title") or info.get("fulltitle") or "").strip()
+                    if text and text != "NA":
+                        save_titles(out, {vid: text})
+                except ValueError:
+                    pass
+                info_file.unlink()
+        frame_text, frame_boxes = ocr_video(existing[0], every, ocr, cv2)
         hits: dict[str, float] = {}
-        frame_text: list[dict] = []
-        index = 0
-        while True:
-            ok, frame = capture.read()
-            if not ok:
-                break
-            if index % step == 0:
-                result, _ = ocr(frame)
-                texts = [str(line[1]) for line in (result or [])]
-                stamp = index / fps
-                for found in pattern.findall(" ".join(texts)):
-                    hits.setdefault(found, stamp)
-                if texts:
-                    frame_text.append({"at": round(stamp, 1), "text": texts})
-            index += 1
-        capture.release()
+        for item in frame_text:
+            for found in pattern.findall(" ".join(item["text"])):
+                hits.setdefault(found, item["at"])
         (out / ("%s.ocr.json" % vid)).write_text(
             json.dumps(frame_text, ensure_ascii=False, indent=2), encoding="utf-8"
         )
+        write_boxes(out / ("%s.boxes.json" % vid), frame_boxes)
         print("  frames OCR'd: %d   BV ids found: %d" % (len(frame_text), len(hits)))
         # 0/o and 1/l confusions produce two ids for one card; flag them so counts stay honest.
         ordered = sorted(hits.items(), key=lambda kv: kv[1])
@@ -321,7 +404,110 @@ def extract_derivatives(
     return 0
 
 
-def resolve_ids(out: Path, sleep: float) -> int:
+NEWLINE = chr(10)
+TAB = chr(9)
+TITLES = "episode_titles.csv"
+
+
+def load_titles(out: Path) -> dict[str, str]:
+    path = out / TITLES
+    if not path.exists():
+        return {}
+    return {r["episode_id"]: r["title"] for r in csv.DictReader(path.open(encoding="utf-8-sig"))}
+
+
+def save_titles(out: Path, new: dict[str, str]) -> None:
+    if not new:
+        return
+    titles = load_titles(out)
+    titles.update(new)
+    with (out / TITLES).open("w", encoding="utf-8-sig", newline="") as handle:
+        writer = csv.writer(handle)
+        writer.writerow(["episode_id", "title"])
+        writer.writerows(sorted(titles.items()))
+
+
+def fetch_titles(out: Path, episodes: list[str], sleep: float) -> int:
+    """Each episode's own title, one metadata request per episode, for those missing one.
+
+    The title names the meme - 梗百科 titles its episodes “XX是什么梗？” - where the
+    OCR title-card guess picked narration fragments (回复, 出自节目, a bare BV id). Same
+    manners as resolve: saved as it goes, stops after BLOCKED_STREAK consecutive 412s,
+    exit 3, so a caller can wait and rerun without asking for anything twice."""
+    have = load_titles(out)
+    todo = [e for e in dict.fromkeys(episodes) if e not in have]
+    print("%d 集，其中 %d 集已有标题，%d 集待取" % (len(set(episodes)), len(set(episodes)) - len(todo), len(todo)))
+    streak = got_n = 0
+    for index, episode in enumerate(todo):
+        if index:
+            time.sleep(sleep)
+        # JSON, not --print: --print writes through the Windows console encoding and
+        # silently drops a CJK title, which returned 1 of 7 on the first try.
+        probe = run(["--dump-single-json", "--skip-download", "--no-warnings", "--", as_url(episode)])
+        try:
+            data = json.loads(probe.stdout)
+            title = str(data.get("title") or data.get("fulltitle") or "").strip()
+        except ValueError:
+            title = ""
+        if probe.returncode != 0 or not title or title == "NA":
+            tail = (probe.stderr.strip().splitlines() or ["?"])[-1]
+            if "412" in tail:
+                streak += 1
+                print("    %s  BLOCKED" % episode)
+                if streak >= BLOCKED_STREAK:
+                    print("BLOCKED-STOP 连续 %d 次 412，已停止；已取到的已保存" % BLOCKED_STREAK)
+                    return 3
+            else:
+                print("    %s  失败  %s" % (episode, tail[:60]))
+            continue
+        streak = 0
+        got_n += 1
+        save_titles(out, {episode: title})
+        print("    %s  %s" % (episode, title))
+    print("取到 %d 个标题 -> %s" % (got_n, TITLES))
+    return 0
+GENGBAIKE = "https://space.bilibili.com/1544008396/video"
+
+
+def list_catalogue(out: Path, limit: int) -> int:
+    """The channel's newest `limit` episodes, one BV id a line, newest first.
+
+    One listing request rather than one per episode. Which episodes are already done is
+    not written here: the batch runner reads that from disk (an episode with a
+    derivatives csv and boxes has been OCR'd), so the list never goes stale on its own."""
+    got = run(["--flat-playlist", "--playlist-end", str(limit), "--print", "%(id)s" + TAB + "%(title)s",
+               "--no-warnings", "--", GENGBAIKE], timeout=900)
+    listed = [line.split(TAB, 1) for line in got.stdout.splitlines() if TAB in line]
+    listed = [(bv.strip(), title.strip()) for bv, title in listed if re.fullmatch(r"BV[0-9A-Za-z]{10}", bv.strip())]
+    ids = [bv for bv, _ in listed]
+    if not ids:
+        tail = (got.stderr.strip().splitlines() or ["?"])[-1][:200]
+        print("没有拿到列表：%s" % tail)
+        if "412" in tail:
+            print("BLOCKED-STOP 风控 412；等 20-30 分钟再试")
+            return 3
+        return 1
+    done = sum(1 for bv in ids if (out / ("%s.derivatives.csv" % bv)).exists())
+    target = out / "gengbaike_catalogue.txt"
+    header = ["# 梗百科 (uploader_id 1544008396) - newest %d, pulled %s via prep.py catalogue"
+              % (len(ids), time.strftime("%Y-%m-%d")),
+              "# done is read from disk by the batch runner, not recorded here"]
+    target.write_text(NEWLINE.join(header + ids) + NEWLINE, encoding="utf-8")
+    # The episode's own title names its meme (“XX是什么梗？”), where the OCR guess
+    # picked narration fragments. Kept beside the catalogue, merged so an episode that has
+    # dropped out of the newest N keeps its title.
+    # yt-dlp's flat listing of a bilibili space carries no titles (every one comes back
+    # "NA"), so none are stored from here; `prep.py titles` fetches them per episode.
+    save_titles(out, {bv: t for bv, t in listed if t and t != "NA"})
+    print("-> %s   %d 集，其中 %d 集已处理，%d 集待处理" % (target.name, len(ids), done, len(ids) - done))
+    return 0
+
+
+BLOCKED_STREAK = 3
+NETWORK_ERRORS = ("timed out", "Timeout", "Connection", "Temporary failure", "Errno", "SSL")
+
+
+def resolve_ids(out: Path, sleep: float, retry_missing: bool = False) -> int:
     """Resolve rows left unresolved by --no-resolve, without re-running OCR."""
     paths = sorted(out.glob("*.derivatives.csv"))
     if not paths:
@@ -329,11 +515,14 @@ def resolve_ids(out: Path, sleep: float) -> int:
         return 1
     fields = ["bv_id", "seen_at", "resolved", "title", "uploader", "upload_date", "duration"]
     # A refused request says nothing about OCR quality; only an answered one does.
-    done = not_found = blocked = 0
+    done = not_found = blocked = streak = 0
+    stopped = False
     for path in paths:
         with path.open(encoding="utf-8-sig", newline="") as handle:
             rows = list(csv.DictReader(handle))
-        pending = [r for r in rows if (r.get("resolved") or "").strip().lower() not in {"true", "1"}]
+        state = lambda r: (r.get("resolved") or "").strip().lower()
+        pending = [r for r in rows if state(r) not in {"true", "1"}
+                   and (retry_missing or state(r) != "notfound")]
         if not pending:
             continue
         print("\n=== %s  (%d pending) ===" % (path.name, len(pending)))
@@ -344,11 +533,26 @@ def resolve_ids(out: Path, sleep: float) -> int:
                 tail = (probe.stderr.strip().splitlines() or ["?"])[-1]
                 if "412" in tail:
                     blocked += 1
+                    streak += 1
                     print("    %s  BLOCKED     风控 412（未判定，稍后重跑）" % row["bv_id"])
+                    if streak >= BLOCKED_STREAK:
+                        # Every refused request extends the block, so knocking on the rest
+                        # of the list only lengthens the wait. Save what was answered and
+                        # hand the wait to the caller.
+                        stopped = True
+                        break
+                elif any(k in tail for k in NETWORK_ERRORS):
+                    print("    %s  NETWORK     %s（未判定，稍后重跑）" % (row["bv_id"], tail[:60]))
                 else:
+                    # Answered, and the answer was no. Nearly always an OCR misread of an
+                    # id that did resolve. Marked so it is never requested again: left as
+                    # False it was retried on every run, and at ~11% of ids that becomes a
+                    # rate-limit wall's worth of dead requests per batch.
                     not_found += 1
+                    row["resolved"] = "NotFound"
                     print("    %s  NOT FOUND   %s" % (row["bv_id"], tail[:60]))
                 continue
+            streak = 0
             data = json.loads(probe.stdout)
             row.update({
                 "resolved": "True", "title": data.get("title"), "uploader": data.get("uploader"),
@@ -360,12 +564,19 @@ def resolve_ids(out: Path, sleep: float) -> int:
             writer = csv.DictWriter(handle, fieldnames=fields)
             writer.writeheader()
             writer.writerows([{k: r.get(k, "") for k in fields} for r in rows])
+        if stopped:
+            break
     answered = done + not_found
     if answered:
         print("\nOCR 准确率 %.0f%% (%d/%d 已应答请求)" % (done / answered * 100, done, answered))
     if blocked:
         print("另有 %d 条被风控拒绝，未计入准确率 —— 那是限流，不是识别错误。" % blocked)
     print("失败行保留 resolved=False，稍后重跑即可，不会丢。")
+    if stopped:
+        # A distinct line and exit code so a batch runner can wait and resume rather than
+        # scrape the text. Already-answered rows are saved; the rerun picks up the rest.
+        print("BLOCKED-STOP 连续 %d 次 412，已停止；等 20-30 分钟再跑 resolve" % BLOCKED_STREAK)
+        return 3
     return 0
 
 
@@ -388,6 +599,79 @@ def guess_meme_name(ocr_path: Path) -> str:
     return counts.most_common(1)[0][0] if counts else ""
 
 
+# 梗百科 titles its episodes 【梗百科】NAME是啥梗？<tagline>. The name is what precedes the
+# first of these; the tagline after it is often a second question and is not the name.
+TITLE_ASKS = ("是什么梗", "是啥梗", "是什么意思", "是啥意思", "是什么", "是啥", "什么梗", "啥梗")
+TITLE_TRIM = "“”\"'‘’「」『』《》〈〉【】[]()（）:：,，、 "
+
+
+def name_from_title(title: str) -> str:
+    """The meme's name as the episode's own title states it; "" if it is not recognisable.
+
+    Replaces the OCR title-card guess, which on batches 3-5 returned narration fragments
+    for most episodes: 回复, 出自节目, a bare BV id, 这两个图是由两位不同的人制作的. A title
+    without the pattern (DU BIST GUT GENUG) is taken up to its first question or
+    exclamation mark. Either way it is a proposal the curator corrects at L-2 - an
+    episode covering two memes titles them together and is split by seen_at."""
+    text = re.sub(r"^\s*(【[^】]*】|\[[^\]]*\])\s*", "", title or "").strip()
+    cut = [text.find(ask) for ask in TITLE_ASKS if ask in text]
+    if cut:
+        text = text[:min(cut)]
+    else:
+        text = re.split(r"[？?！!｜|]", text, 1)[0]
+    return text.strip(TITLE_TRIM).strip()
+
+
+def rename_batch(out: Path, batch: str) -> int:
+    """Give a batch's rows the name their episode's title states, where the name is still
+    exactly the OCR guess - even on rows already judged, which build_sheet leaves alone.
+
+    For a batch whose roles were judged before titles existed (batch 3, 2026-09-25). A
+    name the curator typed differs from the guess and is kept; roles and notes are never
+    touched. Refuses once a curation record carries the old name, because renaming the
+    sheet then would make `drafts` start a second record beside it."""
+    listing = HERE.parents[1] / "ai_context" / ("batch%s.txt" % batch)
+    if not listing.exists():
+        print("%s 不存在" % listing)
+        return 2
+    scope = {l.strip() for l in listing.read_text(encoding="utf-8").splitlines() if l.strip().startswith("BV")}
+    titles = load_titles(out)
+    target = out / "lineage.csv"
+    rows = list(csv.DictReader(target.open(encoding="utf-8-sig", newline="")))
+    fields = list(rows[0].keys())
+    recorded = set()
+    for path in (HERE.parent / "curation").glob("*.y*ml"):
+        found = re.search(r"^canonical_name:\s*(.+)$", path.read_text(encoding="utf-8"), re.M)
+        if found:
+            recorded.add(found.group(1).strip().strip('"'))
+    guesses, changes = {}, {}
+    for row in rows:
+        episode = row["episode_id"]
+        if episode not in scope:
+            continue
+        titled = name_from_title(titles.get(episode, ""))
+        if episode not in guesses:
+            ocr = out / ("%s.ocr.json" % episode)
+            guesses[episode] = guess_meme_name(ocr) if ocr.exists() else ""
+        if titled and row["meme_name"] == guesses[episode] and row["meme_name"] != titled:
+            if row["meme_name"] in recorded:
+                print("  ! %s 已有记录《%s》，不改名" % (episode, row["meme_name"]))
+                continue
+            changes[episode] = (row["meme_name"], titled)
+            row["meme_name"] = titled
+    missing = sorted(e for e in scope if not titles.get(e) and any(r["episode_id"] == e for r in rows))
+    with target.open("w", encoding="utf-8-sig", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fields)
+        writer.writeheader()
+        writer.writerows(rows)
+    for episode, (old, new) in sorted(changes.items()):
+        print("  %s  %s  ->  %s" % (episode, old, new))
+    print("batch %s：%d 集按标题改名；role / notes 未动" % (batch, len(changes)))
+    if missing:
+        print("! 还没有标题的集：%s —— 先跑 prep.py titles --batch %s" % (" ".join(missing), batch))
+    return 0
+
+
 def build_sheet(out: Path) -> int:
     """Join resolved ids with their episode's meme name for the human role pass."""
     target = out / "lineage.csv"
@@ -406,22 +690,36 @@ def build_sheet(out: Path) -> int:
                 if stamp and not (stamp.isdigit() and len(stamp) == 8):
                     rewritten.append(row["bv_id"])
     rows = []
+    titles = load_titles(out)
+    untitled, renamed = [], 0
     for path in sorted(out.glob("*.derivatives.csv")):
         episode = path.name.replace(".derivatives.csv", "")
         ocr_path = out / ("%s.ocr.json" % episode)
-        meme = guess_meme_name(ocr_path) if ocr_path.exists() else ""
+        # The name comes from the episode's title, never from OCR. The OCR guess is still
+        # computed, but only to recognise a name nobody has touched: a row whose name is
+        # still the machine guess and whose role is still blank takes the title's name;
+        # anything the curator wrote or judged is left alone.
+        guess = guess_meme_name(ocr_path) if ocr_path.exists() else ""
+        titled = name_from_title(titles.get(episode, ""))
         with path.open(encoding="utf-8-sig", newline="") as handle:
-            for row in csv.DictReader(handle):
+            episode_rows = list(csv.DictReader(handle))
+        for row in episode_rows:
                 keep = prior.get(row["bv_id"], {})
+                name = keep.get("meme_name") or ""
+                untouched = not name or (name == guess and not keep.get("role", "").strip())
+                if titled and untouched and name != titled:
+                    name = titled
+                    renamed += 1
                 rows.append({
                     "episode_id": episode,
-                    "meme_name": keep.get("meme_name") or meme,
+                    "meme_name": name,
                     "bv_id": row["bv_id"],
                     "upload_date": row.get("upload_date", ""),
                     "title": row.get("title", ""),
                     "role": keep.get("role", ""),
                     "notes": keep.get("notes", ""),
                 })
+    untitled = sorted({r["episode_id"] for r in rows if not r["meme_name"].strip()})
     rows.sort(key=lambda r: (r["meme_name"], r["upload_date"] or "9"))
     with target.open("w", encoding="utf-8-sig", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=fields)
@@ -437,7 +735,13 @@ def build_sheet(out: Path) -> int:
         print("  已从 *.derivatives.csv 重新生成日期与标题；role / meme_name / notes 原样保留。"
               "编辑请用纯文本编辑器。")
     print("role 取值：source | popularized_by | derivative | reference | irrelevant（留空表示待判定）")
-    print("meme_name 是从 OCR 首屏猜的，错了直接改，重跑不会覆盖你填过的内容。")
+    print("meme_name 取自该集标题（【梗百科】XX是啥梗？ 取 XX），错了直接改，重跑不会覆盖你改过的或已判定的行。")
+    if renamed:
+        print("  本次按标题改名 %d 行（原先是 OCR 猜的名字且尚未判定）" % renamed)
+    if untitled:
+        print("! %d 集的 meme_name 为空（还没取到标题），drafts 会跳过这些梗：%s%s"
+              % (len(untitled), " ".join(untitled[:6]), " 等" if len(untitled) > 6 else ""))
+        print("  先跑：prep.py titles --batch <N> --cookies bili-cookies.txt，再重跑 sheet")
     return 0
 
 
@@ -459,6 +763,79 @@ def _scalar(value: str) -> str:
     return json.dumps(value, ensure_ascii=False)
 
 
+def load_descriptions(out: Path) -> dict[str, list[str]] | None:
+    """The curator's name-free gold queries, keyed by meme name. None if the file is bad.
+
+    One copy, read by both `drafts` (which copies them into a new skeleton) and
+    `descriptions` (which fills them into a record written before they existed).
+    """
+    queue = out / "_descriptions.yaml"
+    if not queue.exists():
+        return {}
+    import yaml
+
+    described: dict[str, list[str]] = {}
+    for key, queries in (yaml.safe_load(queue.read_text(encoding="utf-8")) or {}).items():
+        bad = [q for q in queries or [] if not isinstance(q, str)]
+        if bad:
+            # "带冒号: 的查询" unquoted parses as a mapping; storing its repr would be garbage.
+            print("! _descriptions.yaml 中《%s》有查询不是纯文本：%s。含冒号的查询请加引号。" % (key, bad))
+            return None
+        described[str(key)] = list(queries or [])
+    return described
+
+
+def fill_descriptions(out: Path) -> int:
+    """Copy the curator's queries into records that were written before he wrote them.
+
+    `drafts` puts _descriptions.yaml into every new skeleton, but it never touches a
+    record that already exists, so the twelve written before that file had any content
+    carry `gold.description: []` and would never reach the gold set. That matters more
+    than it looks: once drafted prose starts loading there is no human-written baseline
+    left to compare its recall against, and every gold query today is the meme's own name.
+
+    Only an empty list is filled. A record that already has a query keeps exactly what it
+    has, so this is safe to re-run, and the text is copied verbatim - nothing here writes
+    a query, which is the curator's alone.
+    """
+    described = load_descriptions(out)
+    if described is None:
+        return 2
+    filled, already, absent = 0, 0, []
+    for path in sorted(out.glob("*.y*ml")):
+        if path.name.startswith("_"):
+            continue
+        text = path.read_text(encoding="utf-8")
+        match = re.search(r"^canonical_name:\s*(.+)$", text, re.M)
+        if not match:
+            continue
+        name = match.group(1).strip().strip('"')
+        queries = described.get(name) or []
+        empty = "\n  description: []" in text
+        # The records written before 2026-09-18 have no description key at all, only the
+        # four gold fields that existed then. Those need the key inserted, not filled.
+        missing = not re.search(r"^  description:", text, re.M)
+        if not (empty or missing):
+            already += 1
+            continue
+        if not queries:
+            absent.append(name)
+            continue
+        block = ("\n  # 用自己的话描述这个梗、不含梗名与别名的查询；模型起草的记录至少要一条"
+                 "\n  description:" + "".join("\n    - " + _scalar(q) for q in queries))
+        if empty:
+            text = text.replace("\n  description: []", block, 1)
+        else:
+            text = text.replace("\n  must_not_return:", block + "\n  must_not_return:", 1)
+        path.write_text(text, encoding="utf-8")
+        print("  %-28s %s 条查询 -> %s" % (name, len(queries), path.name))
+        filled += 1
+    print("填入 %d 个记录，%d 个已有查询未动" % (filled, already))
+    for name in absent:
+        print("  ! %s 在 _descriptions.yaml 里还没有查询" % name)
+    return 0
+
+
 def build_drafts(sheet: Path, out: Path) -> int:
     """lineage.csv -> one curation YAML per meme, in the ADR 0002 format."""
     with sheet.open(encoding="utf-8-sig", newline="") as handle:
@@ -471,6 +848,11 @@ def build_drafts(sheet: Path, out: Path) -> int:
     out.mkdir(parents=True, exist_ok=True)
     # Never overwrite a record a human has touched: match on canonical_name, not filename,
     # so files renamed to proper pinyin slugs are still recognised.
+    # The curator writes name-free queries during the role pass, before any draft exists,
+    # so they cannot borrow a drafted definition's wording. Keyed by meme name.
+    described = load_descriptions(out)
+    if described is None:
+        return 2
     existing: dict[str, str] = {}
     for path in out.glob("*.y*ml"):
         if path.name.startswith("_"):
@@ -566,8 +948,14 @@ def build_drafts(sheet: Path, out: Path) -> int:
             "",
             "gold:", "  canonical:", "    - %s" % name,
             "  alias: []", "  origin_intent:", "    - %s的出处" % name,
+            "  # 用自己的话描述这个梗、不含梗名与别名的查询；模型起草的记录至少要一条",
+            "  description:" + ("".join("\n    - " + _scalar(q) for q in described.get(name, [])) or " []"),
             "  must_not_return: []", "",
             "curation:", '  curator: ""',
+            "  # 模型起草 definition/usage_context 时填模型名；非空时 validate 会逐项核对引用片段，",
+            "  # 且 confirmed_by 为空时 load_curation 拒绝加载",
+            '  drafted_by: ""',
+            '  confirmed_by: ""',
             "  started_at: 2026-09-09",
             "  ingestion_ok: true",
             "  findings:",
@@ -731,16 +1119,41 @@ def main() -> int:
     deriv.add_argument("--no-proxy", action="store_true", help="bypass any system proxy for bilibili")
     deriv.add_argument("--video", type=Path, help="OCR this local file instead of downloading")
     deriv.add_argument("--no-resolve", action="store_true", help="skip the resolve pass; OCR only")
+    deriv.add_argument("--force", action="store_true", help="redo episodes already OCR'd")
+    bx = sub.add_parser("boxes", help="re-OCR local videos keeping text positions; touches nothing else")
+    bx.add_argument("tokens", nargs="+", metavar="BV")
+    bx.add_argument("--out", type=Path, default=HERE)
+    bx.add_argument("--every", type=float, default=1.0)
     res = sub.add_parser("resolve", help="resolve pending rows in *.derivatives.csv without re-OCR")
     res.add_argument("--out", type=Path, default=HERE)
     res.add_argument("--sleep", type=float, default=12.0)
     res.add_argument("--cookies-from-browser", metavar="BROWSER")
     res.add_argument("--cookies", metavar="FILE", help="cookies.txt; works with the browser open")
+    res.add_argument("--retry-missing", action="store_true",
+                     help="also retry ids the platform said do not exist (resolved=NotFound)")
+    nm = sub.add_parser("names", help="rename a batch's rows from episode titles where the name is still the OCR guess")
+    nm.add_argument("--batch", required=True, metavar="N")
+    nm.add_argument("--out", type=Path, default=HERE)
+    tit = sub.add_parser("titles", help="fetch episode titles (they name the meme) for episodes missing one")
+    tit.add_argument("episodes", nargs="*", metavar="BV")
+    tit.add_argument("--batch", action="append", default=[], metavar="N",
+                     help="take the episodes from ai_context/batch<N>.txt; repeatable")
+    tit.add_argument("--out", type=Path, default=HERE)
+    tit.add_argument("--sleep", type=float, default=12.0)
+    tit.add_argument("--cookies", metavar="FILE", help="cookies.txt; works with the browser open")
+    cat = sub.add_parser("catalogue", help="list 梗百科's newest episodes into gengbaike_catalogue.txt")
+    cat.add_argument("--limit", type=int, default=200)
+    cat.add_argument("--out", type=Path, default=HERE)
+    cat.add_argument("--cookies-from-browser", metavar="BROWSER")
+    cat.add_argument("--cookies", metavar="FILE", help="cookies.txt; works with the browser open")
     sheet = sub.add_parser("sheet", help="build lineage.csv for the human role pass")
     sheet.add_argument("--out", type=Path, default=HERE)
     dr = sub.add_parser("drafts", help="turn lineage.csv into curation YAML per meme")
     dr.add_argument("--sheet", type=Path, default=HERE / "lineage.csv")
     dr.add_argument("--out", type=Path, default=HERE.parent / "curation")
+    desc = sub.add_parser("descriptions",
+                          help="把 _descriptions.yaml 的查询填进 gold.description 为空的记录")
+    desc.add_argument("--out", type=Path, default=HERE.parent / "curation")
     cnmeme = sub.add_parser("cnmeme", help="pull competitor entries for the same memes")
     cnmeme.add_argument("names", nargs="+")
     cnmeme.add_argument("--out", type=Path, default=HERE)
@@ -769,11 +1182,15 @@ def main() -> int:
         if args.no_proxy:
             EXTRA.extend(["--proxy", ""])
         return extract_derivatives(args.tokens, args.out, args.every, args.sleep,
-                                   args.video, not args.no_resolve)
+                                   args.video, not args.no_resolve, args.force)
     if args.mode == "drafts":
         return build_drafts(args.sheet, args.out)
+    if args.mode == "descriptions":
+        return fill_descriptions(args.out)
     if args.mode == "sheet":
         return build_sheet(args.out)
+    if args.mode == "boxes":
+        return rebox(args.tokens, args.out, args.every)
     if args.mode == "resolve":
         EXTRA.extend(["--add-header", "Referer:https://www.bilibili.com/",
                       "--retries", "3", "--extractor-retries", "3"])
@@ -781,7 +1198,31 @@ def main() -> int:
             EXTRA.extend(["--cookies-from-browser", args.cookies_from_browser])
         if getattr(args, "cookies", None):
             EXTRA.extend(["--cookies", args.cookies])
-        return resolve_ids(args.out, args.sleep)
+        return resolve_ids(args.out, args.sleep, args.retry_missing)
+    if args.mode == "names":
+        return rename_batch(args.out, args.batch)
+    if args.mode == "titles":
+        EXTRA.extend(["--add-header", "Referer:https://www.bilibili.com/"])
+        if getattr(args, "cookies", None):
+            EXTRA.extend(["--cookies", args.cookies])
+        episodes = list(args.episodes)
+        for n in args.batch:
+            listing = HERE.parents[1] / "ai_context" / ("batch%s.txt" % n)
+            if not listing.exists():
+                print("%s 不存在" % listing)
+                return 2
+            episodes += [l.strip() for l in listing.read_text(encoding="utf-8").splitlines() if l.strip().startswith("BV")]
+        if not episodes:
+            print("给出集号，或 --batch N")
+            return 2
+        return fetch_titles(args.out, episodes, args.sleep)
+    if args.mode == "catalogue":
+        EXTRA.extend(["--add-header", "Referer:https://www.bilibili.com/"])
+        if args.cookies_from_browser:
+            EXTRA.extend(["--cookies-from-browser", args.cookies_from_browser])
+        if getattr(args, "cookies", None):
+            EXTRA.extend(["--cookies", args.cookies])
+        return list_catalogue(args.out, args.limit)
     if args.mode == "asr":
         EXTRA.extend([
             "--add-header", "Referer:https://www.bilibili.com/",

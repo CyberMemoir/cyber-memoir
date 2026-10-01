@@ -4,7 +4,7 @@ slug: vs
 resolved: true
 
 canonical_name: 闹吃VS古振兴
-aliases: []
+aliases: ["闹吃vs古振兴完整版rap", "Notch", "闹吃"]
 
 # definition 必填，且 claims 里要有逐字相同的 statement（用 |- 块标量）
 definition: "Minecraft和迷你世界的创始人用FNF关卡形式PKrap，配上非常健硕暴露的形象和suno生成的互相dis的说唱曲"
@@ -125,6 +125,9 @@ gold:
   alias: []
   origin_intent:
     - 闹吃VS古振兴的出处
+  # 用自己的话描述这个梗、不含梗名与别名的查询；模型起草的记录至少要一条
+  description:
+    - "我的世界和迷你世界大战二周目"
   must_not_return: []
 
 curation:

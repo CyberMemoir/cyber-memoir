@@ -1,40 +1,93 @@
-{"query": "才是王道", "expected_names": ["才是王道"], "answerable": true}
-{"query": "才是王道的出处", "expected_names": ["才是王道"], "answerable": true}
-{"query": "胆子真是肥嘟嘟的", "expected_names": ["胆子真是肥嘟嘟的"], "answerable": true}
-{"query": "胆子真是肥嘟嘟啊", "expected_names": ["胆子真是肥嘟嘟的"], "answerable": true}
-{"query": "胆子真是肥嘟嘟的的出处", "expected_names": ["胆子真是肥嘟嘟的"], "answerable": true}
-{"query": "真人版HIM", "expected_names": ["真人版HIM"], "answerable": true}
-{"query": "真人版HIM的出处", "expected_names": ["真人版HIM"], "answerable": true}
-{"query": "狼王撕衣", "expected_names": ["狼王撕衣"], "answerable": true}
-{"query": "狼王撕衣的出处", "expected_names": ["狼王撕衣"], "answerable": true}
-{"query": "老叟戏顽童", "expected_names": ["老叟戏顽童"], "answerable": true}
-{"query": "顽童戏老叟", "expected_names": ["老叟戏顽童"], "answerable": true}
-{"query": "老叟戏顽童的出处", "expected_names": ["老叟戏顽童"], "answerable": true}
-{"query": "大葱哥", "expected_names": ["大葱哥"], "answerable": true}
-{"query": "大葱哥的出处", "expected_names": ["大葱哥"], "answerable": true}
-{"query": "轻松绷住", "expected_names": ["轻松绷住"], "answerable": true}
-{"query": "轻松绷住的出处", "expected_names": ["轻松绷住"], "answerable": true}
-{"query": "azhe", "expected_names": ["你会XXX吗"], "answerable": true}
-{"query": "azhe的出处", "expected_names": ["你会XXX吗"], "answerable": true}
-{"query": "泥肘", "expected_names": ["泥肘"], "answerable": true}
-{"query": "泥肘的出处", "expected_names": ["泥肘"], "answerable": true}
-{"query": "牛来", "expected_names": ["牛来"], "answerable": true}
-{"query": "牛来的出处", "expected_names": ["牛来"], "answerable": true}
-{"query": "松针大油边", "expected_names": ["松针大油边"], "answerable": true}
-{"query": "松针大油边的出处", "expected_names": ["松针大油边"], "answerable": true}
-{"query": "闹吃VS古振兴", "expected_names": ["闹吃VS古振兴"], "answerable": true}
-{"query": "闹吃VS古振兴的出处", "expected_names": ["闹吃VS古振兴"], "answerable": true}
-{"query": "熊大回眸", "expected_names": ["熊大回眸"], "answerable": true}
-{"query": "熊大回眸的出处", "expected_names": ["熊大回眸"], "answerable": true}
-{"query": "XX人吃到美食", "expected_names": ["XX人吃到美食"], "answerable": true}
-{"query": "XX人吃到美食的出处", "expected_names": ["XX人吃到美食"], "answerable": true}
-{"query": "中国人能飞", "expected_names": [], "answerable": false}
-{"query": "OMG你吓到我了", "expected_names": [], "answerable": false}
-{"query": "大狗大狗叫叫叫", "expected_names": [], "answerable": false}
-{"query": "青蛙教练", "expected_names": [], "answerable": false}
-{"query": "爹系男友", "expected_names": [], "answerable": false}
-{"query": "被生活磨平了妙脆角", "expected_names": [], "answerable": false}
-{"query": "Verity", "expected_names": [], "answerable": false}
-{"query": "严肃脸", "expected_names": [], "answerable": false}
-{"query": "接成绩", "expected_names": [], "answerable": false}
-{"query": "要不算了吧", "expected_names": [], "answerable": false}
+{"query": "AVGN舞", "expected_names": ["AVGN舞"], "answerable": true, "bucket": "canonical"}
+{"query": "AVGN舞的出处", "expected_names": ["AVGN舞"], "answerable": true, "bucket": "origin_intent"}
+{"query": "一个游戏人物莫名其妙开始双手上下摆动跳舞", "expected_names": ["AVGN舞"], "answerable": true, "bucket": "description"}
+{"query": "才是王道", "expected_names": ["才是王道"], "answerable": true, "bucket": "canonical"}
+{"query": "才是王道的出处", "expected_names": ["才是王道"], "answerable": true, "bucket": "origin_intent"}
+{"query": "像素风没有技巧是何意味", "expected_names": ["才是王道"], "answerable": true, "bucket": "description"}
+{"query": "大狗叫", "expected_names": ["大狗叫"], "answerable": true, "bucket": "canonical"}
+{"query": "大狗叫的出处", "expected_names": ["大狗叫"], "answerable": true, "bucket": "origin_intent"}
+{"query": "大狗和焦混乱出现组成非常雷霆且猎奇的音频，会有一只狗表情狰狞张着嘴", "expected_names": ["大狗叫"], "answerable": true, "bucket": "description"}
+{"query": "刷到焦~", "expected_names": ["大狗叫"], "answerable": true, "bucket": "description"}
+{"query": "胆子真是肥嘟嘟的", "expected_names": ["胆子真是肥嘟嘟的"], "answerable": true, "bucket": "canonical"}
+{"query": "胆子真是肥嘟嘟啊", "expected_names": ["胆子真是肥嘟嘟的"], "answerable": true, "bucket": "alias"}
+{"query": "胆子真是肥嘟嘟的的出处", "expected_names": ["胆子真是肥嘟嘟的"], "answerable": true, "bucket": "origin_intent"}
+{"query": "胆子挺大啊敢抢我单子", "expected_names": ["胆子真是肥嘟嘟的"], "answerable": true, "bucket": "description"}
+{"query": "真人版HIM", "expected_names": ["真人版HIM"], "answerable": true, "bucket": "canonical"}
+{"query": "真人版HIM的出处", "expected_names": ["真人版HIM"], "answerable": true, "bucket": "origin_intent"}
+{"query": "白色眼睛方块人", "expected_names": ["真人版HIM"], "answerable": true, "bucket": "description"}
+{"query": "狼王撕衣", "expected_names": ["狼王撕衣"], "answerable": true, "bucket": "canonical"}
+{"query": "狼王撕衣的出处", "expected_names": ["狼王撕衣"], "answerable": true, "bucket": "origin_intent"}
+{"query": "击杀集锦突然嗷呜了一声", "expected_names": ["狼王撕衣"], "answerable": true, "bucket": "description"}
+{"query": "老叟戏顽童", "expected_names": ["老叟戏顽童"], "answerable": true, "bucket": "canonical"}
+{"query": "顽童戏老叟", "expected_names": ["老叟戏顽童"], "answerable": true, "bucket": "alias"}
+{"query": "老叟戏顽童的出处", "expected_names": ["老叟戏顽童"], "answerable": true, "bucket": "origin_intent"}
+{"query": "被戏耍了", "expected_names": ["老叟戏顽童"], "answerable": true, "bucket": "description"}
+{"query": "大葱哥", "expected_names": ["大葱哥"], "answerable": true, "bucket": "canonical"}
+{"query": "大葱哥的出处", "expected_names": ["大葱哥"], "answerable": true, "bucket": "origin_intent"}
+{"query": "这个带着墨镜的大葱是谁", "expected_names": ["大葱哥"], "answerable": true, "bucket": "description"}
+{"query": "《正太扭腰》", "expected_names": ["《正太扭腰》"], "answerable": true, "bucket": "canonical"}
+{"query": "《正太扭腰》的出处", "expected_names": ["《正太扭腰》"], "answerable": true, "bucket": "origin_intent"}
+{"query": "左边画个虫虫", "expected_names": ["《正太扭腰》"], "answerable": true, "bucket": "description"}
+{"query": "佛得角门神", "expected_names": ["佛得角门神"], "answerable": true, "bucket": "canonical"}
+{"query": "佛得角门神的出处", "expected_names": ["佛得角门神"], "answerable": true, "bucket": "origin_intent"}
+{"query": "佛得角是怎么跟强队打平的", "expected_names": ["佛得角门神"], "answerable": true, "bucket": "description"}
+{"query": "六人定律", "expected_names": ["六人定律"], "answerable": true, "bucket": "canonical"}
+{"query": "六人定律的出处", "expected_names": ["六人定律"], "answerable": true, "bucket": "origin_intent"}
+{"query": "我跟特朗普是什么关系", "expected_names": ["六人定律"], "answerable": true, "bucket": "description"}
+{"query": "大阪和摄政王", "expected_names": ["大阪和摄政王"], "answerable": true, "bucket": "canonical"}
+{"query": "大阪和摄政王的出处", "expected_names": ["大阪和摄政王"], "answerable": true, "bucket": "origin_intent"}
+{"query": "他们为什么要拆cp", "expected_names": ["大阪和摄政王"], "answerable": true, "bucket": "description"}
+{"query": "宗主第二招", "expected_names": ["宗主第二招"], "answerable": true, "bucket": "canonical"}
+{"query": "宗主第二招的出处", "expected_names": ["宗主第二招"], "answerable": true, "bucket": "origin_intent"}
+{"query": "蔡徐坤跳舞", "expected_names": ["宗主第二招"], "answerable": true, "bucket": "description"}
+{"query": "干瘪瘪的芝士球", "expected_names": ["干瘪瘪的芝士球"], "answerable": true, "bucket": "canonical"}
+{"query": "干瘪瘪的芝士球的出处", "expected_names": ["干瘪瘪的芝士球"], "answerable": true, "bucket": "origin_intent"}
+{"query": "一个头像外面套了个芝士球", "expected_names": ["干瘪瘪的芝士球"], "answerable": true, "bucket": "description"}
+{"query": "轻松绷住", "expected_names": ["轻松绷住"], "answerable": true, "bucket": "canonical"}
+{"query": "轻松绷住的出处", "expected_names": ["轻松绷住"], "answerable": true, "bucket": "origin_intent"}
+{"query": "那假如我绷住了呢", "expected_names": ["轻松绷住"], "answerable": true, "bucket": "description"}
+{"query": "爹系男友喜欢吗", "expected_names": ["爹系男友喜欢吗"], "answerable": true, "bucket": "canonical"}
+{"query": "爹系男友喜欢吗的出处", "expected_names": ["爹系男友喜欢吗"], "answerable": true, "bucket": "origin_intent"}
+{"query": "为什么都喜欢聊天记录用suno写成很燃的歌", "expected_names": ["爹系男友喜欢吗"], "answerable": true, "bucket": "description"}
+{"query": "章鱼哥的美妙音乐", "expected_names": ["章鱼哥的美妙音乐"], "answerable": true, "bucket": "canonical"}
+{"query": "章鱼哥的美妙音乐的出处", "expected_names": ["章鱼哥的美妙音乐"], "answerable": true, "bucket": "origin_intent"}
+{"query": "这个黑管好难听", "expected_names": ["章鱼哥的美妙音乐"], "answerable": true, "bucket": "description"}
+{"query": "被生活磨平了妙脆角", "expected_names": ["被生活磨平了妙脆角"], "answerable": true, "bucket": "canonical"}
+{"query": "被生活磨平了妙脆角的出处", "expected_names": ["被生活磨平了妙脆角"], "answerable": true, "bucket": "origin_intent"}
+{"query": "这个特效给我猫耳朵丢了", "expected_names": ["被生活磨平了妙脆角"], "answerable": true, "bucket": "description"}
+{"query": "许愿柳", "expected_names": ["许愿柳"], "answerable": true, "bucket": "canonical"}
+{"query": "许愿柳的出处", "expected_names": ["许愿柳"], "answerable": true, "bucket": "origin_intent"}
+{"query": "对着一根可以掰断的东西许下愿望，然后它就以意想不到的方式实现了", "expected_names": ["许愿柳"], "answerable": true, "bucket": "description"}
+{"query": "觉得一个东西像 THe Monkey's Paw", "expected_names": ["许愿柳"], "answerable": true, "bucket": "description"}
+{"query": "azhe", "expected_names": ["你会XXX吗"], "answerable": true, "bucket": "canonical"}
+{"query": "azhe的出处", "expected_names": ["你会XXX吗"], "answerable": true, "bucket": "origin_intent"}
+{"query": "为什么全在骂阿辙", "expected_names": ["你会XXX吗"], "answerable": true, "bucket": "description"}
+{"query": "泥肘", "expected_names": ["泥肘"], "answerable": true, "bucket": "canonical"}
+{"query": "泥肘的出处", "expected_names": ["泥肘"], "answerable": true, "bucket": "origin_intent"}
+{"query": "你欺负人怎么换成更可爱的说法", "expected_names": ["泥肘"], "answerable": true, "bucket": "description"}
+{"query": "牛来", "expected_names": ["牛来"], "answerable": true, "bucket": "canonical"}
+{"query": "牛来的出处", "expected_names": ["牛来"], "answerable": true, "bucket": "origin_intent"}
+{"query": "很火的那个自学3d建模做出来的电影是啥", "expected_names": ["牛来"], "answerable": true, "bucket": "description"}
+{"query": "松针大油边", "expected_names": ["松针大油边"], "answerable": true, "bucket": "canonical"}
+{"query": "松针大油边的出处", "expected_names": ["松针大油边"], "answerable": true, "bucket": "origin_intent"}
+{"query": "美食视频旁边有个人一直捧哏是啥意思", "expected_names": ["松针大油边"], "answerable": true, "bucket": "description"}
+{"query": "闹吃VS古振兴", "expected_names": ["闹吃VS古振兴"], "answerable": true, "bucket": "canonical"}
+{"query": "闹吃VS古振兴的出处", "expected_names": ["闹吃VS古振兴"], "answerable": true, "bucket": "origin_intent"}
+{"query": "我的世界和迷你世界大战二周目", "expected_names": ["闹吃VS古振兴"], "answerable": true, "bucket": "description"}
+{"query": "熊大回眸", "expected_names": ["熊大回眸"], "answerable": true, "bucket": "canonical"}
+{"query": "熊大回眸的出处", "expected_names": ["熊大回眸"], "answerable": true, "bucket": "origin_intent"}
+{"query": "最近很难绷的熊大动画", "expected_names": ["熊大回眸"], "answerable": true, "bucket": "description"}
+{"query": "XX人吃到美食", "expected_names": ["XX人吃到美食"], "answerable": true, "bucket": "canonical"}
+{"query": "XX人吃到美食的出处", "expected_names": ["XX人吃到美食"], "answerable": true, "bucket": "origin_intent"}
+{"query": "一只乌龟用很力竭的声音说可是他们在辣椒炒肉里放糖", "expected_names": ["XX人吃到美食"], "answerable": true, "bucket": "description"}
+{"query": "中国人能飞", "expected_names": [], "answerable": false, "bucket": "negative"}
+{"query": "OMG你吓到我了", "expected_names": [], "answerable": false, "bucket": "negative"}
+{"query": "青蛙教练", "expected_names": [], "answerable": false, "bucket": "negative"}
+{"query": "Verity", "expected_names": [], "answerable": false, "bucket": "negative"}
+{"query": "严肃脸", "expected_names": [], "answerable": false, "bucket": "negative"}
+{"query": "接成绩", "expected_names": [], "answerable": false, "bucket": "negative"}
+{"query": "要不算了吧", "expected_names": [], "answerable": false, "bucket": "negative"}
+{"query": "miasma", "expected_names": [], "answerable": false, "bucket": "negative"}
+{"query": "给你了给你了", "expected_names": [], "answerable": false, "bucket": "negative"}
+{"query": "要不要给你颁个奖啊", "expected_names": [], "answerable": false, "bucket": "negative"}
+{"query": "好累啊怎么都要自己写", "expected_names": [], "answerable": false, "bucket": "negative"}

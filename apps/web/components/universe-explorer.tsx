@@ -1,6 +1,8 @@
 "use client";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { flushSync } from "react-dom";
+import { useReducedMotion, withTransition } from "@/lib/motion";
 import { api, type Galaxy, type Star, type Universe } from "@/lib/api";
 import { GalaxyGraph, UniverseGraph } from "./universe-graphs";
 import { GalaxyList, UniverseList } from "./universe-list";
@@ -8,7 +10,9 @@ import { MilestoneRail } from "./milestone-rail";
 import { StarPanel } from "./star-panel";
 import { GALAXY_VIEW, STAGE_STYLE, STAGES } from "./universe-layout";
 
-const UNIVERSE_BOX = { width: 1680, height: 1060 };
+const UNIVERSE_BOX = { width: 1680, height: 880 };
+/** Below this width the map becomes a sky wider than the screen, scrolled natively. */
+const NARROW = "(max-width: 760px)";
 /** Pan and zoom limits. The picture is drawn in its own coordinate system, so the
  *  same factor means something very different on the wide universe axis and on a
  *  galaxy: the universe caps below 1 so a reader can take in the whole span. */
@@ -35,6 +39,9 @@ export function UniverseExplorer({ initialMemeId }: { initialMemeId: string }) {
   const [view, setView] = useState<View>(IDENTITY);
   const [pill, setPill] = useState("");
   const svgRef = useRef<SVGSVGElement | null>(null);
+  const stageRef = useRef<HTMLDivElement | null>(null);
+  const [labelScale, setLabelScale] = useState(1);
+  const reduced = useReducedMotion();
 
   /* /v1/universe is one fast request and is deliberately uncached server side. */
   useEffect(() => {
@@ -83,6 +90,47 @@ export function UniverseExplorer({ initialMemeId }: { initialMemeId: string }) {
     setView(IDENTITY);
   }, [memeId, listView]);
 
+  /* Text in the picture is drawn in viewBox units, so it shrinks with the picture.
+     Labels are scaled back up by however much the picture is shrunk, enough to stay
+     readable (about 11px and up) on any screen. */
+  useEffect(() => {
+    const node = svgRef.current;
+    if (!node || listView) return;
+    const width = galaxy ? GALAXY_VIEW.width : UNIVERSE_BOX.width;
+    const height = galaxy ? GALAXY_VIEW.height : UNIVERSE_BOX.height;
+    const observer = new ResizeObserver(() => {
+      /* The picture is fitted inside the element ("meet"), so on a wide screen it is
+         limited by height, not width: the real shrink is the larger of the two. */
+      const box = node.getBoundingClientRect();
+      const shrink = Math.max(width / (box.width || width), height / (box.height || height));
+      setLabelScale(Math.max(1, shrink * 0.86));
+    });
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [galaxy, listView, universe]);
+
+  /* A phone opens the scrolled sky where it matters: the newest memes, or the core. */
+  useEffect(() => {
+    const stage = stageRef.current;
+    if (!stage || listView || !window.matchMedia(NARROW).matches) return;
+    const frame = window.requestAnimationFrame(() => {
+      if (galaxy) {
+        stage.scrollLeft = (stage.scrollWidth - stage.clientWidth) / 2;
+        return;
+      }
+      /* The newest galaxy sits near the right edge, with the ones before it in view. */
+      const box = stage.getBoundingClientRect();
+      const right = Math.max(
+        ...[...stage.querySelectorAll(".galaxy, .axis-direction, .time-cursor-readout")].map(
+          (node) => node.getBoundingClientRect().right - box.left + stage.scrollLeft,
+        ),
+        0,
+      );
+      stage.scrollLeft = Math.max(right - stage.clientWidth + 16, 0);
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [galaxy, listView, universe]);
+
   /* Pan and zoom belong to the reader, and both are kept in state so that a
      re-render cannot leave the picture and the gesture disagreeing. Pointer capture
      is deliberately not used: capturing on the svg retargets the pointerup, and the
@@ -90,6 +138,9 @@ export function UniverseExplorer({ initialMemeId }: { initialMemeId: string }) {
   useEffect(() => {
     const node = svgRef.current;
     if (!node || listView) return;
+    /* On a phone the picture scrolls natively instead: a custom drag would fight the
+       browser's own horizontal scroll, and pinch still zooms the page. */
+    if (window.matchMedia(NARROW).matches) return;
     const pointers = new Map<number, { x: number; y: number }>();
     let pinch: { distance: number; centre: [number, number] } | null = null;
 
@@ -121,6 +172,8 @@ export function UniverseExplorer({ initialMemeId }: { initialMemeId: string }) {
     };
     const onPointerDown = (event: PointerEvent) => {
       if (event.button !== 0) return;
+      /* The time cursor is dragged, not the picture under it. */
+      if ((event.target as Element | null)?.closest(".time-cursor")) return;
       pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
       if (pointers.size === 2) {
         const [a, b] = [...pointers.values()];
@@ -172,25 +225,28 @@ export function UniverseExplorer({ initialMemeId }: { initialMemeId: string }) {
     };
   }, [listView, universe, galaxy]);
 
+  /* Entering a galaxy is a flight, not a page swap: the universe falls away and the
+     galaxy grows in, where the browser can animate between the two states. */
   const openGalaxy = useCallback(
     (next: Galaxy) => {
-      navigate(next.meme_id);
+      withTransition(() => flushSync(() => navigate(next.meme_id)), reduced);
       setPill(`已进入星系：${next.name}`);
     },
-    [navigate],
+    [navigate, reduced],
   );
 
   /** A star whose kind is `meme` is another galaxy, and opens that one. */
   const openStar = useCallback(
     (star: Star) => {
       if (star.kind === "meme" && star.target_id) {
-        navigate(star.target_id);
+        const target = star.target_id;
+        withTransition(() => flushSync(() => navigate(target)), reduced);
         setPill("已进入另一个梗的星系");
         return;
       }
       setActiveStar(star);
     },
-    [navigate],
+    [navigate, reduced],
   );
 
   useEffect(() => {
@@ -291,14 +347,20 @@ export function UniverseExplorer({ initialMemeId }: { initialMemeId: string }) {
           <UniverseList universe={universe} onOpenGalaxy={openGalaxy} />
         )
       ) : (
-        <div className={`universe-stage${galaxy ? " is-galaxy" : ""}`}>
+        <>
+        <p className="swipe-hint">
+          {galaxy ? "左右滑动，看整个星系。" : "左右滑动：时间从左往右，越往左越早。"}
+        </p>
+        <div ref={stageRef} className={`universe-stage${galaxy ? " is-galaxy" : ""}`}>
           <svg
             ref={svgRef}
+            key={galaxy ? galaxy.meme_id : "universe"}
             className="universe-svg"
             viewBox={`0 0 ${
               galaxy ? GALAXY_VIEW.width : UNIVERSE_BOX.width
             } ${galaxy ? GALAXY_VIEW.height : UNIVERSE_BOX.height}`}
             preserveAspectRatio="xMidYMid meet"
+            style={{ "--label-scale": labelScale } as React.CSSProperties}
             aria-label={
               galaxy
                 ? `${galaxy.name} 的星系图。半径是时间，越靠外越晚。`
@@ -312,6 +374,7 @@ export function UniverseExplorer({ initialMemeId }: { initialMemeId: string }) {
                   activeStarId={activeStar?.id ?? hoveredStar}
                   onSelectStar={openStar}
                   onHoverStar={setHoveredStar}
+                  labelScale={labelScale}
                 />
               ) : (
                 <UniverseGraph universe={universe} onOpenGalaxy={openGalaxy} />
@@ -319,6 +382,7 @@ export function UniverseExplorer({ initialMemeId }: { initialMemeId: string }) {
             </g>
           </svg>
         </div>
+        </>
       )}
 
       {!listView && galaxy && (
@@ -335,7 +399,9 @@ export function UniverseExplorer({ initialMemeId }: { initialMemeId: string }) {
       {!listView && (
         <p className="muted universe-hint">
           Ctrl + 滚轮缩放，拖动平移。
-          {!galaxy && " 点一个梗进入它的星系。"}
+          {galaxy
+            ? " 离核心越远越晚；沿旋臂向外流动的微光，就是时间的方向。"
+            : " 点一个梗进入它的星系；拖动时间轴上的菱形游标，回看某一天已有哪些梗。"}
         </p>
       )}
 
@@ -346,83 +412,62 @@ export function UniverseExplorer({ initialMemeId }: { initialMemeId: string }) {
   );
 }
 
+/** One legend key, drawn with the same parts as the star it explains. */
+function LegendStar({ stage, milestone }: { stage: (typeof STAGES)[number]; milestone?: boolean }) {
+  const style = STAGE_STYLE[stage];
+  const c = 13;
+  const m = 6.5;
+  return (
+    <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true" className={`legend-star stage-${stage}`}>
+      <circle cx={c} cy={c} r={11} className="legend-glow" />
+      {milestone && <path d={`M 1 ${c} L 25 ${c} M ${c} 1 L ${c} 25`} className="legend-spikes" />}
+      {style.shape === "diamond" && <path d={`M ${c} ${c - m * 1.2} L ${c + m * 1.2} ${c} L ${c} ${c + m * 1.2} L ${c - m * 1.2} ${c} Z`} className="legend-mark" />}
+      {style.shape === "square" && <rect x={c - m} y={c - m} width={m * 2} height={m * 2} rx={1.2} className="legend-mark" />}
+      {style.shape === "circle" && <circle cx={c} cy={c} r={m} className="legend-mark" />}
+      {style.shape === "ring" && <circle cx={c} cy={c} r={m} className="legend-mark ring" />}
+      <circle cx={c} cy={c} r={2.4} className="legend-core" />
+    </svg>
+  );
+}
+
 function Legend({ galaxy }: { galaxy: Galaxy | null }) {
   return (
     <section className="universe-legend" aria-label="图例">
       <h2>图例</h2>
       <ul>
-        {STAGES.map((stage) => {
-          const style = STAGE_STYLE[stage];
-          return (
-            <li key={stage} data-stage={stage}>
-              <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true">
-                {style.shape === "diamond" && (
-                  <path d="M 11 3 L 19 11 L 11 19 L 3 11 Z" fill={style.color} />
-                )}
-                {style.shape === "square" && (
-                  <rect x="4" y="4" width="14" height="14" fill={style.color} />
-                )}
-                {style.shape === "circle" && (
-                  <circle cx="11" cy="11" r="5" fill={style.color} />
-                )}
-                {style.shape === "ring" && (
-                  <circle
-                    cx="11"
-                    cy="11"
-                    r="6"
-                    fill="none"
-                    stroke={style.color}
-                    strokeWidth="3"
-                  />
-                )}
-              </svg>
-              <span>{style.label}</span>
-            </li>
-          );
-        })}
+        {STAGES.map((stage) => (
+          <li key={stage} data-stage={stage}>
+            <LegendStar stage={stage} />
+            <span>
+              {STAGE_STYLE[stage].label}
+              <small>{STAGE_STYLE[stage].shapeNote}</small>
+            </span>
+          </li>
+        ))}
         <li data-key="milestone">
-          <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true">
-            <circle
-              cx="11"
-              cy="11"
-              r="9"
-              fill="none"
-              stroke="var(--green)"
-              strokeWidth="1.2"
-            />
-            <circle cx="11" cy="11" r="4" fill="var(--green)" />
-          </svg>
-          <span>实心外环：里程碑（该阶段最早的一条证据）</span>
+          <LegendStar stage="source" milestone />
+          <span>十字星芒：里程碑（该阶段最早的一条证据）</span>
         </li>
         <li data-key="no-evidence">
-          <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true">
-            <rect
-              x="2"
-              y="4"
-              width="18"
-              height="14"
-              rx="2"
-              fill="none"
-              stroke="var(--muted)"
-              strokeWidth="1"
-              strokeDasharray="3 3"
-            />
+          <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true">
+            <rect x="3" y="6" width="20" height="14" rx="3" className="legend-absent" />
           </svg>
           <span>虚线空槽：无证据（该阶段一条证据都没有，见里程碑轨道）</span>
         </li>
         <li data-key="no-date">
-          <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true">
-            <circle
-              cx="11"
-              cy="11"
-              r="8"
-              fill="none"
-              stroke="var(--muted)"
-              strokeWidth="1"
-              strokeDasharray="2 3"
-            />
+          <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true">
+            <circle cx="13" cy="13" r="9" className="legend-absent" />
           </svg>
           <span>虚线圆环：无日期（有证据，未定日，画在最外圈）</span>
+        </li>
+        <li data-key="decoration">
+          <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true">
+            <circle cx="7" cy="9" r="1" className="legend-dust" />
+            <circle cx="15" cy="15" r="1.4" className="legend-dust" />
+            <circle cx="20" cy="7" r="0.8" className="legend-dust" />
+            <circle cx="10" cy="19" r="0.9" className="legend-dust" />
+          </svg>
+          <span>无色微光：星尘装饰，不是证据，不可点击</span>
         </li>
       </ul>
       {galaxy && galaxy.ticks.length > 0 && (

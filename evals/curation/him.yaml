@@ -4,7 +4,7 @@ slug: him
 resolved: true
 
 canonical_name: 真人版HIM
-aliases: []
+aliases: ["Herobrine", "I_Am_Him", "也就是Herobrine", "him正在注视着你", "Real Life Minecraft: Herobrine Origins", "IAm_Him", "真人HIM", "神不会流血但你会"]
 
 # definition 必填，且 claims 里要有逐字相同的 statement（用 |- 块标量）
 definition: "七月国内爆火的陈年老图，左边是游戏HIM，右边是真人HIM，因为眼睛有白光非常有气场"
@@ -62,6 +62,9 @@ gold:
   alias: []
   origin_intent:
     - 真人版HIM的出处
+  # 用自己的话描述这个梗、不含梗名与别名的查询；模型起草的记录至少要一条
+  description:
+    - "白色眼睛方块人"
   must_not_return: []
 
 curation:

@@ -1,0 +1,176 @@
+# 由 evals/feasibility/prep.py drafts 从 lineage.csv 生成
+# definition / usage_context / claims 需要人工补齐，evidence 入库后再填 ID
+slug: da-gou-jiao
+resolved: true
+
+canonical_name: 大狗叫
+aliases: ["大狗大狗叫叫叫", "大狗嚼俱乐部布鲁斯1号", "叮咚鸡", "大狗叫叫叫"]
+
+# definition 必填，且 claims 里要有逐字相同的 statement（用 |- 块标量）
+definition: |-
+  之前是听通知，戴口罩的空耳；现在是一段魔性的音乐歌词，歌词大意：无
+usage_context: |-
+  笑这个抽象的歌，串云原神
+
+origin_status: unknown
+origin_type: unknown
+origin_ref: ""
+
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+
+sources:
+  - url: https://www.bilibili.com/video/BV1Ee4y1Z7NZ
+    role: source
+    note: "动漫版海南魔性“叮咚鸡”来啦！（BV1ysME67Em9 画面中引用）"
+  - url: https://www.bilibili.com/video/BV1DWTu6AEQt
+    role: popularized_by
+    note: "【完整版】叮咚鸡：I love you so🐶💕🐔（BV1ysME67Em9 画面中引用）"
+  - url: https://www.bilibili.com/video/BV1xyJA6BEBN
+    role: popularized_by
+    note: "欸？大狗！（BV1ysME67Em9 画面中引用，屏上 OCR 读成 BV1XyJA6BEBN）"
+  - url: https://www.bilibili.com/video/BV1eG4y1r72j
+    role: derivative
+    note: "海南普通话版喊你做核酸，大喇叭硬核喊话太有那个味了（BV1ysME67Em9 画面中引用）"
+  - url: https://www.bilibili.com/video/BV1gK4y1F7Vp
+    role: derivative
+    note: "0920圆和圆的位置关系（BV1ysME67Em9 画面中引用）"
+  - url: https://www.bilibili.com/video/BV1ic411D7xo
+    role: derivative
+    note: "《云·原神》动画短片——第二篇（BV1ysME67Em9 画面中引用）"
+  - url: https://www.bilibili.com/video/BV1gxoUYzEoh
+    role: derivative
+    note: "【重置版】跳楼鸡（BV1ysME67Em9 画面中引用）"
+  - url: https://www.bilibili.com/video/BV18wYtzhEeB
+    role: derivative
+    note: "薯~鸡~薯~鸡~带~薯~鸡~（BV1ysME67Em9 画面中引用）"
+  - url: https://www.bilibili.com/video/BV1rVoQB9EHD
+    role: derivative
+    note: "叫🗣SET!【1小时纯享版】🗣🗣🗣（BV1ysME67Em9 画面中引用）"
+  - url: https://www.bilibili.com/video/BV1c2jH6uEut
+    role: derivative
+    note: "【战雷金曲】⚡俄原神⚡（BV1ysME67Em9 画面中引用）"
+  - url: https://www.bilibili.com/video/BV1pSTs6hEYu
+    role: derivative
+    note: "【最终版】像大狗一样叫呐（BV1ysME67Em9 画面中引用）"
+
+evidence_map:
+  ocr-narration-BV1ysME67Em9: 26ab78f4-862a-4840-8157-9a88d855643a
+  ocr-BV1Ee4y1Z7NZ: d048c0ae-0c91-466d-a5b4-f1ee2f231e15
+  ocr-BV1DWTu6AEQt: 28621e37-dbb3-4a01-9898-6daa4ddf9899
+  ocr-BV1xyJA6BEBN: 20a094a0-e9c2-40f0-abe2-cb500b40dc74
+  ocr-BV1eG4y1r72j: e4b2f7d6-18cd-456e-a394-f09361b04492
+  ocr-BV1gK4y1F7Vp: ee9e99ba-35c3-45b6-8644-6c9de5a2314c
+  ocr-BV1ic411D7xo: fd3f443f-6a8a-4847-b6d9-c32354a01552
+  ocr-BV1gxoUYzEoh: ff128317-d35e-486f-b7b3-b9afc14fd72c
+  ocr-BV18wYtzhEeB: 7b8f1e4b-891b-45b7-bdd9-750936f2e1a9
+  ocr-BV1rVoQB9EHD: 0d9cd1ee-38cf-4166-991e-3c0ee63e6fab
+  ocr-BV1c2jH6uEut: c114cd36-8df3-4bf3-9d92-75fb5f08957b
+  ocr-BV1pSTs6hEYu: 985a03f7-f58c-4357-96c4-fef9e5616d7d
+
+claims:
+  - key: definition
+    statement: |-
+      之前是听通知，戴口罩的空耳；现在是一段魔性的音乐歌词，歌词大意：无
+    evidence: [ocr-narration-BV1ysME67Em9]
+    stance: supports
+  - key: usage_context
+    statement: |-
+      笑这个抽象的歌，串云原神
+    evidence: [ocr-narration-BV1ysME67Em9]
+    stance: supports
+
+events:
+  - event_type: remix
+    description: "大狗叫 出现衍生作品《海南普通话版喊你做核酸，大喇叭硬核喊话太有那个味了》"
+    occurred_at_start: 2022-08-24T00:00:00+08:00
+    time_precision: day
+    time_basis: 平台显示的投稿时间，经 BV1ysME67Em9 画面引用发现
+    evidence: [ocr-BV1eG4y1r72j]
+  - event_type: remix
+    description: "大狗叫 出现衍生作品《0920圆和圆的位置关系》"
+    occurred_at_start: 2023-09-20T00:00:00+08:00
+    time_precision: day
+    time_basis: 平台显示的投稿时间，经 BV1ysME67Em9 画面引用发现
+    evidence: [ocr-BV1gK4y1F7Vp]
+  - event_type: remix
+    description: "大狗叫 出现衍生作品《《云·原神》动画短片——第二篇》"
+    occurred_at_start: 2023-12-08T00:00:00+08:00
+    time_precision: day
+    time_basis: 平台显示的投稿时间，经 BV1ysME67Em9 画面引用发现
+    evidence: [ocr-BV1ic411D7xo]
+  - event_type: remix
+    description: "大狗叫 出现衍生作品《【重置版】跳楼鸡》"
+    occurred_at_start: 2025-03-24T00:00:00+08:00
+    time_precision: day
+    time_basis: 平台显示的投稿时间，经 BV1ysME67Em9 画面引用发现
+    evidence: [ocr-BV1gxoUYzEoh]
+  - event_type: remix
+    description: "大狗叫 出现衍生作品《薯~鸡~薯~鸡~带~薯~鸡~》"
+    occurred_at_start: 2025-08-18T00:00:00+08:00
+    time_precision: day
+    time_basis: 平台显示的投稿时间，经 BV1ysME67Em9 画面引用发现
+    evidence: [ocr-BV18wYtzhEeB]
+  - event_type: remix
+    description: "大狗叫 出现衍生作品《叫🗣SET!【1小时纯享版】🗣🗣🗣》"
+    occurred_at_start: 2026-04-25T00:00:00+08:00
+    time_precision: day
+    time_basis: 平台显示的投稿时间，经 BV1ysME67Em9 画面引用发现
+    evidence: [ocr-BV1rVoQB9EHD]
+  - event_type: remix
+    description: "大狗叫 出现衍生作品《【战雷金曲】⚡俄原神⚡》"
+    occurred_at_start: 2026-06-20T00:00:00+08:00
+    time_precision: day
+    time_basis: 平台显示的投稿时间，经 BV1ysME67Em9 画面引用发现
+    evidence: [ocr-BV1c2jH6uEut]
+  - event_type: remix
+    description: "大狗叫 出现衍生作品《【最终版】像大狗一样叫呐》"
+    occurred_at_start: 2026-07-03T00:00:00+08:00
+    time_precision: day
+    time_basis: 平台显示的投稿时间，经 BV1ysME67Em9 画面引用发现
+    evidence: [ocr-BV1pSTs6hEYu]
+
+relations:
+  - predicate: derived_from
+    target_type: source
+    target_bv: BV1Ee4y1Z7NZ
+    assertion_status: supported
+    evidence: [ocr-BV1Ee4y1Z7NZ]
+  - predicate: popularized_by
+    target_type: source
+    target_bv: BV1DWTu6AEQt
+    assertion_status: supported
+    evidence: [ocr-BV1DWTu6AEQt]
+  - predicate: popularized_by
+    target_type: source
+    target_bv: BV1xyJA6BEBN
+    assertion_status: supported
+    evidence: [ocr-BV1xyJA6BEBN]
+
+gold:
+  canonical:
+    - 大狗叫
+  alias: []
+  origin_intent:
+    - 大狗叫的出处
+  # 用自己的话描述这个梗、不含梗名与别名的查询；模型起草的记录至少要一条
+  description:
+    - "大狗和焦混乱出现组成非常雷霆且猎奇的音频，会有一只狗表情狰狞张着嘴"
+    - "刷到焦~"
+  must_not_return: []
+
+curation:
+  curator: ""
+  # 模型起草 definition/usage_context 时填模型名；非空时 validate 会逐项核对引用片段，
+  # 且 confirmed_by 为空时 load_curation 拒绝加载
+  drafted_by: ""
+  confirmed_by: ""
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+    - 衍生关系来自 BV1ysME67Em9 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+    - 传播区间 2022-08-24 .. 2026-07-03（8 条）
+    - 2026-09-19 popularized_by → BV1xyJA6BEBN（欸？大狗！）一度被误删：当时按大小写敏感的方式
+      搜索画面文字，没找到这个号。它其实在第 96 秒与第 107 秒出现，OCR 读成 BV1XyJA6BEBN /
+      BV1XYJA6BEBN，与平台解析出的 BV1xyJA6BEBN 只差字母大小写。关系已恢复，证据指向那一帧。

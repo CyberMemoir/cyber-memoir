@@ -4,7 +4,7 @@ slug: ni-zhou
 resolved: true
 
 canonical_name: 泥肘
-aliases: []
+aliases: ["你走"]
 
 # definition 必填，且 claims 里要有逐字相同的 statement（用 |- 块标量）
 definition: "|你走|的萌萌的说法"
@@ -65,6 +65,9 @@ gold:
   alias: []
   origin_intent:
     - 泥肘的出处
+  # 用自己的话描述这个梗、不含梗名与别名的查询；模型起草的记录至少要一条
+  description:
+    - "你欺负人怎么换成更可爱的说法"
   must_not_return: []
 
 curation:

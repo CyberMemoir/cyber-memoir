@@ -4,7 +4,7 @@ slug: lao-sou-xi-wan-tong
 resolved: true
 
 canonical_name: 老叟戏顽童
-aliases: [顽童戏老叟]
+aliases: ["顽童戏老叟", "老叟戏顽童&泥肘"]
 
 # definition 必填，且 claims 里要有逐字相同的 statement（用 |- 块标量）
 definition: "非常有经验的老怪物凭借技术压制戏弄自以为是的小孩"
@@ -66,6 +66,9 @@ gold:
     - "顽童戏老叟"
   origin_intent:
     - 老叟戏顽童的出处
+  # 用自己的话描述这个梗、不含梗名与别名的查询；模型起草的记录至少要一条
+  description:
+    - "被戏耍了"
   must_not_return: []
 
 curation:

@@ -54,6 +54,9 @@ gold:
   alias: []
   origin_intent:
     - 牛来的出处
+  # 用自己的话描述这个梗、不含梗名与别名的查询；模型起草的记录至少要一条
+  description:
+    - "很火的那个自学3d建模做出来的电影是啥"
   must_not_return: []
 
 curation:

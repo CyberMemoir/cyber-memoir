@@ -20,7 +20,6 @@ from __future__ import annotations
 
 import argparse
 import csv
-import json
 import re
 import sys
 import time
@@ -39,6 +38,9 @@ CURATION = ROOT / "evals" / "curation"
 FEASIBILITY = ROOT / "evals" / "feasibility"
 BV = re.compile(r"BV[0-9A-Za-z]{10}")
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from materials_index import load_material_index, resolve_placeholder  # noqa: E402
+
 
 def token() -> str:
     for line in (ROOT / ".env").read_text(encoding="utf-8").splitlines():
@@ -56,42 +58,6 @@ def load_platform_index() -> dict[str, dict]:
                 if row.get("resolved") == "True" and row.get("upload_date"):
                     facts[row["bv_id"]] = {"title": row.get("title") or "", "date": row["upload_date"]}
     return facts
-
-
-def load_material_index() -> dict[str, list[dict]]:
-    """episode id -> its Material payloads, narration first."""
-    index = {}
-    for path in sorted(FEASIBILITY.glob("materials/*.materials.json")):
-        episode = path.name.replace(".materials.json", "")
-        index[episode] = json.loads(path.read_text(encoding="utf-8"))["materials"]
-    return index
-
-
-def resolve_placeholder(key: str, index: dict[str, list[dict]]) -> tuple[str, dict] | None:
-    """Map an evidence_map key onto (episode, Material). Keys look like
-    ocr-narration-<EP>, ocr-<BV of a cited work>, or asr-<EP>."""
-    if key.startswith("ocr-narration-"):
-        episode = key[len("ocr-narration-") :]
-        return (episode, index[episode][0]) if episode in index else None
-    if key.startswith("asr-"):
-        episode = key[len("asr-") :]
-        transcript = FEASIBILITY / ("%s.transcript.txt" % episode)
-        if not transcript.exists():
-            return None
-        return episode, {
-            "text": transcript.read_text(encoding="utf-8"),
-            "kind": "asr",
-            "locator": {"start_ms": 0, "note": "%s 语音转写全文（faster-whisper）" % episode},
-        }
-    found = BV.search(key)
-    if not found:
-        return None
-    target = found.group(0)
-    for episode, materials in index.items():
-        for material in materials[1:]:
-            if target in material["locator"].get("note", ""):
-                return episode, material
-    return None
 
 
 class Loader:
@@ -169,7 +135,7 @@ class Loader:
         response.raise_for_status()
         return response.json()
 
-    def publish(self, draft: dict, evidence_ids: list[str], name: str) -> str:
+    def publish(self, draft: dict, evidence_ids: list[str], name: str, reason: str) -> str:
         """Revise the meme of this name if it exists, and only otherwise create one.
 
         Without the meme_id the API creates a new meme every time, so each rerun of
@@ -184,7 +150,7 @@ class Loader:
             "/v1/reviews/%s/decision" % revision,
             {
                 "decision": "approve",
-                "reason": "人工策展：定义与用法出自讲解视频旁白，衍生时间来自平台元数据（%s）" % name,
+                "reason": reason,
                 "verified_evidence_ids": evidence_ids,
             },
         )
@@ -288,11 +254,38 @@ def build_draft(doc: dict, ids: dict[str, str], sources: dict[str, str], memes: 
     }
 
 
+def approval_reason(doc: dict, name: str) -> str:
+    """What the approved revision says about who wrote it.
+
+    A definition drafted by a model and confirmed by a curator is not the same thing as
+    one the curator wrote, and the revision is the only place that difference survives:
+    both are Tier C commentary, so the tier cannot carry it."""
+    curation = doc.get("curation") or {}
+    drafted = str(curation.get("drafted_by") or "").strip()
+    if not drafted:
+        return "人工策展：定义与用法出自讲解视频旁白，衍生时间来自平台元数据（%s）" % name
+    return (
+        "模型起草、人工审定：定义与用法由 %s 依据讲解视频画面字幕 OCR 起草，%s 审定；"
+        "衍生时间来自平台元数据（%s）" % (drafted, str(curation.get("confirmed_by")).strip(), name)
+    )
+
+
+def unconfirmed_draft(doc: dict) -> bool:
+    curation = doc.get("curation") or {}
+    return bool(str(curation.get("drafted_by") or "").strip()) and not str(
+        curation.get("confirmed_by") or ""
+    ).strip()
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--api", default="http://localhost:8100")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--pace", type=float, default=1.1)
+    parser.add_argument(
+        "records", nargs="*", type=Path,
+        help="load only these files; default is every record, and each run revises every meme it loads",
+    )
     args = parser.parse_args()
 
     index = load_material_index()
@@ -302,7 +295,9 @@ def main() -> int:
     tiered: set[str] = set()
     failures = 0
 
-    paths = [p for p in sorted(CURATION.glob("*.yaml")) if not p.name.startswith("_")]
+    paths = sorted(p.resolve() for p in args.records) or [
+        p for p in sorted(CURATION.glob("*.yaml")) if not p.name.startswith("_")
+    ]
     docs = {path: yaml.safe_load(path.read_text(encoding="utf-8")) for path in paths}
 
     for path in order_by_dependency(paths, docs):
@@ -310,6 +305,11 @@ def main() -> int:
         doc = docs[path]
         name = doc["canonical_name"]
         print("\n=== %s  (%s) ===" % (name, path.name))
+        if unconfirmed_draft(doc):
+            # Checked before anything is posted, so a refused record leaves no evidence behind.
+            print("  x 模型起草的记录尚未人工审定（curation.confirmed_by 为空），跳过")
+            failures += 1
+            continue
 
         ids: dict[str, str] = {}
         for key in (doc.get("evidence_map") or {}):
@@ -373,7 +373,7 @@ def main() -> int:
             failures += 1
             continue
         try:
-            revision = loader.publish(draft, every_id, name)
+            revision = loader.publish(draft, every_id, name, approval_reason(doc, name))
             print("  已发布 revision %s（证据 %d 条，事件 %d 条）"
                   % (revision[:8], len(every_id), len(draft["events"])))
         except httpx.HTTPStatusError as exc:

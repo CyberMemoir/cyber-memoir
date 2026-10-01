@@ -1,64 +1,69 @@
 import Link from "next/link";
 import { Icon } from "./icons";
+import { NavLinks } from "./nav-links";
+
+/** The brand mark: a two-armed spiral, the shape every meme takes on the star map. */
+function Mark() {
+  return (
+    <svg className="brand-mark" width="30" height="30" viewBox="0 0 30 30" aria-hidden="true">
+      <circle cx="15" cy="15" r="2.4" />
+      <path d="M 15 12.6 C 21 11.8 24.2 16.4 22 21 C 20.6 24 17 25.6 13.2 25" />
+      <path d="M 15 17.4 C 9 18.2 5.8 13.6 8 9 C 9.4 6 13 4.4 16.8 5" />
+    </svg>
+  );
+}
 
 export function Header() {
   return (
     <header className="site-header">
       <div className="header-inner">
-        <Link href="/" className="brand">
-          Cyber Memoir<span>赛博回忆录</span>
+        <Link href="/" className="brand" aria-label="Cyber Memoir 赛博回忆录，回到记忆索引">
+          <Mark />
+          <span className="brand-words">
+            <span className="brand-latin">Cyber Memoir</span>
+            <span className="brand-cjk">赛博回忆录</span>
+          </span>
         </Link>
-        <nav aria-label="主导航">
-          <Link href="/">记忆索引</Link>
-          <Link href="/universe">梗的星图</Link>
-          <Link href="/submit">提交来源</Link>
-          <Link href="/review">审核工作台</Link>
-        </nav>
+        <NavLinks />
         <a
           className="github"
           href="https://github.com/CyberMemoir/cyber-memoir"
           target="_blank"
           rel="noreferrer"
         >
-          GitHub <Icon name="arrow" size={17} />
+          GitHub <Icon name="arrow" size={15} />
         </a>
       </div>
     </header>
   );
 }
+
 export function Footer() {
   return (
     <footer className="site-footer">
-      <span>记忆会流动，证据应当留下。</span>
-      <span>开源 · Evidence First</span>
+      <span className="footer-line">记忆会流动，证据应当留下。</span>
+      <div className="footer-meta">
+        <span>开源 · Evidence First</span>
+        <span className="footer-attribution">
+          属于 <a href="https://github.com/CyberMemoir">CyberMemoir</a>
+          {" · "}由 <a href="https://github.com/Cogstruct-ai">Cogstruct AI</a> 开发和维护
+        </span>
+      </div>
     </footer>
   );
 }
+
+/**
+ * The archive's three rules, said once as a sentence. They are not features to
+ * scan; they are what every page here is promising.
+ */
 export function Principles() {
   return (
     <aside className="principles">
       <h2>证据，先于结论。</h2>
-      <ol>
-        {[
-          ["保留原始出处", "尽可能链接到最早可验证的原始内容。"],
-          [
-            "区分记录与起源",
-            "记录最早被看到的时间与地点，不等同于互联网起源。",
-          ],
-          ["让不确定性可见", "标注信息缺口与存疑点，避免过度确定的叙述。"],
-        ].map(([title, text], i) => (
-          <li key={title}>
-            <span className="principle-number">0{i + 1}</span>
-            <div>
-              <h3>{title}</h3>
-              <p>{text}</p>
-            </div>
-          </li>
-        ))}
-      </ol>
-      <p className="principle-note">
-        <Icon name="info" size={19} />
-        <span>目前可验证的最早记录，不等于互联网起源。</span>
+      <p>
+        每一条记录都尽可能链接到最早可验证的原始内容；记下它最早被看到的时间与地点，但不把这当作互联网起源；
+        信息缺口和存疑之处照实标出，不替读者补全。
       </p>
     </aside>
   );

@@ -4,7 +4,7 @@ slug: xx
 resolved: true
 
 canonical_name: XX人吃到美食
-aliases: []
+aliases: ["XXX吃到美食belike", "东北人吃到美食belike", "东北人吃到美食", "河南人吃到美食belike"]
 
 # definition 必填，且 claims 里要有逐字相同的 statement（用 |- 块标量）
 definition: "本地人以为能吃到家乡菜结果吃到很诡异的创新菜"
@@ -82,6 +82,9 @@ gold:
   alias: []
   origin_intent:
     - XX人吃到美食的出处
+  # 用自己的话描述这个梗、不含梗名与别名的查询；模型起草的记录至少要一条
+  description:
+    - "一只乌龟用很力竭的声音说可是他们在辣椒炒肉里放糖"
   must_not_return: []
 
 curation:
