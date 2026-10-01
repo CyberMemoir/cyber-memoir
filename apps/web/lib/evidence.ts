@@ -32,8 +32,7 @@ export function describeLocator(locator: unknown): string {
   const end = typeof fields.end_ms === "number" ? fields.end_ms : null;
   if (start !== null && end !== null)
     parts.push(`第 ${seconds(start)} 至 ${seconds(end)}`);
-  else if (start !== null && start > 0) parts.push(`第 ${seconds(start)}`);
-  else if (start === 0) parts.push("全片");
+  else if (start !== null) parts.push(`第 ${seconds(start)}`);
   delete fields.start_ms;
   delete fields.end_ms;
   if (typeof fields.note === "string" && fields.note.trim())

@@ -16,7 +16,7 @@ def keys():
     cfg = settings()
     if cfg.storage_backend == "local":
         root = Path(cfg.storage_path)
-        return [str(p.relative_to(root)) for p in (root / "sha256").rglob("*") if p.is_file()]
+        return [p.relative_to(root).as_posix() for p in (root / "sha256").rglob("*") if p.is_file()]
     try:
         pages = client().get_paginator("list_objects_v2").paginate(Bucket=cfg.s3_bucket, Prefix="sha256/")
         return [x["Key"] for page in pages for x in page.get("Contents", [])]
