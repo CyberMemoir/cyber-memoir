@@ -7,6 +7,48 @@ from cyber_memoir.search.indexing import index_meme
 from cyber_memoir.search.retrieval import rrf
 
 
+@pytest.mark.parametrize("url", [False, True])
+def test_video_identity_search_preserves_case(client, prepared, env, url):
+    upper = prepared(name="大小写视频甲")
+    lower = prepared(name="大小写视频乙")
+    with Session(env) as db:
+        # The fixture initially shares a source; separate the second record's evidence.
+        from cyber_memoir.domain.models import Evidence
+
+        source = Source(
+            platform="bilibili",
+            platform_item_id="BV1test00001",
+            canonical_url="https://www.bilibili.com/video/BV1test00001",
+            submitted_url="https://www.bilibili.com/video/BV1test00001",
+        )
+        db.add(source)
+        db.flush()
+        db.get(Evidence, lower["evidence"]["id"]).source_id = source.id
+        db.commit()
+    for item, bvid in ((upper, "BV1TEST00001"), (lower, "BV1test00001")):
+        query = f"https://www.bilibili.com/video/{bvid}" if url else bvid
+        data = client.post("/v1/search", json={"query": query}).json()
+        assert [m["id"] for m in data["items"] if m["exact_match"]] == [item["meme_id"]]
+
+
+def test_chuchu_question_reports_missing_origin_evidence(client, prepared, monkeypatch):
+    item = prepared()
+    from cyber_memoir.rag import answer as rag
+
+    monkeypatch.setattr(
+        rag,
+        "search",
+        lambda *args: {
+            "items": [client.get(f"/v1/memes/{item['meme_id']}").json()],
+            "degraded": [],
+            "channels": ["exact_alias"],
+            "scores_calibrated": False,
+        },
+    )
+    data = client.post("/v1/answers", json={"query": "这个梗的出处是什么"}).json()
+    assert any("不足以认定该梗的起源" in text for text in data["uncertainties"])
+
+
 def test_rrf_uses_rank_not_incomparable_raw_scores():
     scores = rrf([(["a", "b", "a"], 1), (["b", "c"], 1)])
     assert scores["b"] > scores["a"] > scores["c"]

@@ -83,7 +83,7 @@ def answer(db: Session, request: SearchRequest):
             log.info("generation fallback: %s", type(exc).__name__)
     if any(c["origin_status"] == "disputed" or c["stance"] == "contradicts" for c in selected):
         uncertainties.append("相关来源存在争议；反对性证据不构成对主张的确认。")
-    if any(word in request.query for word in ("起源", "来源", "最早", "谁先", "首创")) and not any(
+    if any(word in request.query for word in ("起源", "来源", "出处", "最早", "谁先", "首创")) and not any(
         c["key"] == "origin" for c in selected
     ):
         uncertainties.append("现有证据不足以认定该梗的起源。以下仅列出已核查的相关断言。")

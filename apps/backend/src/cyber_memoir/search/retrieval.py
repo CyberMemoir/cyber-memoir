@@ -91,8 +91,8 @@ def search(db: Session, request: SearchRequest):
         db.scalars(
             eligible.where(
                 or_(
-                    func.lower(Source.platform_item_id) == query,
-                    func.lower(Source.canonical_url) == query,
+                    Source.platform_item_id == request.query.strip(),
+                    Source.canonical_url == request.query.strip(),
                 )
             )
         )

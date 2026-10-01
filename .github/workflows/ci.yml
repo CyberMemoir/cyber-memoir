@@ -30,7 +30,7 @@ jobs:
           python-version: '3.12'
       - run: cd apps/backend && uv sync --frozen
       - run: make configure
-      - run: docker compose --env-file .env -f ops/compose/compose.yml up -d --wait postgres redis opensearch minio
+      - run: docker compose --env-file .env -f ops/compose/compose.yml up -d --build --wait postgres redis opensearch minio
       - run: make migrate
       - run: cd apps/backend && MEMOIR_INTEGRATION=1 uv run --env-file ../../.env pytest -q ../../tests/test_live_stack.py
       - if: always()

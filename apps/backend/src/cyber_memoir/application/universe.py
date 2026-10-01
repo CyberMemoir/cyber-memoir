@@ -83,7 +83,11 @@ def build(db: Session) -> dict:
     ids = list(memes)
     current = lambda row: memes[row.meme_id].published_revision == row.revision  # noqa: E731
 
-    relations = [r for r in db.scalars(select(Relation).where(Relation.meme_id.in_(ids))) if current(r)]
+    relations = [
+        r
+        for r in db.scalars(select(Relation).where(Relation.meme_id.in_(ids)))
+        if current(r) and r.assertion_status == "supported"
+    ]
     events = [e for e in db.scalars(select(Event).where(Event.meme_id.in_(ids))) if current(e)]
     evidence = defaultdict(set)
     for link in db.scalars(select(EvidenceLink).where(EvidenceLink.meme_id.in_(ids))):
@@ -98,14 +102,14 @@ def build(db: Session) -> dict:
     sources = {s.id: s for s in db.scalars(select(Source).where(Source.id.in_(wanted)))} if wanted else {}
 
     stars: dict[str, list[dict]] = {mid: [] for mid in ids}
-    meme_edges: list[tuple[str, str]] = []  # (child, parent): child derived_from parent
+    meme_edges = defaultdict(set)  # (child, parent) -> evidence for derived_from only
     for r in relations:
         refs = evidence[("relation", r.id)]
         if r.predicate in ("derived_from", "popularized_by") and r.to_source_id in sources:
             stage = "source" if r.predicate == "derived_from" else "popularized_by"
             stars[r.meme_id].append(_source_star(stage, r.id, sources[r.to_source_id], refs))
         elif r.predicate == "derived_from" and r.to_meme_id in memes and r.to_meme_id != r.meme_id:
-            meme_edges.append((r.meme_id, r.to_meme_id))
+            meme_edges[(r.meme_id, r.to_meme_id)].update(refs)
     for e in events:
         if e.event_type != "remix":
             continue
@@ -129,14 +133,8 @@ def build(db: Session) -> dict:
     # Emergence reads only a meme's own source-kind stars, so it is settled before any
     # meme-to-meme star is added and cannot chase itself round a cycle.
     emergence = {mid: _emergence(stars[mid]) for mid in ids}
-    for child, parent in meme_edges:
+    for (child, parent), refs in meme_edges.items():
         for owner, other, stage in ((child, parent, "source"), (parent, child, "derived_meme")):
-            refs = {
-                i
-                for r in relations
-                if r.meme_id == child and r.to_meme_id == parent
-                for i in evidence[("relation", r.id)]
-            }
             stars[owner].append(
                 _star(
                     stage,

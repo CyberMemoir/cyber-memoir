@@ -7,7 +7,7 @@ up:
 down:
 	$(COMPOSE) down
 infra:
-	$(COMPOSE) up -d postgres redis opensearch minio
+	$(COMPOSE) up -d --build postgres redis opensearch minio
 logs:
 	$(COMPOSE) logs -f --tail=100
 migrate:

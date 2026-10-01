@@ -20,6 +20,10 @@ export default function ArchivePage() {
   const [platform, setPlatform] = useState<string | null>(null);
   const [rag, setRag] = useState(false);
   const [result, setResult] = useState<SearchResult | null>(null);
+  const [submittedQuery, setSubmittedQuery] = useState("");
+  const [submittedPlatform, setSubmittedPlatform] = useState<string | null>(
+    null,
+  );
   const [answer, setAnswer] = useState<Answer | null>(null);
   const [universe, setUniverse] = useState<Universe | null>(null);
   const [error, setError] = useState("");
@@ -30,21 +34,29 @@ export default function ArchivePage() {
   const reduced = useReducedMotion();
 
   async function run(nextPlatform = platform, offset = 0, reveal = false) {
+    const searchQuery = offset ? submittedQuery : query;
     const id = ++serial.current;
     setError("");
     setLoading(true);
     setElapsed(0);
     setAnswer(null);
     try {
-      const body = { query, platform: nextPlatform, limit: 20, offset };
+      const body = {
+        query: searchQuery,
+        platform: offset ? submittedPlatform : nextPlatform,
+        limit: 20,
+        offset,
+      };
       const data = await api<SearchResult>("/v1/search", post(body));
       if (serial.current !== id) return;
+      setSubmittedQuery(searchQuery);
+      setSubmittedPlatform(body.platform);
       setResult(
         offset
           ? { ...data, items: [...(result?.items || []), ...data.items] }
           : data,
       );
-      if (rag && query.trim()) {
+      if (rag && searchQuery.trim()) {
         const response = await api<Answer>("/v1/answers", post(body));
         if (serial.current === id) setAnswer(response);
       }
@@ -101,7 +113,9 @@ export default function ArchivePage() {
             <br />
             <span>也记住它从哪里来。</span>
           </h1>
-          <p className="dome-sub">梗、语境与传播轨迹。每一个解释，都有证据可循。</p>
+          <p className="dome-sub">
+            梗、语境与传播轨迹。每一个解释，都有证据可循。
+          </p>
           <div className="horizon" aria-hidden="true" />
           <form
             className="search-form"
@@ -173,7 +187,7 @@ export default function ArchivePage() {
           <div className="panel-heading">
             <h2>记忆索引</h2>
             <span>
-              {result?.total ?? "—"} 条{query ? "相关" : "已审核"}记录
+              {result?.total ?? "—"} 条{submittedQuery ? "相关" : "已审核"}记录
             </span>
           </div>
           {/* An abstention is a result. When `claims` is empty the answer text and
@@ -222,10 +236,12 @@ export default function ArchivePage() {
             <div className="empty-state">
               <Icon name="archive" size={86} />
               <h3>
-                {query ? "这段记忆，还缺少证据" : "第一条记忆，从一个链接开始"}
+                {submittedQuery
+                  ? "这段记忆，还缺少证据"
+                  : "第一条记忆，从一个链接开始"}
               </h3>
               <p>
-                {query
+                {submittedQuery
                   ? "换一个别名试试，或提交你找到的原始来源。"
                   : "提交 Bilibili 或抖音来源，核对证据后进入公共索引。"}
               </p>
@@ -239,12 +255,17 @@ export default function ArchivePage() {
               正在连接记忆索引…
             </div>
           )}
-          <div className="meme-rows" key={`${query}|${platform}|${result?.total ?? ""}`}>
+          <div
+            className="meme-rows"
+            key={`${submittedQuery}|${submittedPlatform}|${result?.total ?? ""}`}
+          >
             {result?.items.map((meme, position) => (
               <article
                 className="meme-row"
                 key={meme.id}
-                style={{ "--row": Math.min(position, 8) } as React.CSSProperties}
+                style={
+                  { "--row": Math.min(position, 8) } as React.CSSProperties
+                }
               >
                 <Link href={`/memes/${meme.id}`}>
                   <h3>
@@ -258,11 +279,14 @@ export default function ArchivePage() {
                 <p>{meme.definition}</p>
                 <div className="row-meta">
                   <span>
-                    {Array.from(new Set(meme.evidence.map((e) => e.source?.platform)))
+                    {Array.from(
+                      new Set(meme.evidence.map((e) => e.source?.platform)),
+                    )
                       .map((p) => (p === "bilibili" ? "Bilibili" : "抖音"))
                       .join(" / ")}
                     {" · "}
-                    {meme.evidence.length} 份证据 · 修订 {meme.published_revision}
+                    {meme.evidence.length} 份证据 · 修订{" "}
+                    {meme.published_revision}
                     {" · "}
                     {meme.origin_status === "unknown"
                       ? "起源尚未确认"
@@ -296,7 +320,7 @@ export default function ArchivePage() {
         </section>
         <Principles />
       </div>
-      {query && result && (
+      {submittedQuery && result && (
         <p className="retrieval-note">
           检索通道：{result.channels.join(" · ")}
           {result.degraded.length > 0 &&

@@ -35,7 +35,7 @@ make up
 | Web | http://localhost:3100 |
 | API 文档 | http://localhost:8100/docs |
 | MCP | http://localhost:8100/mcp/ |
-| MinIO 管理界面 | http://localhost:59001 |
+| MinIO 管理界面 | http://localhost:39001 |
 
 审核工作台使用 `.env` 中的 `REVIEWER_TOKEN`；令牌只保存在当前页面内存，不写入浏览器存储。`SUBMITTER_TOKEN` 为空时允许公开提交，但公开索引仍必须经过审核。
 

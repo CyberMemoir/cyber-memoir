@@ -4,6 +4,12 @@
 
 `make up` 启动 PostgreSQL、Redis、OpenSearch、MinIO、迁移、API、Worker 和 Web。数据在独立的 `cyber-memoir_*` Docker volumes 中；普通 `make down` 不删除 volumes。
 
+MinIO 社区镜像已无法从原注册表公开拉取。项目使用 `ops/minio/Dockerfile` 从官方
+`RELEASE.2025-10-15T17-29-55Z` 源码构建，并核对提交 SHA；首次构建需要联网下载 Go 依赖。
+参见 [官方安全版本](https://github.com/minio/minio/releases/tag/RELEASE.2025-10-15T17-29-55Z)。
+主机 S3 地址为 `http://localhost:39000`，管理界面为 `http://localhost:39001`。
+升级现有部署前先按下节备份；保留原有 `objects` volume，不执行 `down -v`。
+
 ```bash
 docker compose --env-file .env -f ops/compose/compose.yml ps
 make logs

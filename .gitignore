@@ -25,6 +25,9 @@ bili-cookies.txt
 ops/models/
 # Scratch for handing work to other models; not a project artefact
 ai_context/
+CLAUDE.md
+apps/web/CLAUDE.md
+.impeccable/
 
 # impeccable design tooling: machine-local config and review captures
 .impeccable/config.local.json
