@@ -39,7 +39,8 @@ export default function MemePage({
     let active = true;
     api<Universe>("/v1/universe")
       .then((data) => {
-        if (active) setGalaxy(data.galaxies.find((g) => g.meme_id === id) ?? null);
+        if (active)
+          setGalaxy(data.galaxies.find((g) => g.meme_id === id) ?? null);
       })
       .catch(() => {});
     return () => {
@@ -74,29 +75,30 @@ export default function MemePage({
         <>
           <header className={`detail-header${galaxy ? " has-galaxy" : ""}`}>
             <div className="detail-heading">
-            <h1 className="page-title">{meme.canonical_name}</h1>
-            {meme.aliases.length > 0 && (
-              <p className="aliases">也叫：{meme.aliases.join(" / ")}</p>
-            )}
-            <div className="row-meta">
-              <span>
-                {meme.evidence.length} 份可核查证据 · 修订{" "}
-                {meme.published_revision}
-              </span>
-              <span>
-                {meme.origin_status === "unknown"
-                  ? "起源尚未确认"
-                  : meme.origin_status === "disputed"
-                    ? "来源存在争议"
-                    : "有证据支持的来源主张"}
-              </span>
-            </div>
-            <Link
-              className="button outline small galaxy-link-button"
-              href={`/universe?meme=${encodeURIComponent(meme.id)}`}
-            >
-              在星图中查看它的星系 →
-            </Link>
+              <p className="eyebrow">CULTURAL RECORD / 文化记忆档案</p>
+              <h1 className="page-title">{meme.canonical_name}</h1>
+              {meme.aliases.length > 0 && (
+                <p className="aliases">也叫：{meme.aliases.join(" / ")}</p>
+              )}
+              <div className="row-meta">
+                <span>
+                  {meme.evidence.length} 份可核查证据 · 修订{" "}
+                  {meme.published_revision}
+                </span>
+                <span>
+                  {meme.origin_status === "unknown"
+                    ? "起源尚未确认"
+                    : meme.origin_status === "disputed"
+                      ? "来源存在争议"
+                      : "有证据支持的来源主张"}
+                </span>
+              </div>
+              <Link
+                className="button outline small galaxy-link-button"
+                href={`/universe?meme=${encodeURIComponent(meme.id)}`}
+              >
+                在星图中查看它的星系 →
+              </Link>
             </div>
             {galaxy && (
               <Link
@@ -157,7 +159,9 @@ export default function MemePage({
                         <time>{date(event.occurred_at_start)}</time>
                         <p>{event.description}</p>
                         <small className="muted">
-                          {PRECISION[event.time_precision] ?? event.time_precision} · 时间依据：
+                          {PRECISION[event.time_precision] ??
+                            event.time_precision}{" "}
+                          · 时间依据：
                           {event.time_basis}
                         </small>
                       </li>
@@ -186,11 +190,7 @@ export default function MemePage({
                       {r.target?.availability === "withdrawn" ? (
                         <span className="muted">已撤回</span>
                       ) : r.target?.url ? (
-                        <a
-                          href={r.target.url}
-                          target="_blank"
-                          rel="noreferrer"
-                        >
+                        <a href={r.target.url} target="_blank" rel="noreferrer">
                           {r.target.label} <Icon name="arrow" size={16} />
                         </a>
                       ) : r.target?.type === "meme" &&
@@ -228,7 +228,7 @@ export default function MemePage({
                     <span>
                       证据 {i + 1} · {describeKind(e.kind)}
                     </span>
-                    <span>已人工核对</span>
+                    <span>已审核</span>
                   </div>
                   <blockquote>{e.text}</blockquote>
                   <p className="evidence-where">{describeLocator(e.locator)}</p>

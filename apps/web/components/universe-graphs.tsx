@@ -26,9 +26,7 @@ import {
 
 /** SVG text has no auto-truncation, and a galaxy name may run off the canvas. */
 function clip(text: string, characters: number): string {
-  return text.length > characters
-    ? `${text.slice(0, characters - 1)}…`
-    : text;
+  return text.length > characters ? `${text.slice(0, characters - 1)}…` : text;
 }
 
 /** How long the ignition sweep takes to cross the whole axis. */
@@ -43,7 +41,10 @@ export function UniverseGraph({
   universe: Universe;
   onOpenGalaxy: (galaxy: Galaxy) => void;
 }) {
-  const { placed, undated } = useMemo(() => layoutUniverse(universe), [universe]);
+  const { placed, undated, height } = useMemo(
+    () => layoutUniverse(universe),
+    [universe],
+  );
   const byId = new Map(placed.map((item) => [item.galaxy.meme_id, item]));
   const end = axisEnd(universe);
   /* Whether the year can be dropped is a property of this picture, decided from its
@@ -57,7 +58,8 @@ export function UniverseGraph({
     let active = true;
     for (const galaxy of universe.galaxies) {
       void galaxySprite(galaxy.meme_id).then((url) => {
-        if (active && url) setSprites((current) => ({ ...current, [galaxy.meme_id]: url }));
+        if (active && url)
+          setSprites((current) => ({ ...current, [galaxy.meme_id]: url }));
       });
     }
     return () => {
@@ -68,7 +70,8 @@ export function UniverseGraph({
   /* The time cursor: galaxies past it are not yet born and dim. It moves between
      the dates the archive actually has, so its readout never invents a day. */
   const stops = useMemo(
-    () => placed.map((item) => item.x).filter((x, i, all) => all.indexOf(x) === i),
+    () =>
+      placed.map((item) => item.x).filter((x, i, all) => all.indexOf(x) === i),
     [placed],
   );
   const [cursor, setCursor] = useState<number | null>(null);
@@ -78,7 +81,9 @@ export function UniverseGraph({
   const handle = useRef<SVGGElement | null>(null);
 
   const toUser = (clientX: number) => {
-    const surface = handle.current?.closest("g.zoom-surface") as SVGGraphicsElement | null;
+    const surface = handle.current?.closest(
+      "g.zoom-surface",
+    ) as SVGGraphicsElement | null;
     const matrix = surface?.getScreenCTM();
     if (!matrix) return null;
     return new DOMPoint(clientX, 0).matrixTransform(matrix.inverse()).x;
@@ -91,7 +96,8 @@ export function UniverseGraph({
     const current = cursor ?? end;
     const index = stops.findIndex((x) => x > current + 0.5);
     const at = index === -1 ? stops.length : index;
-    const next = stops[Math.min(Math.max(at - 1 + direction, 0), stops.length - 1)];
+    const next =
+      stops[Math.min(Math.max(at - 1 + direction, 0), stops.length - 1)];
     setCursor(direction > 0 && at >= stops.length ? null : snap(next ?? end));
   };
 
@@ -100,52 +106,96 @@ export function UniverseGraph({
      must not reach the glyphs. They stop well above the first lane. */
   const y0 = AXIS_Y - 150;
   const y1 = AXIS_Y + 40;
+  const bandLabelRows: { x: number; row: number; width: number }[] = [];
+  const bands = universe.axis.bands.map((band) => {
+    const x = AXIS_X0 + ((band.start + band.end) / 2) * (AXIS_X1 - AXIS_X0);
+    const width = bandLabel(band.days).length * 14 + 20;
+    let row = 0;
+    while (
+      bandLabelRows.some(
+        (other) =>
+          other.row === row &&
+          Math.abs(other.x - x) < (width + other.width) / 2,
+      )
+    )
+      row += 1;
+    bandLabelRows.push({ x, row, width });
+    return { band, x, row };
+  });
 
   return (
     <>
       <g className="universe-static">
         {/* Quiet periods: dark lanes of fixed width that lie about the duration,
             hence the label with the true length. */}
-        {universe.axis.bands.map((band) => (
-          <g className="quiet-band axis-band" key={`${band.date_from}-${band.date_to}`}>
+        {bands.map(({ band, x, row }) => (
+          <g
+            className="quiet-band axis-band"
+            key={`${band.date_from}-${band.date_to}`}
+          >
+            <title>{`${band.date_from} → ${band.date_to} · ${bandLabel(band.days)}`}</title>
             <rect
               x={AXIS_X0 + band.start * (AXIS_X1 - AXIS_X0)}
               y={y0}
               width={Math.max((band.end - band.start) * (AXIS_X1 - AXIS_X0), 3)}
               height={y1 - y0}
             />
-            <text
-              x={AXIS_X0 + ((band.start + band.end) / 2) * (AXIS_X1 - AXIS_X0)}
-              y={y0 - 14}
-              textAnchor="middle"
-            >
-              {bandLabel(band.days)}
-            </text>
+            {row < 5 && (
+              <text x={x} y={y0 + 24 + row * 25} textAnchor="middle">
+                {bandLabel(band.days)}
+              </text>
+            )}
           </g>
         ))}
         {/* The time axis itself, with its direction stated rather than implied. */}
-        <line className="time-axis" x1={AXIS_X0 - 40} y1={AXIS_Y} x2={end + 30} y2={AXIS_Y} />
-        <path className="axis-arrow" d={`M ${end + 30} ${AXIS_Y} l -13 -6 l 0 12 Z`} />
+        <line
+          className="time-axis"
+          x1={AXIS_X0 - 40}
+          y1={AXIS_Y}
+          x2={end + 30}
+          y2={AXIS_Y}
+        />
+        <path
+          className="axis-arrow"
+          d={`M ${end + 30} ${AXIS_Y} l -13 -6 l 0 12 Z`}
+        />
         <text className="axis-direction" x={end + 34} y={AXIS_Y + 6}>
           时间 →
         </text>
-        {universe.axis.ticks.map((tick) => (
-          <g className="axis-tick" key={`${tick.t}-${tick.date}`}>
-            <line
-              x1={AXIS_X0 + tick.t * (AXIS_X1 - AXIS_X0)}
-              y1={AXIS_Y - 8}
-              x2={AXIS_X0 + tick.t * (AXIS_X1 - AXIS_X0)}
-              y2={AXIS_Y + 8}
-            />
-            <text
-              x={AXIS_X0 + tick.t * (AXIS_X1 - AXIS_X0)}
-              y={AXIS_Y + 30}
-              textAnchor="middle"
-            >
-              {drawDate(tick.date, oneYear)}
-            </text>
-          </g>
-        ))}
+        {universe.axis.ticks
+          .filter(
+            (tick, index, ticks) =>
+              index === 0 ||
+              index === ticks.length - 1 ||
+              ticks
+                .slice(0, index)
+                .every(
+                  (other) =>
+                    Math.abs(other.t - tick.t) * (AXIS_X1 - AXIS_X0) > 105,
+                ),
+          )
+          .filter(
+            (tick, index, ticks) =>
+              index === ticks.length - 1 ||
+              (ticks[ticks.length - 1].t - tick.t) * (AXIS_X1 - AXIS_X0) > 105,
+          )
+          .map((tick) => (
+            <g className="axis-tick" key={`${tick.t}-${tick.date}`}>
+              <line
+                x1={AXIS_X0 + tick.t * (AXIS_X1 - AXIS_X0)}
+                y1={AXIS_Y - 8}
+                x2={AXIS_X0 + tick.t * (AXIS_X1 - AXIS_X0)}
+                y2={AXIS_Y + 8}
+              />
+              <text
+                x={AXIS_X0 + tick.t * (AXIS_X1 - AXIS_X0)}
+                y={AXIS_Y + 30}
+                textAnchor="middle"
+              >
+                {drawDate(tick.date, oneYear)}
+              </text>
+            </g>
+          ))}
         {/* The ignition sweep: a line of light crossing the axis once, lighting each
             galaxy as it passes the day that galaxy first has evidence. */}
         <line
@@ -162,13 +212,18 @@ export function UniverseGraph({
               x1={UNDATED_X}
               y1={AXIS_Y - 110}
               x2={UNDATED_X}
-              y2={AXIS_Y + 560}
+              y2={height - 70}
               className="undated-rule"
             />
             <text x={UNDATED_X} y={AXIS_Y - 150} textAnchor="middle">
               无日期
             </text>
-            <text x={UNDATED_X} y={AXIS_Y - 126} textAnchor="middle" className="undated-note">
+            <text
+              x={UNDATED_X}
+              y={AXIS_Y - 126}
+              textAnchor="middle"
+              className="undated-note"
+            >
               有证据，未定日
             </text>
           </g>
@@ -221,33 +276,58 @@ export function UniverseGraph({
         aria-valuetext={`截至 ${latest ?? "起点"}，已有 ${born.length} 个梗`}
         onPointerDown={(event) => {
           event.stopPropagation();
-          (event.currentTarget as SVGGElement).setPointerCapture(event.pointerId);
+          (event.currentTarget as SVGGElement).setPointerCapture(
+            event.pointerId,
+          );
           const x = toUser(event.clientX);
           if (x !== null) setCursor(snap(x));
         }}
         onPointerMove={(event) => {
-          if (!(event.currentTarget as SVGGElement).hasPointerCapture(event.pointerId)) return;
+          if (
+            !(event.currentTarget as SVGGElement).hasPointerCapture(
+              event.pointerId,
+            )
+          )
+            return;
           const x = toUser(event.clientX);
           if (x !== null) setCursor(snap(x));
         }}
         onKeyDown={(event) => {
           if (event.key === "ArrowRight" || event.key === "ArrowUp") step(1);
-          else if (event.key === "ArrowLeft" || event.key === "ArrowDown") step(-1);
+          else if (event.key === "ArrowLeft" || event.key === "ArrowDown")
+            step(-1);
           else if (event.key === "Home") setCursor(AXIS_X0);
           else if (event.key === "End") setCursor(null);
           else return;
           event.preventDefault();
         }}
       >
-        <line className="time-cursor-line" x1={cursorX} y1={y0 + 10} x2={cursorX} y2={AXIS_Y + 12} />
-        <rect className="time-cursor-hit" x={cursorX - 16} y={AXIS_Y - 26} width={32} height={52} />
+        <line
+          className="time-cursor-line"
+          x1={cursorX}
+          y1={y0 + 10}
+          x2={cursorX}
+          y2={AXIS_Y + 12}
+        />
+        <rect
+          className="time-cursor-hit"
+          x={cursorX - 16}
+          y={AXIS_Y - 26}
+          width={32}
+          height={52}
+        />
         <path
           className="time-cursor-knob"
           d={`M ${cursorX} ${AXIS_Y - 11} L ${cursorX + 9} ${AXIS_Y} L ${cursorX} ${AXIS_Y + 11} L ${
             cursorX - 9
           } ${AXIS_Y} Z`}
         />
-        <text className="time-cursor-readout" x={cursorX} y={y0 - 2} textAnchor="middle">
+        <text
+          className="time-cursor-readout"
+          x={cursorX}
+          y={y0 - 2}
+          textAnchor="middle"
+        >
           {cursor === null
             ? `拖动游标回看 · 共 ${placed.length} 个梗`
             : `截至 ${latest ? drawDate(latest, oneYear) : "起点"} · ${born.length} 个梗`}
@@ -270,12 +350,12 @@ function GalaxyGlyph({
   future: boolean;
   onOpen: (galaxy: Galaxy) => void;
 }) {
-  const { galaxy, x, y, radius, stacked, row } = item;
+  const { galaxy, x, y, radius } = item;
   const short = clip(galaxy.name, NAME_LIMIT);
   const art = radius * 3.4;
   return (
     <g
-      className={`galaxy${stacked ? " is-stacked" : ""}${future ? " is-future" : ""}`}
+      className={`galaxy${future ? " is-future" : ""}`}
       role="button"
       tabIndex={0}
       aria-label={`${galaxy.name}，出现于 ${
@@ -295,8 +375,20 @@ function GalaxyGlyph({
         }
       }}
     >
-      <circle className="galaxy-hit" cx={x} cy={y} r={Math.max(radius + 14, 26)} />
-      <circle className="galaxy-body" cx={x} cy={y} r={radius} data-stars={galaxy.stars.length} />
+      <title>{galaxy.name}</title>
+      <circle
+        className="galaxy-hit"
+        cx={x}
+        cy={y}
+        r={Math.max(radius + 14, 26)}
+      />
+      <circle
+        className="galaxy-body"
+        cx={x}
+        cy={y}
+        r={radius}
+        data-stars={galaxy.stars.length}
+      />
       {sprite && (
         <image
           className="galaxy-art"
@@ -307,17 +399,24 @@ function GalaxyGlyph({
           height={art}
         />
       )}
-      {stacked && (
-        <text className="galaxy-lane" x={x + radius * 0.9} y={y - radius * 0.7} textAnchor="middle">
-          {row + 1}
-        </text>
-      )}
-      <text className="galaxy-name" x={x} y={y + radius + 22} textAnchor="middle">
+      <text
+        className="galaxy-name"
+        x={x}
+        y={y + radius + 22}
+        textAnchor="middle"
+      >
         {short}
       </text>
-      <text className="galaxy-count" x={x} y={y + radius + 38} textAnchor="middle">
+      <text
+        className="galaxy-count"
+        x={x}
+        y={y + radius + 48}
+        textAnchor="middle"
+      >
         {galaxy.stars.length} 星 ·{" "}
-        {galaxy.emergence.date ? drawDate(galaxy.emergence.date, oneYear) : "无日期"}
+        {galaxy.emergence.date
+          ? drawDate(galaxy.emergence.date, oneYear)
+          : "无日期"}
       </text>
     </g>
   );
@@ -338,9 +437,18 @@ function StageGlows() {
     <defs>
       {STAGES.map((stage) => (
         <radialGradient id={`glow-${stage}`} key={stage}>
-          <stop offset="0" style={{ stopColor: colour[stage], stopOpacity: 0.85 }} />
-          <stop offset="0.28" style={{ stopColor: colour[stage], stopOpacity: 0.32 }} />
-          <stop offset="1" style={{ stopColor: colour[stage], stopOpacity: 0 }} />
+          <stop
+            offset="0"
+            style={{ stopColor: colour[stage], stopOpacity: 0.85 }}
+          />
+          <stop
+            offset="0.28"
+            style={{ stopColor: colour[stage], stopOpacity: 0.32 }}
+          />
+          <stop
+            offset="1"
+            style={{ stopColor: colour[stage], stopOpacity: 0 }}
+          />
         </radialGradient>
       ))}
       <marker
@@ -461,17 +569,22 @@ export function GalaxyGraph({
   const k = labelScale;
   const boxes: { x0: number; x1: number; y0: number; y1: number }[] = [];
   const hits = (box: { x0: number; x1: number; y0: number; y1: number }) =>
-    boxes.some((o) => box.x0 < o.x1 && box.x1 > o.x0 && box.y0 < o.y1 && box.y1 > o.y0);
+    boxes.some(
+      (o) => box.x0 < o.x1 && box.x1 > o.x0 && box.y0 < o.y1 && box.y1 > o.y0,
+    );
   const priority = (item: (typeof placed)[number]) =>
     item.star.id === activeStarId ? 0 : item.star.milestone ? 1 : 2;
   const labels = [...placed]
     .sort((a, b) => priority(a) - priority(b) || a.index - b.index)
     .flatMap((item) => {
       const named = priority(item) < 2;
-      const dateText = item.star.date ? drawDate(item.star.date, oneYear) : "无日期";
+      const dateText = item.star.date
+        ? drawDate(item.star.date, oneYear)
+        : "无日期";
       const name = named ? clip(item.star.label, 14) : "";
       const width =
-        (name ? name.length * 16 * k + 8 * k : 0) + dateText.length * 13 * 0.56 * k;
+        (name ? name.length * 16 * k + 8 * k : 0) +
+        dateText.length * 13 * 0.56 * k;
       const height = 18 * k;
       const dx = item.x - cx;
       const dy = item.y - cy;
@@ -480,23 +593,26 @@ export function GalaxyGraph({
         const push = side * (20 + 4 * k);
         const x = item.x + (dx / distance) * push;
         const y = item.y + (dy / distance) * push + 5 * k;
-        const anchor = (dx >= 0) === side > 0 ? "start" : "end";
-        const box = anchor === "start"
-          ? { x0: x, x1: x + width, y0: y - height, y1: y + 4 }
-          : { x0: x - width, x1: x, y0: y - height, y1: y + 4 };
+        const anchor = dx >= 0 === side > 0 ? "start" : "end";
+        const box =
+          anchor === "start"
+            ? { x0: x, x1: x + width, y0: y - height, y1: y + 4 }
+            : { x0: x - width, x1: x, y0: y - height, y1: y + 4 };
         if (!hits(box) || named) {
           boxes.push(box);
-          return [{
-            key: item.star.id,
-            text: name,
-            date: dateText,
-            x,
-            y,
-            anchor: anchor as "start" | "end",
-            stage: item.star.stage,
-            active: item.star.id === activeStarId,
-            named,
-          }];
+          return [
+            {
+              key: item.star.id,
+              text: name,
+              date: dateText,
+              x,
+              y,
+              anchor: anchor as "start" | "end",
+              stage: item.star.stage,
+              active: item.star.id === activeStarId,
+              named,
+            },
+          ];
         }
       }
       return [];
@@ -505,7 +621,14 @@ export function GalaxyGraph({
     <>
       <StageGlows />
       {dust && (
-        <image className="galaxy-dust" href={dust} x={0} y={0} width={width} height={height} />
+        <image
+          className="galaxy-dust"
+          href={dust}
+          x={0}
+          y={0}
+          width={width}
+          height={height}
+        />
       )}
       <g className="galaxy-static">
         {/* Orbits at the dated ticks: radius is time, so a star's orbit is its date. */}
@@ -520,7 +643,12 @@ export function GalaxyGraph({
         ))}
         {/* The arms as faint rails, with the direction of time drawn on them. */}
         {[0, 1].map((arm) => (
-          <path key={arm} className="arm-rail" d={armPath(arm, 0, 1)} markerEnd="url(#arm-arrow)" />
+          <path
+            key={arm}
+            className="arm-rail"
+            d={armPath(arm, 0, 1)}
+            markerEnd="url(#arm-arrow)"
+          />
         ))}
         {/* Quiet periods as dark lanes across the arms: cut out of the radius, but the
             label still carries the true number of days, since the drawn lane does not. */}
@@ -528,17 +656,38 @@ export function GalaxyGraph({
           const outer = radiusAt(band.start);
           const inner = radiusAt(band.end);
           return (
-            <g className="quiet-band galaxy-band" key={`${band.start}-${band.end}`}>
-              <path className="band-annulus" d={annulus(cx, cy, outer, inner)} />
+            <g
+              className="quiet-band galaxy-band"
+              key={`${band.start}-${band.end}`}
+            >
+              <path
+                className="band-annulus"
+                d={annulus(cx, cy, outer, inner)}
+              />
               <circle className="band-edge" cx={cx} cy={cy} r={outer} />
               <circle className="band-edge" cx={cx} cy={cy} r={inner} />
-              <line className="band-spoke" x1={cx - outer} y1={cy} x2={cx - inner} y2={cy} />
+              <line
+                className="band-spoke"
+                x1={cx - outer}
+                y1={cy}
+                x2={cx - inner}
+                y2={cy}
+              />
             </g>
           );
         })}
         {/* The radial scale: time runs outward, and says so. */}
-        <line className="time-axis radial" x1={cx + rIn} y1={cy} x2={cx + rOut + 26} y2={cy} />
-        <path className="axis-arrow" d={`M ${cx + rOut + 26} ${cy} l -13 -6 l 0 12 Z`} />
+        <line
+          className="time-axis radial"
+          x1={cx + rIn}
+          y1={cy}
+          x2={cx + rOut + 26}
+          y2={cy}
+        />
+        <path
+          className="axis-arrow"
+          d={`M ${cx + rOut + 26} ${cy} l -13 -6 l 0 12 Z`}
+        />
         <text className="axis-direction radial" x={cx + rIn + 6} y={cy - 10}>
           早 →
         </text>
@@ -555,13 +704,34 @@ export function GalaxyGraph({
           const y = cy - 146 - stack * 55;
           const dates = `${drawDate(band.date_from, oneYear)} → ${drawDate(band.date_to, oneYear)}`;
           return (
-            <g className="band-caption" key={`caption-${band.start}-${band.end}`}>
-              <line className="tick-leader" x1={cx - inner} y1={cy} x2={right} y2={y + 7} />
-              <rect className="band-caption-bg" x={left} y={y - 16} width={right - left + 8} height={39} rx={4} />
+            <g
+              className="band-caption"
+              key={`caption-${band.start}-${band.end}`}
+            >
+              <line
+                className="tick-leader"
+                x1={cx - inner}
+                y1={cy}
+                x2={right}
+                y2={y + 7}
+              />
+              <rect
+                className="band-caption-bg"
+                x={left}
+                y={y - 16}
+                width={right - left + 8}
+                height={39}
+                rx={4}
+              />
               <text className="band-label" x={right} y={y} textAnchor="end">
                 {bandLabel(band.days)}
               </text>
-              <text className="band-dates" x={right} y={y + 18} textAnchor="end">
+              <text
+                className="band-dates"
+                x={right}
+                y={y + 18}
+                textAnchor="end"
+              >
                 {dates}
               </text>
             </g>
@@ -569,8 +739,19 @@ export function GalaxyGraph({
         })}
         {hasUndated && (
           <g className="undated-ring">
-            <circle cx={cx} cy={cy} r={rUndated} fill="none" className="undated-rule" />
-            <text x={cx} y={cy - rUndated - 8} textAnchor="middle" className="undated-label">
+            <circle
+              cx={cx}
+              cy={cy}
+              r={rUndated}
+              fill="none"
+              className="undated-rule"
+            />
+            <text
+              x={cx}
+              y={cy - rUndated - 8}
+              textAnchor="middle"
+              className="undated-label"
+            >
               无日期 · 有证据，未定日
             </text>
           </g>

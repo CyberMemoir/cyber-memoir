@@ -8,9 +8,14 @@ import { GalaxyGraph, UniverseGraph } from "./universe-graphs";
 import { GalaxyList, UniverseList } from "./universe-list";
 import { MilestoneRail } from "./milestone-rail";
 import { StarPanel } from "./star-panel";
-import { GALAXY_VIEW, STAGE_STYLE, STAGES } from "./universe-layout";
+import {
+  GALAXY_VIEW,
+  UNIVERSE_VIEW,
+  layoutUniverse,
+  STAGE_STYLE,
+  STAGES,
+} from "./universe-layout";
 
-const UNIVERSE_BOX = { width: 1680, height: 880 };
 /** Below this width the map becomes a sky wider than the screen, scrolled natively. */
 const NARROW = "(max-width: 760px)";
 /** Pan and zoom limits. The picture is drawn in its own coordinate system, so the
@@ -63,6 +68,10 @@ export function UniverseExplorer({ initialMemeId }: { initialMemeId: string }) {
     () => universe?.galaxies.find((g) => g.meme_id === memeId) ?? null,
     [universe, memeId],
   );
+  const universeHeight = useMemo(
+    () => (universe ? layoutUniverse(universe).height : UNIVERSE_VIEW.height),
+    [universe],
+  );
 
   /* Back and forward change the query string without remounting this component. */
   useEffect(() => {
@@ -96,13 +105,20 @@ export function UniverseExplorer({ initialMemeId }: { initialMemeId: string }) {
   useEffect(() => {
     const node = svgRef.current;
     if (!node || listView) return;
-    const width = galaxy ? GALAXY_VIEW.width : UNIVERSE_BOX.width;
-    const height = galaxy ? GALAXY_VIEW.height : UNIVERSE_BOX.height;
+    if (!galaxy) {
+      setLabelScale(1);
+      return;
+    }
+    const width = GALAXY_VIEW.width;
+    const height = GALAXY_VIEW.height;
     const observer = new ResizeObserver(() => {
       /* The picture is fitted inside the element ("meet"), so on a wide screen it is
          limited by height, not width: the real shrink is the larger of the two. */
       const box = node.getBoundingClientRect();
-      const shrink = Math.max(width / (box.width || width), height / (box.height || height));
+      const shrink = Math.max(
+        width / (box.width || width),
+        height / (box.height || height),
+      );
       setLabelScale(Math.max(1, shrink * 0.86));
     });
     observer.observe(node);
@@ -121,8 +137,13 @@ export function UniverseExplorer({ initialMemeId }: { initialMemeId: string }) {
       /* The newest galaxy sits near the right edge, with the ones before it in view. */
       const box = stage.getBoundingClientRect();
       const right = Math.max(
-        ...[...stage.querySelectorAll(".galaxy, .axis-direction, .time-cursor-readout")].map(
-          (node) => node.getBoundingClientRect().right - box.left + stage.scrollLeft,
+        ...[
+          ...stage.querySelectorAll(
+            ".galaxy, .axis-direction, .time-cursor-readout",
+          ),
+        ].map(
+          (node) =>
+            node.getBoundingClientRect().right - box.left + stage.scrollLeft,
         ),
         0,
       );
@@ -273,7 +294,10 @@ export function UniverseExplorer({ initialMemeId }: { initialMemeId: string }) {
     return (
       <div className="error" role="alert">
         星图读取失败：{error}
-        <button className="text-button" onClick={() => setReloads((n) => n + 1)}>
+        <button
+          className="text-button"
+          onClick={() => setReloads((n) => n + 1)}
+        >
           重试
         </button>
       </div>
@@ -326,7 +350,14 @@ export function UniverseExplorer({ initialMemeId }: { initialMemeId: string }) {
           <button
             type="button"
             className="button outline small"
-            onClick={() => setView(IDENTITY)}
+            onClick={() => {
+              setView(IDENTITY);
+              stageRef.current?.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: "instant",
+              });
+            }}
           >
             重置视图
           </button>
@@ -348,40 +379,51 @@ export function UniverseExplorer({ initialMemeId }: { initialMemeId: string }) {
         )
       ) : (
         <>
-        <p className="swipe-hint">
-          {galaxy ? "左右滑动，看整个星系。" : "左右滑动：时间从左往右，越往左越早。"}
-        </p>
-        <div ref={stageRef} className={`universe-stage${galaxy ? " is-galaxy" : ""}`}>
-          <svg
-            ref={svgRef}
-            key={galaxy ? galaxy.meme_id : "universe"}
-            className="universe-svg"
-            viewBox={`0 0 ${
-              galaxy ? GALAXY_VIEW.width : UNIVERSE_BOX.width
-            } ${galaxy ? GALAXY_VIEW.height : UNIVERSE_BOX.height}`}
-            preserveAspectRatio="xMidYMid meet"
-            style={{ "--label-scale": labelScale } as React.CSSProperties}
-            aria-label={
-              galaxy
-                ? `${galaxy.name} 的星系图。半径是时间，越靠外越晚。`
-                : "宇宙视图。横轴是时间，每个点是一个梗。"
-            }
+          <p className="swipe-hint">
+            {galaxy
+              ? "左右滑动，看整个星系。"
+              : "滑动星图探索；时间从左往右，同日记录向下排列。"}
+          </p>
+          <div
+            ref={stageRef}
+            className={`universe-stage${galaxy ? " is-galaxy" : " is-universe"}`}
+            role="region"
+            aria-label="可滚动星图"
+            tabIndex={0}
           >
-            <g className="zoom-surface" transform={asTransform(view)}>
-              {galaxy ? (
-                <GalaxyGraph
-                  galaxy={galaxy}
-                  activeStarId={activeStar?.id ?? hoveredStar}
-                  onSelectStar={openStar}
-                  onHoverStar={setHoveredStar}
-                  labelScale={labelScale}
-                />
-              ) : (
-                <UniverseGraph universe={universe} onOpenGalaxy={openGalaxy} />
-              )}
-            </g>
-          </svg>
-        </div>
+            <svg
+              ref={svgRef}
+              key={galaxy ? galaxy.meme_id : "universe"}
+              className="universe-svg"
+              viewBox={`0 0 ${
+                galaxy ? GALAXY_VIEW.width : UNIVERSE_VIEW.width
+              } ${galaxy ? GALAXY_VIEW.height : universeHeight}`}
+              preserveAspectRatio="xMidYMid meet"
+              style={{ "--label-scale": labelScale } as React.CSSProperties}
+              aria-label={
+                galaxy
+                  ? `${galaxy.name} 的星系图。半径是时间，越靠外越晚。`
+                  : "宇宙视图。横轴是时间，每个点是一个梗。"
+              }
+            >
+              <g className="zoom-surface" transform={asTransform(view)}>
+                {galaxy ? (
+                  <GalaxyGraph
+                    galaxy={galaxy}
+                    activeStarId={activeStar?.id ?? hoveredStar}
+                    onSelectStar={openStar}
+                    onHoverStar={setHoveredStar}
+                    labelScale={labelScale}
+                  />
+                ) : (
+                  <UniverseGraph
+                    universe={universe}
+                    onOpenGalaxy={openGalaxy}
+                  />
+                )}
+              </g>
+            </svg>
+          </div>
         </>
       )}
 
@@ -413,18 +455,53 @@ export function UniverseExplorer({ initialMemeId }: { initialMemeId: string }) {
 }
 
 /** One legend key, drawn with the same parts as the star it explains. */
-function LegendStar({ stage, milestone }: { stage: (typeof STAGES)[number]; milestone?: boolean }) {
+function LegendStar({
+  stage,
+  milestone,
+}: {
+  stage: (typeof STAGES)[number];
+  milestone?: boolean;
+}) {
   const style = STAGE_STYLE[stage];
   const c = 13;
   const m = 6.5;
   return (
-    <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true" className={`legend-star stage-${stage}`}>
+    <svg
+      width="26"
+      height="26"
+      viewBox="0 0 26 26"
+      aria-hidden="true"
+      className={`legend-star stage-${stage}`}
+    >
       <circle cx={c} cy={c} r={11} className="legend-glow" />
-      {milestone && <path d={`M 1 ${c} L 25 ${c} M ${c} 1 L ${c} 25`} className="legend-spikes" />}
-      {style.shape === "diamond" && <path d={`M ${c} ${c - m * 1.2} L ${c + m * 1.2} ${c} L ${c} ${c + m * 1.2} L ${c - m * 1.2} ${c} Z`} className="legend-mark" />}
-      {style.shape === "square" && <rect x={c - m} y={c - m} width={m * 2} height={m * 2} rx={1.2} className="legend-mark" />}
-      {style.shape === "circle" && <circle cx={c} cy={c} r={m} className="legend-mark" />}
-      {style.shape === "ring" && <circle cx={c} cy={c} r={m} className="legend-mark ring" />}
+      {milestone && (
+        <path
+          d={`M 1 ${c} L 25 ${c} M ${c} 1 L ${c} 25`}
+          className="legend-spikes"
+        />
+      )}
+      {style.shape === "diamond" && (
+        <path
+          d={`M ${c} ${c - m * 1.2} L ${c + m * 1.2} ${c} L ${c} ${c + m * 1.2} L ${c - m * 1.2} ${c} Z`}
+          className="legend-mark"
+        />
+      )}
+      {style.shape === "square" && (
+        <rect
+          x={c - m}
+          y={c - m}
+          width={m * 2}
+          height={m * 2}
+          rx={1.2}
+          className="legend-mark"
+        />
+      )}
+      {style.shape === "circle" && (
+        <circle cx={c} cy={c} r={m} className="legend-mark" />
+      )}
+      {style.shape === "ring" && (
+        <circle cx={c} cy={c} r={m} className="legend-mark ring" />
+      )}
       <circle cx={c} cy={c} r={2.4} className="legend-core" />
     </svg>
   );
@@ -450,7 +527,14 @@ function Legend({ galaxy }: { galaxy: Galaxy | null }) {
         </li>
         <li data-key="no-evidence">
           <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true">
-            <rect x="3" y="6" width="20" height="14" rx="3" className="legend-absent" />
+            <rect
+              x="3"
+              y="6"
+              width="20"
+              height="14"
+              rx="3"
+              className="legend-absent"
+            />
           </svg>
           <span>虚线空槽：无证据（该阶段一条证据都没有，见里程碑轨道）</span>
         </li>

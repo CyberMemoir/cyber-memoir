@@ -47,7 +47,9 @@ test("人工提交 → 材料 → 审核 → 搜索/回答 → 详情 → 撤回
     page.getByRole("heading", { name: "基于证据的回答" }),
   ).toBeVisible();
   await expect(page.locator(".answer-text")).toContainText(definition);
-  await page.getByRole("heading", { name: "合成验收梗", exact: true }).click();
+  await page
+    .getByRole("heading", { name: "合成验收梗", level: 3, exact: true })
+    .click();
   await expect(
     page.getByRole("heading", { name: "回到证据本身" }),
   ).toBeVisible();
