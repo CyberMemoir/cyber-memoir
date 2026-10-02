@@ -12,6 +12,7 @@ test("人工提交 → 材料 → 审核 → 搜索/回答 → 详情 → 撤回
     page.getByRole("heading", { name: /补充可核查材料/ }),
   ).toBeVisible();
   await page.getByLabel("原文摘录").fill(definition);
+  await page.getByLabel("起始时间（毫秒，可选）").fill("0");
   await page
     .getByLabel("定位与核查说明")
     .fill("合成测试材料第 1 段，不可引用为真实史料");
@@ -51,6 +52,7 @@ test("人工提交 → 材料 → 审核 → 搜索/回答 → 详情 → 撤回
     page.getByRole("heading", { name: "回到证据本身" }),
   ).toBeVisible();
   await expect(page.locator("blockquote")).toContainText(definition);
+  await expect(page.locator(".evidence-where")).toContainText("第 0 秒");
   await page.getByRole("link", { name: "审核工作台", exact: true }).click();
   await page.getByLabel("审核者令牌").fill("e2e-reviewer-only");
   await page.getByRole("button", { name: "连接工作台" }).click();

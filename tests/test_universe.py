@@ -8,6 +8,52 @@ dates arrive read in Beijing, and nothing retracted is drawn.
 AUTH = {"Authorization": "Bearer unit-test-reviewer"}
 
 
+def test_disputed_relations_do_not_become_confirmed_stars_or_links(client, prepared):
+    parent = prepared(name="争议关系母梗")
+    child = prepared(name="争议关系子梗")
+    revise(
+        client,
+        child,
+        "合成测试：保留争议而不确认谱系",
+        relations=[
+            {**link(child, "derived_from"), "assertion_status": "disputed"},
+            {**link(child, "popularized_by"), "assertion_status": "disputed"},
+            {
+                **link(child, "derived_from", "meme", parent["meme_id"]),
+                "assertion_status": "disputed",
+            },
+        ],
+    )
+    g, universe = galaxy(client, "争议关系子梗")
+    assert not g["stars"]
+    assert g["emergence"]["basis"] == "none"
+    assert not universe["links"]
+    assert len(client.get(f"/v1/memes/{child['meme_id']}").json()["relations"]) == 3
+
+
+def test_duplicate_lineage_is_one_star_and_uses_only_lineage_evidence(client, prepared):
+    parent = prepared(name="去重母梗")
+    child = prepared(name="去重子梗")
+    revise(
+        client,
+        child,
+        "合成测试：重复关系与无关引用",
+        relations=[
+            link(child, "derived_from", "meme", parent["meme_id"]),
+            link(child, "derived_from", "meme", parent["meme_id"]),
+            {
+                **link(child, "variant_of", "meme", parent["meme_id"]),
+                "evidence_ids": [parent["evidence"]["id"]],
+            },
+        ],
+    )
+    for name in ("去重母梗", "去重子梗"):
+        g, universe = galaxy(client, name)
+        assert len(g["stars"]) == 1
+        assert g["stars"][0]["evidence_ids"] == [child["evidence"]["id"]]
+        assert len(universe["links"]) == 1
+
+
 def revise(client, made, reason, **fields):
     revision = client.post(
         "/v1/reviews/drafts",

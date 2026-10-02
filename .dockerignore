@@ -1,6 +1,11 @@
 .git
 .env
 **/.env
+**/.env.*
+ai_context
+.impeccable
+**/CLAUDE.md
+**/*cookies*.txt
 **/.venv
 **/node_modules
 **/.next
