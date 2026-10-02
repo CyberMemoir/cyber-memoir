@@ -20,13 +20,14 @@ export default async function UniversePage({
 }) {
   const params = await searchParams;
   const meme = params.meme;
-  const memeId = Array.isArray(meme) ? meme[0] ?? "" : meme ?? "";
+  const memeId = Array.isArray(meme) ? (meme[0] ?? "") : (meme ?? "");
   return (
     <main id="main" className="page-main universe-main">
       <header className="universe-header">
+        <p className="eyebrow">THE CULTURAL CONSTELLATION / 文化的轨迹</p>
         <h1 className="page-title">梗的星图</h1>
         <p className="page-subtitle">
-          每一个点是一条有证据的记载。位置来自日期，颜色来自它在这个梗的传播中扮演的角色。
+          从一个梗，走进它的传播星系。位置来自有证据的日期，颜色标记传播中的角色。
         </p>
       </header>
       <Suspense

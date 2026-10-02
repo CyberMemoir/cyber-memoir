@@ -120,6 +120,7 @@ export default function SubmitPage() {
   }
   return (
     <main className="page-main" id="main">
+      <p className="eyebrow">CONTRIBUTE A TRACE / 留下一份来源</p>
       <h1 className="page-title">
         <span style={{ whiteSpace: "nowrap" }}>让一段记忆，</span>
         <span style={{ whiteSpace: "nowrap" }}>有据可查。</span>
@@ -141,9 +142,7 @@ export default function SubmitPage() {
           )}
           <form className="form-stack" onSubmit={submit}>
             <label className="field">
-              <span>
-                Bilibili / 抖音视频链接
-              </span>
+              <span>Bilibili / 抖音视频链接</span>
               <input
                 type="url"
                 required

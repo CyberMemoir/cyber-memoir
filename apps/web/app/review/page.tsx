@@ -91,6 +91,7 @@ export default function ReviewPage() {
   }
   return (
     <main id="main" className="page-main">
+      <p className="eyebrow">EVIDENCE BEFORE PUBLICATION / 核查与修订</p>
       <h1 className="page-title">审核工作台</h1>
       <p className="page-subtitle">
         机器提出候选，人核查证据。审核通过，才成为公共记忆。

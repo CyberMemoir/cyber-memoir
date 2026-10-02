@@ -81,7 +81,9 @@ export function bandLabel(days: number): string {
  */
 export function allInOneYear(years: (string | null | undefined)[]): boolean {
   const present = new Set(
-    years.filter((value): value is string => Boolean(value)).map((v) => v.slice(0, 4)),
+    years
+      .filter((value): value is string => Boolean(value))
+      .map((v) => v.slice(0, 4)),
   );
   return present.size <= 1;
 }
@@ -125,12 +127,11 @@ export const UNDATED_X = 1400;
 /** Dated galaxies within this distance of each other share the axis position. */
 const SAME_INSTANT = 0.002;
 /** One lane holds a glyph, its name and its count; lanes must not collide. */
-const LANE = 96;
+const LANE = 148;
 /** The first lane clears the axis and its date labels. */
 const LANE_TOP = 110;
-const LANE_LIMIT = 6;
 /** Characters drawn from a name before it is clipped with an ellipsis. */
-export const NAME_LIMIT = 13;
+export const NAME_LIMIT = 10;
 
 export type PlacedGalaxy = {
   galaxy: Galaxy;
@@ -149,7 +150,7 @@ const isUndated = (galaxy: Galaxy) => galaxy.u === null;
 function estimatedWidth(galaxy: Galaxy): number {
   const name = galaxy.name.slice(0, NAME_LIMIT).length * 19 + 30;
   /* "10 星 · 08-20" is wider than a short name, so it can set the box width. */
-  const count = galaxy.emergence.date ? 104 : 60;
+  const count = galaxy.emergence.date ? 145 : 75;
   return Math.max(name, count);
 }
 
@@ -162,57 +163,47 @@ function isSameInstant(a: number, b: number): boolean {
   return Math.abs(a - b) < SAME_INSTANT;
 }
 
-/** Vertical space a galaxy needs under its own row: one glyph and its name. */
-const SPAN_LANES = 1;
-
 /**
- * The lane this galaxy should take: the topmost one it does not collide with, and
- * when the axis is too crowded for any lane to be clean, the one it disturbs least.
- * A galaxy takes the topmost lane that is free along its own stretch of the axis, so
- * days close together fan downward instead of printing over one another. The result
- * depends only on the data, so the picture never reshuffles.
+ * Dense periods add rows instead of reusing an occupied one. The SVG grows with
+ * the layout, so labels stay readable even when many records share the same day.
  */
 function chooseLane(
   taken: { left: number; right: number; row: number }[],
   span: { left: number; right: number },
-): { row: number; overlap: number } {
-  let best = { row: 0, overlap: Infinity };
-  for (let row = 0; row < LANE_LIMIT; row += 1) {
-    let overlap = 0;
-    for (const box of taken) {
-      /* Rows are LANE apart; a galaxy occupies its own row and the next one down. */
-      if (box.row < row - (SPAN_LANES - 1) || box.row > row) continue;
-      const horizontal =
-        Math.min(span.right, box.right) - Math.max(span.left, box.left);
-      overlap += Math.max(horizontal, 0);
-    }
-    if (overlap === 0) return { row, overlap };
-    if (overlap < best.overlap) best = { row, overlap };
+): number {
+  for (let row = 0; row <= taken.length; row += 1) {
+    const occupied = taken.some(
+      (box) =>
+        box.row === row && span.left < box.right && span.right > box.left,
+    );
+    if (!occupied) return row;
   }
-  return best;
+  return taken.length;
 }
 
 /** Glyph area grows with the star count, so a nine-star galaxy reads as bigger. */
 function glyphRadius(galaxy: Galaxy): number {
-  return 15 + Math.sqrt(galaxy.stars.length) * 5;
+  return Math.min(36, 15 + Math.sqrt(galaxy.stars.length) * 5);
 }
 
 export function layoutUniverse(universe: Universe): {
   placed: PlacedGalaxy[];
   undated: PlacedGalaxy[];
+  height: number;
 } {
   const placed: PlacedGalaxy[] = [];
   const taken: { left: number; right: number; row: number }[] = [];
   for (const galaxy of universe.galaxies
     .filter((g) => !isUndated(g))
-    .sort((a, b) => (a.u ?? 0) - (b.u ?? 0) || (a.meme_id < b.meme_id ? -1 : 1))) {
+    .sort(
+      (a, b) => (a.u ?? 0) - (b.u ?? 0) || (a.meme_id < b.meme_id ? -1 : 1),
+    )) {
     const x = AXIS_X0 + (galaxy.u ?? 0) * (AXIS_X1 - AXIS_X0);
     const width = estimatedWidth(galaxy);
     const span = { left: x - width / 2, right: x + width / 2 };
-    const { row } = chooseLane(taken, span);
-    const stacked = placed.some(
-      (other) =>
-        other.row === row && isSameInstant(other.galaxy.u ?? 0, galaxy.u ?? 0),
+    const row = chooseLane(taken, span);
+    const stacked = placed.some((other) =>
+      isSameInstant(other.galaxy.u ?? 0, galaxy.u ?? 0),
     );
     taken.push({ ...span, row });
     placed.push({
@@ -226,6 +217,7 @@ export function layoutUniverse(universe: Universe): {
   }
   const undated = universe.galaxies
     .filter(isUndated)
+    .sort((a, b) => a.meme_id.localeCompare(b.meme_id))
     .map((galaxy, index) => ({
       galaxy,
       x: UNDATED_X,
@@ -234,7 +226,11 @@ export function layoutUniverse(universe: Universe): {
       stacked: false,
       radius: glyphRadius(galaxy),
     }));
-  return { placed, undated };
+  const height = Math.max(
+    UNIVERSE_VIEW.height,
+    ...[...placed, ...undated].map((item) => item.y + item.radius + 100),
+  );
+  return { placed, undated, height };
 }
 
 /** A faint arc from a galaxy to the one it was built on. Both ends move with the

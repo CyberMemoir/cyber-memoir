@@ -106,17 +106,21 @@ export default function ArchivePage() {
   return (
     <main id="main" className="archive-main">
       <section className="dome" aria-labelledby="dome-title">
-        <SkyBand universe={universe} />
         <div className="dome-console">
+          <p className="eyebrow hero-eyebrow">
+            <span className="signal-dot" />
+            中文互联网文化档案 <span>/ OPEN ARCHIVE</span>
+          </p>
           <h1 id="dome-title" className="dome-title">
-            记住一个梗，
+            记住一个梗。
             <br />
-            <span>也记住它从哪里来。</span>
+            <span>也记住它的来处。</span>
           </h1>
           <p className="dome-sub">
-            梗、语境与传播轨迹。每一个解释，都有证据可循。
+            从一句话，到一段共同记忆。
+            <br />
+            收录梗的语境与传播轨迹，让每一个解释都有证据可循。
           </p>
-          <div className="horizon" aria-hidden="true" />
           <form
             className="search-form"
             data-state={state}
@@ -128,7 +132,7 @@ export default function ArchivePage() {
             <Icon name="search" size={21} />
             <input
               aria-label="搜索记忆"
-              placeholder="搜索梗、别名、创作者或一句话…"
+              placeholder="一个梗、一个别名，或一句话…"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
@@ -166,13 +170,32 @@ export default function ArchivePage() {
               基于证据回答
             </label>
           </div>
+          <div className="hero-paths">
+            <a href="#memory-index">
+              浏览记忆索引 <span aria-hidden="true">↓</span>
+            </a>
+            <Link href="/submit">
+              留下一份来源 <Icon name="arrow" size={14} />
+            </Link>
+          </div>
           {loading && elapsed > 2 && (
             <p className="retrieval-note console-status" role="status">
               正在检索并核对证据，请勿关闭页面。
             </p>
           )}
         </div>
+        <SkyBand universe={universe} />
       </section>
+
+      <div className="archive-intro">
+        <span className="eyebrow">A LIVING CULTURAL ARCHIVE</span>
+        <p>流行会过去，语境值得留下。</p>
+        <span>
+          {universe
+            ? `${universe.galaxies.length} 条已发布记忆`
+            : "可追溯 · 可修订"}
+        </span>
+      </div>
 
       {error && (
         <div className="error" role="alert">
@@ -182,10 +205,12 @@ export default function ArchivePage() {
           </button>
         </div>
       )}
-      <div className="archive-columns" ref={index}>
+      <div className="archive-columns" ref={index} id="memory-index">
         <section className="archive-panel" aria-busy={loading}>
           <div className="panel-heading">
-            <h2>记忆索引</h2>
+            <h2>
+              <span className="eyebrow">01 / INDEX</span>记忆索引
+            </h2>
             <span>
               {result?.total ?? "—"} 条{submittedQuery ? "相关" : "已审核"}记录
             </span>
@@ -246,7 +271,8 @@ export default function ArchivePage() {
                   : "提交 Bilibili 或抖音来源，核对证据后进入公共索引。"}
               </p>
               <Link className="button outline" href="/submit">
-                提交第一个来源 <Icon name="arrow" />
+                {submittedQuery ? "补充一份来源" : "提交第一个来源"}{" "}
+                <Icon name="arrow" />
               </Link>
             </div>
           )}
@@ -267,43 +293,50 @@ export default function ArchivePage() {
                   { "--row": Math.min(position, 8) } as React.CSSProperties
                 }
               >
-                <Link href={`/memes/${meme.id}`}>
-                  <h3>
-                    {meme.canonical_name}
-                    <Icon name="arrow" />
-                  </h3>
-                </Link>
-                {meme.aliases.length > 0 && (
-                  <p className="aliases">也叫 {meme.aliases.join(" / ")}</p>
-                )}
-                <p>{meme.definition}</p>
-                <div className="row-meta">
-                  <span>
-                    {Array.from(
-                      new Set(meme.evidence.map((e) => e.source?.platform)),
-                    )
-                      .map((p) => (p === "bilibili" ? "Bilibili" : "抖音"))
-                      .join(" / ")}
-                    {" · "}
-                    {meme.evidence.length} 份证据 · 修订{" "}
-                    {meme.published_revision}
-                    {" · "}
-                    {meme.origin_status === "unknown"
-                      ? "起源尚未确认"
-                      : meme.origin_status === "disputed"
-                        ? "来源存在争议"
-                        : "有证据支持的来源主张"}
-                    {/* A retrieval score is only a score when the pipeline says its
+                <span className="row-number" aria-hidden="true">
+                  {String(position + 1).padStart(2, "0")}
+                </span>
+                <div className="row-content">
+                  <Link href={`/memes/${meme.id}`}>
+                    <h3>
+                      {meme.canonical_name}
+                      <Icon name="arrow" />
+                    </h3>
+                  </Link>
+                  {meme.aliases.length > 0 && (
+                    <p className="aliases">也叫 {meme.aliases.join(" / ")}</p>
+                  )}
+                  <p>{meme.definition}</p>
+                  <div className="row-meta">
+                    <span>
+                      {Array.from(
+                        new Set(meme.evidence.map((e) => e.source?.platform)),
+                      )
+                        .map((p) => (p === "bilibili" ? "Bilibili" : "抖音"))
+                        .join(" / ")}
+                      {" · "}
+                      {meme.evidence.length} 份证据 · 修订{" "}
+                      {meme.published_revision}
+                      {" · "}
+                      {meme.origin_status === "unknown"
+                        ? "起源尚未确认"
+                        : meme.origin_status === "disputed"
+                          ? "来源存在争议"
+                          : "有证据支持的来源主张"}
+                      {/* A retrieval score is only a score when the pipeline says its
                         scores are calibrated; otherwise the number would be noise. */}
-                    {result.scores_calibrated &&
-                    typeof meme.retrieval_score === "number"
-                      ? ` · 检索分 ${meme.retrieval_score.toFixed(3)}`
-                      : ""}
-                  </span>
-                  <span className="row-links">
-                    <Link href={`/universe?meme=${meme.id}`}>在星图中查看</Link>
-                    <Link href={`/memes/${meme.id}`}>查看语境与证据</Link>
-                  </span>
+                      {result.scores_calibrated &&
+                      typeof meme.retrieval_score === "number"
+                        ? ` · 检索分 ${meme.retrieval_score.toFixed(3)}`
+                        : ""}
+                    </span>
+                    <span className="row-links">
+                      <Link href={`/universe?meme=${meme.id}`}>
+                        在星图中查看
+                      </Link>
+                      <Link href={`/memes/${meme.id}`}>查看语境与证据</Link>
+                    </span>
+                  </div>
                 </div>
               </article>
             ))}
