@@ -35,11 +35,56 @@ export default function ArchivePage() {
   const [universe, setUniverse] = useState<Universe | null>(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
+  const [answerLoading, setAnswerLoading] = useState(false);
+  const [answerError, setAnswerError] = useState("");
+  const activeRequest = useRef<AbortController | null>(null);
+  const answerRequest = useRef<{
+    query: string;
+    platform: string | null;
+  } | null>(null);
   const [elapsed, setElapsed] = useState(0);
   const serial = useRef(0);
   const lastRequest = useRef<SearchRequest | null>(null);
   const index = useRef<HTMLDivElement | null>(null);
   const reduced = useReducedMotion();
+
+  function cancel() {
+    ++serial.current;
+    activeRequest.current?.abort();
+    if (answerLoading) setAnswerError("已取消回答等待，检索结果已保留。");
+    if (loading) setError("已取消检索等待。");
+    setLoading(false);
+    setAnswerLoading(false);
+  }
+
+  async function fetchAnswer(
+    body: { query: string; platform: string | null },
+    id: number,
+  ) {
+    answerRequest.current = body;
+    const controller = new AbortController();
+    activeRequest.current = controller;
+    setAnswerLoading(true);
+    setAnswerError("");
+    const timer = window.setTimeout(() => controller.abort(), 300000);
+    try {
+      const response = await api<Answer>("/v1/answers", {
+        ...post(body),
+        signal: controller.signal,
+      });
+      if (serial.current === id) setAnswer(response);
+    } catch (e) {
+      if (serial.current === id)
+        setAnswerError(
+          controller.signal.aborted
+            ? "回答等待超时。检索结果已保留，可以重试回答。"
+            : (e as Error).message,
+        );
+    } finally {
+      window.clearTimeout(timer);
+      if (serial.current === id) setAnswerLoading(false);
+    }
+  }
 
   async function run(
     nextPlatform = platform,
@@ -58,10 +103,16 @@ export default function ArchivePage() {
     const searchQuery = request.query;
     offset = request.offset;
     const id = ++serial.current;
+    activeRequest.current?.abort();
+    const controller = new AbortController();
+    activeRequest.current = controller;
+    setAnswerLoading(false);
+    setAnswerError("");
     setError("");
     setLoading(true);
     setElapsed(0);
     if (!offset) setAnswer(null);
+    const timer = window.setTimeout(() => controller.abort(), 300000);
     try {
       const body = {
         query: searchQuery,
@@ -69,7 +120,10 @@ export default function ArchivePage() {
         limit: 20,
         offset,
       };
-      const data = await api<SearchResult>("/v1/search", post(body));
+      const data = await api<SearchResult>("/v1/search", {
+        ...post(body),
+        signal: controller.signal,
+      });
       if (serial.current !== id) return;
       setSubmittedQuery(searchQuery);
       setSubmittedPlatform(body.platform);
@@ -78,10 +132,8 @@ export default function ArchivePage() {
           ? { ...data, items: [...(result?.items || []), ...data.items] }
           : data,
       );
-      if (!offset && request.answer && searchQuery.trim()) {
-        const response = await api<Answer>("/v1/answers", post(body));
-        if (serial.current === id) setAnswer(response);
-      }
+      window.clearTimeout(timer);
+      setLoading(false);
       /* A search asked from the console should land where its results are; the
          initial catalogue load should not move the page at all. */
       if (request.reveal && serial.current === id) {
@@ -90,14 +142,27 @@ export default function ArchivePage() {
           block: "start",
         });
       }
+      if (!offset && request.answer && searchQuery.trim()) {
+        await fetchAnswer(body, id);
+      }
     } catch (e) {
-      if (serial.current === id) setError((e as Error).message);
+      if (serial.current === id)
+        setError(
+          controller.signal.aborted
+            ? "检索等待超时，请重试或换一个更具体的描述。"
+            : (e as Error).message,
+        );
     } finally {
+      window.clearTimeout(timer);
       if (serial.current === id) setLoading(false);
     }
   }
   useEffect(() => {
     void run(); /* initial catalog */
+    return () => {
+      ++serial.current;
+      activeRequest.current?.abort();
+    };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
   /* The sky is decoration and a way in; if it fails the page still works, so a
      failure here is silent rather than an error beside the search. */
@@ -110,10 +175,10 @@ export default function ArchivePage() {
      without promising a duration this deployment cannot keep. Nothing here fires on
      a keystroke: the run is submitted with the form. */
   useEffect(() => {
-    if (!loading) return;
+    if (!loading && !answerLoading) return;
     const timer = window.setInterval(() => setElapsed((n) => n + 1), 1000);
     return () => window.clearInterval(timer);
-  }, [loading]);
+  }, [loading, answerLoading]);
 
   const state: ConsoleState = error
     ? "error"
@@ -200,9 +265,15 @@ export default function ArchivePage() {
               留下一份来源 <Icon name="arrow" size={14} />
             </Link>
           </div>
-          {loading && elapsed > 2 && (
+          {(loading || answerLoading) && (
             <p className="retrieval-note console-status" role="status">
-              正在检索并核对证据，请勿关闭页面。
+              {answerLoading
+                ? "检索完成，正在整理证据回答。"
+                : "正在检索记忆。"}
+              {elapsed > 30 && " 本次处理较慢，你可以取消等待。"}
+              <button type="button" className="text-button" onClick={cancel}>
+                取消等待
+              </button>
             </p>
           )}
         </div>
@@ -243,6 +314,21 @@ export default function ArchivePage() {
               {result?.total ?? "—"} 条{submittedQuery ? "相关" : "已审核"}记录
             </span>
           </div>
+          {answerError && (
+            <div className="error" role="alert">
+              回答暂不可用：{answerError}
+              <button
+                className="text-button"
+                disabled={answerLoading}
+                onClick={() => {
+                  if (answerRequest.current)
+                    void fetchAnswer(answerRequest.current, ++serial.current);
+                }}
+              >
+                重试回答
+              </button>
+            </div>
+          )}
           {/* An abstention is a result. When `claims` is empty the answer text and
               the uncertainties are still the API's own, so they are rendered in the
               same place and the same style as any other answer - never as an error. */}
@@ -372,7 +458,7 @@ export default function ArchivePage() {
           {result && result.items.length < result.total && (
             <button
               className="load-more"
-              disabled={loading}
+              disabled={loading || answerLoading}
               onClick={() => void run(platform, result.items.length)}
             >
               加载更多

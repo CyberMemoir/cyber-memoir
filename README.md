@@ -148,3 +148,5 @@ answer_question(question, platform?)
 ## 文档
 
 [架构](ARCHITECTURE.md) · [关键决策](docs/adr/0001-evidence-first.md) · [验证记录与边界](docs/VERIFICATION.md) · [贡献指南](CONTRIBUTING.md)
+
+检索评测、人工描述集与断点续跑：[EVALUATION.md](docs/EVALUATION.md)。

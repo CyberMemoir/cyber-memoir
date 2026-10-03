@@ -1,5 +1,9 @@
+import hashlib
 import json
+import math
 import threading
+import time
+from collections import OrderedDict
 from functools import lru_cache
 
 import httpx
@@ -32,28 +36,62 @@ def embed(texts: list[str]) -> list[list[float]] | None:
 # cannot enforce the retrieval floor, so the archive would answer where it should
 # abstain. If the queue is the bottleneck, the fix is more machine, not a looser answer.
 _RERANK = threading.Lock()
+_SCORES: OrderedDict[str, tuple[float, tuple[float, ...]]] = OrderedDict()
+_SCORE_TTL = 300
+_SCORE_LIMIT = 64
 
 
-@lru_cache
 def reranker():
+    cfg = settings()
+    return _load_reranker(cfg.reranker_model, cfg.reranker_threads)
+
+
+@lru_cache(maxsize=1)
+def _load_reranker(model: str, threads: int):
     from FlagEmbedding import FlagReranker
 
-    threads = settings().reranker_threads
     if threads > 0:
         import torch
 
         # Left alone by default: torch picks a sensible count per machine. Set it to
         # keep a shared box responsive while a rerank runs.
         torch.set_num_threads(threads)
-    return FlagReranker(settings().reranker_model, use_fp16=False)
+    return FlagReranker(model, use_fp16=False)
 
 
 def rerank(query: str, texts: list[str]) -> list[float] | None:
-    if settings().reranker_backend != "local" or not texts:
+    cfg = settings()
+    if cfg.reranker_backend != "local" or not texts:
         return None
+    # Only scores are reused. Eligibility, evidence, revisions and citations are
+    # read afresh by search/answer, so retraction never waits for cache expiry.
+    key = hashlib.sha256(
+        json.dumps(
+            [
+                getattr(cfg, "reranker_model", ""),
+                getattr(cfg, "reranker_threads", 0),
+                id(reranker),
+                query,
+                texts,
+            ],
+            ensure_ascii=False,
+        ).encode()
+    ).hexdigest()
     with _RERANK:
+        now = time.monotonic()
+        cached = _SCORES.get(key)
+        if cached and now - cached[0] < _SCORE_TTL:
+            _SCORES.move_to_end(key)
+            return list(cached[1])
         scores = reranker().compute_score([[query, text] for text in texts], normalize=True)
-    return [float(scores)] if isinstance(scores, (float, int)) else [float(x) for x in scores]
+        values = [float(scores)] if isinstance(scores, (float, int)) else [float(x) for x in scores]
+        if len(values) != len(texts) or not all(math.isfinite(x) for x in values):
+            raise ValueError("Invalid reranker scores")
+        _SCORES[key] = (time.monotonic(), tuple(values))
+        _SCORES.move_to_end(key)
+        while len(_SCORES) > _SCORE_LIMIT:
+            _SCORES.popitem(last=False)
+        return values
 
 
 def generate_json(system: str, payload: dict) -> dict | None:
