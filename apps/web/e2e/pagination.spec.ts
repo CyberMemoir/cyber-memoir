@@ -1,5 +1,104 @@
 import { expect, test } from "@playwright/test";
 
+function searchPage(query: string, offset: number) {
+  return {
+    items: [
+      {
+        id: `synthetic-${offset}`,
+        canonical_name: `合成分页记录 ${offset}`,
+        aliases: [],
+        definition: "仅用于浏览器测试，不写入真实档案。",
+        evidence: [],
+        published_revision: 1,
+        origin_status: "unknown",
+      },
+    ],
+    total: 2,
+    channels: ["catalog"],
+    degraded: [],
+    scores_calibrated: false,
+    query,
+  };
+}
+
+test("retry preserves a failed page request despite edited input", async ({
+  page,
+}) => {
+  const requests: { query: string; offset: number; platform: string | null }[] =
+    [];
+  let failPage = true;
+  await page.route("**/api/v1/universe", (route) =>
+    route.fulfill({ status: 503 }),
+  );
+  await page.route("**/api/v1/search", async (route) => {
+    const body = route.request().postDataJSON();
+    requests.push(body);
+    if (body.offset && failPage) {
+      failPage = false;
+      await route.fulfill({ status: 503, json: { detail: "合成分页失败" } });
+    } else {
+      await route.fulfill({ json: searchPage(body.query, body.offset) });
+    }
+  });
+  await page.goto("/");
+  await expect(page.getByRole("button", { name: "加载更多" })).toBeEnabled();
+  await page.getByRole("textbox", { name: "搜索记忆" }).fill("原查询");
+  await page.getByRole("button", { name: "搜索记忆", exact: true }).click();
+  await expect(page.getByRole("button", { name: "加载更多" })).toBeEnabled();
+  await page.getByRole("button", { name: "加载更多" }).click();
+  await expect(
+    page.getByRole("alert").filter({ hasText: "合成分页失败" }),
+  ).toBeVisible();
+  await page
+    .getByRole("textbox", { name: "搜索记忆" })
+    .fill("尚未提交的新查询");
+  await page.getByRole("button", { name: "重试", exact: true }).click();
+  await expect(page.locator(".meme-row")).toHaveCount(2);
+  expect(requests.slice(-2)).toEqual([
+    { query: "原查询", platform: null, limit: 20, offset: 1 },
+    { query: "原查询", platform: null, limit: 20, offset: 1 },
+  ]);
+});
+
+test("pagination retains the evidence answer without another answer request", async ({
+  page,
+}) => {
+  let answerRequests = 0;
+  await page.route("**/api/v1/universe", (route) =>
+    route.fulfill({ status: 503 }),
+  );
+  await page.route("**/api/v1/search", (route) => {
+    const body = route.request().postDataJSON();
+    return route.fulfill({ json: searchPage(body.query, body.offset) });
+  });
+  await page.route("**/api/v1/answers", (route) => {
+    answerRequests++;
+    return route.fulfill({
+      json: {
+        answer: "合成证据回答",
+        claims: [],
+        citations: [],
+        uncertainties: [],
+        channels: ["catalog"],
+        mode: "extractive",
+      },
+    });
+  });
+  await page.goto("/");
+  await expect(page.getByRole("button", { name: "加载更多" })).toBeEnabled();
+  await page.getByRole("textbox", { name: "搜索记忆" }).fill("合成查询");
+  await page.getByRole("checkbox", { name: "基于证据回答" }).check();
+  await page.getByRole("button", { name: "搜索记忆", exact: true }).click();
+  await expect(page.locator(".answer-text")).toHaveText("合成证据回答");
+  await page.getByRole("button", { name: "加载更多" }).click();
+  await expect(page.locator(".meme-row")).toHaveCount(2);
+  await expect(
+    page.getByRole("button", { name: "搜索记忆", exact: true }),
+  ).toBeEnabled();
+  await expect(page.locator(".answer-text")).toHaveText("合成证据回答");
+  expect(answerRequests).toBe(1);
+});
+
 test("editing the search input does not change the query for the next page", async ({
   page,
 }) => {

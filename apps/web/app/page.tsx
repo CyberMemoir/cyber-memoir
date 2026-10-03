@@ -14,6 +14,13 @@ import { SkyBand } from "@/components/sky-band";
 import { useReducedMotion } from "@/lib/motion";
 
 type ConsoleState = "idle" | "searching" | "answered" | "abstained" | "error";
+type SearchRequest = {
+  query: string;
+  platform: string | null;
+  offset: number;
+  answer: boolean;
+  reveal: boolean;
+};
 
 export default function ArchivePage() {
   const [query, setQuery] = useState("");
@@ -30,20 +37,35 @@ export default function ArchivePage() {
   const [loading, setLoading] = useState(true);
   const [elapsed, setElapsed] = useState(0);
   const serial = useRef(0);
+  const lastRequest = useRef<SearchRequest | null>(null);
   const index = useRef<HTMLDivElement | null>(null);
   const reduced = useReducedMotion();
 
-  async function run(nextPlatform = platform, offset = 0, reveal = false) {
-    const searchQuery = offset ? submittedQuery : query;
+  async function run(
+    nextPlatform = platform,
+    offset = 0,
+    reveal = false,
+    retry?: SearchRequest,
+  ) {
+    const request = retry ?? {
+      query: offset ? submittedQuery : query,
+      platform: offset ? submittedPlatform : nextPlatform,
+      offset,
+      answer: rag,
+      reveal,
+    };
+    lastRequest.current = request;
+    const searchQuery = request.query;
+    offset = request.offset;
     const id = ++serial.current;
     setError("");
     setLoading(true);
     setElapsed(0);
-    setAnswer(null);
+    if (!offset) setAnswer(null);
     try {
       const body = {
         query: searchQuery,
-        platform: offset ? submittedPlatform : nextPlatform,
+        platform: request.platform,
         limit: 20,
         offset,
       };
@@ -56,13 +78,13 @@ export default function ArchivePage() {
           ? { ...data, items: [...(result?.items || []), ...data.items] }
           : data,
       );
-      if (rag && searchQuery.trim()) {
+      if (!offset && request.answer && searchQuery.trim()) {
         const response = await api<Answer>("/v1/answers", post(body));
         if (serial.current === id) setAnswer(response);
       }
       /* A search asked from the console should land where its results are; the
          initial catalogue load should not move the page at all. */
-      if (reveal && serial.current === id) {
+      if (request.reveal && serial.current === id) {
         index.current?.scrollIntoView({
           behavior: reduced ? "auto" : "smooth",
           block: "start",
@@ -200,7 +222,13 @@ export default function ArchivePage() {
       {error && (
         <div className="error" role="alert">
           {error}
-          <button className="text-button" onClick={() => void run()}>
+          <button
+            className="text-button"
+            onClick={() => {
+              if (lastRequest.current)
+                void run(platform, 0, false, lastRequest.current);
+            }}
+          >
             重试
           </button>
         </div>
