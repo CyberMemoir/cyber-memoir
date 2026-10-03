@@ -52,7 +52,7 @@ def test_only_one_rerank_runs_at_a_time(monkeypatch, env):
 
     results = run_together(6)
 
-    assert recorder.calls == 6, "every caller must still get a score"
+    assert recorder.calls == 1, "identical queued callers reuse calibrated scores"
     assert recorder.peak == 1, "two reranks overlapped: %d" % recorder.peak
     assert all(scores == [0.5, 0.5] for scores in results)
 
@@ -69,3 +69,27 @@ def test_a_queued_caller_is_never_handed_uncalibrated_scores(monkeypatch, env):
 def test_the_backend_switch_still_short_circuits(monkeypatch, env):
     monkeypatch.setattr(inference, "settings", lambda: type("S", (), {"reranker_backend": "disabled"})())
     assert inference.rerank("q", ["a"]) is None
+
+
+def test_cache_does_not_reuse_changed_inputs_or_mutable_results(monkeypatch, env):
+    recorder = Recorder()
+    monkeypatch.setattr(inference, "reranker", lambda: recorder)
+    inference._SCORES.clear()
+    monkeypatch.setenv("RERANKER_BACKEND", "local")
+    from cyber_memoir.config import settings
+
+    settings.cache_clear()
+    first = inference.rerank("q", ["a", "b"])
+    first[0] = 99
+    assert inference.rerank("q", ["a", "b"]) == [0.5, 0.5]
+    inference.rerank("changed query", ["a", "b"])
+    inference.rerank("q", ["b", "a"])
+    inference.rerank("q", ["changed evidence", "b"])
+    assert recorder.calls == 4
+    monkeypatch.setenv("RERANKER_MODEL", "different-snapshot")
+    settings.cache_clear()
+    inference.rerank("q", ["a", "b"])
+    assert recorder.calls == 5
+    monkeypatch.setattr(inference, "_SCORE_TTL", 0)
+    inference.rerank("q", ["a", "b"])
+    assert recorder.calls == 6

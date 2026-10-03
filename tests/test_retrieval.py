@@ -7,6 +7,33 @@ from cyber_memoir.search.indexing import index_meme
 from cyber_memoir.search.retrieval import rrf
 
 
+def test_search_and_answer_reuse_scores_but_retraction_is_immediate(client, prepared, monkeypatch, env):
+    from test_rerank_concurrency import Recorder
+
+    from cyber_memoir.adapters import inference
+
+    item = prepared(name="合成复用测试")
+    with Session(env) as db:
+        index_meme(db, item["meme_id"])
+        db.commit()
+    recorder = Recorder()
+    inference._SCORES.clear()
+    monkeypatch.setattr(inference, "reranker", lambda: recorder)
+    monkeypatch.setenv("RERANKER_BACKEND", "local")
+    settings.cache_clear()
+    body = {"query": "合成复用测试"}
+    assert client.post("/v1/search", json=body).json()["items"]
+    assert client.post("/v1/answers", json=body).json()["claims"]
+    assert recorder.calls == 1
+    response = client.post(
+        f"/v1/reviews/memes/{item['meme_id']}/retract",
+        headers={"Authorization": "Bearer unit-test-reviewer"},
+        json={"reason": "合成测试撤回"},
+    )
+    assert response.status_code == 200
+    assert not client.post("/v1/answers", json=body).json()["claims"]
+
+
 @pytest.mark.parametrize("url", [False, True])
 def test_video_identity_search_preserves_case(client, prepared, env, url):
     upper = prepared(name="大小写视频甲")
