@@ -1,0 +1,142 @@
+slug: 2026
+resolved: false
+canonical_name: 2026北极熊
+aliases: []
+definition: 一张配文「这是26年十一月的梗，你现在还看不懂」的北极熊图，被网友发展成「北极熊怪谈」，衍生出模拟恐怖和抽象欢乐的二创。
+usage_context: ''
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV16bvWBWEpJ
+  role: derivative
+  note: 关于2026北极熊说怎么走路的（BV1DSirBREDy 画面中引用）
+evidence_map:
+  ocr-narration-BV1DSirBREDy: null
+  ocr-BV16bvWBWEpJ: null
+claims:
+- key: definition
+  statement: 一张配文「这是26年十一月的梗，你现在还看不懂」的北极熊图，被网友发展成「北极熊怪谈」，衍生出模拟恐怖和抽象欢乐的二创。
+  evidence:
+  - ocr-narration-BV1DSirBREDy
+  stance: supports
+events:
+- event_type: remix
+  description: 2026北极熊 出现衍生作品《关于2026北极熊说怎么走路的》
+  occurred_at_start: 2025-12-29 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1DSirBREDy 画面引用发现
+  evidence:
+  - ocr-BV16bvWBWEpJ
+relations: []
+gold:
+  canonical:
+  - 2026北极熊
+  alias: []
+  origin_intent:
+  - 2026北极熊的出处
+  description:
+  - 配文写着这是26年十一月的梗、你现在还看不懂的那张图
+  - 核电站泄露让北极熊变异的那段模拟恐怖视频
+  must_not_return: []
+  description_source: model
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis:
+  - 002.0s 这个梗呢
+  - 003.0s 虽说叫2026北极熊这个名字
+  - 005.0s 但是它其实并不是一个新梗
+  - 007.0s 而是早在23年就出现过了
+  - 009.0s 这个梗最早可以追溯到23年3月
+  - 012.0s 一位叫gmd_arahis"的俄罗斯博主
+  - 014.0s 在TikTok上发布的一张图
+  - 016.0s 并且还配文
+  - 017.0s “这是26年十一月的梗，你现在还看不懂”
+  - 035.0s 直到当年的9月
+  - 037.0s 这个meme的传播
+  - 042.0s 还是因为一些网友的吐槽和猎奇心理
+  - 046.0s 很多网友逐渐将它衍生成为了一种
+  - 049.0s “北极熊怪谈”
+  - 050.0s 并开始对其疯狂解构
+  - 052.0s 直到9月17号呢
+  - 054.0s 一位名叫"KoshkoVumen"的网友
+  - 056.0s 发布了一个名为《PolarBear29.09.2026》的视频
+  - 061.0s 视频中描述了一个核电站泄露
+  - 063.0s 导致北极熊变异的故事
+  - 065.0s 颇有一种模拟恐怖感
+  - 112.0s 有些网友叫他2026年第一梗
+  draft_notes: '段落边界（D-14）：BV1DSirBREDy 整集只有一个梗（2026北极熊），解说 002-114s。005-033s 讲这张图的来历与当初没火起来，035-065s
+    讲 9 月起传播的转折与「北极熊怪谈」、KoshkoVumen 的模拟恐怖视频，097-114s 讲后续二创与「2026年第一梗」；画面 040-115s
+    是各平台二创署名（108s BV16bvWBWEpJ）。定义取 003/007/009/012/014/016/017/046/049s。
+
+    usage_context 留空（D-10）：042-050s（网友的吐槽和猎奇心理、衍生成为「北极熊怪谈」、疯狂解构）与 105-108s（更多怪谈内容、抽象欢乐的二创）都是传播与衍生，本集没有一句说人们拿它来做什么。
+
+    未写（D-4）：052-065s 的 9月17号、KoshkoVumen、《PolarBear29.09.2026》、核电站泄露导致北极熊变异都是事件与来源材料（GPT
+    的范畴），没有写进定义；017s 的配文是这张图自己的文案，按解说原文照抄。
+
+    OCR 可疑未改：012s 的引号残缺（一位叫gmd_arahis"的俄罗斯博主）；054s 同样残缺（一位名叫"KoshkoVumen"的网友）；014s
+    的 TikTok 大小写照抄；103s「也让大家创作出了越来越多的创」句子断裂。均照抄在 basis 中，没有补字。
+
+    可疑关系（只报告，未改）：本条只有一条已解析衍生作品 BV16bvWBWEpJ（画面 108s，平台日期 2025-12-29，关于2026北极熊说怎么走路的），与
+    events 一致，但它的日期早于集名里的 2026，请 GPT 判断这种时间关系是否正常；画面 040-115s 的其他二创署名（@nirami1、@theulter、@xoahra、@fustonian
+    等）没有对应的已解析行，我没有补。
+
+    未发现只存在于画面、且定义必须依赖的含义，故未加 automation_hold。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - One supported20251229 remix; quoted26年十一月 is image caption, not asserted future
+    event. No primary origin relation.
+  description_query_provenance:
+    author: DeepSeek
+    source: model
+    proposed_at: '2026-09-30'
+    basis: Blind source-only proposals before definition drafting.
+    proposal_file: ai_context/model_queries_batches7_8.yaml
+    source_episode: BV1DSirBREDy
+    source_spans:
+    - 009.0s 这个梗最早可以追溯到23年3月
+    - 012.0s 一位叫gmd_arahis"的俄罗斯博主
+    - 014.0s 在TikTok上发布的一张图
+    - 017.0s “这是26年十一月的梗，你现在还看不懂”
+    - 056.0s 发布了一个名为《PolarBear29.09.2026》的视频
+    - 061.0s 视频中描述了一个核电站泄露
+    - 063.0s 导致北极熊变异的故事
+    - 065.0s 颇有一种模拟恐怖感
+    reviewer: gpt
+    reviewed_at: '2026-10-01'
+    semantic_review: Both proposals source-supported:017s literal caption;056/061/063/065s
+      fictional horror video. The second describes a derivative of the same bear identity,
+      not a real nuclear accident; exact spans verified.
+  gpt_repair_notes: Definition focuses on image/caption and documented derivative
+    forms; first-uploader/date claim not needed for identity and omitted, unknown
+    origins retained.108s exact title/author 健康的小号 and CSV20251229 support one remix;2026
+    in meme name is not upload date or factual future-event forecast.
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: Full BV1DSirBREDy narration002-114s,screen001-115s and108s citation
+        frame read;003/014/017/046/049s identifies same captioned bear image and horror
+        extensions.
+      meaning: 017s caption copied verbatim;046/049/061/063/065/105/108s support fictional
+        horror and abstract derivatives. Creator nationality/earliest date omitted
+        from definition; no forecast/real accident asserted.
+      usage: Empty retained;042-050/097-108s describe propagation and creative extension,
+        not additional explicit posting purpose.
+      origins: Unknown origin fields and empty relations retained. gmd_arahis attribution
+        appears narration012/screen014, but no primary platform source/date independently
+        resolved; no original-creator relation invented.
+      events: 108s exact BV16bvWBWEpJ/title/健康的小号 match resolved CSV20251229, retained
+        one remix. Unresolved/non-BV credits and undated KoshkoVumen story do not
+        create dated events.
+      queries: Two preexisting blind source-only proposals independently checked against017/056/061/063/065s
+        and exact source_spans. Added only to empty field as MODEL with author/basis,
+        not human benchmark.
+    fingerprint: 6397ac923994895d20432e58eeae4194115a100126afe1ea966b1cc39015aeba

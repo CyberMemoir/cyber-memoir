@@ -1,0 +1,210 @@
+slug: be-water
+resolved: false
+canonical_name: Be water
+aliases: []
+definition: 出自「李小龙」的一段话：「变得像水一样吧我的朋友」；被做成让角色打坐、配着文案「be water my friend」的 AI 模板。
+usage_context: 角色打坐模板用来达成一种放空自己的感觉；也有人引用李小龙端坐船头的图片激励自己。
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1Uv411P7m5
+  role: reference
+  note: 李小龙电视访谈完整版（迄今为止翻译较好的一个版本）（BV1FUBrBLESX 画面中引用）
+- url: https://www.bilibili.com/video/BV1Fi421d7NY
+  role: reference
+  note: 干货！《功夫熊猫4》阿宝带你一起放松身心，快来跟练！（BV1FUBrBLESX 画面中引用）
+- url: https://www.bilibili.com/video/BV1UUqpBBEZ3
+  role: derivative
+  note: “Be water my friend” T0牙仙如是说（BV1FUBrBLESX 画面中引用）
+- url: https://www.bilibili.com/video/BV1fKqHBEECZ
+  role: derivative
+  note: 静下心来，像水一样（BV1FUBrBLESX 画面中引用）
+- url: https://www.bilibili.com/video/BV1NCqqBuE3Q
+  role: reference
+  note: “静下心来 be water my friend .”（BV1FUBrBLESX 画面中引用）
+- url: https://www.bilibili.com/video/BV141qrBWEaZ
+  role: derivative
+  note: 静下心来，Be water my friend（BV1FUBrBLESX 画面中引用）
+- url: https://www.bilibili.com/video/BV1X5BxBpEUa
+  role: derivative
+  note: Be water my friend...（BV1FUBrBLESX 画面中引用）
+- url: https://www.bilibili.com/video/BV1EcBxBAEdm
+  role: derivative
+  note: 💧“静下心来，咕咕嘎嘎!!!”💧（BV1FUBrBLESX 画面中引用）
+evidence_map:
+  ocr-narration-BV1FUBrBLESX: null
+  ocr-BV1Uv411P7m5: null
+  ocr-BV1Fi421d7NY: null
+  ocr-BV1UUqpBBEZ3: null
+  ocr-BV1fKqHBEECZ: null
+  ocr-BV1NCqqBuE3Q: null
+  ocr-BV141qrBWEaZ: null
+  ocr-BV1X5BxBpEUa: null
+  ocr-BV1EcBxBAEdm: null
+claims:
+- key: definition
+  statement: 出自「李小龙」的一段话：「变得像水一样吧我的朋友」；被做成让角色打坐、配着文案「be water my friend」的 AI 模板。
+  evidence:
+  - ocr-narration-BV1FUBrBLESX
+  stance: supports
+- key: usage_context
+  statement: 角色打坐模板用来达成一种放空自己的感觉；也有人引用李小龙端坐船头的图片激励自己。
+  evidence:
+  - ocr-narration-BV1FUBrBLESX
+  stance: supports
+events:
+- event_type: remix
+  description: Be water 出现衍生作品《“Be water my friend” T0牙仙如是说》
+  occurred_at_start: 2025-12-18 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1FUBrBLESX 画面引用发现
+  evidence:
+  - ocr-BV1UUqpBBEZ3
+- event_type: remix
+  description: Be water 出现衍生作品《静下心来，像水一样》
+  occurred_at_start: 2025-12-18 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1FUBrBLESX 画面引用发现
+  evidence:
+  - ocr-BV1fKqHBEECZ
+- event_type: remix
+  description: Be water 出现衍生作品《静下心来，Be water my friend》
+  occurred_at_start: 2025-12-20 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1FUBrBLESX 画面引用发现
+  evidence:
+  - ocr-BV141qrBWEaZ
+- event_type: remix
+  description: Be water 出现衍生作品《Be water my friend...》
+  occurred_at_start: 2025-12-22 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1FUBrBLESX 画面引用发现
+  evidence:
+  - ocr-BV1X5BxBpEUa
+- event_type: remix
+  description: Be water 出现衍生作品《💧“静下心来，咕咕嘎嘎!!!”💧》
+  occurred_at_start: 2025-12-22 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1FUBrBLESX 画面引用发现
+  evidence:
+  - ocr-BV1EcBxBAEdm
+relations: []
+gold:
+  canonical:
+  - Be water
+  alias: []
+  origin_intent:
+  - Be water的出处
+  description:
+  - 让角色在视频里打坐、配电音和放空文案的那个AI模板
+  - 李小龙那段关于水的名言，配上他坐在船头的那张图
+  must_not_return: []
+  description_source: model
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis:
+  - 003.0s 这又是最近一个很火的ai模板啦
+  - 005.0s 大致内容就是让角色在视频中打坐
+  - 008.0s 配合上电音bgm《Alone》的变奏和文案“be watermy friend"
+  - 012.0s 来达成一种放空自己的感觉
+  - 019.0s 这其实是李小龙说过的一段话
+  - 021.0s 其具体出自一个叫做《Bruce-Lee:The-LostInterview》的视频
+  - 026.0s 是1971年李小龙在一个名叫《皮埃尔伯顿秀》的节目中
+  - 038.0s 其中就包括了“成为水”的这一段
+  - 052.0s 变得像水一样吧我的朋友我是这么说的知道吧
+  - 058.0s “人要像水一样开放适应一切”的人生哲理
+  - 061.0s 而打坐的这个动作的来源就比较模棱两可
+  - 064.0s 有人说可能和《功夫熊猫4》》中的一个“心如止水”的打坐片段有关
+  - 071.0s 可能是李小龙ins官方账号于今年1月3号发布的一张图
+  - 075.0s 图中的李小龙端坐在船头
+  - 079.0s 而配文也正是这句“be water,my friend"
+  - 082.0s 因为这个镜头配合这句话有一种特别的禅意
+  - 088.0s 一直以来都有人引用这张图激励自己
+  - 091.0s 也有网友会单独提出来这段话
+  - 108.0s 就用ai制作了各种各样的角色来模仿这个动作
+  - 112.0s 使得这个梗模板火了起来
+  draft_notes: '段落边界（D-14）：BV1FUBrBLESX 整集只有一个梗（Be water）。003-012s 讲这个 AI 模板本身（角色打坐＋《Alone》变奏＋文案），014-030s
+    讲这句话出自李小龙 1971 年的访谈，033-052s 是访谈里「成为水」那段的解说复述，055-058s 讲这句话的哲理，061-093s 讲打坐动作的两种说法与李小龙
+    ins 那张船头图，097-112s 讲李小龙诞辰 85 周年前后的纪念与 AI 二创。定义取 003/005/008/012/019/021/038/052/079/112s，usage
+    取 012/088s。
+
+    usage_context 依据：012s「来达成一种放空自己的感觉」与 088s「一直以来都有人引用这张图激励自己」说明用法与目的；108-112s（用
+    ai 制作各种角色模仿这个动作、模板火了起来）是二创与传播，没有写进 usage。
+
+    OCR 可疑未改：008s 的文案引号残缺且 water 与 my 之间缺空格（“be watermy friend"），079s 作「be water,my
+    friend」，定义按 flat 后一致的形式引用；021s《Bruce-Lee:The-LostInterview》、036s《long street》、064s《功夫熊猫4》》都带
+    OCR 痕迹（064s 多一个右书名号），045s「它就变成瓶子1你把它倒茶壶里」中间多一个「1」，均照抄在 basis 中，未改。
+
+    未写（D-4）：064s「有人说可能和《功夫熊猫4》中的『心如止水』打坐片段有关」带「可能」，061s 也说打坐的来源模棱两可，所以定义没有写打坐动作的出处；071/075s
+    的船头图与 ins 账号、097s 的诞辰 85 周年、101s 的纪念都属事件与来源材料，未写。
+
+    可疑关系（只报告，未改）：sources 第一条 BV1Uv411P7m5（李小龙电视访谈完整版，2021-08-13）是 role=source 并有 derived_from
+    关系；解说 021s 说这段话具体出自《Bruce-Lee:The-LostInterview》，而画面 030s 一带引用的是哪一支视频我没有逐帧核对，请
+    GPT 复核这条 source 指向是否就是《Bruce-Lee:The-LostInterview》。lineage 里还有三条未解析行（BV1rNqWBZE2F／BV1rNgWBZE2F／BV1fKgHBEECZ），本条
+    sources 未包含，我未改动。
+
+    未发现只存在于画面、且定义必须依赖的含义，故未加 automation_hold。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - Five supported dated remixes; interview/possible pose reference/uploader-uncertain
+    reference not dated remix or primary origin.
+  description_query_provenance:
+    author: DeepSeek
+    source: model
+    proposed_at: '2026-09-30'
+    basis: Blind source-only proposals before definition drafting.
+    proposal_file: ai_context/model_queries_batches7_8.yaml
+    source_episode: BV1FUBrBLESX
+    source_spans:
+    - 005.0s 大致内容就是让角色在视频中打坐
+    - 008.0s 配合上电音bgm《Alone》的变奏和文案“be watermy friend"
+    - 012.0s 来达成一种放空自己的感觉
+    - 019.0s 这其实是李小龙说过的一段话
+    - 075.0s 图中的李小龙端坐在船头
+    - 093.0s 放在其他作品的打坐动作或者ai打坐图之中
+    - 108.0s 就用ai制作了各种各样的角色来模仿这个动作
+    reviewer: gpt
+    reviewed_at: '2026-10-01'
+    semantic_review: Both source-supported:005/008/012s seated AI template/music/purpose;019/071/075/079/088s
+      Bruce Lee image/quote. Pose-origin theories remain explicitly uncertain, not
+      query assumptions; exact spans verified.
+  gpt_repair_notes: 'Lowercase-final-z BV141qrBWEaz resolves unrelated title/uploader,
+    excluded; uppercase-final-Z resolves matching 凶鸭栗 with exact handle at008s, retained.
+    Nada-spn/娜哒撒嘛 identity not equated, reference only. 功夫熊猫4 pose link explicitly
+    tentative061/064s, reference only; event removed.33s translator 郭业辉 not same proven
+    source uploader BruceGuo辉: interview reference only, derived_from removed. Usage
+    distinguishes template purpose from boat-photo inspiration. No relative 最近 or
+    speculative memorial cause.'
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: Full BV1FUBrBLESX narration003-112s,screen000-148s and all citation
+        frames read.005/008/019/052/091/093/108s links quote and seated AI template,
+        not mere title match.
+      meaning: 019/052 supports narrated 李小龙 quote;005/008 supports sitting/caption.
+        Removed relative 最近;061/064s tentative pose origin and097s speculative birthday
+        cause not asserted.
+      usage: 012s explicitly gives 放空 purpose of template,075/079/088s separately
+        supports inspirational boat-photo use; clarified objects rather than conflating
+        them.
+      origins: 33s interview pointer/context retained reference only; transcript source
+        and translator credit do not prove original uploader or earliest recording.
+        Removed asserted derived_from; unknown origin fields retained, no primary
+        origin fabricated.
+      events: All resolved CSV/frame identities checked.5s lowercase-z wrong title/uploader
+        excluded;6/8s uppercase-Z matches 凶鸭栗/date20251220.0s uploader mismatch and61s
+        tentative pose link reference only.91/108/113/138s exact title/author/date
+        support remaining four remix events:total five.
+      queries: Two blind DeepSeek proposals verified against005/008/012 and019/075/079/088s;
+        exact spans checked, no canonical-name leakage. Empty query field filled as
+        MODEL with provenance; human benchmark unchanged.
+    fingerprint: f3588cfa5fa1a79f12b99df36d3b94363a8f3ee22e00c64667812cfd9091e2ae

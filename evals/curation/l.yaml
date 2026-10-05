@@ -1,0 +1,129 @@
+slug: l
+resolved: false
+canonical_name: 我是L名场面
+aliases: []
+definition: 出自动画「死亡小本子」第九集：世界第一侦探「L」当面坦白身份试探「夜神月」，被漫剪配上「智斗的小曲」《WAKE UP》再次走红。
+usage_context: 网友把它套用在各类紧张对峙的场景里。
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1UErYBCExd
+  role: derivative
+  note: 兄弟，你吃多少w了（BV1yBc4zNE8Z 画面中引用）
+- url: https://www.bilibili.com/video/BV16FzeBZENi
+  role: reference
+  note: 当你怀疑室友偷偷学习了：（BV1yBc4zNE8Z 画面中引用）
+- url: https://www.bilibili.com/video/BV1Tr6xBQEMh
+  role: derivative
+  note: 兄弟，你玩音游吗？（BV1yBc4zNE8Z 画面中引用）
+evidence_map:
+  ocr-narration-BV1yBc4zNE8Z: null
+  ocr-BV1UErYBCExd: null
+  ocr-BV16FzeBZENi: null
+  ocr-BV1Tr6xBQEMh: null
+claims:
+- key: definition
+  statement: 出自动画「死亡小本子」第九集：世界第一侦探「L」当面坦白身份试探「夜神月」，被漫剪配上「智斗的小曲」《WAKE UP》再次走红。
+  evidence:
+  - ocr-narration-BV1yBc4zNE8Z
+  stance: supports
+- key: usage_context
+  statement: 网友把它套用在各类紧张对峙的场景里。
+  evidence:
+  - ocr-narration-BV1yBc4zNE8Z
+  stance: supports
+events:
+- event_type: remix
+  description: 我是L名场面 出现衍生作品《兄弟，你吃多少w了》
+  occurred_at_start: 2026-01-12 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1yBc4zNE8Z 画面引用发现
+  evidence:
+  - ocr-BV1UErYBCExd
+- event_type: remix
+  description: 我是L名场面 出现衍生作品《兄弟，你玩音游吗？》
+  occurred_at_start: 2026-02-01 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1yBc4zNE8Z 画面引用发现
+  evidence:
+  - ocr-BV1Tr6xBQEMh
+relations: []
+gold:
+  canonical:
+  - 我是L名场面
+  alias: []
+  origin_intent:
+  - 我是L名场面的出处
+  description:
+  - 两个角色互相试探智斗
+  must_not_return: []
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis:
+  - 002.0s 我是L
+  - 004.0s 出自动画“死亡小本子”
+  - 005.0s 第九集的名场面
+  - 006.0s 世界第一侦探L
+  - 008.0s 决定以身入局试探夜神月
+  - 011.0s 气氛可谓紧张
+  - 019.0s 这才有了原片里二人对峙的情节
+  - 023.0s “智斗的小曲”《WAKE UP》
+  - 024.0s 加进了这段动画里
+  - 027.0s 这段动画因此再次火了起来
+  - 032.0s 而最近网友们发现了这两者的搭配
+  - 034.0s 很适合各类紧张对峙的场景
+  - 036.0s 许多关“智斗”的二创也由此诞生
+  draft_notes: '段落边界（D-14）：BV1yBc4zNE8Z 整集只有一个梗（我是L）。001-036s 讲解说与「智斗的小曲」的搭配；039-119s
+    是四个衍生作品的画面（039s BV17kcFzmEqQ、060s BV16FzeBZENi、085s BV1UErYBCExd、108s BV1Tr6xBQEMh）；121-128s
+    回到动画本身（两人一红一蓝、被网友调侃为森林冰火人）。定义取 002/004/005/006/008/019/023/024/027s，usage 取 034s。
+
+    usage_context 依据：034s「很适合各类紧张对峙的场景」说明这个搭配用在哪；036s「许多关『智斗』的二创也由此诞生」是二创传播，没有写进 usage。
+
+    OCR 未改（D-2）：解说 004s 把这部动画称作「死亡小本子」（OCR 原文带引号），画面 004s 是该动画的英文标题「DEATH NoTE」（大小写混杂）。我按解说流照抄「死亡小本子」，没有替它改成《死亡笔记》或
+    DEATH NOTE；若 GPT 认为该用画面标题，需要另引 ocr-screen-BV1yBc4zNE8Z。
+
+    未写（D-4）：029/031s（这句我是L之前就有不少恶搞）与 125s「被许多网友调倪为森林冰火人」未写进定义；060-079s 的解说行是衍生作品里室友对话的复述，不属于本条含义。
+
+    可疑关系（只报告，未改）：sources 第 4 条 BV17kcFzmEqQ 解析成的是另一期梗百科（【梗百科】食猴鹰怎么火了？达尔文事变怎么回事？！，2026-02-08），但画面
+    038-056s 那一带的内容是「诸星当-传奇耐电王」的 Minecraft 智斗段子（你刚才开创造了对吧／你手上的附魔钻石剑是哪来的），这个 BV 号像是从画面叠加元素上读到的；我没有改动
+    sources/events，请 GPT 复核这条「衍生作品」是否成立。
+
+    未发现只存在于画面、且定义必须依赖的含义，故未加 automation_hold。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - Two supported dated remixes remain; one uncertain roommate reference; wrong episode
+    citation excluded. No original creator inferred.
+  gpt_repair_notes: '39s Minecraft dialogue and author conflict with resolved 食猴鹰
+    episode: excluded wrong citation/source/event.60s roommate uploader OCR differs
+    from resolved 善猹的茬: reference only, no dated remix assertion.108s misread handle
+    has exact 咕咕不旮旮 at110s;85s title/author exact. Relative 最近 removed. Existing human
+    query unchanged.'
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: Full BV1yBc4zNE8Z narration002-128s and full screen/citation materials
+        read.002-019s identifies L facing 夜神月;021-036s explains WAKE UP pairing; later
+        clips are parodies, not additional identities.
+      meaning: 004-009/019s directly establishes scene and episode; quoted narration
+        nickname 死亡小本子 preserved without repairing title from memory.023-027s supports
+        music pairing; relative 最近 omitted.
+      usage: 034s explicitly says suitable for tense confrontations;036s derivative
+        spread not substituted for contextual use.
+      origins: Unknown origin fields and empty relations retained. Scene origin is
+        narration-supported; no creator of meme/edit or first uploader inferred from
+        parody citations.
+      events: Resolved CSV and all frames independently checked.39s BV resolves unrelated
+        食猴鹰 episode and is excluded.60s uploader mismatch remains reference only.85s
+        长梦短怀/date20260112 and108-110s 咕咕不旮旮/date20260201 support two remix events.
+      queries: Original human query 两个角色互相试探智斗 retained exactly. It maps to008/012/019s;
+        no generated query or human confirmation added.
+    fingerprint: df96c59177e0bc5249285b53a45d0edf1e9bd1c612b1d12e9dc6914d4fa22179

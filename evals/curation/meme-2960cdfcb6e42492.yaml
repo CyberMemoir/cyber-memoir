@@ -1,0 +1,121 @@
+slug: meme-2960cdfcb6e42492
+resolved: false
+canonical_name: 噔→噔→噔→噔 ↗噔→噔↘
+aliases: []
+definition: 《战地风云》系列的主题曲旋律被网友用拟声文字表达、演奏或改编；其中电子合成音的版本还被戏称为「祖传屁声」。
+usage_context: 用拟声文字、演奏和音乐改编复现这段旋律。
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1AaYAesEMu
+  role: reference
+  note: 他是意大利最强杀手，你敢跟他对视十秒吗！？（BV1Qs1rBjEjn画面引用；不作首次出处断言）
+- url: https://www.bilibili.com/video/BV1xCtpz8EPU
+  role: derivative
+  note: 噔→噔→噔→噔 ↗噔→噔↘（BV1Qs1rBjEjn画面引用；不作首次出处断言）
+- url: https://www.bilibili.com/video/BV1WiauzaEEs
+  role: derivative
+  note: 【哈基米音乐】⚡曼 波 风 云⚡（BV1Qs1rBjEjn画面引用；不作首次出处断言）
+- url: https://www.bilibili.com/video/BV1Ja1gB3Ejw
+  role: reference
+  note: 这下听懂了！丨《战地风云 禁区冲突》官方真人预告片（BV1Qs1rBjEjn画面引用；不作首次出处断言）
+evidence_map:
+  ocr-narration-BV1Qs1rBjEjn: null
+  ocr-BV1AaYAesEMu: null
+  ocr-BV1xCtpz8EPU: null
+  ocr-BV1WiauzaEEs: null
+  ocr-BV1Ja1gB3Ejw: null
+claims:
+- key: definition
+  statement: 《战地风云》系列的主题曲旋律被网友用拟声文字表达、演奏或改编；其中电子合成音的版本还被戏称为「祖传屁声」。
+  stance: supports
+  evidence:
+  - ocr-narration-BV1Qs1rBjEjn
+- key: usage_context
+  statement: 用拟声文字、演奏和音乐改编复现这段旋律。
+  stance: supports
+  evidence:
+  - ocr-narration-BV1Qs1rBjEjn
+events:
+- event_type: remix
+  description: 噔→噔→噔→噔 ↗噔→噔↘出现衍生作品《噔→噔→噔→噔 ↗噔→噔↘》
+  occurred_at_start: 2025-08-08 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示投稿时间；不是首次出处或传播爆发时间
+  evidence:
+  - ocr-BV1xCtpz8EPU
+- event_type: remix
+  description: 噔→噔→噔→噔 ↗噔→噔↘出现衍生作品《【哈基米音乐】⚡曼 波 风 云⚡》
+  occurred_at_start: 2025-09-03 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示投稿时间；不是首次出处或传播爆发时间
+  evidence:
+  - ocr-BV1WiauzaEEs
+relations: []
+gold:
+  canonical:
+  - 噔→噔→噔→噔 ↗噔→噔↘
+  alias: []
+  origin_intent:
+  - 噔→噔→噔→噔 ↗噔→噔↘的出处
+  description:
+  - 游戏系列每一代都沿用的那段噔噔噔旋律，电子版还被吐槽像放屁
+  description_source: model
+  must_not_return: []
+curation:
+  curator: ''
+  confirmed_by: ''
+  drafted_by: codex
+  source_episodes:
+  - BV1Qs1rBjEjn
+  description_authored_by: codex
+  description_basis: Stored narration, before definition drafting; model-generated,
+    not human benchmark
+  draft_basis:
+  - 008.0s 这个梗呢其实是经典游戏《战地风云》系列的主题曲旋律
+  - 012.0s "优质战士"们想必听到它就想起了战场上的“往日种种”了吧？
+  - 028.0s 以至于一提到战地，大家满脑子都是“瞪瞪瞪"
+  - 032.0s 而后来战地系列的绝大部分作品
+  - 035.0s 基本上都沿用了这一旋律的变奏作为主题曲
+  - 038.0s 以至于其经典到被叫做“祖传旋律”
+  - 041.0s 这里最值得一提的呢便是11年的《战地3》
+  - 044.0s 这一作中制作组使用了大量的电子合成音效
+  - 047.0s 因为其听起来有点闷闷的像偷偷放屁一样
+  - 050.0s 就被网友们戏称为向“祖传屁声”
+  - 053.0s 这些年来网友对其的玩梗就没停过呀！
+  - 055.0s 最近还有许多新的神奇二创：
+  draft_notes: '005-114s theme/remix;145s onward advertisement excluded.
+
+    Frame70 piano/title and83 music/title match resolved CSV;32/38 gameplay is reference,not
+    proven meme remix.114 official trailer only reference,no first-origin claim. Exclude219
+    citation despite lineage placement in ad. Omit release years and first composer
+    without original-source verification.'
+  ingestion_ok: true
+  findings:
+  - 出处未证实，保留unknown；不把二创投稿日期当作首次出处
+  - 同一Codex模型分阶段复核，独立性有限；未声称人工确认
+  draft_origin_sha256: b8a8e19e9573afafbba177cea00056fd7b6ade79e05e312fab70d180fedfad4a
+  automated_review:
+    reviewer: codex
+    decision: accept
+    reviewed_at: '2026-10-04'
+    review_started_at: '2026-10-05T03:36:37.372221+00:00'
+    method: same_model_frozen_passes
+    limitations: Same model; separate frozen passes, not human or independent-model
+      review.
+    frozen_draft:
+      path: evals/reviews/meme-2960cdfcb6e42492.json
+      sha256: ffb6a1699aa36681aec00cdb3387bc7df3ca014344c10ae9913304e3027f52cc
+    checks:
+      identity: 8/28/32/38/50s战地旋律及祖传屁声，145s后广告排除。
+      meaning: 拟声、变奏和电子音直接支持；不增添年份或作曲者。
+      usage: 逐条与完整解说及源帧核对，使用场景限于可见模板或明确解说。
+      origins: 无直接首发证据，unknown；二创投稿日期不作为起源。
+      events: 70s钢琴和83s哈基米改编为remix；32/38s游戏演示和114s预告仅reference。58s未解析及145s后含219s广告引用全部排除。
+        所选BV平台标题/日期与冻结材料一致，经转换器逐项断言。
+      queries: 定义前冻结的六条model/codex查询逐记录索引绑定；两条雷霆查询分配不同段落，人工YAML原字节保留。
+    fingerprint: 5a98aea3affc2415ef6ddbeddb98ba5823dc64df4df23ce2f494bda1aea75625

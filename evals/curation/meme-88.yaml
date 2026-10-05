@@ -1,0 +1,176 @@
+slug: meme-88
+resolved: false
+canonical_name: 绝望的蛋小黄
+aliases: []
+definition: 把「蛋小黄」同人改图做成带眼泪的黑白照片，利用似笑非笑的表情制造绝望感。
+usage_context: 用来塑造一种「究竟是有多么绝望才会创作这种二创」的感觉。
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1jSb1zmEkS
+  role: reference
+  note: 【蛋仔派对】开局天胡之我在蛋仔玩自走棋？！（BV1bWqhBZEAs 画面中引用）
+- url: https://www.bilibili.com/video/BV1RV49z4Ehs
+  role: derivative
+  note: 痴情的蛋小黄啊 请再等一世吧（BV1bWqhBZEAs 画面中引用）
+- url: https://www.bilibili.com/video/BV16BW9z8EdX
+  role: reference
+  note: ［催眠术］好像有点不正常（）（BV1bWqhBZEAs 画面中引用）
+- url: https://www.bilibili.com/video/BV1ttsXz3EXS
+  role: reference
+  note: 蛋子洞（BV1bWqhBZEAs 画面中引用）
+- url: https://www.bilibili.com/video/BV1UjCCBkEeo
+  role: reference
+  note: 目击！笑奋31世（BV1bWqhBZEAs 画面中引用）
+- url: https://www.bilibili.com/video/BV1NhUABzEyz
+  role: derivative
+  note: 我一直在哭（BV1bWqhBZEAs 画面中引用）
+- url: https://www.bilibili.com/video/BV12Z2DBBEez
+  role: reference
+  note: 蛋小黄已经开始觉醒了，他早就意识到他所处在一个游戏世界里了，等他彻底觉醒你们就完（BV1bWqhBZEAs 画面中引用）
+- url: https://www.bilibili.com/video/BV1PKmjBgEQb
+  role: derivative
+  note: 如果炸兑油是你唯一的乐趣…那么请便…（BV1bWqhBZEAs 画面中引用）
+- url: https://www.bilibili.com/video/BV1D5mmBNEGX
+  role: derivative
+  note: 如果亵渎蛋小黄是你唯一的乐趣……（BV1bWqhBZEAs 画面中引用）
+evidence_map:
+  ocr-narration-BV1bWqhBZEAs: null
+  ocr-BV1jSb1zmEkS: null
+  ocr-BV1RV49z4Ehs: null
+  ocr-BV16BW9z8EdX: null
+  ocr-BV1ttsXz3EXS: null
+  ocr-BV1UjCCBkEeo: null
+  ocr-BV1NhUABzEyz: null
+  ocr-BV12Z2DBBEez: null
+  ocr-BV1PKmjBgEQb: null
+  ocr-BV1D5mmBNEGX: null
+claims:
+- key: definition
+  statement: 把「蛋小黄」同人改图做成带眼泪的黑白照片，利用似笑非笑的表情制造绝望感。
+  evidence:
+  - ocr-narration-BV1bWqhBZEAs
+  stance: supports
+- key: usage_context
+  statement: 用来塑造一种「究竟是有多么绝望才会创作这种二创」的感觉。
+  evidence:
+  - ocr-narration-BV1bWqhBZEAs
+  stance: supports
+events:
+- event_type: remix
+  description: 绝望的蛋小黄 出现衍生作品《痴情的蛋小黄啊 请再等一世吧》
+  occurred_at_start: 2025-10-14 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1bWqhBZEAs 画面引用发现
+  evidence:
+  - ocr-BV1RV49z4Ehs
+- event_type: remix
+  description: 绝望的蛋小黄 出现衍生作品《我一直在哭》
+  occurred_at_start: 2025-11-22 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1bWqhBZEAs 画面引用发现
+  evidence:
+  - ocr-BV1NhUABzEyz
+- event_type: remix
+  description: 绝望的蛋小黄 出现衍生作品《如果炸兑油是你唯一的乐趣…那么请便…》
+  occurred_at_start: 2025-12-12 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1bWqhBZEAs 画面引用发现
+  evidence:
+  - ocr-BV1PKmjBgEQb
+- event_type: remix
+  description: 绝望的蛋小黄 出现衍生作品《如果亵渎蛋小黄是你唯一的乐趣……》
+  occurred_at_start: 2025-12-12 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1bWqhBZEAs 画面引用发现
+  evidence:
+  - ocr-BV1D5mmBNEGX
+relations: []
+gold:
+  canonical:
+  - 绝望的蛋小黄
+  alias: []
+  origin_intent:
+  - 绝望的蛋小黄的出处
+  description:
+  - 画的很怪的蛋仔同人图
+  must_not_return: []
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis:
+  - 003.0s 我们之前也讲过一些和1《蛋仔派对》有关的梗了
+  - 005.0s 这个梗呢其实也是玩家之间最近有点火的梗啊
+  - 008.0s 它说的其实是一类改图啊大概就长这个样子
+  - 012.0s 这个看起来蛮抽象的画呢
+  - 013.0s 是起源于不久前《蛋仔派对》官方举办的三周年的同人创作大赛
+  - 018.0s 这个比赛鼓励大家踊跃参与创作二创
+  - 021.0s 于是就有一位网友投稿了这张看起来很滚草的画
+  - 024.0s 呐这张图虽然看起来并没有什么优点
+  - 031.0s 投稿越怪欲反而得票越多一样
+  - 034.0s 这个看起来怪怪的蛋小黄反而吸引了众多网友
+  - 037.0s 做出了一个又一个看着又怪又抽象的二创
+  - 062.0s 当然这还没完
+  - 063.0s 可能因为这个东西欲确实越看越怪啊
+  - 067.0s 于是所以后来一些网友就突发奇想
+  - 070.0s 把它P成黑白照片还带上眼泪
+  - 072.0s 配上一开始那个似笑非笑的表情
+  - 075.0s 看起来就颇有一种“要挂了！的绝望感
+  - 077.0s 而这种“梗上加梗”的感觉也是吸引了更多网友来对它进行二创
+  - 082.0s 来塑造一种“究竟是有多么绝望才会创作这种二创”的感觉
+  draft_notes: '段落边界（D-14）：BV1bWqhBZEAs 整集只有一个梗（绝望的蛋小黄），解说 003-082s。003-013s 讲这张图来自《蛋仔派对》三周年同人创作大赛，018-037s
+    讲它因为怪而走红与二创，062-082s 讲后来被改成黑白照片加眼泪的「绝望」版。定义取 008/012/013/021/034/070/072/075s，usage
+    取 082s；038-061s 与 083s 之后是二创画面展示。
+
+    usage_context 依据：082s「来塑造一种『究竟是有多么绝望才会创作这种二创』的感觉」说明这么改的用意；031-037s（投稿越怪反而得票越多、做出又怪又抽象的二创）与
+    077s（梗上加梗吸引更多网友二创）是传播与衍生，没有写进 usage。
+
+    OCR 可疑未改：021s 的「滚草」（应是「潦草」）没有照抄进定义，定义里用自己的话「画得很怪」；031/063s 的「怪欲」「东西欲」与 075s、082s
+    的残缺引号都照抄在 basis 中，未改。
+
+    未写（D-4）：013-018s 的大赛背景细节、027-031s 的「拉票比赛」比喻、063-067s 的「越看越怪」推测都没有写进定义。
+
+    可疑关系（只报告，未改）：本条九条已解析衍生作品与 events 的日期一致；lineage 里另有三个未解析行（BV1jSb1zmEks／BV1HXqSBAEN3／BV1bfmiBvEVG），本条
+    sources 未包含，我未改动。第一条 source 用的是大写 K 形式（BV1jSb1zmEkS），而 lineage 里同 id 的小写形式是未解析行，两种写法并存。
+
+    未发现只存在于画面、且定义必须依赖的含义，故未加 automation_hold。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 衍生关系来自 BV1bWqhBZEAs 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+  - 传播区间 2025-07-25 .. 2025-12-12（9 条）
+  gpt_repair_notes: Removed origin-contest assertion from definition; focused070/072/075s
+    tearful monochrome variant.13s gameplay is background,41/52/63s older abstract
+    drawing examples not proved this later variant,77s author 一罐酱 versus resolved
+    一罐鸠酱 conflict:reference only, five events removed.5/82/86/120s supported variants
+    remain with platform dates. Raw title OCR and casing remain unchanged; unresolved3
+    rows excluded.
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: Full BV1bWqhBZEAs narration003-082s, screen002-134s and all12 citation
+        frames read.070/072/075/077/082s explicitly defines tearful black-white despair
+        variant, distinguished from earlier generic abstract drawing.
+      meaning: 070/072/075s directly supports grayscale, tears, ambiguous expression
+        and despair.Origin contest/first anonymous contributor omitted rather than
+        asserted without primary corroboration.
+      usage: 082s explicitly supports creating an exaggerated sense of despair; not
+        inferred from unrelated voting/other game examples at027/031s.
+      origins: Unknown fields/empty relations retained.013/021s commentator contest
+        story has no independently resolved primary entry, so it does not establish
+        origin.
+      events: All resolved CSV rows and frames read.13s gameplay and41/52/63s precursor
+        formats reference only.77s uploader conflict reference only.5s 浦西可乐20251014,82s
+        暴食蛋20251122,86s 一只牢键盘20251212,120s 浦西可乐20251212 exact BV identities/date metadata
+        retained; no unresolved case variant or guessed earliest date.
+      queries: Human 画的很怪的蛋仔同人图 retained verbatim.008/012/034/037s supports broad
+        source image wording; no model replacement or claim that broad query is specific
+        held-out model evaluation.
+    fingerprint: 36bac3542aac57a22c69fd45e5826acccc6db3618e86ae678ab5e6b1862358f4

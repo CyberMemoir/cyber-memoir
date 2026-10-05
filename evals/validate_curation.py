@@ -341,12 +341,13 @@ def flat(text: str) -> str:
 
 
 def literals(statement: str, exempt: list[str]) -> list[str]:
-    text = statement
+    # Keep quotes intact: removing a name inside one creates a span OCR cannot contain.
+    spans = ["".join(m.groups(default="")) for m in QUOTED.finditer(statement)]
+    spans = [span for span in spans if span.strip() not in exempt]
+    text = QUOTED.sub(" ", statement)
     for name in sorted(exempt, key=len, reverse=True):
         if name:
             text = text.replace(name, " ")
-    spans = ["".join(m.groups(default="")) for m in QUOTED.finditer(text)]
-    text = QUOTED.sub(" ", text)
     spans += LITERAL.findall(text)
     return [s for s in (x.strip() for x in spans) if s]
 
@@ -357,7 +358,14 @@ def check_drafted(r: Record) -> None:
     curation = r.get("curation") or {}
     if not isinstance(curation, dict) or not text_of(curation.get("drafted_by")).strip():
         return
-    if not text_of(curation.get("confirmed_by")).strip():
+    if curation.get("automated_review") is not None:
+        from automation_review import review_error
+        if _MATERIALS is None:
+            _MATERIALS = load_material_index()
+        error = review_error(r.data, _MATERIALS)
+        if error:
+            r.err("自动复核无效：" + error)
+    elif not text_of(curation.get("confirmed_by")).strip():
         r.warn("模型起草，尚未人工审定（curation.confirmed_by 为空）；load_curation 会拒绝加载")
     # The precondition from 2026-09-18, enforced here so it cannot be forgotten: drafted
     # text may inflate recall, and only a query that does not name the meme can show it.

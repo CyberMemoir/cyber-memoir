@@ -1,0 +1,154 @@
+slug: meme-58
+resolved: false
+canonical_name: 撒贝宁老鼠干
+aliases: []
+definition: 出自春晚互动歌曲《手到福来》中的画面：导播给撒贝宁一个广角特效，把他拉成细长条，形成「老鼠干」般的喜感。
+usage_context: ''
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1maZMB1EBo
+  role: derivative
+  note: 撒贝宁meme（BV1wSZYB3ExD 画面中引用）
+- url: https://www.bilibili.com/video/BV14HZVBZEnu
+  role: derivative
+  note: 【撒贝宁】I can't wait（BV1wSZYB3ExD 画面中引用）
+- url: https://www.bilibili.com/video/BV1geZ2BfEZG
+  role: derivative
+  note: ❤心跳不止撒贝宁❤（BV1wSZYB3ExD 画面中引用）
+- url: https://www.bilibili.com/video/BV1TkZ2BWE5U
+  role: reference
+  note: 不要相信撒贝宁说的话（BV1wSZYB3ExD 画面中引用）
+- url: https://www.bilibili.com/video/BV1TcZ5BwEcL
+  role: derivative
+  note: 撒贝宁视奸（BV1wSZYB3ExD 画面中引用）
+- url: https://www.bilibili.com/video/BV1WGZUBQEYV
+  role: reference
+  note: 撒贝宁逃离CS2（BV1wSZYB3ExD 画面中引用）
+evidence_map:
+  ocr-BV1maZMB1EBo: null
+  ocr-BV14HZVBZEnu: null
+  ocr-BV1geZ2BfEZG: null
+  ocr-BV1TkZ2BWE5U: null
+  ocr-BV1TcZ5BwEcL: null
+  ocr-BV1WGZUBQEYV: null
+  ocr-narration-BV1wSZYB3ExD: null
+claims:
+- key: definition
+  statement: 出自春晚互动歌曲《手到福来》中的画面：导播给撒贝宁一个广角特效，把他拉成细长条，形成「老鼠干」般的喜感。
+  evidence:
+  - ocr-narration-BV1wSZYB3ExD
+  stance: supports
+events:
+- event_type: remix
+  description: 撒贝宁老鼠干 出现衍生作品《撒贝宁meme》
+  occurred_at_start: 2026-02-16 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1wSZYB3ExD 画面引用发现
+  evidence:
+  - ocr-BV1maZMB1EBo
+- event_type: remix
+  description: 撒贝宁老鼠干 出现衍生作品《【撒贝宁】I can't wait》
+  occurred_at_start: 2026-02-17 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1wSZYB3ExD 画面引用发现
+  evidence:
+  - ocr-BV14HZVBZEnu
+- event_type: remix
+  description: 撒贝宁老鼠干 出现衍生作品《❤心跳不止撒贝宁❤》
+  occurred_at_start: 2026-02-17 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1wSZYB3ExD 画面引用发现
+  evidence:
+  - ocr-BV1geZ2BfEZG
+- event_type: remix
+  description: 撒贝宁老鼠干 出现衍生作品《撒贝宁视奸》
+  occurred_at_start: 2026-02-17 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1wSZYB3ExD 画面引用发现
+  evidence:
+  - ocr-BV1TcZ5BwEcL
+relations: []
+gold:
+  canonical:
+  - 撒贝宁老鼠干
+  alias: []
+  origin_intent:
+  - 撒贝宁老鼠干的出处
+  description:
+  - 导播给主持人拉成长条到太空
+  must_not_return: []
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis: '003.0s 这个梗是出自今年
+
+    006.0s 春晚的互动歌曲《手到福来》
+
+    009.0s 就是跟随着演唱的音乐歌词呢
+
+    010.0s 场内外的观众都会做出一些相应的互动
+
+    018.0s 祝福传播到天外
+
+    019.0s 这个和目前仍在轨的
+
+    020.0s 神舟二十一号机组人员互动
+
+    026.0s 春晚导播直接给撒贝宁
+
+    028.0s 来了一个广角特效
+
+    030.0s 下把他直接拉成细长条
+
+    036.0s 脖子修长四肢纤细
+
+    037.0s 有一种“老鼠干”的喜感不说
+
+    039.0s 一下子就戳到大家的笑点'
+  draft_notes: '片段边界：本梗解说占 001-049s；051s 之后画面是各家二创（BV14HZVBZEnu、BV1eTZ1BtEKP 等），解说只剩
+    047-049s 一句。整集只讲这一个梗。
+
+    定义依据：003-006s 说出自今年春晚互动歌曲《手到福来》；026-030s 说导播给撒贝宁来广角特效把他直接拉成细长条；036-037s 说脖子修长四肢纤细、有「老鼠干」的喜感。
+
+    可疑 OCR：018s「祝福传播到天外」、022s 画面「来 来 欢乐传播到天外」与 017s 画面「一段“祝福传播到天外”」写法一致；033s 画面「到太空给机组人员拜年了」是最完整的一句，但它在画面流，正文没有引用它。036s「脖子修长四肢纤细」照抄解说。
+
+    usage_context 留空（D-10）：041-045s「就纷纷把撒贝宁拉长的这个特效放在各种各样好玩的背景中，亦或直接放在各类手书里」说的是二创怎么做的；049s「继续传播春节的福气」是传播意图。两者都不算「在什么场合用它、想表达什么」，故留空。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 衍生关系来自 BV1wSZYB3ExD 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+  - 传播区间 2026-02-16 .. 2026-02-18（8 条）
+  gpt_repair_notes: Removed relative 今年 wording. Uppercase BV14HZVBZEnU resolves to
+    unrelated family video;62s BV1eTZ1BtEKP title/uploader differs from resolved SAGE/mikan.
+    Both excluded.82/99s uploader discrepancies retain references only, not dated
+    remix claims; four other explicit meme clips retained.
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: Full BV1wSZYB3ExD narration001/005-007/026-037s identifies the host,
+        song and elongated visual. No claim about a different Spring Festival gag
+        merged.
+      meaning: 026-030s explicitly describes wide-angle stretching;036-039s gives
+        老鼠干 comparison. Relative 今年 removed to keep definition intelligible over time.024s
+        speculative director motive omitted.
+      usage: Empty retained:041-049s describes background/hand-drawn edit creation
+        and spread, not a distinct use situation. No aerospace fact or current crew
+        status asserted.
+      origins: Broadcast/song described by narration; no primary original upload or
+        exclusive first meme creator identified, unknown origin fields/empty relations
+        retained.
+      events: Four exact related frames46/51/72/90s match resolved meme/I cant wait/心跳不止/视奸
+        titles and dates20260216/17. Wrong-case54s BV resolves unrelated;62s title/uploader
+        mismatch excluded.82/99s differing uploader texts downgraded to references
+        rather than assuming account aliases.
+      queries: Human query 导播给主持人拉成长条到太空 preserved. No generated query, invented human
+        confirmation or current-year inference added.
+    fingerprint: 763ff907058d1a5df2356c1fef082ef7af935c0537ea1605b3c81c3f73909019

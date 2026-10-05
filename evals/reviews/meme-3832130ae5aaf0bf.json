@@ -1,0 +1,120 @@
+{
+  "frozen_at": "2026-10-03T19:41:25.812229+00:00",
+  "record": {
+    "slug": "meme-3832130ae5aaf0bf",
+    "resolved": false,
+    "canonical_name": "高松灯企鹅",
+    "aliases": [],
+    "definition": "把「高松灯」的头接到企鹅身体上的形象，被用于各种二创。",
+    "usage_context": "",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [
+      {
+        "url": "https://www.bilibili.com/video/BV1ynkwYxEYc",
+        "role": "reference",
+        "note": "lingangulguli🐧🐧🐧（BV1zAC4B7ERC画面引用；不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1ewwxesEu4",
+        "role": "reference",
+        "note": "gugugaga🐧🐧🐧（BV1zAC4B7ERC画面引用；不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1g93tz3EKR",
+        "role": "derivative",
+        "note": "🐧我从南极来~🐧（BV1zAC4B7ERC画面引用；不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1fytUz9ESH",
+        "role": "derivative",
+        "note": "🐧你眨眼越快 高松灯就会走的越快！🐧（BV1zAC4B7ERC画面引用；不作首次出处断言）"
+      }
+    ],
+    "evidence_map": {
+      "ocr-narration-BV1zAC4B7ERC": null,
+      "ocr-BV1ynkwYxEYc": null,
+      "ocr-BV1ewwxesEu4": null,
+      "ocr-BV1g93tz3EKR": null,
+      "ocr-BV1fytUz9ESH": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "把「高松灯」的头接到企鹅身体上的形象，被用于各种二创。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1zAC4B7ERC"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "event_type": "remix",
+        "description": "高松灯企鹅出现衍生作品《🐧我从南极来~🐧》",
+        "occurred_at_start": "2025-07-02 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1g93tz3EKR"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "高松灯企鹅出现衍生作品《🐧你眨眼越快 高松灯就会走的越快！🐧》",
+        "occurred_at_start": "2025-08-11 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1fytUz9ESH"
+        ]
+      }
+    ],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "高松灯企鹅"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "高松灯企鹅的出处"
+      ],
+      "description": [
+        "把乐队动画女主角的脑袋接到企鹅身体上，配着咕咕嘎嘎叫声"
+      ],
+      "description_source": "model",
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV1zAC4B7ERC"
+      ],
+      "description_authored_by": "codex",
+      "description_basis": "Stored narration, before definition drafting; model-generated, not human benchmark",
+      "draft_basis": [
+        "084.0s 高松灯呢",
+        "085.0s 是出自番剧《BanG Dream It's MyGO!!!!!》的主角之一",
+        "092.0s 她的头镶在企鹅身上",
+        "113.0s 许多人就把灯和】“企鹅”这个符号",
+        "166.0s 便将灯直接p上了企鹅身子",
+        "169.0s 搞起了许多特别抽象的二创",
+        "175.0s 也让这个梗传播的越来越广",
+        "179.0s 这个“高松灯企鹅”的形象"
+      ],
+      "draft_notes": "084-179s character/penguin composite; earlier dance excluded.\nFrames123/143 show song/voice precursors, not composite derivatives. Frames92/172 visibly show girl-head penguin. Unresolved different girl at111 omitted. No first-source assertion.",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未证实，保留unknown；不把二创投稿日期当作首次出处",
+        "同一Codex模型分阶段复核，独立性有限；未声称人工确认"
+      ],
+      "draft_origin_sha256": "d9bf103ce2d3978a1043a0707a193ecf375fe092392c3d00b3795e866414061f"
+    }
+  }
+}

@@ -1,0 +1,115 @@
+slug: meme-24
+resolved: false
+canonical_name: 偷菜
+aliases: []
+definition: 《QQ农场》里到好友地里摘走成熟作物的玩法：自己的菜成熟后若没及时收成，也会被好友摘走。
+usage_context: 和好友互相偷菜，玩的是那种互相折腾的社交乐趣。
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1k8411t7rG
+  role: reference
+  note: ［QQ空间］你还记得'10年前'的QQ农场吗？（BV15uFzzSEzr 画面中引用）
+- url: https://www.bilibili.com/video/BV1Hr421G7KQ
+  role: reference
+  note: 【QQ农场】记录一下我的一天（BV15uFzzSEzr 画面中引用）
+evidence_map:
+  ocr-narration-BV15uFzzSEzr: null
+  ocr-BV1k8411t7rG: null
+  ocr-BV1Hr421G7KQ: null
+claims:
+- key: definition
+  statement: 《QQ农场》里到好友地里摘走成熟作物的玩法：自己的菜成熟后若没及时收成，也会被好友摘走。
+  evidence:
+  - ocr-narration-BV15uFzzSEzr
+  stance: supports
+- key: usage_context
+  statement: 和好友互相偷菜，玩的是那种互相折腾的社交乐趣。
+  evidence:
+  - ocr-narration-BV15uFzzSEzr
+  stance: supports
+events: []
+relations: []
+gold:
+  canonical:
+  - 偷菜
+  alias: []
+  origin_intent:
+  - 偷菜的出处
+  description:
+  - qq农场
+  must_not_return: []
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis:
+  - 004.0s 光是“偷菜”这俩字
+  - 005.0s 就够唤醒一代人的记忆了吧
+  - 024.0s 其中最出圈的莫过于《QQ农场》
+  - 027.0s 玩法很简单
+  - 028.0s 种菜
+  - 029.0s 等熟了收成
+  - 030.0s 好友之间呢
+  - 035.0s 要是到了点你没及时收菜
+  - 037.0s 你的好友可就能来“顺手牵菜”了
+  - 040.0s 你也可以去别人家地里“视察视察”
+  - 042.0s 就因为这个“互相偷菜”的设定
+  - 044.0s 多少人当年定闹钟、半夜醒
+  - 046.0s 就为了偷别人两颗菜
+  - 065.0s 更成了。一代人的集体记忆
+  - 107.0s 2月6日腾讯宣布《QQ经典农场》正式回归！
+  - 113.0s 还能去好友农场“放虫”捣乱
+  - 115.0s 当年那种互相折腾的
+  - 117.0s 社交乐趣全都回来了
+  draft_notes: '段落边界（D-14）：BV15uFzzSEzr 整集只有一个梗，解说 001-148s 全在讲偷菜与《QQ农场》。001-068s
+    是回忆部分（玩法、互相偷菜、金句、集体记忆），070-095s 是《QQ空间》旧视频画面的衍生展示，098-148s 讲《QQ经典农场》回归。定义取 004/005/024/027-037/042-046/065/107s，usage
+    取 030/040/042/113/115/117s。
+
+    usage_context 依据：115/117s「当年那种互相折腾的／社交乐趣全都回来了」说明这件事的乐趣在哪，042s「互相偷菜的设定」与 113s「去好友农场『放虫』捣乱」是用法；049s「简直是QQ空间里的」＋画面「顶级智斗」偏传播描述，没有写进
+    usage。
+
+    未写（D-4/D-6）：107s 的「2月6日」与 148s「QQ经典农场：启动！」是回归新闻的时间点，events 里没有对应条目，我也没有补；金句（053s「劳动光荣，偷窃可耻」、058s「农场辛苦好几年，一偷回到解放前」）未写进定义。055s「戈偷のbu菜，寂寞」字形与语义都残缺，未引用。
+
+    OCR 可疑未改：035/037s 的「收菜」「顺手牵菜」、040s「视察视察」照抄在 basis 中；「偷窃可耻」在画面 028/091s 又写成「愉窃可耻」，未改。
+
+    可疑关系：lineage 里本条两条已解析衍生作品（BV1k8411t7rG 2022-09-17、BV1Hr421G7KQ 2024-04-18，画面 070s／004s）与
+    events 一致；画面 070-095s 的《QQ空间》旧视频与 120s 的官方公告文字没有对应的行，也未发现跨段引用。
+
+    未发现只存在于画面、且定义必须依赖的含义，故未加 automation_hold。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 衍生关系来自 BV15uFzzSEzr 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+  - 传播区间 2022-09-17 .. 2024-04-18（2 条）
+  gpt_repair_notes: Definition narrowed to gameplay; removed sweeping generation-memory
+    claim and undated return-news hook.4s gameplay recording and70s throwback/game
+    walkthrough are references, not proved meme remixes; no dated remix events retained.
+    Human query untouched.
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: Full BV15uFzzSEzr narration001-148s,screen001-148s and exact4/70s
+        citation frames read.018/024/027-042s establishes farm-game mutual crop-taking;
+        news098+ is same-game background, not a different meme.
+      meaning: 024/028/029/035/037/040/042s directly supports taking mature crops
+        from friends and risk when not harvested. Removed sweeping collective-memory
+        and return-news language; no absolute year inferred.
+      usage: 030/040/042s mutual friend interaction and115/117s social fun support
+        retained gameplay-use clause; no unrelated real-world theft meaning inferred.
+      origins: 'Unknown origins/empty relations retained: game context not exclusive
+        first meme creator.107s announcement date lacks year and primary source row;
+        no dated official event invented.'
+      events: 4s 汤姆辛德拉/date20240418 gameplay and70s 棉兔回忆录/date20220917 throwback identities
+        match CSV, but neither is independently demonstrated as a remix of this meme.
+        Both references; zero remix events retained.
+      queries: Existing human qq农场 preserved exactly without changing provenance or
+        adding model query. No fabricated confirmed_by or reinterpretation as model-held-out
+        benchmark.
+    fingerprint: 5d26554471b4fb2f5aacafada1afafe9c987b36aae67aef4afecf3f46b9e8b24

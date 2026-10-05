@@ -1,0 +1,144 @@
+slug: meme-82
+resolved: false
+canonical_name: 看到过去的自己
+aliases: []
+definition: 网友模仿《星际穿越》里主角在高维空间看着过去自己的桥段做的短视频梗
+usage_context: 打上类似下面这句话的标题：未来的自己看到过去的自己时；然后表达一种对过去追悔莫及的感觉
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV16SosBLEz2
+  role: derivative
+  note: 🐧当未来的你提醒上大学的自己🐧（BV1wSRxB7E2x 画面中引用）
+- url: https://www.bilibili.com/video/BV1LVooBFEqb
+  role: derivative
+  note: 当未来的我提醒小时候的自己（BV1wSRxB7E2x 画面中引用）
+- url: https://www.bilibili.com/video/BV1AgoQBoEt7
+  role: derivative
+  note: 未来的我看到过去的嘉豪行为（BV1wSRxB7E2x 画面中引用）
+- url: https://www.bilibili.com/video/BV1xh9iBjEWg
+  role: derivative
+  note: 这系列我能一直拍下去…（BV1wSRxB7E2x 画面中引用）
+- url: https://www.bilibili.com/video/BV1rHRuBhENR
+  role: derivative
+  note: 不要让它进化！小洛克！！！（BV1wSRxB7E2x 画面中引用）
+evidence_map:
+  ocr-BV16SosBLEz2: null
+  ocr-BV1LVooBFEqb: null
+  ocr-BV1AgoQBoEt7: null
+  ocr-BV1xh9iBjEWg: null
+  ocr-BV1rHRuBhENR: null
+  ocr-narration-BV1wSRxB7E2x: null
+claims:
+- key: definition
+  statement: 网友模仿《星际穿越》里主角在高维空间看着过去自己的桥段做的短视频梗
+  evidence:
+  - ocr-narration-BV1wSRxB7E2x
+  stance: supports
+- key: usage_context
+  statement: 打上类似下面这句话的标题：未来的自己看到过去的自己时；然后表达一种对过去追悔莫及的感觉
+  evidence:
+  - ocr-narration-BV1wSRxB7E2x
+  stance: supports
+events:
+- event_type: remix
+  description: 看到过去的自己 出现衍生作品《🐧当未来的你提醒上大学的自己🐧》
+  occurred_at_start: 2026-04-22 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1wSRxB7E2x 画面引用发现
+  evidence:
+  - ocr-BV16SosBLEz2
+- event_type: remix
+  description: 看到过去的自己 出现衍生作品《当未来的我提醒小时候的自己》
+  occurred_at_start: 2026-04-26 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1wSRxB7E2x 画面引用发现
+  evidence:
+  - ocr-BV1LVooBFEqb
+- event_type: remix
+  description: 看到过去的自己 出现衍生作品《未来的我看到过去的嘉豪行为》
+  occurred_at_start: 2026-04-26 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1wSRxB7E2x 画面引用发现
+  evidence:
+  - ocr-BV1AgoQBoEt7
+- event_type: remix
+  description: 看到过去的自己 出现衍生作品《这系列我能一直拍下去…》
+  occurred_at_start: 2026-05-01 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1wSRxB7E2x 画面引用发现
+  evidence:
+  - ocr-BV1xh9iBjEWg
+- event_type: remix
+  description: 看到过去的自己 出现衍生作品《不要让它进化！小洛克！！！》
+  occurred_at_start: 2026-05-01 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1wSRxB7E2x 画面引用发现
+  evidence:
+  - ocr-BV1rHRuBhENR
+relations: []
+gold:
+  canonical:
+  - 看到过去的自己
+  alias: []
+  origin_intent:
+  - 看到过去的自己的出处
+  description:
+  - 星际穿越敲书架翻拍
+  must_not_return: []
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis: '解说 0:14「其中就包括这个主角在高维空间看着过去曾经的自己」；
+
+    解说 0:37「最近外网呢就掀起了一阵对其模仿的风潮」；
+
+    解说 0:39「打上类似“未来的自己看到过去的自己时”的标题」；
+
+    解说 0:44「然后表现出一种对过去追悔莫及的感觉」'
+  draft_notes: '片段边界：0s-123s 全片讲本梗（3-26s《星际穿越》与那段剧情，35-57s 外网模仿风潮与标题句式，
+
+    54-123s 国内二创）。本梗的核心解说在 35s-44s，正好落在“外网风潮”与“标题句式”两句上。
+
+    usage_context 用的是解说 0:39-044 直接说的句式与情绪；解说 0:54「传入国内后也迅速被众多网友模仿」；解说原句作“未来的自己看到过去的自己时”，因该标题恰好含梗名「看到过去的自己」，草稿在句末补注原句，含义未改；解说
+    0:39 的原句是打上类似“未来的自己看到过去的自己时”的标题，因该标题正好含梗名「看到过去的自己」，写进 claim 会被审核切开，所以句面改用指代，含义未改
+
+    是传播，未写入（D-10）。
+
+    疑似 OCR 误读：解说 0:26「对“高维空间”与“时间穿梭”白的想象非常带感」多一个“白”字，照抄未改；
+
+    解说 0:47「确实足够接地气」；画面 0:000「当末来的你」等照抄未改。
+
+    未写：不写解说 0:10「诺兰导演的著名作品」等铺垫，definition 只用到《星际穿越》与那段剧情。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 衍生关系来自 BV1wSRxB7E2x 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+  - 传播区间 2026-04-22 .. 2026-05-01（5 条）
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: Full BV1wSRxB7E2x narration008-017s identifies 星际穿越 scene and037-044s
+        describes imitating it; no source/actor name inferred.
+      meaning: 014-017s explicitly describes watching the past self from higher-dimensional
+        space; definition follows fictional scene without treating time travel as
+        real.
+      usage: 039-044s explicitly describes future-self/past-self titles and regret
+        performance. Existing paraphrase does not pretend to quote a differently OCR'd
+        continuous caption.
+      origins: Film attribution remains C-tier narration; no first uploader or BV
+        original-source relationship inferred. Unknown fields retained.
+      events: All five frames at000/054/062/080/103s show future-self reminder/regret
+        contexts, including103s don't-let-it-evolve parody. Exact IDs/titles match
+        resolved CSV with20260422/26/26/0501/0501 dates; generic80s title disambiguated
+        by its explicit 星际穿越的我 caption.
+      queries: Existing human query 星际穿越敲书架翻拍 retained unchanged; query is not an
+        additional unverified archive claim. No model queries added.
+    fingerprint: 6cad56c6bdae63db1822371bc694b1375656f6dfe83e5b29e472d41c83c3cc62

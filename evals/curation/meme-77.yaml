@@ -1,0 +1,127 @@
+slug: meme-77
+resolved: false
+canonical_name: 狮子吼小猫头鹰
+aliases: []
+definition: 把「狮子吼」等模板的主角换成「猫头鹰小猫」梗图的一组梗图，表现有反差的日常互动。
+usage_context: 很百搭，可以用在朋友打游戏、情侣日常等各种场景。
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1E2SFBREcJ
+  role: derivative
+  note: bro学会了顶级配合…（BV1nN24BoEyq 画面中引用）
+evidence_map:
+  ocr-narration-BV1nN24BoEyq: null
+  ocr-BV1E2SFBREcJ: null
+claims:
+- key: definition
+  statement: 把「狮子吼」等模板的主角换成「猫头鹰小猫」梗图的一组梗图，表现有反差的日常互动。
+  evidence:
+  - ocr-narration-BV1nN24BoEyq
+  stance: supports
+- key: usage_context
+  statement: 很百搭，可以用在朋友打游戏、情侣日常等各种场景。
+  evidence:
+  - ocr-narration-BV1nN24BoEyq
+  stance: supports
+events:
+- event_type: remix
+  description: 狮子吼小猫头鹰 出现衍生作品《bro学会了顶级配合…》
+  occurred_at_start: 2025-11-29 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1nN24BoEyq 画面引用发现
+  evidence:
+  - ocr-BV1E2SFBREcJ
+relations: []
+gold:
+  canonical:
+  - 狮子吼小猫头鹰
+  alias: []
+  origin_intent:
+  - 狮子吼小猫头鹰的出处
+  description:
+  - 朋友之间一个很有主见一个很腼腆
+  must_not_return: []
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis:
+  - 001.0s 狮子吼猫
+  - 003.0s 观众姥爷们还记得我们之前
+  - 004.0s 讲过的狮子吼苹果吗？
+  - 006.0s 最近换了个主角它又回来了
+  - 008.0s 只不过这回把苹果
+  - 009.0s 换成了可爱的大眼萌小猫
+  - 011.0s 这个猫可不是等闲之辈
+  - 013.0s 很多人叫它“猫头鹰小猫”
+  - 016.0s 201它的原型呢其实是博主“瓜皮的id酱”
+  - 018.0s 经常在互联网上分享的网红小猫“瓜皮”
+  - 021.0s 而另一位叫“猪猫可乐”的萌宠博主
+  - 023.0s 在13年发布的一张关于它的p图
+  - 027.0s 而后渐渐地这张图也传到了国外
+  - 030.0s 并被命名为“meowl"
+  - 032.0s 一位名为“鲫鱼”的博主
+  - 033.0s 重新将这个互联网梗图找了出来
+  - 036.0s 配合上包括我们之前
+  - 037.0s 讲过的狮子叫在内的诸多模板
+  - 038.0s 做出了许许多多的新梗图模板
+  - 041.0s 因为这些梗图非常的百搭
+  - 042.0s 可以用在朋友们打游戏时
+  - 044.0s 或者情侣日常等等各种场景
+  - 046.0s 加上反差感足够大
+  - 047.0s 所以很快就受到网友们的喜欢
+  draft_notes: '段落边界（D-14）：BV1nN24BoEyq 整集只有一个梗（狮子吼小猫头鹰），解说 001-052s。001-009s 讲它是「狮子吼苹果」换了主角，011-030s
+    讲这只小猫（猫头鹰小猫／meowl）与它的原型，032-047s 讲博主「鲫鱼」把它做成一整套梗图模板并受到喜欢，049-052s 讲网友继续二创（052s「还有不少逆天剧情」）。定义取
+    004/006/008/009/018/037/038/041/046s，usage 取 041/042/044s。
+
+    usage_context 依据：041-044s「因为这些梗图非常的百搭 / 可以用在朋友们打游戏时 / 或者情侣日常等等各种场景」直接说明用在什么场合；047-050s（很快受到网友们的喜欢、促使大家创作新的二创图）是传播与衍生，没有写进
+    usage。
+
+    OCR 可疑未改：016s 句首多出「201」（201它的原型呢其实是博主“瓜皮的id酱”），030s 的引号残缺（并被命名为“meowl"），都照抄在 basis
+    中，未改。解说把这只猫叫「猫头鹰小猫」（013s）与「meowl」（014/030s），定义里用的是「瓜皮」（018s 的原型名）与「狮子吼」，没有把 meowl
+    写进定义。
+
+    未写（D-4）：016/021/023/032s 的博主「瓜皮的id酱」「猪猫可乐」「鲫鱼」与 13 年的 p 图属来源与事件材料（GPT 的范畴），没有写进定义；052s「还有不少逆天剧情」是二创描述，未写。
+
+    可疑关系（只报告，未改）：本条唯一已解析 source 是 BV1E2SFBREcJ（bro学会了顶级配合…，2025-11-29，画面 094s），它与
+    events 一致；但 lineage 里还有 BV1E2SFBRECJ（同一个 id 的大小写变体）与 BV1mXScBzExg（画面 119s，作者：杨不到）两条未解析行，本条
+    sources 未包含，我未改动。
+
+    未发现只存在于画面、且定义必须依赖的含义，故未加 automation_hold。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 衍生关系来自 BV1nN24BoEyq 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+  - 传播区间 2025-11-29 .. 2025-11-29（1 条）
+  gpt_repair_notes: Distinguished edited 猫头鹰小猫 image from the real cat used as its
+    prototype; no primary origin/date claim. Exact94s case-sensitive BV/title/uploader
+    supports one remix.95s uppercase-final-J variant unresolved and119s unresolved
+    clip do not become dated events.
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: Full BV1nN24BoEyq narration001-052s, screen001-130s and94/95/119s
+        frames read.004/008/009/013/033/037/038s links the cat image to existing templates.
+      meaning: 013/016/018/023s distinguishes edited image from prototype cat.004/033/037/038/046s
+        supports template replacement and contrast; no first creator/national spread
+        fact added.
+      usage: 041/042/044s directly names friends gaming and couples daily settings;
+        exact screen dialogue033-089s illustrates contrast rather than adding a new
+        unsupported intended purpose.
+      origins: Unknown origin fields/empty relations retained.2013 narrated photograph/foreign
+        name history and revival handle have no independently resolved primary source,
+        so none asserted as origin.
+      events: 94s BV1E2SFBREcJ, bro学会了顶级配合 and 白马-抽象艺人 agree with resolved CSV20251129.95s
+        case variant and119s NotFound rows remain outside record; no guessed dates
+        or ID normalization.
+      queries: Existing human query preserved exactly. Narration contrast046s and
+        dialogue035/061/063/066/070s supports contrasting friends interaction; query
+        not copied into a new cultural claim.
+    fingerprint: 213ac53af7a66add671e388985dda4cd04bf41db055e2668fa1ce58058c7bb3d

@@ -1,0 +1,94 @@
+slug: coke
+resolved: false
+canonical_name: Coke高招
+aliases: []
+definition: 指主播「coke」相关的双关梗：「高招」既指火影手游的高级招募，也借「招笑」的简化表达来调侃主播
+usage_context: 粉丝调侃这一期高招忍者时追问「不会这一期火影手游的高招是coke老师吧」
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1m3DXBpE67
+  role: reference
+  note: Ai剧《CoCo的奇妙冒险》第六集（BV17udjB2EqL 画面中引用）
+evidence_map:
+  ocr-BV1m3DXBpE67: null
+  ocr-narration-BV17udjB2EqL: null
+claims:
+- key: definition
+  statement: 指主播「coke」相关的双关梗：「高招」既指火影手游的高级招募，也借「招笑」的简化表达来调侃主播
+  evidence:
+  - ocr-narration-BV17udjB2EqL
+  stance: supports
+- key: usage_context
+  statement: 粉丝调侃这一期高招忍者时追问「不会这一期火影手游的高招是coke老师吧」
+  evidence:
+  - ocr-narration-BV17udjB2EqL
+  stance: supports
+events: []
+relations: []
+gold:
+  canonical:
+  - Coke高招
+  alias: []
+  origin_intent:
+  - Coke高招的出处
+  description:
+  - 这个火影主播以为自己很痞帅
+  must_not_return: []
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis: '解说 0:03「原本是指高级招募忍者技能」；
+
+    解说 0:72「其实是对愿"招笑"的简化表达」（OCR「对愿」疑为「对」）；
+
+    解说 0:73「这种时候"高招"就成了别的意思咯」；
+
+    解说 0:95「就产生了这么个coke高招的梗」；
+
+    解说 0:87「"不会这一期火影手游的高招是coke老师吧"」'
+  draft_notes: '片段边界：2s-95s 讲本梗（2-5s 高招本义，68-95s 转向 coke 的双关与粉丝玩笑）；
+
+    97s 之后讲周年庆新忍与师徒杯，与本梗无关。
+
+    疑似 OCR 误读：0:72「其实是对愿"招笑"的简化表达」里的「对愿」照抄未改（像是「对"招笑"」）；
+
+    0:03 的「招募就送迪达拉[晓创生]碎片」被解说逐字重复且带方括号，像是本站广告词误入字幕行。
+
+    未写：不写「coke」短剧很火（0:76-078）——那是传播，按 D-10 不入 usage_context；
+
+    不写 0:53 的「绷不住""痞帅颜值依旧犯规"」等粉丝弹幕词，与本梗无关（D-5）。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 衍生关系来自 BV17udjB2EqL 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+  - 传播区间 2026-04-12 .. 2026-04-12（1 条）
+  gpt_repair_notes: Clarified the two senses from 003/072/092-095s. The 076s AI short
+    illustrates existing AI videos, not a demonstrated derivative of the new live-action
+    high-recruitment joke. Kept as reference and removed its remix event.
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: Full BV17udjB2EqL 068-095s identifies coke and the combined high-recruitment/joke
+        expression; 097s onward is a separate promotional segment.
+      meaning: 003s gives advanced recruitment and 071-073s explains 招 as shortened
+        招笑. 092-095s explicitly combines both senses. Revised definition states that
+        distinction.
+      usage: 081-087s explicitly describes fans joking that coke will be the next
+        high-recruitment character. Full quoted sentence matches narration 087s.
+      origins: No first uploader or primary-source date asserted. AI short at076s
+        is a reference only; unknown origin fields preserved.
+      events: 'Removed April12 remix event: full cited frame BV1m3DXBpE67 matches
+        resolved AI episode title/date, but narration076-079s contrasts existing AI
+        shorts with first live performance. That does not establish a remix of this
+        meme. No events remain.'
+      queries: Existing human query 这个火影主播以为自己很痞帅 retained verbatim; no generated
+        description or human approval added.
+    fingerprint: 882959f6e8f26ee0bda643ec79d5d7aadea27f6e99f09f2687489546afcb31f7

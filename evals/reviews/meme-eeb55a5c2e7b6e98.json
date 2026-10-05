@@ -1,0 +1,153 @@
+{
+  "frozen_at": "2026-10-03T19:41:25.855426+00:00",
+  "record": {
+    "slug": "meme-eeb55a5c2e7b6e98",
+    "resolved": false,
+    "canonical_name": "谁有多余XX",
+    "aliases": [],
+    "definition": "围绕|谁还有多余资金|的打碟电台梗，后来衍生出替换职业相关词语的电台模仿模板。",
+    "usage_context": "在电台弹幕刷索要资金的台词，并按不同职业替换所需物品。",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [
+      {
+        "url": "https://www.bilibili.com/video/BV1hQWbzCECj",
+        "role": "reference",
+        "note": "【6861 Radio】金融DJ电台第十六期（BV1R323BqEcv画面引用；不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1PW1gB2EFZ",
+        "role": "reference",
+        "note": "【6861 Radio】金融DJ电台第十八期（BV1R323BqEcv画面引用；不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1kS1iB9EQU",
+        "role": "derivative",
+        "note": "土木DJ | Dubstep | 安全员听了不跑路的音乐（BV1R323BqEcv画面引用；不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1Jj14BxEdT",
+        "role": "derivative",
+        "note": "律师DJ丨Techno House Mix inspired by VAC 7.0（BV1R323BqEcv画面引用；不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1pU1sBdEJb",
+        "role": "derivative",
+        "note": "【做题 Radio】谁有多余试题！做题DJ带你题海冲浪 | Deep Tech Mix（BV1R323BqEcv画面引用；不作首次出处断言）"
+      }
+    ],
+    "evidence_map": {
+      "ocr-narration-BV1R323BqEcv": null,
+      "ocr-BV1hQWbzCECj": null,
+      "ocr-BV1PW1gB2EFZ": null,
+      "ocr-BV1kS1iB9EQU": null,
+      "ocr-BV1Jj14BxEdT": null,
+      "ocr-BV1pU1sBdEJb": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "围绕|谁还有多余资金|的打碟电台梗，后来衍生出替换职业相关词语的电台模仿模板。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1R323BqEcv"
+        ]
+      },
+      {
+        "key": "usage_context",
+        "statement": "在电台弹幕刷索要资金的台词，并按不同职业替换所需物品。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1R323BqEcv"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "event_type": "remix",
+        "description": "谁有多余XX出现衍生作品《土木DJ | Dubstep | 安全员听了不跑路的音乐》",
+        "occurred_at_start": "2025-11-03 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1kS1iB9EQU"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "谁有多余XX出现衍生作品《律师DJ丨Techno House Mix inspired by VAC 7.0》",
+        "occurred_at_start": "2025-11-05 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1Jj14BxEdT"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "谁有多余XX出现衍生作品《【做题 Radio】谁有多余试题！做题DJ带你题海冲浪 | Deep Tech Mix》",
+        "occurred_at_start": "2025-11-05 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1pU1sBdEJb"
+        ]
+      }
+    ],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "谁有多余XX"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "谁有多余XX的出处"
+      ],
+      "description": [
+        "金融从业者做打碟电台，弹幕刷游戏角色要买枪钱的语音，后来变成各职业的电台模仿"
+      ],
+      "description_source": "model",
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV1R323BqEcv"
+      ],
+      "description_authored_by": "codex",
+      "description_basis": "Stored narration, before definition drafting; model-generated, not human benchmark",
+      "draft_basis": [
+        "001.0s 谁还有多余XX",
+        "020.0s 而他向队友索要资金买枪的语音",
+        "022.0s “谁还有多余资金”",
+        "030.0s 他的本质工作是金融相关",
+        "032.0s 但同时又颇为热爱打碟",
+        "038.0s 后来则是做起了dj电台",
+        "054.0s 所以他的电台弹幕",
+        "055.0s 经常都有人刷“谁还有多余资金”",
+        "081.0s 一句评论是谁有多余资金",
+        "099.0s 而这位up主在逐渐理解一切后",
+        "106.0s 也使得这个梗朝着出圈的方向发展了起来",
+        "120.0s 其他的些本职是其他行业的dj电台博主呢",
+        "123.0s 也纷纷玩起了这个梗",
+        "134.0s 整活做出了许多“多余xx\"dj电台",
+        "139.0s 好的审判长",
+        "154.0s 哈喽大家晚上好",
+        "203.0s 谁有多余试题"
+      ],
+      "draft_notes": "Financial DJ phrase and later occupation variants; unsupported game source omitted.\nFrame28 resolves garbled handle visually but public draft omits it. BV1apsnzsE3z in173s frame says大秦DJ; frozen platform metadata resolves unrelated Star Rail video. QUARANTINE this citation identity mismatch; no source/event from it. Unresolved game/villager BV also omitted. Financial radio title1989 versus metadata6861 noted; reference only, no claimed first origin.",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未证实，保留unknown；不把二创投稿日期当作首次出处",
+        "同一Codex模型分阶段复核，独立性有限；未声称人工确认"
+      ],
+      "draft_origin_sha256": "d9bf103ce2d3978a1043a0707a193ecf375fe092392c3d00b3795e866414061f"
+    }
+  }
+}

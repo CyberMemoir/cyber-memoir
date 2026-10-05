@@ -1,0 +1,122 @@
+slug: meme-33
+resolved: false
+canonical_name: 国产吉尔伽美什
+aliases: []
+definition: 「国产吉尔伽美什」出自2000年首播的《学问猫说历史》苏美尔史诗单元，台词参考史诗译文而变得让人难绷。
+usage_context: ''
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1SscfzPEPU
+  role: derivative
+  note: 乌鲁克最喜悦的二人（BV1pKwxzwE2T 画面中引用）
+- url: https://www.bilibili.com/video/BV1xdwwz6EL2
+  role: derivative
+  note: 我为金闪闪配音吉尔伽美什而喜悦！（BV1pKwxzwE2T 画面中引用）
+- url: https://www.bilibili.com/video/BV1ykwAzMEsv
+  role: derivative
+  note: 我为神秘绿发泥人吃草而喜悦（BV1pKwxzwE2T 画面中引用）
+- url: https://www.bilibili.com/video/BV1g5cCzdEQ2
+  role: reference
+  note: 我为反恐而喜悦！！（BV1pKwxzwE2T 画面中引用）
+evidence_map:
+  ocr-BV1SscfzPEPU: null
+  ocr-BV1xdwwz6EL2: null
+  ocr-BV1ykwAzMEsv: null
+  ocr-BV1g5cCzdEQ2: null
+  ocr-narration-BV1pKwxzwE2T: null
+claims:
+- key: definition
+  statement: 「国产吉尔伽美什」出自2000年首播的《学问猫说历史》苏美尔史诗单元，台词参考史诗译文而变得让人难绷。
+  evidence:
+  - ocr-narration-BV1pKwxzwE2T
+  stance: supports
+events:
+- event_type: remix
+  description: 国产吉尔伽美什 出现衍生作品《乌鲁克最喜悦的二人》
+  occurred_at_start: 2026-03-11 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1pKwxzwE2T 画面引用发现
+  evidence:
+  - ocr-BV1SscfzPEPU
+- event_type: remix
+  description: 国产吉尔伽美什 出现衍生作品《我为金闪闪配音吉尔伽美什而喜悦！》
+  occurred_at_start: 2026-03-11 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1pKwxzwE2T 画面引用发现
+  evidence:
+  - ocr-BV1xdwwz6EL2
+- event_type: remix
+  description: 国产吉尔伽美什 出现衍生作品《我为神秘绿发泥人吃草而喜悦》
+  occurred_at_start: 2026-03-11 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1pKwxzwE2T 画面引用发现
+  evidence:
+  - ocr-BV1ykwAzMEsv
+relations: []
+gold:
+  canonical:
+  - 国产吉尔伽美什
+  alias: []
+  origin_intent:
+  - 国产吉尔伽美什的出处
+  description:
+  - 动画里最忧郁二人
+  must_not_return: []
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis: '003.0s 出自2000年首播的
+
+    004.0s 《学问猫说历史》中的《苏美尔史诗》单元
+
+    022.0s 最近学问猫这个单元就被大家翻了出来
+
+    026.0s 其中的台词因为参考了史诗原文译文
+
+    029.0s 而变得让人难绷
+
+    063.0s 也被称为了国产吉尔伽美什'
+  draft_notes: '片段边界：本梗解说占 002-063s；065-094s 是「杂修们」等配音台词与画面，是梗的演示不是解释。整集只讲这一个梗。
+
+    定义依据：003-004s 说出自2000年首播的《学问猫说历史》中的《苏美尔史诗》单元；026-029s 说其中的台词因为参考了史诗原文译文而变得让人难绷。书名号我只写了「《学问猫说历史》」和「苏美尔史诗」两处，按解说行照抄；解说的原文是「《学问猫说历史》中的《苏美尔史诗》单元」。
+
+    可疑 OCR：009-010s「大家会想起什么作品哈」口语化的「哈」照抄；071s「简直是对身为王的本王的读！」疑为「亵渎」之误，未写入正文。
+
+    usage_context 留空（D-10）：057-058s「让这个梗迅速传播」「角色形象也被套用到了其他模板中」、061s「比如“最忧郁的二人”等等」讲的是传播和衍生的模板，不是「在什么场合用它、想表达什么」；解说没有一句说使用场合。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 衍生关系来自 BV1pKwxzwE2T 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+  - 传播区间 2026-03-11 .. 2026-03-13（4 条）
+  gpt_repair_notes: 116s exact title/BV agrees but frame uploader 邪神重工喵 differs from
+    resolved 邪神_karasu_喵; no alias relationship assumed. Event removed and citation
+    retained as reference. Three other exact remix identities retained.
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: Full BV1pKwxzwE2T narration003-004/063s identifies the cartoon 苏美尔史诗
+        unit and 国产吉尔伽美什 nickname. Fate014-021s is comparison/context, not substituted
+        origin.
+      meaning: 003-004s supplies2000 first-broadcast date as explainer testimony;026-034s
+        explicitly links translated epic wording to amusing dialogue. No speculation021s
+        about resurgence cause asserted as fact.
+      usage: Empty preserved:057-061s shows spread/template reuse without a distinct
+        expression situation; later dialogue065-094s is performance, not usage explanation.
+      origins: Cartoon unit named by narration, but no primary upload identified.
+        Unknown origin fields/empty relations retained; derivative creators not presented
+        as cartoon originators.
+      events: 61s explicit other-template illustration maps to 乌鲁克最喜悦的二人/date20260311;66s金闪闪配音
+        and96s绿发吃草 titles/BVs/uploaders match same-date CSV, in the demonstrated dubbing
+        segment.116s conflicting uploader event removed, reference retained with uncertainty
+        noted.
+      queries: Human query 动画里最忧郁二人 unchanged; narration061s gives the crossover context.
+        No generated description or invented human approval.
+    fingerprint: 3577aaa9f4e6ca8345446ae92cb23c591277749483608be13e8fe960554529b0

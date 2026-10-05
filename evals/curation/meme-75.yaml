@@ -1,0 +1,123 @@
+slug: meme-75
+resolved: false
+canonical_name: 牛巴里巴
+aliases: []
+definition: 迈克尔杰克逊《Jam》里一句歌词的空耳，因博主「梦影」穿着外卖服、在重庆的公共场所边跳边唱空耳版而火起来。
+usage_context: ''
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1Jdz6ByEj7
+  role: derivative
+  note: 哦🕺欸嘿🕺欸嘿🕺牛巴里巴🕺嘿嘿他牛巴里巴🕺丁图他巴图没呀🕺Ciallo～(∠・ω（BV1NsZsBxEoR 画面中引用）
+- url: https://www.bilibili.com/video/BV16gFezCEuB
+  role: reference
+  note: 牛 巴 里 巴 x Phonk（BV1NsZsBxEoR 画面中引用）
+- url: https://www.bilibili.com/video/BV1iKZLB2ENN
+  role: reference
+  note: We've lost 牛巴里巴💃💃💃（BV1NsZsBxEoR 画面中引用）
+evidence_map:
+  ocr-narration-BV1NsZsBxEoR: null
+  ocr-BV1Jdz6ByEj7: null
+  ocr-BV16gFezCEuB: null
+  ocr-BV1iKZLB2ENN: null
+claims:
+- key: definition
+  statement: 迈克尔杰克逊《Jam》里一句歌词的空耳，因博主「梦影」穿着外卖服、在重庆的公共场所边跳边唱空耳版而火起来。
+  evidence:
+  - ocr-narration-BV1NsZsBxEoR
+  stance: supports
+events:
+- event_type: remix
+  description: 牛巴里巴 出现夜空早已沉寂发布的空耳二创视频
+  occurred_at_start: 2026-01-24 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1NsZsBxEoR 画面引用发现
+  evidence:
+  - ocr-BV1Jdz6ByEj7
+relations: []
+gold:
+  canonical:
+  - 牛巴里巴
+  alias: []
+  origin_intent:
+  - 牛巴里巴的出处
+  description:
+  - Micheal Jackson 歌曲空耳
+  must_not_return: []
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis:
+  - 002.0s 这个梗呢是一个空耳梗
+  - 005.0s 迈克尔杰克逊的《Jam》中的这句歌词
+  - 015.0s 而这首歌为什么会以空耳的形式火起来呢？
+  - 019.0s 这就要说到一位名叫1“梦影的博主了
+  - 021.0s 这位博主的视频风格呢
+  - 023.0s 其实就是穿着外卖服
+  - 025.0s 顶着一头油腻的头发
+  - 026.0s 穿着神秘拖孩
+  - 028.0s 在重庆的各种公共场所
+  - 030.0s 大门口模仿mj激情跳舞
+  - 032.0s 一边跳呢还要一边唱着空耳版的《Jam
+  - 055.0s 还颇有一种“社交恐怖分子”的冲击感
+  - 062.0s 在抽象之余也是让一些网友越品越有味
+  - 066.0s 越品越洗脑
+  - 067.0s 于是乎网友们在对梦影不断玩梗
+  - 072.0s “您的外卖正在牛巴里巴”之外
+  - 074.0s 也一个个加入了二创大军
+  draft_notes: '段落边界（D-14）：BV1NsZsBxEoR 整集只有一个梗（牛巴里巴）。002-015s 讲它是迈克尔杰克逊《Jam》歌词的空耳，019-062s
+    讲重庆博主梦影的外卖服跳舞视频，067-075s 讲网友的玩梗与二创；077-156s 都是衍生作品画面（077s BV1Jdz6ByEj7、104s BV16gFezCEuB、127s
+    BV1iKZLB2ENN）。定义取 002/005/015/019/023/028/030/032s。
+
+    usage_context 留空（D-10）：067-075s（网友们不断玩梗、像是「天气拖孩化」「您的外卖正在牛巴里巴」、一个个加入二创大军、跳起这个舞蹈）都是玩梗与二创传播，没有一句说人们在什么场合拿它来做什么、表达什么。
+
+    OCR 可疑未改：019s 句中有多余的「1」（一位名叫1“梦影的博主了）且引号残缺；026s「穿着神秘拖孩」、070s「天气拖孩化」、075s「这个''拖孩化''舞蹈」里的「拖孩」应是「拖鞋」的错读，均照抄在
+    basis 中，没有替它改字，也没有把「拖孩化」写进定义；032s 的《Jam 缺右书名号，定义里用的是 005s 的《Jam》。
+
+    未写（D-4）：023-030s 的外卖服、油腻头发、神秘拖孩等外形描述只取了「外卖服」一项进定义；053/055/059s 的「癫狂」「社交恐怖分子」「声嘶力竭」是评价，未写。
+
+    可疑关系（只报告，未改）：本条三条已解析 sources（BV1Jdz6ByEj7 画面 077s、BV16gFezCEuB 画面 104s、BV1iKZLB2ENN
+    画面 127s）与 events 的日期一致；画面 087-103s 还有一个 BV1x8cWzeEYi（画面 087s，作者：呛了一口，「我现在没事就喜欢牛巴里巴两句」）在
+    lineage 里只是未解析行，不在本条 sources 里，我没有补。
+
+    未发现只存在于画面、且定义必须依赖的含义，故未加 automation_hold。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - One supported dated remix; two uploader-uncertain references. Original creator/date
+    not inferred.
+  gpt_repair_notes: Narration028s establishes filming in 重庆, not birthplace/residence;
+    definition states location of performances.104s 巨蚀强酸 versus resolved orcathekiller
+    and127s 十拾10 versus resolved 十拾I0 not equated or repaired; reference only, dated
+    remix events removed.77s exact 夜空早已沉寂/date20260124 retained with descriptive event
+    instead of truncated emoji title. Human spelling Micheal preserved; unknown meme
+    origin unchanged.
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: Full BV1NsZsBxEoR narration002-075s/screens000-156s and77/87/104/127s
+        citation frames read.005s identifies Jam lyric mondegreen;019-032s blogger
+        performance links to it.
+      meaning: 005/015/019/023/028/030/032s support song, 梦影, costume/location and
+        singing/dance. No missing lyric filled, no permanent personal location inferred,
+        OCR 拖孩 not repaired.
+      usage: Empty usage retained:067-075s documents response and imitation spread,
+        no additional posting purpose invented.
+      origins: Unknown origin/empty relations retained; 梦影 narrated popularization
+        distinct from original song/meme creator, no dated first upload or inferred
+        source relationship.
+      events: CSV dates and full frames checked.77s exact 夜空早已沉寂/date20260124 supports
+        one remix.104s 巨蚀强酸/orcathekiller mismatch and127s 十拾10/十拾I0 mismatch reference
+        only;87s unresolved BV not added.
+      queries: Human Micheal Jackson 歌曲空耳 retained verbatim including spelling;005s
+        song plus002/004s mondegreen support meaning. No generated query or human
+        review claim.
+    fingerprint: 7a4943ad119e7606522660d92dfc4b47d4e10c32fa136358ab8e5c364741f494

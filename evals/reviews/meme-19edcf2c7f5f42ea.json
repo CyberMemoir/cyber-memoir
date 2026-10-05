@@ -1,0 +1,75 @@
+{
+  "frozen_at": "2026-10-03T18:41:14.419450+00:00",
+  "record": {
+    "slug": "meme-19edcf2c7f5f42ea",
+    "resolved": false,
+    "canonical_name": "芙莉莲仰视",
+    "aliases": [],
+    "definition": "以「芙莉莲」同人图中硬朗的下颌线和扭曲的仰视角度为模板的重绘梗。",
+    "usage_context": "",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [],
+    "evidence_map": {
+      "ocr-narration-BV1woUpBWEV9": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "以「芙莉莲」同人图中硬朗的下颌线和扭曲的仰视角度为模板的重绘梗。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1woUpBWEV9"
+        ]
+      }
+    ],
+    "events": [],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "芙莉莲仰视"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "芙莉莲仰视的出处"
+      ],
+      "description": [
+        "一张低角度看动漫女主角的同人图，下巴很硬朗，脑袋角度很怪，引来很多画师重绘"
+      ],
+      "description_source": "model",
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV1woUpBWEV9"
+      ],
+      "description_authored_by": "codex",
+      "description_basis": "Stored narration, before definition drafting; model-generated, not human benchmark",
+      "draft_basis": [
+        "003.0s 外网突然流行类似画这样",
+        "004.0s 特定角度的芙莉莲",
+        "013.0s 正是起源于其一张同人图",
+        "019.0s 不过画风可以说是尤为崩坏呀",
+        "021.0s 这下颌线看着十分硬朗",
+        "023.0s 脑袋倾斜的角度和位置却牛分扭曲",
+        "038.0s 其他画手开始争先恐后的",
+        "039.0s 基于这一概念重绘",
+        "041.0s 画出了每位画师自己的芙莉莲仰视"
+      ],
+      "draft_notes": "003-041s establishes primary meme; 099-108s compares an earlier Sasuke drawing; 125-129s mentions further character drawings, not this meme's original scene\nNo cited BV rows exist. Narration attributes a Reddit post to SpaceDev1, but no direct URL/date is available; keep off-platform origin unasserted. Do not borrow the2017 date of the different drawing. No lineage row means existing batch_paths may omit this episode: fix scope explicitly before publication rather than inventing a derivative.",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未证实，保留unknown；不把二创投稿日期当作首次出处",
+        "同一Codex模型分阶段复核，独立性有限；未声称人工确认"
+      ],
+      "draft_origin_sha256": "99c4b980245b233b665e7557b9ea286241a16c9826db2000c387852bccbab1b3"
+    }
+  }
+}

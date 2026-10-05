@@ -1,0 +1,138 @@
+slug: xxx-d2b877224b99f6a8
+resolved: false
+canonical_name: XXX你被捕了
+aliases: []
+definition: 把《疯狂动物城》中「朱迪」与「尼克」的互动片段化为模板，用 AI 将「abcab，你被捕了」套到各种 IP 角色身上。
+usage_context: 用 AI 来复刻这段名场面，产生一种特别的化学反应。
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1hV2CBxEe9
+  role: derivative
+  note: 冰红茶冰红,你被捕了。（BV1J4mCB6Emw 画面中引用）
+- url: https://www.bilibili.com/video/BV1nT2SBREj3
+  role: reference
+  note: 尼克狐尼克，你被捕了！没10年机长经验看不懂这视频（BV1J4mCB6Emw 画面中引用）
+- url: https://www.bilibili.com/video/BV1UUmXBjEjy
+  role: derivative
+  note: 迪奥迪迪奥 你被捕了（BV1J4mCB6Emw 画面中引用）
+evidence_map:
+  ocr-narration-BV1J4mCB6Emw: null
+  ocr-BV1hV2CBxEe9: null
+  ocr-BV1nT2SBREj3: null
+  ocr-BV1UUmXBjEjy: null
+claims:
+- key: definition
+  statement: 把《疯狂动物城》中「朱迪」与「尼克」的互动片段化为模板，用 AI 将「abcab，你被捕了」套到各种 IP 角色身上。
+  evidence:
+  - ocr-narration-BV1J4mCB6Emw
+  stance: supports
+- key: usage_context
+  statement: 用 AI 来复刻这段名场面，产生一种特别的化学反应。
+  evidence:
+  - ocr-narration-BV1J4mCB6Emw
+  stance: supports
+events:
+- event_type: remix
+  description: XXX你被捕了 出现衍生作品《冰红茶冰红,你被捕了。》
+  occurred_at_start: 2025-12-08 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1J4mCB6Emw 画面引用发现
+  evidence:
+  - ocr-BV1hV2CBxEe9
+- event_type: remix
+  description: XXX你被捕了 出现衍生作品《迪奥迪迪奥 你被捕了》
+  occurred_at_start: 2025-12-13 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1J4mCB6Emw 画面引用发现
+  evidence:
+  - ocr-BV1UUmXBjEjy
+relations: []
+gold:
+  canonical:
+  - XXX你被捕了
+  alias: []
+  origin_intent:
+  - XXX你被捕了的出处
+  description:
+  - 尼克狐尼克
+  must_not_return: []
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis:
+  - 004.0s 这个梗呢
+  - 005.0s 出自疯狂动物城这个IP的两位主角
+  - 007.0s 兔子警官朱迪和狐狸尼克有关
+  - 010.0s 早在《疯狂动物城1》上映的时候
+  - 012.0s 这对主角搭配就得到了很多人的喜欢
+  - 018.0s 其中就包括这一段
+  - 020.0s 朱迪速捕尼克的桥段
+  - 027.0s 所以其实在很早的时候
+  - 029.0s 就有一些网友对这个桥段进行了剪辑
+  - 032.0s 并配上了“正版极限国度”「的梗曲《For ya》
+  - 035.0s 来让这个剪辑看起来更甜一点
+  - 037.0s 而最近《疯狂动物城2》也是热闹非凡啊
+  - 045.0s 他们将这个视频化为模板
+  - 047.0s 并利用AI
+  - 049.0s 套用在各种各样的IP角色身上
+  - 051.0s 来进行一种各种各样的“abcab，你被捕了”
+  - 054.0s 的名场面复刻
+  - 055.0s 以此产生特别的化学反应
+  draft_notes: '段落边界（D-14）：BV1J4mCB6Emw 整集只有一个梗（XXX你被捕了），解说 004-055s。005-020s 讲出处（《疯狂动物城》里朱迪与尼克的那段戏），027-035s
+    讲早期的剪辑与配曲《For ya》，037-055s 讲《疯狂动物城2》之后网友把这段做成模板、用 AI 套到各种 IP 角色上。定义取 005/007/018/020/045/049/051/054s，usage
+    取 045/047/049/051/054/055s。
+
+    usage_context 依据：045-055s 的「化为模板／利用AI／套用在各种各样的IP角色身上／进行一种各种各样的『abcab，你被捕了』的名场面复刻／以此产生特别的化学反应」说明拿它怎么做、图什么；029-035s
+    的早期剪辑属背景。
+
+    OCR 可疑未改：020s 的「速捕」（应是「逮捕」）没有照抄进定义，定义里改用自己的话「那段戏」；032s 的引号残缺（“正版极限国度”「的梗曲《For
+    ya》）照抄在 basis 中；051s 的「abcab」是定义引用的原文，没有替它补全成任何具体名字。画面流 002/021s 的「尼克狐尼克，你被捕了」是同一句的另一种写法（人类查询用的就是「尼克狐尼克」），我没有把它写进定义，也没有改动
+    gold。
+
+    未写（D-4/D-6）：010/012/015/017s 的上映与观众喜爱、026s 画面里的「因为逃税漏税」、032s 的「正版极限国度」、071-135s
+    的各路二创（化学萌物、夜神月、吴用、迪奥迪迪奥、冰红茶等）都没有写进定义。
+
+    可疑关系（只报告，未改）：本条三条已解析衍生作品（BV1hV2CBxEe9 2025-12-08、BV1nT2SBREj3 2025-12-09、BV1UUmXBjEjy
+    2025-12-13）与 events 一致；画面 057/063/071/081/088/096/118s 还有多条作者署名（@做化学萌物、@像佐助的刘某、@黄桃肥波、八于Mf、@炒饭单推人、JO级镇魂堡、小猪要吃好果子），只有其中三条在
+    lineage 里解析出来，其余没有对应来源，我没有补。
+
+    未发现只存在于画面、且定义必须依赖的含义，故未加 automation_hold。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 衍生关系来自 BV1J4mCB6Emw 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+  - 传播区间 2025-12-08 .. 2025-12-13（3 条）
+  gpt_repair_notes: Definition describes scene-based template rather than independently
+    verified primary origin.81s displayed author 八于Mf differs from resolved ハチMf;
+    possible OCR/transliteration not assumed, reference only and event removed.96/118s
+    remaining exact titles/authors/date metadata support two variants.051s abcab retained
+    exactly as placeholder, no quote repair. Human query intact.
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: Read full BV1J4mCB6Emw narration004-055s,screen001-135s and81/96/118s
+        frames.005/007/018/020/045/047/049/051s ties scene and character replacement
+        template.
+      meaning: 005/007/045/047/049/051s supports template definition. No primary uploader/date
+        assertion; literal abcab copied from051s, film background not promoted to
+        independently verified earliest origin.
+      usage: 047/049/054/055s explicitly states using AI to recreate scene and produce
+        a special interaction; retained narrated purpose, not inferred dating or posting
+        occasion.
+      origins: Unknown fields and empty relations retained; film context and early-edit
+        narration027/029s lacks independently resolved original release/uploader.
+        No relative 最近 or guessed release date.
+      events: 81s author conflict 八于Mf versus ハチMf reference only.96s JO级镇魂堡/BV1UUmXBjEjy20251213
+        and118s 小猪要吃好果子/BV1hV2CBxEe920251208 match title/BV/platform facts, two variants
+        retained. Unresolved non-BV credits not converted into events.
+      queries: Human 尼克狐尼克 preserved verbatim; narrated character context007s and
+        screen002/021s corroborate query. No new model query or invented confirmation.
+    fingerprint: f402e16d760204945de91a50e1cb826d9dfcff65c88466f115cb45cb62534e69

@@ -1,0 +1,165 @@
+slug: meme-23
+resolved: false
+canonical_name: 你已急哭
+aliases: []
+definition: 游戏里用来压力别人的一句话，在「火影手游」里成为有名的梗；后来与「外星瞄准」战队的外星人表情包捆绑传播。
+usage_context: 在游戏对局里用来给对手压力，也用于配上外星人表情包体现压迫感。
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1zc6SBTECp
+  role: reference
+  note: 你已急哭（BV1fXzLBzEwD 画面中引用）
+- url: https://www.bilibili.com/video/BV1hiraBVEej
+  role: reference
+  note: 你已急哭2（BV1fXzLBzEwD 画面中引用）
+- url: https://www.bilibili.com/video/BV1SErYBCEsb
+  role: reference
+  note: 你已急哭3（BV1fXzLBzEwD 画面中引用）
+- url: https://www.bilibili.com/video/BV1k3kKBtEdC
+  role: reference
+  note: 循环歌单|《你已急哭の小曲》Geisha+聚财咒（BV1fXzLBzEwD 画面中引用）
+- url: https://www.bilibili.com/video/BV13okTB2ERd
+  role: reference
+  note: 你已急哭（BV1fXzLBzEwD 画面中引用）
+- url: https://www.bilibili.com/video/BV1FjrCBdEFn
+  role: derivative
+  note: 🍬你 已 急 哭🍬（BV1fXzLBzEwD 画面中引用）
+- url: https://www.bilibili.com/video/BV17mkEBpEFF
+  role: derivative
+  note: Lost One的急哭（BV1fXzLBzEwD 画面中引用）
+evidence_map:
+  ocr-narration-BV1fXzLBzEwD: null
+  ocr-BV1zc6SBTECp: null
+  ocr-BV1hiraBVEej: null
+  ocr-BV1SErYBCEsb: null
+  ocr-BV1k3kKBtEdC: null
+  ocr-BV13okTB2ERd: null
+  ocr-BV1FjrCBdEFn: null
+  ocr-BV17mkEBpEFF: null
+claims:
+- key: definition
+  statement: 游戏里用来压力别人的一句话，在「火影手游」里成为有名的梗；后来与「外星瞄准」战队的外星人表情包捆绑传播。
+  evidence:
+  - ocr-narration-BV1fXzLBzEwD
+  stance: supports
+- key: usage_context
+  statement: 在游戏对局里用来给对手压力，也用于配上外星人表情包体现压迫感。
+  evidence:
+  - ocr-narration-BV1fXzLBzEwD
+  stance: supports
+events:
+- event_type: remix
+  description: 你已急哭 出现衍生作品《🍬你 已 急 哭🍬》
+  occurred_at_start: 2026-01-16 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1fXzLBzEwD 画面引用发现
+  evidence:
+  - ocr-BV1FjrCBdEFn
+- event_type: remix
+  description: 你已急哭 出现衍生作品《Lost One的急哭》
+  occurred_at_start: 2026-01-20 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1fXzLBzEwD 画面引用发现
+  evidence:
+  - ocr-BV17mkEBpEFF
+relations: []
+gold:
+  canonical:
+  - 你已急哭
+  alias: []
+  origin_intent:
+  - 你已急哭的出处
+  description:
+  - 游戏里用来嘲讽对面急了的那句话
+  - 外星人头像那套表情包和常配的那首小曲
+  must_not_return: []
+  description_source: model
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis:
+  - 006.0s 其实是游戏里压力别人常用的话
+  - 008.0s 就类似说你急哭了之类的
+  - 010.0s 而在火影手游里
+  - 011.0s 就有一个非常有名的梗
+  - 030.0s 背包来给他们的】“外星瞄准”战队使用
+  - 033.0s 从而体现出一种他们很强很猛的压迫感加入
+  - 043.0s 如今这两个梗被网友们捆绑在一起后
+  draft_notes: '段落边界（D-14）：BV1fXzLBzEwD 整集只有一个梗，解说行在 001-059s。005-019s 讲这句话在游戏里的用法与火影手游里的谐音叫法；020-040s
+    讲「外星瞄准」的外星人表情包（codm、灾宿 id: 77727、用 ai 创作）；043-059s 讲两个梗被捆绑后的二创与外星人の小曲。定义取 006/008/010/011/030/043s，usage
+    取 006/033s。
+
+    usage_context 非空依据：006s「其实是游戏里压力别人常用的话」是说明用法的句子，033s「从而体现出一种他们很强很猛的压迫感」说明配上这套表情包要表达什么。
+
+    未写（D-4/D-6）：013s「据说是出自博主“沐灵7”」带「据说」；015-019s 的「中长跑一小」「6276来了」「小暗影」「痛」「合18682来了」在解说里残缺且互为谐音错读，所以没有写进定义。「沐灵7」在画面
+    010s 有同名出现（火影忍者主播热度第4名），要写起源可另行核。051-059s（用这套表情包常配的外星人の小曲《Geisha+聚财究》做更离谱的二创）属二创与传播，按
+    D-10 不进 usage。
+
+    OCR 不一致，照抄未改：解说 054s 读作《Geisha+聚财究》，画面 054-056s 与 lineage 里 BV1k3kKBtEdC 的标题写作「Geisha+聚财咒」。
+
+    可疑关系（只报告，未改）：画面 006-009s 出现的 BV1WU411mzjn（「你先别急！」，作者茶哮cc／茶吖cc）与 057-060s 出现的急急那如律令视频（画面
+    OCR 给出 BVIHWBDBWEKR／BVIhWBDBWEKR／BVIHWEDBWEKR 三种写法）都不在本条 sources 里，lineage.csv
+    中它们是未解析（无 upload_date）的行；是否补进 sources/events 由 GPT 判断。lineage 里另有 BV1Zc6SBTECp
+    等未解析的大小写重复行，我未改动 sources/events/gold。
+
+    未发现只存在于画面、且定义必须依赖的含义，故未加 automation_hold；usage 是依据解说写出的，不是留空。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 衍生关系来自 BV1fXzLBzEwD 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+  - 传播区间 2026-01-10 .. 2026-01-20（7 条）
+  gpt_repair_notes: Postal uploader variants versus Postal__dude and 滑鲨 versus hspt_n_滑鲨
+    not silently equated; four dated events removed/reference retained.54s is a loop
+    of accompanying music, reference-only.88/100s direct meme edits retained. No attribution
+    from 据说 or missing unresolved BV rows.
+  description_query_provenance:
+    author: DeepSeek
+    source: model
+    proposed_at: '2026-09-30'
+    basis: Blind source-only proposals before definitions were drafted.
+    proposal_file: ai_context/model_queries_batches7_8.yaml
+    source_episode: BV1fXzLBzEwD
+    source_spans:
+    - 006.0s 其实是游戏里压力别人常用的话
+    - 008.0s 就类似说你急哭了之类的
+    - 010.0s 而在火影手游里
+    - 021.0s 则是和这个神秘外星人表情包
+    - 035.0s 实际上确实对面都是这种外星人头像
+    - 051.0s 也有不少人用这套表情包常配的外星人の小曲
+    reviewer: gpt
+    reviewed_at: '2026-10-01'
+    semantic_review: Two blind model queries independently supported006/008/021/035/051s,
+      exact spans verified. Second query identifies this combined image/music template.
+      Empty description filled as model with author/basis; existing human queries
+      elsewhere untouched.
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: Full BV1fXzLBzEwD narration001-059s, screen000-122s and citation frames
+        read;006/008 identifies pressure phrase and020-043 connects alien image. One
+        combined identity explicitly described by narrator.
+      meaning: 006/008/010/011/030/033/040/043s support game phrase, 火影手游 context,
+        外星瞄准 image and intimidating combination. Hedged creator claims013/027 and
+        garbled names omitted.
+      usage: 006s states pressure use and033/040s state intimidation, supporting both
+        usage clauses rather than inferring them from clip dialogue; no spread-only
+        wording in usage.
+      origins: Unknown origin fields and empty relations retained:013/027 attribution
+        hedged, upstream BV rows unresolved. Neither example upload dates nor clean
+        screen handles prove first creator.
+      events: Exact frames/CSV facts read.1/45/47 Postal spellings versus Postal__dude
+        and62s uploader conflict downgraded references;54s music loop reference-only.88s
+        TLB天狐 and100s 玛丽的对头 match identity/date20260116/20; two remix events retained.
+      queries: Two blind model queries independently supported006/008/021/035/051s,
+        exact spans verified. Second query identifies this combined image/music template.
+        Empty description filled as model with author/basis; existing human queries
+        elsewhere untouched.
+    fingerprint: 7d65ee53661fe78a65e78763455eaa55b8475e294ab19a73ab9749fed2b7a256

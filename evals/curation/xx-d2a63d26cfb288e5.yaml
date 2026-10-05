@@ -1,0 +1,168 @@
+slug: xx-d2a63d26cfb288e5
+resolved: false
+canonical_name: XX做了噩梦
+aliases: []
+definition: 出自洋抖摄影圈的一个模板：把在梦里坠落、把自己吓醒的经历套到别的东西上，比如「相机做了个墨梦」。
+usage_context: ''
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1PBiDY2EMS
+  role: derivative
+  note: 鼠标和我说它昨晚做了噩梦（BV1GLzCBzE6S 画面中引用）
+- url: https://www.bilibili.com/video/BV1FAkuBhEZP
+  role: derivative
+  note: 显卡做了个噩梦（BV1GLzCBzE6S 画面中引用）
+- url: https://www.bilibili.com/video/BV1PizVBCEhc
+  role: derivative
+  note: 别怕有我在（BV1GLzCBzE6S 画面中引用）
+evidence_map:
+  ocr-narration-BV1GLzCBzE6S: null
+  ocr-BV1PBiDY2EMS: null
+  ocr-BV1FAkuBhEZP: null
+  ocr-BV1PizVBCEhc: null
+claims:
+- key: definition
+  statement: 出自洋抖摄影圈的一个模板：把在梦里坠落、把自己吓醒的经历套到别的东西上，比如「相机做了个墨梦」。
+  evidence:
+  - ocr-narration-BV1GLzCBzE6S
+  stance: supports
+events:
+- event_type: remix
+  description: XX做了噩梦 出现衍生作品《鼠标和我说它昨晚做了噩梦》
+  occurred_at_start: 2024-12-05 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1GLzCBzE6S 画面引用发现
+  evidence:
+  - ocr-BV1PBiDY2EMS
+- event_type: remix
+  description: XX做了噩梦 出现衍生作品《显卡做了个噩梦》
+  occurred_at_start: 2026-01-19 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1GLzCBzE6S 画面引用发现
+  evidence:
+  - ocr-BV1FAkuBhEZP
+- event_type: remix
+  description: XX做了噩梦 出现衍生作品《别怕有我在》
+  occurred_at_start: 2026-01-21 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1GLzCBzE6S 画面引用发现
+  evidence:
+  - ocr-BV1PizVBCEhc
+relations: []
+gold:
+  canonical:
+  - XX做了噩梦
+  alias: []
+  origin_intent:
+  - XX做了噩梦的出处
+  description:
+  - 梦到从高处坠落把自己吓醒，然后把各种东西都套上去的图
+  - 洋抖摄影圈那个相机做了噩梦的模板
+  must_not_return: []
+  description_source: model
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis: '003.0s 其实是来源于洋抖的一个梗
+
+    005.0s 在24年就火过了
+
+    007.0s 最近才在国内火起来
+
+    009.0s 相信大家都有过那种
+
+    010.0s 在梦境中坠落
+
+    012.0s 然后把自己吓醒的经历
+
+    013.0s 然后一些洋抖上摄影圈的一些天才老外呢
+
+    016.0s 就把这个东西
+
+    017.0s 和一些摄影心中的“墨梦”时刻
+
+    019.0s 结合在一起
+
+    020.0s 就变成了这种“相机做了个墨梦”
+
+    029.0s 后来呢这个meme在24年10月传到了国内
+
+    033.0s 被众多网友
+
+    036.0s 创作出了一个又一个的二创
+
+    038.0s 也不再局限于摄影圈
+
+    041.0s 各种各样的工具、玩偶等等等
+
+    045.0s 万物皆可做梦了'
+  draft_notes: '段落边界：整集只有一个梗。003-021s 讲来历与模板本身（洋抖摄影圈 → 「相机做了个墨梦」），
+
+    028-047s 讲传到国内后的传播与题材扩散。定义取 003/013/010/012/020s。
+
+    usage_context 留空（D-10）：033-047s（被众多网友创作二创、不再局限于摄影圈、扩散到工具玩偶、
+
+    万物皆可做梦）都是传播与题材扩散，没有一句说明人们拿它怎么用。
+
+    OCR 不一致处照抄未改：解说 017/020s 写作「墨梦」，而画面 021s 写作「中“相机做了个恶梦”」，
+
+    引用帧里 BV1FAkuBhEZP 的画面上是「显卡做了个亞梦」。claim 引的是解说流，故引文用「墨梦」。
+
+    未写：005s「在24年就火过了」与 029s「24年10月传到了国内」是传播时间线（events 已有日期），
+
+    按 D-4 不重复进定义。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 衍生关系来自 BV1GLzCBzE6S 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+  - 传播区间 2024-12-05 .. 2026-01-21（3 条）
+  description_query_provenance:
+    author: DeepSeek
+    source: model
+    proposed_at: '2026-09-30'
+    basis: Blind source-only proposal before this definition was drafted.
+    proposal_file: ai_context/model_queries_batches7_8.yaml
+    source_episode: BV1GLzCBzE6S
+    source_spans:
+    - 009.0s 相信大家都有过那种
+    - 010.0s 在梦境中坠落
+    - 012.0s 然后把自己吓醒的经历
+    - 016.0s 就把这个东西
+    - 020.0s 就变成了这种“相机做了个墨梦”
+    - 041.0s 各种各样的工具、玩偶等等等
+    - 045.0s 万物皆可做梦了
+    reviewer: gpt
+    reviewed_at: '2026-10-01'
+    semantic_review: Narration009-020 supports dream-falling/startle and photographer-camera
+      template;038-045 supports applying it to tools/toys. Both independent queries
+      stay within that identity.
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: Full BV1GLzCBzE6S narration003-047s and screen read;003/009-020s identify
+        photographer nightmare template;028-047s extends same meme to tools/toys,
+        no second identity.
+      meaning: 009-020s directly links dream falling/startle with camera nightmare
+        moments. Narration quote 相机做了个墨梦 preserved exactly without changing it to
+        screen 恶梦 or inventing OCR repair.
+      usage: Empty retained:033-047s is template adaptation/spread to objects; no
+        independently stated posting situation or emotional meaning invented.
+      origins: Broad overseas photographer-circle description supported by003/013s;
+        screen handles are examples, not proved original creators. Unknown origins/empty
+        relations retained, no precise first-source claim.
+      events: Exact102/115/76s citation frames and resolved CSV titles/uploaders/dates
+        support mouse20241205,graphics card20260119,and 别怕有我在20260121. Screen084/088s
+        confirms dream-context for76s generic title; wrong-case unresolved variant
+        not added.
+      queries: Two blind model queries checked against009-020/038-045s with exact
+        spans; no canonical name. Empty gold.description filled as model with author/basis,
+        separate from human recall; confirmed_by remains empty.
+    fingerprint: 698e907ad365058ad0988bba47015ee4b867167e5cb1506aed185914dd78d46f

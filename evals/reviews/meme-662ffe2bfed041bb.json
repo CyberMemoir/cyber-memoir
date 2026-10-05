@@ -1,0 +1,76 @@
+{
+  "frozen_at": "2026-10-03T19:41:25.798899+00:00",
+  "record": {
+    "slug": "meme-662ffe2bfed041bb",
+    "resolved": false,
+    "canonical_name": "企鹅跳舞",
+    "aliases": [],
+    "definition": "让企鹅表情包中的形象动起来、配上不同舞步的视频模板。",
+    "usage_context": "",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [],
+    "evidence_map": {
+      "ocr-narration-BV1zAC4B7ERC": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "让企鹅表情包中的形象动起来、配上不同舞步的视频模板。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1zAC4B7ERC"
+        ]
+      }
+    ],
+    "events": [],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "企鹅跳舞"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "企鹅跳舞的出处"
+      ],
+      "description": [
+        "企鹅配上妖娆的舞步，静态表情包变成跳舞的视频，还有明月几时有的舞蹈"
+      ],
+      "description_source": "model",
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV1zAC4B7ERC"
+      ],
+      "description_authored_by": "codex",
+      "description_basis": "Stored narration, before definition drafting; model-generated, not human benchmark",
+      "draft_basis": [
+        "010.0s gogogo",
+        "011.0s 企鹅跳舞",
+        "020.0s 从静止的表情包",
+        "022.0s 变成了可以动起来的形象",
+        "024.0s 企鹅配上各种",
+        "029.0s 最知名的当属“明月几时有”的舞姿了",
+        "043.0s 甚至网友想到了一个谐音说法",
+        "045.0s 半月挤石油",
+        "049.0s 引得大家纷纷效仿翻拍",
+        "070.0s 除了这个之外"
+      ],
+      "draft_notes": "010-083s dancing penguin only;084s switches to another meme.\nFrame29 shows dancing penguin. All resolved citation BV rows occur in the second meme; do not assign them to this record despite lineage label.",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未证实，保留unknown；不把二创投稿日期当作首次出处",
+        "同一Codex模型分阶段复核，独立性有限；未声称人工确认"
+      ],
+      "draft_origin_sha256": "d9bf103ce2d3978a1043a0707a193ecf375fe092392c3d00b3795e866414061f"
+    }
+  }
+}

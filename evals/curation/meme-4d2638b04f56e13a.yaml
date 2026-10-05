@@ -1,0 +1,85 @@
+slug: meme-4d2638b04f56e13a
+resolved: false
+canonical_name: 许愿柳
+aliases:
+- 一愿柳
+- One Wish Willow
+definition: 电影《痴迷》的核心元素，许愿后会实现，但是会以意想不到的方式
+usage_context: 卡许愿柳bug，用神奇的脑回路许愿
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1KBTC6QEcP
+  role: derivative
+  note: 看完痴迷后be like..（BV1P8Gw6yEjS 画面中引用）
+- url: https://www.bilibili.com/video/BV1DVgd6TEqj
+  role: derivative
+  note: 当我买到许愿柳（BV1P8Gw6yEjS 画面中引用）
+- url: https://www.bilibili.com/video/BV1cE3k6nEwD
+  role: derivative
+  note: 非常灵的螺纹钢许愿棒，痴迷同款一愿柳，十分甚至九分的好用（BV1P8Gw6yEjS 画面中引用）
+evidence_map:
+  ocr-narration-BV1P8Gw6yEjS: null
+  ocr-BV1KBTC6QEcP: null
+  ocr-BV1DVgd6TEqj: null
+  ocr-BV1cE3k6nEwD: null
+claims:
+- key: definition
+  statement: 电影《痴迷》的核心元素，许愿后会实现，但是会以意想不到的方式
+  stance: supports
+  evidence:
+  - ocr-narration-BV1P8Gw6yEjS
+- key: usage_context
+  statement: 卡许愿柳bug，用神奇的脑回路许愿
+  stance: supports
+  evidence:
+  - ocr-narration-BV1P8Gw6yEjS
+events:
+- event_type: remix
+  description: 许愿柳 出现衍生作品《看完痴迷后be like..》
+  occurred_at_start: 2026-07-04 16:00:00+00:00
+  occurred_at_end: null
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1P8Gw6yEjS 画面引用发现
+  evidence:
+  - ocr-BV1KBTC6QEcP
+- event_type: remix
+  description: 许愿柳 出现衍生作品《当我买到许愿柳》
+  occurred_at_start: 2026-07-25 16:00:00+00:00
+  occurred_at_end: null
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1P8Gw6yEjS 画面引用发现
+  evidence:
+  - ocr-BV1DVgd6TEqj
+- event_type: remix
+  description: 许愿柳 出现衍生作品《非常灵的螺纹钢许愿棒，痴迷同款一愿柳，十分甚至九分的好用》
+  occurred_at_start: 2026-07-28 16:00:00+00:00
+  occurred_at_end: null
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1P8Gw6yEjS 画面引用发现
+  evidence:
+  - ocr-BV1cE3k6nEwD
+relations: []
+gold:
+  canonical:
+  - 许愿柳
+  alias: []
+  origin_intent:
+  - 许愿柳的出处
+  description:
+  - 对着一根可以掰断的东西许下愿望，然后它就以意想不到的方式实现了
+  - 觉得一个东西像 THe Monkey's Paw
+  must_not_return: []
+curation:
+  curator: ''
+  drafted_by: ''
+  confirmed_by: ''
+  started_at: '2026-09-30'
+  ingestion_ok: true
+  findings:
+  - Recovered verbatim from published database revision 2; original curation metadata
+    was lost and is not invented.

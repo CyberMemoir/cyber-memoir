@@ -1,0 +1,214 @@
+slug: i-can-t-wait
+resolved: false
+canonical_name: I can't wait
+aliases: []
+definition: 一首V家小曲：曲师「dotcommie」，由「Gumi (Megpoid)」演唱，PV是Gumi在上升的电梯中跳舞。
+usage_context: ''
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV15GmhBaEZF
+  role: reference
+  note: I Can't Wait feat. GUMI（BV15y61BHEkw 画面中引用）
+- url: https://www.bilibili.com/video/BV1uCivBqEKe
+  role: reference
+  note: 斑鸠 can`t wait啦！！！（BV15y61BHEkw 画面中引用）
+- url: https://www.bilibili.com/video/BV1dpikBPEzL
+  role: derivative
+  note: ✝超天酱&糖糖✝ I Can't Wait 【描改/主播女孩重度依赖】（BV15y61BHEkw 画面中引用）
+- url: https://www.bilibili.com/video/BV18DrbBKEcK
+  role: derivative
+  note: 呆猫 Can't Wait …！（BV15y61BHEkw 画面中引用）
+- url: https://www.bilibili.com/video/BV1jDrZBfEWv
+  role: derivative
+  note: 我等不及了！！啊啊啊啊啊（BV15y61BHEkw 画面中引用）
+- url: https://www.bilibili.com/video/BV1ffkPB2EKP
+  role: derivative
+  note: I Can't Wait ❌️  I Can't Die ✅（BV15y61BHEkw 画面中引用）
+- url: https://www.bilibili.com/video/BV1RCkxBTEPn
+  role: derivative
+  note: Bro can't wait（BV15y61BHEkw 画面中引用）
+- url: https://www.bilibili.com/video/BV1JBkEBtEv1
+  role: reference
+  note: 嘉豪Can't Wait【Remix】by Moris（BV15y61BHEkw 画面中引用）
+- url: https://www.bilibili.com/video/BV1kU6ABmEYo
+  role: derivative
+  note: I Can't Wait Peter（BV15y61BHEkw 画面中引用）
+evidence_map:
+  ocr-narration-BV15y61BHEkw: null
+  ocr-BV15GmhBaEZF: null
+  ocr-BV1uCivBqEKe: null
+  ocr-BV1dpikBPEzL: null
+  ocr-BV18DrbBKEcK: null
+  ocr-BV1jDrZBfEWv: null
+  ocr-BV1ffkPB2EKP: null
+  ocr-BV1RCkxBTEPn: null
+  ocr-BV1JBkEBtEv1: null
+  ocr-BV1kU6ABmEYo: null
+claims:
+- key: definition
+  statement: 一首V家小曲：曲师「dotcommie」，由「Gumi (Megpoid)」演唱，PV是Gumi在上升的电梯中跳舞。
+  evidence:
+  - ocr-narration-BV15y61BHEkw
+  stance: supports
+events:
+- event_type: remix
+  description: I can't wait 出现描改衍生作品
+  occurred_at_start: 2026-01-04 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV15y61BHEkw 画面引用发现
+  evidence:
+  - ocr-BV1dpikBPEzL
+- event_type: remix
+  description: I can't wait 出现衍生作品《呆猫 Can't Wait …！》
+  occurred_at_start: 2026-01-12 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV15y61BHEkw 画面引用发现
+  evidence:
+  - ocr-BV18DrbBKEcK
+- event_type: remix
+  description: I can't wait 出现衍生作品《我等不及了！！啊啊啊啊啊》
+  occurred_at_start: 2026-01-15 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV15y61BHEkw 画面引用发现
+  evidence:
+  - ocr-BV1jDrZBfEWv
+- event_type: remix
+  description: I can't wait 出现衍生作品《I Can't Wait ❌️  I Can't Die ✅》
+  occurred_at_start: 2026-01-16 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV15y61BHEkw 画面引用发现
+  evidence:
+  - ocr-BV1ffkPB2EKP
+- event_type: remix
+  description: I can't wait 出现衍生作品《Bro can't wait》
+  occurred_at_start: 2026-01-18 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV15y61BHEkw 画面引用发现
+  evidence:
+  - ocr-BV1RCkxBTEPn
+- event_type: remix
+  description: I can't wait 出现衍生作品《I Can't Wait Peter》
+  occurred_at_start: 2026-01-30 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV15y61BHEkw 画面引用发现
+  evidence:
+  - ocr-BV1kU6ABmEYo
+relations: []
+gold:
+  canonical:
+  - I can't wait
+  alias: []
+  origin_intent:
+  - I can't wait的出处
+  description:
+  - 一个虚拟歌姬在上升的电梯里跳舞的那首可爱小曲
+  - Gumi 唱的那首很欢快、国内翻唱翻跳很多的V家歌
+  must_not_return: []
+  description_source: model
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis: '001.0s I can''t wait
+
+    003.0s 其实就是一首V家小曲
+
+    005.0s 歌曲的名字同梗名
+
+    006.0s 曲师为dotcommie（可三）
+
+    008.0s 由Gumi (Megpoid)演唱
+
+    009.0s 而PV动画制作是由mzhu(米粥)来完成的
+
+    011.0s 这首歌简简单单可可爱爱
+
+    013.0s 再加上Gumi在上升电梯中跳舞的样子
+
+    015.0s 配上轻松欢快的曲风
+
+    035.0s 蛋然在外网流量不算太高
+
+    036.0s 不过在国内可以说十分广传
+
+    038.0s 而且要复刻这电梯上的舞蹈也不算难
+
+    040.0s 所以各种无论是鬼畜
+
+    042.0s 还是翻唱翻跳亦或是重绘手书
+
+    044.0s 都是轮番上阵了'
+  draft_notes: '段落边界：整集只讲这一个梗（001s 标题卡就是梗名）。002-017s 说这首歌本身（曲师、演唱、PV、曲风），
+
+    035-048s 说传播。定义取 003/005/006/008/009/013s。
+
+    usage_context 留空（D-10）：035-044s（外网流量不算太高、国内广传、复刻不难、鬼畜/翻唱翻跳/重绘手书
+
+    轮番上阵）全部是传播与二创类型，没有一句说明人们拿它怎么用。
+
+    角色提示（我没有改动 sources/events/relations）：BV15GmhBaEZF 现在记为 derivative，但画面 000s
+
+    放的就是这首歌自己的视频（引用帧亦为「ICant_Waitfeat._GUMI / BV15GmhBaEZF / 作者：dotcommie」），
+
+    解说 005s 说「歌曲的名字同梗名」——按 O-4（成分的出处算出处）它更像 source。留给 GPT 判断。
+
+    可疑 OCR，未改：006/008s「（可三）」与画面里的「卜三／下卜三」（dotcommie 昵称读法不一致）；
+
+    035s「蛋然」（当然？）；046/048s 是同一句「篇幅限制仅截取部分」的重复。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 衍生关系来自 BV15y61BHEkw 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+  - 传播区间 2025-12-11 .. 2026-01-30（9 条）
+  gpt_repair_notes: 000s clip is the underlying song, not a remix. Narration dotcommie
+    and resolved uploader d0tc0mmie have differing OCR spelling; retained reference
+    without exclusive uploader/origin assertion.57s sfawa conflicts with resolved
+    Ma3t1r;94s Moris versus Moris_已试播 alias unproved; both reference-only.79s truncated
+    title replaced with supported depiction description. Six direct remix events retained.
+  description_query_provenance:
+    author: DeepSeek
+    source: model
+    proposed_at: '2026-09-30'
+    basis: Blind source-only proposal before this definition was drafted.
+    proposal_file: ai_context/model_queries_batches7_8.yaml
+    source_episode: BV15y61BHEkw
+    source_spans:
+    - 003.0s 其实就是一首V家小曲
+    - 005.0s 歌曲的名字同梗名
+    - 008.0s 由Gumi (Megpoid)演唱
+    - 013.0s 再加上Gumi在上升电梯中跳舞的样子
+    - 015.0s 配上轻松欢快的曲风
+    - 038.0s 而且要复刻这电梯上的舞蹈也不算难
+    - 042.0s 还是翻唱翻跳亦或是重绘手书
+    reviewer: gpt
+    reviewed_at: '2026-10-01'
+    semantic_review: Narration003/008/013/015/038/042 supports song, singer, elevator
+      dancing, upbeat style and cover/dance adaptations; both queries identify this
+      segment without canonical name.
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: Read full BV15y61BHEkw narration and screen:001/003/005/006/008/009/013s
+        identify the song, singer and elevator PV; one episode segment, not a character
+        from one cover.
+      meaning: 003s V家小曲,006s composer,008s Gumi (Megpoid),013s elevator dancing support
+        each clause; no nickname OCR repair or independent account alias inference.
+      usage: Empty retained:035-044s describes circulation and cover/dance/redraw
+        creation, not a distinct usage situation under D-10.
+      origins: Underlying song at000s is not a remix and now reference-only; differing
+        creator/uploader spellings not silently equated. Unknown origin fields/empty
+        relations retained rather than exclusive first-upload claim.
+      events: Full citation frames and derivative CSV read.38/46/63/77/79/89s identities
+        and dates20260115/30/12/18/04/16 match;79s truncated title removed.000 original
+        song and57/94 uploader conflicts excluded from dated remix claims.
+      queries: Two previously blind DeepSeek queries independently checked against003/008/013/015/038/042s;
+        source spans exact. Existing gold description was empty; added model provenance
+        only, never human confirmation or held-out human benchmark.
+    fingerprint: aac878204d280624d04f1d1e9da8db5ad26ba0067141006861f7f60674a628c2

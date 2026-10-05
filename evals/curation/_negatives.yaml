@@ -15,15 +15,9 @@ negatives:
   - query: OMG你吓到我了
     kind: out_of_corpus
     reason: 真实流行梗，未收录；同时检验含英文字母的查询不会误命中
-  - query: 青蛙教练
-    kind: out_of_corpus
-    reason: 真实流行梗，未收录；用于检验无证据时是否弃答
   - query: Verity
     kind: out_of_corpus
     reason: 真实流行梗，未收录；
-  - query: 严肃脸
-    kind: out_of_corpus
-    reason: 真实流行梗，未收录
   - query: 接成绩
     kind: fabricated
     reason: 虚构语句

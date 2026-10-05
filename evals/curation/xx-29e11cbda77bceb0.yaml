@@ -1,0 +1,110 @@
+slug: xx-29e11cbda77bceb0
+resolved: false
+canonical_name: 高考当天免费XX是咋回事
+aliases: []
+definition: 恶搞「高考生免费接送」的短视频：精神小伙站在摩托车前打出横幅，看起来下一秒就要把你拖到台球厅。
+usage_context: ''
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1YpVt6MEmy
+  role: derivative
+  note: 抽象tv接送高考生保送网吧（BV1QeEb67EYc 画面中引用）
+evidence_map:
+  ocr-narration-BV1QeEb67EYc: null
+  ocr-BV1YpVt6MEmy: null
+claims:
+- key: definition
+  statement: 恶搞「高考生免费接送」的短视频：精神小伙站在摩托车前打出横幅，看起来下一秒就要把你拖到台球厅。
+  evidence:
+  - ocr-narration-BV1QeEb67EYc
+  stance: supports
+events:
+- event_type: remix
+  description: 高考当天免费XX是咋回事 出现衍生作品《抽象tv接送高考生保送网吧》
+  occurred_at_start: 2026-05-28 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1QeEb67EYc 画面引用发现
+  evidence:
+  - ocr-BV1YpVt6MEmy
+relations: []
+gold:
+  canonical:
+  - 高考当天免费XX是咋回事
+  alias: []
+  origin_intent:
+  - 高考当天免费XX是咋回事的出处
+  description:
+  - 高考精神小伙骑电瓶车送你去考场
+  must_not_return: []
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis: '001.0s 免费接送
+
+    002.0s 又是一年高考季
+
+    011.0s 每年一到高考这段时间啊
+
+    015.0s 准备一些“高考生免费接送”这样的服务
+
+    018.0s 本质上是一种爱心支援
+
+    022.0s 一些恶搞高考热心接送的短视频在网上火了起来
+
+    028.0s 主要就是让一些精神小伙
+
+    030.0s 站在摩托车前
+
+    031.0s 然后打出“高考生免费接送”的横幅
+
+    034.0s 颇有一种下一秒就给你拖到台球厅的感觉
+
+    046.0s 很多网友便开始套入这个模板
+
+    048.0s 创作出了一大堆免费接送二创'
+  draft_notes: '段落边界：整集只有一个梗。002-020s 是引子（高考季，以及爱心接送服务本身），
+
+    022-041s 是恶搞短视频的内容与动机，044-048s 是网友套模板做二创，100s 之后是二创画面。
+
+    定义取 022s（恶搞短视频）＋028/030/031s（精神小伙、摩托车、横幅）＋034s（台球厅那句调侃）。
+
+    usage_context 留空（D-10）：046-048s 只说「很多网友便开始套入这个模板，创作出了一大堆免费接送二创」，
+
+    是传播与衍生，不是用法；全集没有一句说明人们拿它怎么用。没有写 origin（D-4）。
+
+    可疑 OCR，未改：034s 句式不完整但可读；100s「高考当太元费接送」明显读错，未引用。
+
+    未写：039-041s「奔着怎么有热度怎么来／为了流量整烂活了」是解说对创作者的评语，不是梗本身的含义。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 衍生关系来自 BV1QeEb67EYc 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+  - 传播区间 2026-05-28 .. 2026-05-28（1 条）
+  gpt_repair_notes: Replaced pipe delimiters with established D-2 quotation marks.
+    Quoted phrase unchanged and exact in narration 015/031s.
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-09-30'
+    checks:
+      identity: Full BV1QeEb67EYc narration 022-034s explains exam-season pickup parody
+        and motorbike/banner scene; no screen-only identity inference.
+      meaning: 022s explicitly calls it a parody, 028-031s gives scene details, and
+        034s supplies the billiard-hall joke. Definition keeps it a perceived joke,
+        not a real abduction claim.
+      usage: 'Left empty: 044-048s reports template remixes without a distinct usage
+        situation. No invented use or sentiment.'
+      origins: No origin upload or creator established in narration. Unknown fields
+        kept; no source relationship inferred from the earliest clip.
+      events: 37s citation frame names 抽象tv接送高考生保送网吧, exact BV1YpVt6MEmy and uploader
+        虎王酱. Matching resolved CSV gives 20260528. Unresolved BV1cx41107g6 is not
+        used.
+      queries: Existing human query 高考精神小伙骑电瓶车送你去考场 unchanged. Query's wording is
+        search intent, not an added claim that the scene depicts an electric vehicle.
+    fingerprint: 3b3aaa075415aeddc73673398d1fdcad1d9271d4850f173811e9ea516df20a85

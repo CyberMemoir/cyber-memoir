@@ -24,6 +24,7 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import hashlib
 import re
 import subprocess
 import time
@@ -776,6 +777,9 @@ def load_descriptions(out: Path) -> dict[str, list[str]] | None:
 
     described: dict[str, list[str]] = {}
     for key, queries in (yaml.safe_load(queue.read_text(encoding="utf-8")) or {}).items():
+        if queries is not None and not isinstance(queries, list):
+            print("! _descriptions.yaml 中《%s》的查询必须是列表（短横线后需要空格），不能是字符串。" % key)
+            return None
         bad = [q for q in queries or [] if not isinstance(q, str)]
         if bad:
             # "带冒号: 的查询" unquoted parses as a mapping; storing its repr would be garbage.
@@ -853,13 +857,15 @@ def build_drafts(sheet: Path, out: Path) -> int:
     described = load_descriptions(out)
     if described is None:
         return 2
+    import yaml
+
     existing: dict[str, str] = {}
     for path in out.glob("*.y*ml"):
         if path.name.startswith("_"):
             continue
-        match = re.search(r"^canonical_name:\s*(.+)$", path.read_text(encoding="utf-8"), re.M)
-        if match:
-            existing[match.group(1).strip()] = path.name
+        doc = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+        if doc.get("canonical_name"):
+            existing[str(doc["canonical_name"])] = path.name
     written, warnings = 0, []
     for index, (name, items) in enumerate(sorted(memes.items()), 1):
         dated = [r for r in items if _iso_day(r.get("upload_date"))]
@@ -878,8 +884,9 @@ def build_drafts(sheet: Path, out: Path) -> int:
         if name in existing:
             warnings.append("%s：已有 %s，保留人工内容不覆盖" % (name, existing[name]))
             continue
-        ascii_slug = re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")
-        slug = ascii_slug or ("meme-%02d" % index)
+        ascii_slug = re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")[:48]
+        # A corpus position is not an identity; CJK and XX names need a stable suffix.
+        slug = "%s-%s" % (ascii_slug or "meme", hashlib.sha256(name.encode("utf-8")).hexdigest()[:16])
         lines = [
             "# 由 evals/feasibility/prep.py drafts 从 lineage.csv 生成",
             "# definition / usage_context / claims 需要人工补齐，evidence 入库后再填 ID",
@@ -962,7 +969,9 @@ def build_drafts(sheet: Path, out: Path) -> int:
             "    - 衍生关系来自 %s 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言" % items[0]["episode_id"],
             "    - 传播区间 %s .. %s（%d 条）" % (earliest, latest, len(usable)),
         ]
-        (out / ("%s.yaml" % slug)).write_text("\n".join(lines) + "\n", encoding="utf-8")
+        # Exclusive creation also protects against a hash/path collision or another writer.
+        with (out / ("%s.yaml" % slug)).open("x", encoding="utf-8", newline="\n") as handle:
+            handle.write("\n".join(lines) + "\n")
         written += 1
         print("  %-28s %d 条衍生   %s .. %s   -> %s.yaml" % (name, len(usable), earliest, latest, slug))
     for warning in warnings:

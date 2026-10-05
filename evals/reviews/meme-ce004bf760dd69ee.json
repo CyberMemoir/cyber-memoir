@@ -1,0 +1,93 @@
+{
+  "frozen_at": "2026-10-05T04:37:18.905298+00:00",
+  "record": {
+    "slug": "meme-ce004bf760dd69ee",
+    "resolved": false,
+    "canonical_name": "智斗天花板",
+    "aliases": [],
+    "definition": "网友对Kietfei参与的夸张情景短剧的调侃称呼：短剧在短时间内反复上演人物之间的算计与反转，并用夸张表情放大效果。",
+    "usage_context": "用这个称呼调侃短剧里密集的算计、反转和夸张表情。",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [
+      {
+        "url": "https://www.bilibili.com/video/BV1YEx4zLETH",
+        "role": "reference",
+        "note": "“请保持内裤干燥”（BV1i8sbzXEzG画面引用；不作首次出处断言）"
+      }
+    ],
+    "evidence_map": {
+      "ocr-narration-BV1i8sbzXEzG": null,
+      "ocr-BV1YEx4zLETH": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "网友对Kietfei参与的夸张情景短剧的调侃称呼：短剧在短时间内反复上演人物之间的算计与反转，并用夸张表情放大效果。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1i8sbzXEzG"
+        ]
+      },
+      {
+        "key": "usage_context",
+        "statement": "用这个称呼调侃短剧里密集的算计、反转和夸张表情。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1i8sbzXEzG"
+        ]
+      }
+    ],
+    "events": [],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "智斗天花板"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "智斗天花板的出处"
+      ],
+      "description": [
+        "一个外国男生拍短剧，几个人反复算计，配怪音乐和夸张的下巴表情，被说是智斗高手，是谁的梗？"
+      ],
+      "description_source": "model",
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV1i8sbzXEzG"
+      ],
+      "description_authored_by": "codex",
+      "description_basis": "Stored narration, before definition drafting; model-generated, not human benchmark",
+      "draft_basis": [
+        "005.0s 网名为@Kietfei(早期为KietAkW)",
+        "066.0s 而他浑身散发的这股气质和表演天赋时至今日依然没有糟歸",
+        "070.0s 今年他的新作品又是引发了一大股热潮",
+        "073.0s 在他的新作中多了不少群演拍起了各种情景剧",
+        "076.0s 而在剧中短短时间内发生的数次博奔",
+        "078.0s 通常都被其惊艳的表情立回所放大",
+        "081.0s 特别是这个mewing的表情很是帅气",
+        "083.0s 传到国内后被广大网友戏称是“智斗天花板”",
+        "085.0s \"看完了之后已经能看懂费城枪击案了！",
+        "088.0s 这段调保中的”费城枪击案",
+        "096.0s 而这些短剧的选曲虽然繁多但都依然十分骚气",
+        "101.0s 总之呢以下视频在国内可以说是广为流传"
+      ],
+      "draft_notes": "070s后新情景剧；007-033s早期Life Hacks只是背景\n5s个人页显示kietfei，早期handle乱码不采用；不写国籍、2022爆红或本人首创等未直接证明的个人事实。26s是另一作者的Life Hacks参考；JOJO费城枪击案是复杂智斗的比喻不当来源。141/144/146s国内合集为reference，无首发或remix事件。精确Ex4z与OCR大写变体区分。",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未证实，保留unknown；不把二创投稿日期当作首次出处",
+        "同一Codex模型分阶段复核，独立性有限；未声称人工确认"
+      ],
+      "draft_origin_sha256": "77795137ab485004e5d7e89ebfa0d1b6ce54bb6ac60eba40e551a72ff80c4438"
+    }
+  }
+}

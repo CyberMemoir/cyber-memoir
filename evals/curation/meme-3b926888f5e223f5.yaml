@@ -1,0 +1,79 @@
+slug: meme-3b926888f5e223f5
+resolved: false
+canonical_name: 十二少
+aliases: []
+definition: 博主视频中一位与镜头互动时从容、不跑不闹的非洲小孩，网友将他制作成各种表情包。
+usage_context: ''
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources: []
+evidence_map:
+  ocr-narration-BV1wFkCBhEz2: null
+claims:
+- key: definition
+  statement: 博主视频中一位与镜头互动时从容、不跑不闹的非洲小孩，网友将他制作成各种表情包。
+  stance: supports
+  evidence:
+  - ocr-narration-BV1wFkCBhEz2
+events: []
+relations: []
+gold:
+  canonical:
+  - 十二少
+  alias: []
+  origin_intent:
+  - 十二少的出处
+  description:
+  - 一个非洲孩子见到拍视频的博主很淡定，后来被网友P成各种表情包
+  description_source: model
+  must_not_return: []
+curation:
+  curator: ''
+  confirmed_by: ''
+  drafted_by: codex
+  source_episodes:
+  - BV1wFkCBhEz2
+  description_authored_by: codex
+  description_basis: Stored narration, before definition drafting; model-generated,
+    not human benchmark
+  draft_basis:
+  - 017.0s 我们的主角“十二少”小孩
+  - 024.0s 所以被江哥戏称为“十二少”
+  - 039.0s 十一少的身影越来越多
+  - 057.0s 但无论博主怎么和他开玩笑
+  - 071.0s 也做出了许许多多与十二少有关的p图
+  - 076.0s 以此来表达对大家对他的喜爱
+  draft_notes: 'Child nickname and reaction/meme scenes; no independently supported
+    biographical details.
+
+    Frames17/24/39/48/71 consistently display十二少 despite OCR十一少/十三少. Do not rewrite
+    stored OCR. Omit blogger handle, exact country, age, parentage and twelfth-child
+    claim. No cited BV; explicit episode binding only.'
+  ingestion_ok: true
+  findings:
+  - 出处未证实，保留unknown；不把二创投稿日期当作首次出处
+  - 同一Codex模型分阶段复核，独立性有限；未声称人工确认
+  draft_origin_sha256: d9bf103ce2d3978a1043a0707a193ecf375fe092392c3d00b3795e866414061f
+  automated_review:
+    reviewer: codex
+    decision: accept
+    reviewed_at: '2026-10-03'
+    review_started_at: '2026-10-03T19:42:31.702239+00:00'
+    method: same_model_frozen_passes
+    limitations: Same model; separate frozen passes, not human or independent-model
+      review.
+    frozen_draft:
+      path: evals/reviews/meme-3b926888f5e223f5.json
+      sha256: dbfbedd46c47eac514f1eb3798327da7532ece73df30e0182a61e6c06ff07d7f
+    checks:
+      identity: 17/24/39/48/71s源帧均显示十二少；OCR十一少/十三少仍原样保存。
+      meaning: 005/030/033/059/071/073s支持小孩从容互动和被P成表情包。
+      usage: 留空，避免把网友喜爱推为每张图的用途。
+      origins: 不采用昵称推亲属排名，不写年龄/国籍/父亲身份/博主拼写；unknown，没直接原帖。
+      events: 零BV与日期事件；不把10月21转换确切年份，以实际解说和source_episodes绑定。
+      queries: 定义前冻结的模型查询与该记录所属段落一致，不含完整名称；model/codex，不是人工基线。两条企鹅查询按各自记录分配，人工YAML不改。
+    fingerprint: cb424a4217bb16944a04c4ae6fac052392d7795a29c31b0599e57a7254304e47

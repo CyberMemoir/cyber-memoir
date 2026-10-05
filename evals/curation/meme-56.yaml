@@ -1,0 +1,99 @@
+slug: meme-56
+resolved: false
+canonical_name: 抖肩舞
+aliases: []
+definition: 让同一系列的角色肩并肩扭肩平移的动画模板；不少画师受一段外网动画启发，制作同款抖肩舞。
+usage_context: ''
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV12rZyBLEKN
+  role: derivative
+  note: 埃及打dio团就抖着肩这样去打dio（BV1MGN3zkEoX 画面中引用）
+evidence_map:
+  ocr-BV12rZyBLEKN: null
+  ocr-narration-BV1MGN3zkEoX: null
+claims:
+- key: definition
+  statement: 让同一系列的角色肩并肩扭肩平移的动画模板；不少画师受一段外网动画启发，制作同款抖肩舞。
+  evidence:
+  - ocr-narration-BV1MGN3zkEoX
+  stance: supports
+events:
+- event_type: remix
+  description: 抖肩舞 出现衍生作品《埃及打dio团就抖着肩这样去打dio》
+  occurred_at_start: 2026-02-17 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1MGN3zkEoX 画面引用发现
+  evidence:
+  - ocr-BV12rZyBLEKN
+relations: []
+gold:
+  canonical:
+  - 抖肩舞
+  alias: []
+  origin_intent:
+  - 抖肩舞的出处
+  description:
+  - 扭肩平移
+  must_not_return: []
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis: '010.0s 抖肩舞
+
+    011.0s 这个梗最早起源于1月25日
+
+    013.0s 投稿于洋抖的动画视频
+
+    029.0s 因此呢有不少画师也深受启发
+
+    032.0s 制作了同款抖肩舞
+
+    034.0s 通常就是同处一个系列的角色
+
+    036.0s 肩并肩在一起扭肩平移'
+  draft_notes: '片段边界：本梗占 010-038s。同一集 081-208s 讲的是另一个梗「皮质醇水平」，与本条无关。038s 之后没有解说，全是画面里的作者署名与二创。
+
+    定义依据：011-013s 说出自1月25日投稿于洋抖的动画视频；029-036s 说不少画师深受启发做了同款，通常是同一系列的角色肩并肩扭肩平移。
+
+    可疑 OCR：017s 的作者名作「@123ylmmm」（三个 m），而 013s 画面与 016s 画面作「@123ylmm」（两个 m），本记录两者都不写入正文，避免把误读当事实；022-025s「所画人物相貌阴湿还有个城之内一样的长下巴」里「阴湿」「城之内」照抄解说，未写入正文；016s
+    的配乐名「deadinside」未写入（D-3）。
+
+    usage_context 留空（D-10）：032s「制作了同款抖肩舞」、034-036s 描述的是二创长什么样，不是「谁在什么场合用它、想表达什么」；解说没有一句说使用场合。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 衍生关系来自 BV1MGN3zkEoX 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+  - 传播区间 2026-02-17 .. 2026-02-17（1 条）
+  gpt_repair_notes: Definition emphasizes narrated movement/template; removed uncorroborated
+    earliest-origin date assertion. Full packet contains a separate cortisol meme081s
+    onward; no facts/usage imported from that segment. Author OCR two/three m ambiguity
+    remains unasserted.
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: Full BV1MGN3zkEoX identifies two memes005s; this record strictly uses
+        shoulder-dance segment010-038s, not cortisol081-208s.
+      meaning: 029-038s explicitly describes inspired artists and same-series characters
+        shoulder-to-shoulder sliding/twisting. Definition paraphrases these features;
+        no author handle reconstructed from inconsistent OCR.
+      usage: Empty:032-036s describes animation form, not a specific interpersonal
+        situation. Cortisol reaction usage105-143s excluded because it belongs to
+        another meme.
+      origins: 011-017s gives a claimed January25 overseas upstream animation and
+        ambiguous author handle. Definition removes exclusive earliest/date assertion;
+        unknown fields/empty relations maintained pending corroboration.
+      events: 65s exact BV12rZyBLEKN/title埃及打dio团/uploaderXXM_Studio agrees with CSV20260217.
+        Explicit shoulder-twisting title within first-segment demonstration before081s
+        supports one remix. No later cortisol clips imported.
+      queries: Human query 扭肩平移 unchanged. No generated queries, asserted upstream
+        handle or human confirmation added.
+    fingerprint: d06b99d74b0f901dfdd076ccc10b2ce3a70b4d97eb887e530f52428ad941811e

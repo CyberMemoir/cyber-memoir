@@ -1,0 +1,152 @@
+slug: meme-48
+resolved: false
+canonical_name: 我也要死吗
+aliases: []
+definition: 出自一张聊天截图：有人要求对方把所有的钱一起交出来、只为换对象回来，甚至以死相逼，对方反问一句「我也要死吗」。
+usage_context: 网友把这段聊天记录当作定型文，给被迫害的角色画上同款表情。
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1qzrhBHEPW
+  role: derivative
+  note: 我也要死吗？玩乐队的下场be like【表情包/头像分享】（BV1b7rkBKEuy 画面中引用）
+- url: https://www.bilibili.com/video/BV13GrYBUESV
+  role: reference
+  note: 弗洛洛：我也要死吗？《 对 》（BV1b7rkBKEuy 画面中引用）
+- url: https://www.bilibili.com/video/BV1d1rHBxE5v
+  role: derivative
+  note: 凯尔希：我也要死吗？（BV1b7rkBKEuy 画面中引用）
+evidence_map:
+  ocr-narration-BV1b7rkBKEuy: null
+  ocr-BV1qzrhBHEPW: null
+  ocr-BV13GrYBUESV: null
+  ocr-BV1d1rHBxE5v: null
+claims:
+- key: definition
+  statement: 出自一张聊天截图：有人要求对方把所有的钱一起交出来、只为换对象回来，甚至以死相逼，对方反问一句「我也要死吗」。
+  evidence:
+  - ocr-narration-BV1b7rkBKEuy
+  stance: supports
+- key: usage_context
+  statement: 网友把这段聊天记录当作定型文，给被迫害的角色画上同款表情。
+  evidence:
+  - ocr-narration-BV1b7rkBKEuy
+  stance: supports
+events:
+- event_type: remix
+  description: 我也要死吗 出现衍生作品《我也要死吗？玩乐队的下场be like【表情包/头像分享】》
+  occurred_at_start: 2026-01-12 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1b7rkBKEuy 画面引用发现
+  evidence:
+  - ocr-BV1qzrhBHEPW
+- event_type: remix
+  description: 我也要死吗 出现衍生作品《凯尔希：我也要死吗？》
+  occurred_at_start: 2026-01-14 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1b7rkBKEuy 画面引用发现
+  evidence:
+  - ocr-BV1d1rHBxE5v
+relations: []
+gold:
+  canonical:
+  - 我也要死吗
+  alias: []
+  origin_intent:
+  - 我也要死吗的出处
+  description:
+  - 聊天记录里对方以死相逼，结果被反问那我是不是也得死
+  - 拿那段聊天记录当定型文，给角色画上没有高光的眼睛
+  must_not_return: []
+  description_source: model
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis:
+  - 005.0s 起源就是一张图
+  - 007.0s 有人要求对方和ta一起献上所有的钱
+  - 009.0s 只为换对象回来
+  - 011.0s 甚至想到如果不成就要事态升级
+  - 015.0s 则是一副比较顺从的姿态
+  - 019.0s 尤其是以死相逼的时候
+  - 020.0s 还是问出了一句“我也要死吗”
+  - 038.0s 这句“我也要死吗”
+  - 039.0s 也就成了一个梗
+  - 043.0s 网友们将这段聊天记录作为定型文
+  - 045.0s 给被迫害的角色画上同款表情
+  - 047.0s 又可怜又好笑
+  draft_notes: '段落边界（D-14）：BV1b7rkBKEuy 整集只有一个梗，解说 004-047s 全在讲这条梗。004-020s 讲截图内容与那句「我也要死吗」，022-025s
+    讲截图最早的出处形态（解说残缺），028-047s 讲最近的头像版本、定型文与角色二创；048-141s 是衍生作品画面（062s BV1qzrhBHEPW、079s
+    BV13GrYBUESV、120s BV1d1rHBxE5v、121s BV1d1rHBxE5V）。定义取 005/007/009/019/020s，usage
+    取 043/045s。
+
+    usage_context 依据：043s「网友们将这段聊天记录作为定型文」＋045s「给被迫害的角色画上同款表情」说的是拿它怎么用；047s「又可怜又好笑」是评价。
+
+    OCR 可疑未改：022s「这个截图最早火是兄弟之间的对话」与 024s「R弗之间的对话」互相矛盾且 024s 残缺，025s「来源应该是这个“约”发的兄弟#闹心#」也断裂；这些都在讲出处，属来源判断（GPT
+    的范畴），我没有写进定义，也没有替 OCR 补字。007s「有人要求对方和ta一起献上所有的钱」里的拉丁词「ta」是解说原文，没有照抄进定义。
+
+    未写（D-4）：028-042s（最近的头像版本、「参考文献」、灰调头像、其他角色的关系）与 032/033/035/037/042s 的残缺行未写进定义。
+
+    可疑关系（只报告，未改）：lineage 里三条未解析的 OCR 变体行（BV1dirHBxE5v、BV1dlrHBxE5V、BV1dlrHBXE5V）都是画面
+    120/129/135/141s 上那个「凯尔希：我也要死吗？」视频的错读；已解析的 BV1d1rHBxE5v（画面 120s，凯尔希）与 BV1d1rHBxE5V（画面
+    121s，标题却是《抓拍车系合集二百〇八》）日期相同、标题不同，请 GPT 复核 121s 那条是否真是同一支视频。我没有改动 sources/events。
+
+    未发现只存在于画面、且定义必须依赖的含义，故未加 automation_hold。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 衍生关系来自 BV1b7rkBKEuy 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+  - 传播区间 2026-01-12 .. 2026-01-14（4 条）
+  description_query_provenance:
+    author: DeepSeek
+    source: model
+    proposed_at: '2026-09-30'
+    basis: Blind source-only proposals before definition drafting.
+    proposal_file: ai_context/model_queries_batches7_8.yaml
+    source_episode: BV1b7rkBKEuy
+    source_spans:
+    - 005.0s 起源就是一张图
+    - 007.0s 有人要求对方和ta一起献上所有的钱
+    - 019.0s 尤其是以死相逼的时候
+    - 020.0s 还是问出了一句“我也要死吗”
+    - 033.0s 配合上一幅眼晴没有高光
+    - 035.0s 灰调极其浓郁的头像
+    - 043.0s 网友们将这段聊天记录作为定型文
+    reviewer: gpt
+    reviewed_at: '2026-10-01'
+    semantic_review: Both queries supported by screenshot threat/reaction019/020 and
+      avatar/template033/043/045; exact spans verified, no canonical name included.
+  gpt_repair_notes: Uppercase final-V resolves unrelated car compilation and was removed;
+    lower-v exact 凯尔希 clip retained.79s 冷然official versus resolved 泠然official not
+    repaired or equated; reference only. Earliest screenshot speaker/creator uncertain,
+    omitted; human origin not fabricated.
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: Full BV1b7rkBKEuy narration004-047s,screen003-141s and exact62/79/120/121s
+        frames read.005-020s identifies screenshot demand/threat/reaction;028-047s
+        same-template avatar adaptations.
+      meaning: 007/009/019/020s directly supports money demand to regain partner,
+        threat and questioning response. Ambiguous earliest speaker/creator022-025
+        omitted; no real-world case or consequence asserted.
+      usage: 043/045 directly states using chat as fixed text and drawing same expression
+        on affected fictional characters; this is documented template use, not invented
+        posting emotion.
+      origins: Unknown origins/empty relations retained;022-025 fragmentary earliest-form
+        claim not resolved from screenshot handle. No inferred primary creator or
+        dated origin.
+      events: Uppercase BV1d1rHBxE5V resolves car compilation despite near-identical
+        screen frame; excluded.79s 冷/泠 uploader conflict reference-only.62s -夜莺Night/date20260112
+        and120s 就叫厌名吧QAQ/date20260114 match direct template edits; two remix events
+        retained.
+      queries: Two previously blind DeepSeek queries checked against019/020/033/035/043/045;
+        exact spans verified and no canonical-name leakage. Empty field filled as
+        MODEL with author/basis; existing human queries in other two records untouched.
+    fingerprint: 319cf6b1b773897e83350b9275ce79682669171a726f113b06c0b6489c8b6319

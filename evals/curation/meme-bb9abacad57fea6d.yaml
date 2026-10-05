@@ -1,0 +1,156 @@
+slug: meme-bb9abacad57fea6d
+resolved: false
+canonical_name: 爹系男友喜欢吗
+aliases:
+- 爹系男友来了
+- 爹系男友
+definition: 本义是年龄大，爱说教的男人，因为一条聊天视频配上AI音乐变成了抽象谈恋爱的代名词
+usage_context: 谈恋爱双方都玩雷霆抽象
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1Rujh6sE1u
+  role: derivative
+  note: 《爹系男友喜欢吗》（BV1weKQ6YE3D 画面中引用）
+- url: https://www.bilibili.com/video/BV1PZ7K6zE6H
+  role: derivative
+  note: 爹系男友喜欢吗？！（BV1weKQ6YE3D 画面中引用）
+- url: https://www.bilibili.com/video/BV1Hp7K6YEoj
+  role: derivative
+  note: 米⚡️库⚡️爹⚡️系⚡️男⚡️友⚡️喜⚡️欢⚡️吗⚡️（BV1weKQ6YE3D 画面中引用）
+- url: https://www.bilibili.com/video/BV1vp7F6uEXX
+  role: derivative
+  note: 【AI Vergil/MMD(VD向)】喜死我了。爹系男友喜欢么？！（BV1weKQ6YE3D 画面中引用）
+- url: https://www.bilibili.com/video/BV1sJ7M6VECW
+  role: derivative
+  note: 【边狱巴士mmd/73cb】爹系男友喜欢吗（BV1weKQ6YE3D 画面中引用）
+- url: https://www.bilibili.com/video/BV1TW7c6tEnR
+  role: derivative
+  note: 爹系男友喜欢吗↗↘↗↘（BV1weKQ6YE3D 画面中引用）
+- url: https://www.bilibili.com/video/BV1jAjS6GEeB
+  role: derivative
+  note: 爹系男友喜欢吗（BV1weKQ6YE3D 画面中引用）
+- url: https://www.bilibili.com/video/BV1zGjU6jEyz
+  role: derivative
+  note: 笑了2.5小时终于舍得发出来（BV1weKQ6YE3D 画面中引用）
+- url: https://www.bilibili.com/video/BV1Aq7t6YEQL
+  role: derivative
+  note: 【YKLS/OOC向】⚡爹系男友喜欢吗⚡（BV1weKQ6YE3D 画面中引用）
+evidence_map:
+  ocr-narration-BV1weKQ6YE3D: null
+  ocr-BV1Rujh6sE1u: null
+  ocr-BV1PZ7K6zE6H: null
+  ocr-BV1Hp7K6YEoj: null
+  ocr-BV1vp7F6uEXX: null
+  ocr-BV1sJ7M6VECW: null
+  ocr-BV1TW7c6tEnR: null
+  ocr-BV1jAjS6GEeB: null
+  ocr-BV1zGjU6jEyz: null
+  ocr-BV1Aq7t6YEQL: null
+claims:
+- key: definition
+  statement: 本义是年龄大，爱说教的男人，因为一条聊天视频配上AI音乐变成了抽象谈恋爱的代名词
+  stance: supports
+  evidence:
+  - ocr-narration-BV1weKQ6YE3D
+- key: usage_context
+  statement: 谈恋爱双方都玩雷霆抽象
+  stance: supports
+  evidence:
+  - ocr-narration-BV1weKQ6YE3D
+events:
+- event_type: remix
+  description: 爹系男友喜欢吗 出现衍生作品《《爹系男友喜欢吗》》
+  occurred_at_start: 2026-06-20 16:00:00+00:00
+  occurred_at_end: null
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1weKQ6YE3D 画面引用发现
+  evidence:
+  - ocr-BV1Rujh6sE1u
+- event_type: remix
+  description: 爹系男友喜欢吗 出现衍生作品《爹系男友喜欢吗？！》
+  occurred_at_start: 2026-06-21 16:00:00+00:00
+  occurred_at_end: null
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1weKQ6YE3D 画面引用发现
+  evidence:
+  - ocr-BV1PZ7K6zE6H
+- event_type: remix
+  description: 爹系男友喜欢吗 出现衍生作品《米⚡️库⚡️爹⚡️系⚡️男⚡️友⚡️喜⚡️欢⚡️吗⚡️》
+  occurred_at_start: 2026-06-21 16:00:00+00:00
+  occurred_at_end: null
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1weKQ6YE3D 画面引用发现
+  evidence:
+  - ocr-BV1Hp7K6YEoj
+- event_type: remix
+  description: 爹系男友喜欢吗 出现衍生作品《【AI Vergil/MMD(VD向)】喜死我了。爹系男友喜》
+  occurred_at_start: 2026-06-21 16:00:00+00:00
+  occurred_at_end: null
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1weKQ6YE3D 画面引用发现
+  evidence:
+  - ocr-BV1vp7F6uEXX
+- event_type: remix
+  description: 爹系男友喜欢吗 出现衍生作品《【边狱巴士mmd/73cb】爹系男友喜欢吗》
+  occurred_at_start: 2026-06-21 16:00:00+00:00
+  occurred_at_end: null
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1weKQ6YE3D 画面引用发现
+  evidence:
+  - ocr-BV1sJ7M6VECW
+- event_type: remix
+  description: 爹系男友喜欢吗 出现衍生作品《爹系男友喜欢吗↗↘↗↘》
+  occurred_at_start: 2026-06-21 16:00:00+00:00
+  occurred_at_end: null
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1weKQ6YE3D 画面引用发现
+  evidence:
+  - ocr-BV1TW7c6tEnR
+- event_type: remix
+  description: 爹系男友喜欢吗 出现衍生作品《爹系男友喜欢吗》
+  occurred_at_start: 2026-06-22 16:00:00+00:00
+  occurred_at_end: null
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1weKQ6YE3D 画面引用发现
+  evidence:
+  - ocr-BV1jAjS6GEeB
+- event_type: remix
+  description: 爹系男友喜欢吗 出现衍生作品《笑了2.5小时终于舍得发出来》
+  occurred_at_start: 2026-06-22 16:00:00+00:00
+  occurred_at_end: null
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1weKQ6YE3D 画面引用发现
+  evidence:
+  - ocr-BV1zGjU6jEyz
+- event_type: remix
+  description: 爹系男友喜欢吗 出现衍生作品《【YKLS/OOC向】⚡爹系男友喜欢吗⚡》
+  occurred_at_start: 2026-06-24 16:00:00+00:00
+  occurred_at_end: null
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1weKQ6YE3D 画面引用发现
+  evidence:
+  - ocr-BV1Aq7t6YEQL
+relations: []
+gold:
+  canonical:
+  - 爹系男友喜欢吗
+  alias: []
+  origin_intent:
+  - 爹系男友喜欢吗的出处
+  description:
+  - 为什么都喜欢聊天记录用suno写成很燃的歌
+  must_not_return: []
+curation:
+  curator: ''
+  drafted_by: ''
+  confirmed_by: ''
+  started_at: '2026-09-30'
+  ingestion_ok: true
+  findings:
+  - Recovered verbatim from published database revision 2; original curation metadata
+    was lost and is not invented.

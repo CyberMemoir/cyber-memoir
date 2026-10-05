@@ -1,0 +1,142 @@
+slug: meme-90
+resolved: false
+canonical_name: 老子才是老大
+aliases: []
+definition: 出自「第五人格」狼队前职业选手「487」宣布退役的微博，结尾一句是「老子才是老大」。
+usage_context: 网友把这句话套用在各种各样的地方进行吐槽。
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1NVrVBjEL4
+  role: reference
+  note: 【补档】潇潇采访狼队夺冠，487fmvp（BV1dZ6gBREHw 画面中引用）
+- url: https://www.bilibili.com/video/BV1VPr9ByEf8
+  role: derivative
+  note: 【单曲】⚡🤗退役了😡老子才是老大😡退网了🤗⚡（BV1dZ6gBREHw 画面中引用）
+- url: https://www.bilibili.com/video/BV1vFkxBqEqS
+  role: reference
+  note: 487发表重要讲话《老子才是老大》（BV1dZ6gBREHw 画面中引用）
+evidence_map:
+  ocr-narration-BV1dZ6gBREHw: null
+  ocr-BV1NVrVBjEL4: null
+  ocr-BV1VPr9ByEf8: null
+  ocr-BV1vFkxBqEqS: null
+  ocr-screen-BV1dZ6gBREHw: null
+claims:
+- key: definition
+  statement: 出自「第五人格」狼队前职业选手「487」宣布退役的微博，结尾一句是「老子才是老大」。
+  evidence:
+  - ocr-narration-BV1dZ6gBREHw
+  - ocr-screen-BV1dZ6gBREHw
+  stance: supports
+- key: usage_context
+  statement: 网友把这句话套用在各种各样的地方进行吐槽。
+  evidence:
+  - ocr-narration-BV1dZ6gBREHw
+  stance: supports
+events:
+- event_type: remix
+  description: 老子才是老大 出现衍生作品《【单曲】⚡🤗退役了😡老子才是老大😡退网了🤗⚡》
+  occurred_at_start: 2026-01-17 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1dZ6gBREHw 画面引用发现
+  evidence:
+  - ocr-BV1VPr9ByEf8
+relations: []
+gold:
+  canonical:
+  - 老子才是老大
+  alias: []
+  origin_intent:
+  - 老子才是老大的出处
+  description:
+  - 职业选手退役微博最后那句很装的话
+  - 被网友拿去套在各种地方吐槽的小作文结尾
+  must_not_return: []
+  description_source: model
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis:
+  - 001.0s 老子才是老大
+  - 003.0s 出自于不久前刚退役的第五人格狼队
+  - 005.0s 前职业选手487
+  - 023.0s 另外487突然在微博上发布了音条很
+  - 025.0s 宣布自己退役的小作文
+  - 033.0s 还以一句“老子才是老犬”的话语结尾
+  - 043.0s 虽然这篇微博在发布之后很快就被删除
+  - 047.0s “老子才是老大”变成了模板
+  - 048.0s 将其套用在了各种各样的地方进行吐槽
+  draft_notes: '段落边界（D-14）：BV1dZ6gBREHw 整集只有一个梗。解说 001-048s 讲这条梗（退役微博与结尾那句、被当成模板）；051/060/061/065/083/085s
+    还有几行碎字落进解说带（「界老子才是老大」「养老子才是老大竹」等），明显是二创画面上的字被按解说位置识别，没有用于定义；051-124s 是衍生作品画面（051s
+    BV1YUK5BNE6X、092s BV1vFkxBqEqS、114s BV1VPr9ByEf8）。定义取 003/005/023/025/033/047s，usage
+    取 048s。
+
+    usage_context 依据：048s「将其套用在了各种各样的地方进行吐槽」说明的是用法与意图，不是单纯的传播，所以没有留空。
+
+    OCR 不一致，照抄未改：解说 033s 把结尾句读成「老子才是老犬」，047s 写作「老子才是老大」；定义引的是 047s 的写法（也是本条名字），没有替
+    033s 改字。
+
+    未写（D-4/D-6）：010-015s 的爆料与「瓜」（他和赛事主持潇潇恋爱并且一直隐满等）带「似乎」「有人爆料」色彩，且属事件背景不是梗的含义，没有写进定义；017/018s
+    的 1月17号与俱乐部官宣是事件，events 已有日期，不重复进定义。023s「另外487突然在微博上发布了音条很」一句 OCR 断裂，未照抄，只取 025s「宣布自己退役的小作文」。
+
+    可疑关系（只报告，未改）：画面 000s 出现 BVluKyeBpEqg（作者：秋风季Zzz）、051s 出现 BV1YUK5BNE6X（作者：Ttttkx_OvOs），两者都不在本条
+    sources 里，lineage.csv 中是未解析（无 upload_date）的行；是否补进 sources/events 由 GPT 判断。
+
+    未发现只存在于画面、且定义必须依赖的含义，也没有语义上无法确定却必须写进字段的部分，故未加 automation_hold。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 衍生关系来自 BV1dZ6gBREHw 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+  - 传播区间 2026-01-10 .. 2026-01-18（3 条）
+  gpt_repair_notes: 10s interview is background, not remix.92s 边边和点点 conflicts with
+    resolved SidE_II, reference-only.114s matching song edit retained.Quote 大 corroborated
+    directly by original-post screen033 and narration047, not repaired from 犬 at033.
+    No gossip asserted.
+  description_query_provenance:
+    author: DeepSeek
+    source: model
+    proposed_at: '2026-09-30'
+    basis: Blind source-only proposals before drafting definitions.
+    proposal_file: ai_context/model_queries_batches7_8.yaml
+    source_episode: BV1dZ6gBREHw
+    source_spans:
+    - 003.0s 出自于不久前刚退役的第五人格狼队
+    - 005.0s 前职业选手487
+    - 025.0s 宣布自己退役的小作文
+    - 033.0s 还以一句“老子才是老犬”的话语结尾
+    - 047.0s “老子才是老大”变成了模板
+    - 048.0s 将其套用在了各种各样的地方进行吐槽
+    reviewer: gpt
+    reviewed_at: '2026-10-01'
+    semantic_review: Both blind queries supported by025/033/036/047/048; exact spans
+      verified. Queries contain no canonical name, added as model with source/author/basis,
+      no human benchmark or confirmation claim.
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: Full BV1dZ6gBREHw narration001-085s,screen000-124s and all citation
+        frames read.003/005/023/025 identifies retirement-post phrase; interview at010
+        is context only.
+      meaning: 033 narration has 犬; screen033 original-post ending and narration047
+        independently contain 老子才是老大. Definition quote now cites screen alongside
+        narration; gossip010-015 not asserted.
+      usage: 045/047/048 directly states adopting phrase as a template for complaints,
+        supporting usage without invented emotion or speculative biography.
+      origins: Retirement-post identity supported by023/025 plus original-post screen,
+        but no primary URL or first meme uploader established; unknown origins/empty
+        relations retained, no gossip attribution or exclusive-creator claim.
+      events: 10s interview removed as remix;92s resolved SidE_II conflicts with screen
+        边边和点点, reference-only.114s title/是隐鹤呀/date20260117 matches direct song edit;
+        one event retained. Unresolved IDs not dated.
+      queries: Both blind queries supported by025/033/036/047/048; exact spans verified.
+        Queries contain no canonical name, added as model with source/author/basis,
+        no human benchmark or confirmation claim.
+    fingerprint: 05880b61efae31fbbe63fbeb96e6fa79c54129c5fab9c5afde19fa2c471bb83f

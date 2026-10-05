@@ -1,0 +1,113 @@
+slug: meme-4ca1f4e2f80f7232
+resolved: false
+canonical_name: 当你的朋友说开车来接你
+aliases: []
+definition: 先展示一个人惊讶的表情，再绕着他运镜，展示朋友倚着豪车或破车的短视频模板。
+usage_context: ''
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV111CvBDEhB
+  role: derivative
+  note: 当朋友说开车来接我，但没说是勒芒赛车……（BV1J1UUBoEfo画面引用；不作首次出处断言）
+- url: https://www.bilibili.com/video/BV1nLyEBcE2E
+  role: derivative
+  note: 当兄弟说开车来接你...（BV1J1UUBoEfo画面引用；不作首次出处断言）
+- url: https://www.bilibili.com/video/BV13Yy8BEEP3
+  role: derivative
+  note: 当你的朋友说开车来接你！不是哥们…你（BV1J1UUBoEfo画面引用；不作首次出处断言）
+evidence_map:
+  ocr-narration-BV1J1UUBoEfo: null
+  ocr-BV111CvBDEhB: null
+  ocr-BV1nLyEBcE2E: null
+  ocr-BV13Yy8BEEP3: null
+claims:
+- key: definition
+  statement: 先展示一个人惊讶的表情，再绕着他运镜，展示朋友倚着豪车或破车的短视频模板。
+  stance: supports
+  evidence:
+  - ocr-narration-BV1J1UUBoEfo
+events:
+- event_type: remix
+  description: 当你的朋友说开车来接你出现衍生作品《当朋友说开车来接我，但没说是勒芒赛车……》
+  occurred_at_start: 2025-11-17 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示投稿时间；不是首次出处或传播爆发时间
+  evidence:
+  - ocr-BV111CvBDEhB
+- event_type: remix
+  description: 当你的朋友说开车来接你出现衍生作品《当兄弟说开车来接你...》
+  occurred_at_start: 2025-11-19 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示投稿时间；不是首次出处或传播爆发时间
+  evidence:
+  - ocr-BV1nLyEBcE2E
+- event_type: remix
+  description: 当你的朋友说开车来接你出现衍生作品《当你的朋友说开车来接你！不是哥们…你》
+  occurred_at_start: 2025-10-30 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示投稿时间；不是首次出处或传播爆发时间
+  evidence:
+  - ocr-BV13Yy8BEEP3
+relations: []
+gold:
+  canonical:
+  - 当你的朋友说开车来接你
+  alias: []
+  origin_intent:
+  - 当你的朋友说开车来接你的出处
+  description:
+  - 先拍一个人惊讶的表情，再绕着他拍朋友靠在车旁边的短视频模板
+  description_source: model
+  must_not_return: []
+curation:
+  curator: ''
+  confirmed_by: ''
+  drafted_by: codex
+  source_episodes:
+  - BV1J1UUBoEfo
+  description_authored_by: codex
+  description_basis: Stored narration, before definition drafting; model-generated,
+    not human benchmark
+  draft_basis:
+  - 004.0s 这个梗又是最近一个比较火的视频模板啦
+  - 019.0s 一些善于创作的神人网友呢
+  - 021.0s 就将这种剧情用短视频模板的形式表达了出来
+  - 024.0s 具体形式就是
+  - 025.0s 一个人张口眼做出越南智斗哥惊的表情
+  - 028.0s 然后绕着他百万运镜
+  - 030.0s 展示他看到朋友倚着豪车或者破车的场景
+  draft_notes: '001-035s describes template; 025-057s contains examples; 058s onward
+    transitions to a game advertisement and is excluded
+
+    Do not turn the similar movie scene at015s into an established origin. Omit OCR-corrupted
+    expression at025s and unrelated ad. No specific usage situation independently
+    established beyond template mechanics.'
+  ingestion_ok: true
+  findings:
+  - 出处未证实，保留unknown；不把二创投稿日期当作首次出处
+  - 同一Codex模型分阶段复核，独立性有限；未声称人工确认
+  draft_origin_sha256: 99c4b980245b233b665e7557b9ea286241a16c9826db2000c387852bccbab1b3
+  automated_review:
+    reviewer: codex
+    decision: accept
+    reviewed_at: '2026-10-03'
+    review_started_at: '2026-10-03T18:41:15.794364+00:00'
+    method: same_model_frozen_passes
+    limitations: Same model; separate frozen passes, not human or independent-model
+      review.
+    frozen_draft:
+      path: evals/reviews/meme-4ca1f4e2f80f7232.json
+      sha256: 15eee27417979a667ad26fb2822fc641247e215df77f87cda3492f1d45556f5e
+    checks:
+      identity: 001s名称与025/037/051s三段画面中的接人文案一致；三张引用帧均已查看，不借广告段落识别梗。
+      meaning: 024-030s明说惊讶表情、绕人运镜、朋友倚着豪车或破车；定义逐项对应。015s电影类似场景没有升级为出处。
+      usage: usage_context留空；叙述模板动作不自动推出特定社交用途。058s之后龙族游戏广告排除。
+      origins: 解说未指定第一作者；三个引用都是模板示例，保留unknown，无来源或推广者关系。
+      events: 三张引用帧的BV、标题、接人模板内容匹配冻结解析元数据，20251030/20251117/20251119仅为对应二创投稿日期。
+      queries: 查询在定义草稿前单独保存；未含完整名称或别名，标model/codex，不加入人工基线。
+    fingerprint: ec525da34f64de44d948156c15482d9e932f288860bdda7dc9c2dbd1836c6753

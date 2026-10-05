@@ -1,0 +1,157 @@
+slug: meme-16
+resolved: false
+canonical_name: 中奖概率倍儿高
+aliases: []
+definition: 出自动画《野兽朋友们》（或《禽兽朋友们》）里一段抽奖诈骗剧情，用来吐槽这类事件
+usage_context: 用来吐槽宣称中奖概率很高、实际坑人的抽奖事件
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1KxcozdEvt
+  role: source
+  note: 【野兽朋友们】幸运大转轮（BV1es5169EHt 画面中引用）
+- url: https://www.bilibili.com/video/BV1pkQUBzEA3
+  role: popularized_by
+  note: 别 欺 负 天 津 小 学 生（BV1es5169EHt 画面中引用）
+- url: https://www.bilibili.com/video/BV1pro1B3EtP
+  role: derivative
+  note: 中奖概率倍儿高（BV1es5169EHt 画面中引用）
+- url: https://www.bilibili.com/video/BV1zNRYB8Ee8
+  role: derivative
+  note: 《中奖概率倍儿高》（BV1es5169EHt 画面中引用）
+- url: https://www.bilibili.com/video/BV15jRdBHELQ
+  role: derivative
+  note: 中奖概率倍高 (配布)（BV1es5169EHt 画面中引用）
+- url: https://www.bilibili.com/video/BV1DWRdB1Em3
+  role: derivative
+  note: M3：不是说中奖概率倍儿高吗。（BV1es5169EHt 画面中引用）
+evidence_map:
+  ocr-BV1KxcozdEvt: null
+  ocr-BV1pkQUBzEA3: null
+  ocr-BV1pro1B3EtP: null
+  ocr-BV1zNRYB8Ee8: null
+  ocr-BV15jRdBHELQ: null
+  ocr-BV1DWRdB1Em3: null
+  ocr-narration-BV1es5169EHt: null
+claims:
+- key: definition
+  statement: 出自动画《野兽朋友们》（或《禽兽朋友们》）里一段抽奖诈骗剧情，用来吐槽这类事件
+  evidence:
+  - ocr-narration-BV1es5169EHt
+  stance: supports
+- key: usage_context
+  statement: 用来吐槽宣称中奖概率很高、实际坑人的抽奖事件
+  evidence:
+  - ocr-narration-BV1es5169EHt
+  stance: supports
+events:
+- event_type: remix
+  description: 中奖概率倍儿高 出现衍生作品《中奖概率倍儿高》
+  occurred_at_start: 2026-04-28 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1es5169EHt 画面引用发现
+  evidence:
+  - ocr-BV1pro1B3EtP
+- event_type: remix
+  description: 中奖概率倍儿高 出现衍生作品《《中奖概率倍儿高》》
+  occurred_at_start: 2026-05-04 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1es5169EHt 画面引用发现
+  evidence:
+  - ocr-BV1zNRYB8Ee8
+- event_type: remix
+  description: 中奖概率倍儿高 出现衍生作品《中奖概率倍高 (配布)》
+  occurred_at_start: 2026-05-09 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1es5169EHt 画面引用发现
+  evidence:
+  - ocr-BV15jRdBHELQ
+- event_type: remix
+  description: 中奖概率倍儿高 出现衍生作品《M3：不是说中奖概率倍儿高吗。》
+  occurred_at_start: 2026-05-09 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1es5169EHt 画面引用发现
+  evidence:
+  - ocr-BV1DWRdB1Em3
+relations:
+- predicate: derived_from
+  target_type: source
+  target_bv: BV1KxcozdEvt
+  assertion_status: supported
+  evidence:
+  - ocr-BV1KxcozdEvt
+- predicate: popularized_by
+  target_type: source
+  target_bv: BV1pkQUBzEA3
+  assertion_status: supported
+  evidence:
+  - ocr-BV1pkQUBzEA3
+gold:
+  canonical:
+  - 中奖概率倍儿高
+  alias: []
+  origin_intent:
+  - 中奖概率倍儿高的出处
+  description:
+  - 概率造假动画
+  must_not_return: []
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis: '解说 0:10「这个梗呢就是和吐槽这类事件有关」；
+
+    解说 0:14「韩国的动画短片集《野兽朋友们》(或《禽兽朋友们》）」；
+
+    解说 0:20「讽刺控制概率这类抽奖现象的动画」；
+
+    解说 0:92「并被诸多网友照着视频内容模板」；解说 0:94「创造了一个又一个的二创内容」'
+  draft_notes: '片段边界：0s-94s 讲本梗（0-45s 本义与动画出处，45-94s 天津话配音与二创）；94s 之后是二创片段展示。
+
+    本集解说没有一句直接说出梗名「中奖概率倍儿高」（梗名来自集标题），所以 definition 写的是
+
+    解说能支持的部分：出处、剧情与用途；「倍儿高」只出现在画面材料里。
+
+    usage_context 引的是 D-10 允许的「怎么用」，不是传播：解说 0:92-094 明确说的是网友拿模板做二创。
+
+    疑似 OCR 误读：解说 0:46 的「叫做"肥龙和老西"的博主」与画面「肥龙和老西」，解说 0:52「天个津话」，
+
+    0:67/0:105「龙和老西」都照抄未改。
+
+    未写：不写「被广泛传播」「火了起来」（D-10）；不写肥龙和老西粉丝数等与本梗无关的画面信息（D-5、D-12）。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 衍生关系来自 BV1es5169EHt 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+  - 传播区间 2026-04-28 .. 2026-05-09（4 条）
+  gpt_repair_notes: Replaced generic remix-making usage with explicit satirical use
+    in narration003-010s. Narration001s actually includes the canonical phrase, contrary
+    to older draft_notes; no evidence changed.
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: Full BV1es5169EHt001-020s identifies the phrase and lottery-probability
+        satire. Meaning comes from narration; old note claiming no narrated name is
+        contradicted by001s.
+      meaning: 003-020s explicitly contrasts high-probability claims with deceptive
+        draws and attributes the cartoon to 野兽朋友们/禽兽朋友们. Definition remains explainer-level
+        attribution.
+      usage: 010s explicitly says used to mock these incidents, with003-009s specifying
+        deceptive lottery claims. Replaced generic derivative-making statement with
+        that use.
+      origins: 012-020s attributes the original animation;0s exact BV1KxcozdEvt frame
+        identifies JJALTOON and probability-rigging plot, resolved title is 幸运大转轮.045-090s
+        explicitly attributes popularization to 肥龙和老西's Tianjin dub;59s matching title/uploader
+        frame supports retained relation, not first-uploader date inference.
+      events: 84/97/108/119s frames identify all four prize-probability remixes; exact
+        IDs and titles match resolved CSV with20260428/20260509/20260509/20260504
+        dates. No unrelated clip retained.
+      queries: Existing human query 概率造假动画 retained unchanged; no generated-query
+        benchmark contamination or human-confirmation claim.
+    fingerprint: a09d780b32aad2605ec4959f1f159c087f18e5895938e703a6aa30d09e6bbdfc

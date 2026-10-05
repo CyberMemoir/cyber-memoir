@@ -1,0 +1,144 @@
+slug: meme-29
+resolved: false
+canonical_name: 去酒吧看看
+aliases: []
+definition: 博主「智人」记录中年生活的一段视频：配着《又算什么》，讲「去酒吧看看，在金钱面前颜值算什么」这类话；后被博主「水野」倍速配上歌曲再次走红。
+usage_context: ''
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1atiJBaEYS
+  role: reference
+  note: 《ロストワンの号哭.mp4》（BV1J1r5BVE6i 画面中引用）
+- url: https://www.bilibili.com/video/BV1psqPBVEXN
+  role: reference
+  note: 看哭一亿夜鹿厨😭（BV1J1r5BVE6i 画面中引用）
+- url: https://www.bilibili.com/video/BV1czimBfEFj
+  role: reference
+  note: ロストワンの号哭.maimaidx（BV1J1r5BVE6i 画面中引用）
+- url: https://www.bilibili.com/video/BV1CuidBnEnr
+  role: reference
+  note: 《ダイダイダイダイダイキライ.mp4》（BV1J1r5BVE6i 画面中引用）
+- url: https://www.bilibili.com/video/BV17ZiQBwEnR
+  role: reference
+  note: 《无 呼 吸 社 会 义 务.mp4》（BV1J1r5BVE6i 画面中引用）
+evidence_map:
+  ocr-narration-BV1J1r5BVE6i: null
+  ocr-screen-BV1J1r5BVE6i: null
+  ocr-BV1atiJBaEYS: null
+  ocr-BV1psqPBVEXN: null
+  ocr-BV1czimBfEFj: null
+  ocr-BV1CuidBnEnr: null
+  ocr-BV17ZiQBwEnR: null
+claims:
+- key: definition
+  statement: 博主「智人」记录中年生活的一段视频：配着《又算什么》，讲「去酒吧看看，在金钱面前颜值算什么」这类话；后被博主「水野」倍速配上歌曲再次走红。
+  evidence:
+  - ocr-narration-BV1J1r5BVE6i
+  - ocr-screen-BV1J1r5BVE6i
+  stance: supports
+events: []
+relations: []
+gold:
+  canonical:
+  - 去酒吧看看
+  alias: []
+  origin_intent:
+  - 去酒吧看看的出处
+  description:
+  - 大叔带着儿子蹦蹦跳跳、配老歌的那个视频
+  - 把原视频倍速播放、再配上撕心裂肺那首歌的版本
+  must_not_return: []
+  description_source: model
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis:
+  - 001.0s 去酒吧看看金钱面前颜值算什么
+  - 006.0s 其出自一名叫做“智人”的博主
+  - 008.0s 一开始他发布的视频就是博主本人
+  - 010.0s 伴随着老歌蹦蹦跳跳一字马
+  - 012.0s 记录中年生活这样的存在
+  - 016.0s 拍摄了一条这样的视频
+  - 018.0s 配合着很有中年人味的bgm
+  - 019.0s 《又算什么》
+  - 079.0s 而最近这个梗又火起来呢
+  - 081.0s 则和另一位博主“水野”有关
+  - 083.0s 他将这个原视频倍速播放之后
+  - 087.0s 镜音铃所演唱的
+  - 画面 001.0s 去酒吧看看在金钱面前／颜值算什么
+  draft_notes: '段落边界（D-14）：BV1J1r5BVE6i 整集只有一个梗。解说 001-113s 讲这条梗（智人的中年生活视频与《又算什么》→
+    8月26号那条 → 最近水野把原视频倍速播放、配上镜音铃演唱的歌曲再火）；115-160s 是衍生作品画面（115s BV1psqPBVEXN、133s BV1CuidBnEnr、148s
+    BV17ZiQBwEnR），149-158s 的解说行是画面里那首歌的歌词，不属于本条。定义取 001/006/010/012/016/018/019/079/081/083/087s。
+
+    usage_context 留空（D-10）：049-050s（引起了不少网友竞相模仿）与 108-113s（大家用各种各样其他版本的 bgm 替换这个视频做二创）都是传播与二创，本段没有一句说明人们拿它怎么用。
+
+    引画面键的理由（D-16）：解说 001s 把同一句读成「去酒吧看看金钱面前颜值算什么」（漏了「在」），画面 001s 写作「去酒吧看看在金钱面前」＋「颜值算什么」；定义照抄画面字幕，所以
+    claim 同时引 ocr-screen-BV1J1r5BVE6i。两处都没有替 OCR 改字。
+
+    未写（D-4/D-6）：歌曲名在解说里是空的（089s《》、090s「mama」），画面标题也残缺（《の号哭.mp4》），故定义只写「歌曲」不写歌名；086s「の式解冉壁Neru所作」残缺，未写作曲家。004s「去年八月份」与
+    013s「8月26号」是相对时间，按本轮要求不写成永久事实断言，因此没有写进定义。
+
+    可疑关系（只报告，未改）：sources 第一条 BV1atiJBaEYS 的角色是 popularized_by（lineage 标题《ロストワンの号哭.mp4》，平台日期
+    2026-01-04），而解说只说 081s 与博主水野有关、083s 他把原视频倍速播放、087s 镜音铃演唱；歌名与作曲家在解说与画面两路 OCR 里都没有完整出现，该来源的曲名完全来自平台元数据。画面
+    049s 起还有 @杨和柴、@吴拽拽、@鸣呼呼、@慧慧饱饱、@罗列@小洁 等署名，没有对应的已解析行，所以没有 sources/events。我未改动任何
+    sources/events/relations。
+
+    未发现需要 automation_hold 的画面独有含义：定义里唯一取自画面的部分是照抄的字幕原文，且已按 D-16 引了画面键。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 衍生关系来自 BV1J1r5BVE6i 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+  - 传播区间 2026-01-06 .. 2026-01-08（4 条）
+  gpt_repair_notes: 91s claimed popularizer 水野翎 conflicts with resolved VKG-NONAME;
+    unsupported popularized_by relation removed, source reference.117s uploader variation
+    and135s 绪山老白White vs AAA汽修一班彩师傅 remain references.104/148 song-titled clips not
+    independently proved remixes of specific base video from text; references only,
+    no dated remix claims.
+  description_query_provenance:
+    author: DeepSeek
+    source: model
+    proposed_at: '2026-09-30'
+    basis: Blind source-only proposals before drafting definitions.
+    proposal_file: ai_context/model_queries_batches7_8.yaml
+    source_episode: BV1J1r5BVE6i
+    source_spans:
+    - 010.0s 伴随着老歌蹦蹦跳跳一字马
+    - 015.0s 博主突然拉着自己儿子
+    - 016.0s 拍摄了一条这样的视频
+    - 019.0s 《又算什么》
+    - 083.0s 他将这个原视频倍速播放之后
+    - 102.0s 因为这首歌撕心裂肺的感觉
+    reviewer: gpt
+    reviewed_at: '2026-10-01'
+    semantic_review: Two blind queries correspond to family-video015/016 and speed-up083/102,
+      exact source spans verified. Neither contains canonical name. Added as model
+      with provenance, not human confirmation or held-out recall.
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: Full BV1J1r5BVE6i narration001-158s,screen001-160s and citation frames
+        read;006/012/015/016 describes creator/family video,079-113 describes sped-up
+        musical resurgence.149+ narration is derivative lyrics, excluded from meaning.
+      meaning: 006/012/018/019 supports 智人 video and 又算什么;081/083/087 supports 水野
+        speed-up and song.Clip caption is exact screen001 text joined across lines;
+        claim cites both screen/narration, no missing-character repair.
+      usage: Empty retained:049/050/108-113 narrates imitation/song replacement, not
+        a distinct usage situation or life-advice meaning inferred from caption.
+      origins: Narrator describes original creator and later remixer, but91s uploader
+        mismatch prevents linking resolved BV as verified popularizer. Relation removed,
+        origins remain unknown, no exclusive first-source assertion.
+      events: All five clips reference-only:91/117/135 uploader inconsistencies,104/148
+        song-title clips do not independently establish base-video remix identity.
+        No dates changed or evidence rewritten to force a relation; zero events retained.
+      queries: Two blind queries correspond to family-video015/016 and speed-up083/102,
+        exact source spans verified. Neither contains canonical name. Added as model
+        with provenance, not human confirmation or held-out recall.
+    fingerprint: ae4582f0ccfad077afcf3101041b7ff0f2f39f02b29978d0e192db4b4f32275e

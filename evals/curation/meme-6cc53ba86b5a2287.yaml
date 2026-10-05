@@ -1,0 +1,86 @@
+slug: meme-6cc53ba86b5a2287
+resolved: false
+canonical_name: 自以为是野原广志的普通人
+aliases: []
+definition: 网友因《野原广志午餐的流派》中的画风和人物表现与原作不同，调侃其中的广志只是自以为是野原广志的普通人。
+usage_context: 调侃衍生漫画中人物与原作野原广志的画风、表情和性格差异。
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources: []
+evidence_map:
+  ocr-narration-BV1NJsdz5E1q: null
+claims:
+- key: definition
+  statement: 网友因《野原广志午餐的流派》中的画风和人物表现与原作不同，调侃其中的广志只是自以为是野原广志的普通人。
+  stance: supports
+  evidence:
+  - ocr-narration-BV1NJsdz5E1q
+- key: usage_context
+  statement: 调侃衍生漫画中人物与原作野原广志的画风、表情和性格差异。
+  stance: supports
+  evidence:
+  - ocr-narration-BV1NJsdz5E1q
+events: []
+relations: []
+gold:
+  canonical:
+  - 自以为是野原广志的普通人
+  alias: []
+  origin_intent:
+  - 自以为是野原广志的普通人的出处
+  description:
+  - 有个吃饭漫画里的人物长得不像原作，被说成以为自己是那个爸爸的普通人，叫什么梗？
+  description_source: model
+  must_not_return: []
+curation:
+  curator: ''
+  confirmed_by: ''
+  drafted_by: codex
+  source_episodes:
+  - BV1NJsdz5E1q
+  description_authored_by: codex
+  description_basis: Stored narration, before definition drafting; model-generated,
+    not human benchmark
+  draft_basis:
+  - 019.0s 《野原广志午餐的流派》
+  - 026.0s 不过画风基本和原作毫无关系
+  - 028.0s 看着都让人有点害怕
+  - 030.0s 伪人感十足
+  - 031.0s 重复画面也极其的多
+  - 032.0s 这广志吃什么都是同一副表情
+  - 035.0s 而作品中的人设
+  - 038.0s 就像在看完全无关的其他人.
+  - 040.0s 是被网发们吐槽
+  - 041.0s 这并不是野原广志
+  - 042.0s 而是“"自以为是野原广志的普通人
+  draft_notes: '019-047s漫画身份调侃；135s后仅相关背景
+
+    42s源帧及解说直接命名；不是医学诊断，不把妄想症/PTSD猜测写成真实病史。作者拼写/授权/配音事实不入定义。169s JOJO作品属于配音背景，排除。'
+  ingestion_ok: true
+  findings:
+  - 出处未证实，保留unknown；不把二创投稿日期当作首次出处
+  - 同一Codex模型分阶段复核，独立性有限；未声称人工确认
+  draft_origin_sha256: 77795137ab485004e5d7e89ebfa0d1b6ce54bb6ac60eba40e551a72ff80c4438
+  automated_review:
+    reviewer: codex
+    decision: accept
+    reviewed_at: '2026-10-05'
+    review_started_at: '2026-10-05T04:37:19.409911+00:00'
+    method: same_model_frozen_passes
+    limitations: Same model; separate frozen passes, not human or independent-model
+      review.
+    frozen_draft:
+      path: evals/reviews/meme-6cc53ba86b5a2287.json
+      sha256: 4bdc42d3a3a69e88bc86b87f63158345d24601e22e5eeaa6ff3e98533bbf90d3
+    checks:
+      identity: 19/28/32/42s衍生漫画身份吐槽；48s后OP另梗。
+      meaning: 26-42s画风人设差异及普通人称呼，42s帧再次确认；152sPTSD为猜测，不作诊断。
+      usage: 用法限于解说明确说明或源帧直接呈现的调侃/改编，未添加观众心理动机。
+      origins: 无直接首发作品或原帖确认，unknown；参考/二创日期不当起源。
+      events: 零事件，169sJOJO配音作品排除，源集显式绑定。
+      queries: 定义前冻结model/codex查询按query_index和episode绑定；两个广志分开，人工YAML不改；非独立模型或人工确认。
+    fingerprint: ce021c8aa4241a473ce4447bb4d573dd9bd7088d15de1c2a8334ce99d142cc49
