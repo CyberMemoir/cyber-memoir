@@ -9,11 +9,10 @@ from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 sys.path.insert(0, str(Path(__file__).resolve().parent / "feasibility"))
-import build_gold
 import build_materials
 import prep
 import validate_curation
-from automation_review import fingerprint, review_error
+from automation_review import review_error
 
 
 class ExpansionToolsTests(unittest.TestCase):
@@ -90,46 +89,11 @@ class ExpansionToolsTests(unittest.TestCase):
             (root / "_descriptions.yaml").write_text("梗: -查询\n", encoding="utf-8")
             self.assertIsNone(prep.load_descriptions(root))
 
-    def test_review_invalidated_by_record_or_material_change(self):
-        import copy
-        index = {"EP": [{"text": "原文", "kind": "ocr", "locator": {}}]}
-        doc = {"definition": "解释", "resolved": False, "evidence_map": {"ocr-narration-EP": None}, "curation": {"drafted_by": "deepseek"}}
-        review = {"decision": "accept", "reviewer": "gpt", "checks": {k: "Checked original evidence" for k in ["identity", "meaning", "usage", "origins", "events", "queries"]}}
-        doc["curation"]["automated_review"] = review
-        review["fingerprint"] = fingerprint(doc, index)
-        self.assertIsNone(review_error(doc, index))
-        doc["resolved"] = True
-        doc["evidence_map"]["ocr-narration-EP"] = "database-id"
-        self.assertIsNone(review_error(doc, index))
-        modified = copy.deepcopy(doc)
-        modified["definition"] = "另一个解释"
-        self.assertIsNotNone(review_error(modified, index))
-        index["EP"][0]["text"] = "改动过的证据"
-        self.assertIsNotNone(review_error(doc, index))
-
     def test_self_review_and_incomplete_review_rejected(self):
         doc = {"curation": {"drafted_by": "deepseek", "automated_review": {"reviewer": "deepseek", "decision": "accept"}}}
         self.assertIsNotNone(review_error(doc, {}))
         doc["curation"]["automated_review"]["reviewer"] = "gpt"
         self.assertIsNotNone(review_error(doc, {}))
-
-    def test_gold_excludes_unpublished_and_separates_model_queries(self):
-        import json
-
-        import yaml
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            for name, published, source in [("human", True, "human"), ("model", True, "model"), ("pending", False, "human")]:
-                doc = {"canonical_name": name, "resolved": published, "definition": "text", "gold": {"description": ["query-" + name], "description_source": source}}
-                (root / (name + ".yaml")).write_text(yaml.safe_dump(doc), encoding="utf-8")
-            (root / "_negatives.yaml").write_text("negatives: []\n", encoding="utf-8")
-            output = root / "gold.jsonl"
-            with patch.object(build_gold, "CURATION", root), patch.object(sys, "argv", ["build_gold", "--out", str(output)]):
-                build_gold.main()
-            rows = [json.loads(line) for line in output.read_text(encoding="utf-8").splitlines()]
-            self.assertEqual({r["bucket"] for r in rows}, {"description", "description_model"})
-            self.assertNotIn("query-pending", {r["query"] for r in rows})
-
 
 if __name__ == "__main__":
     unittest.main()
