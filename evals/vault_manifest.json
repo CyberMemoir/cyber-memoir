@@ -707,7 +707,7 @@
     },
     {
       "path": "evals/build_gold.py",
-      "sha256": "2eeda8cf80c113f16c56fad8f95e82104c7febae5449788b69c0fc36b9fa5fbf"
+      "sha256": "8cbd06a606e7d8b6f42f20045a57e8d34364785e5848e7cd328aefab059c9391"
     },
     {
       "path": "evals/curation/2026.yaml",
@@ -2163,7 +2163,7 @@
     },
     {
       "path": "evals/score_buckets.py",
-      "sha256": "9818d25cbe11c3e5260bb41b7208dd2496ae9943fb9093720c905648aac738b7"
+      "sha256": "73bd56e9aec9e103535c5c1f387c2c5bb78709b7fcad30069ef1fcaec6533fd0"
     },
     {
       "path": "evals/test_expansion_tools.py",
