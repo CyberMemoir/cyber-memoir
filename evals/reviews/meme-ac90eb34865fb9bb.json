@@ -1,0 +1,80 @@
+{
+  "frozen_at": "2026-10-05T09:41:46.255399+00:00",
+  "record": {
+    "slug": "meme-ac90eb34865fb9bb",
+    "resolved": false,
+    "canonical_name": "朵拉的小曲",
+    "aliases": [],
+    "definition": "在朵拉智斗二创中使用的悬疑感配乐，被网友称为「朵拉的小曲」，用于智斗、谋划或悬疑氛围的视频。",
+    "usage_context": "为智斗或悬疑场面配乐，借用朵拉二创的氛围。",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [
+      {
+        "url": "https://www.bilibili.com/video/BV1urnwzdEqR",
+        "role": "reference",
+        "note": "循环歌单|【Whoopty2】|“【智斗の小曲】【朵拉の小曲】小时候看这集冷汗流下来了”（源画面引用，不作首次出处断言）"
+      }
+    ],
+    "evidence_map": {
+      "ocr-narration-BV1mK4uzWEBo": null,
+      "ocr-BV1urnwzdEqR": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "在朵拉智斗二创中使用的悬疑感配乐，被网友称为「朵拉的小曲」，用于智斗、谋划或悬疑氛围的视频。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1mK4uzWEBo"
+        ]
+      },
+      {
+        "key": "usage_context",
+        "statement": "为智斗或悬疑场面配乐，借用朵拉二创的氛围。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1mK4uzWEBo"
+        ]
+      }
+    ],
+    "events": [],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "朵拉的小曲"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "朵拉的小曲的出处"
+      ],
+      "description": [],
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV1mK4uzWEBo"
+      ],
+      "draft_basis": [
+        "135.0s 而“爱做局”美系列的BGM",
+        "140.0s 现在则被大家习惯性称为“朵拉的小曲”",
+        "145.0s 捣蛋鬼！"
+      ],
+      "draft_notes": "135-147s music segment\n135s screen labelsWhoopty KINGWG remix, cited140s compilation titleWhoopty2: do not equate exact recording/version or invent music authorship. Reference is a compilation, not original composer/release or first meme source. Keep separate music usage versus character-interpretation record, linked only by narration context.\nExcluded references: {}",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未知，不把衍生投稿日期当作首次来源",
+        "同一Codex冻结草稿后另次证据复核，独立性有限",
+        "本批不生成评测描述查询；人工查询文件原字节保留"
+      ],
+      "draft_origin_sha256": "e4ea6a00a4295870d52d1562bb05a91d1d4491ae8882f7f55553fc465d31938c"
+    }
+  }
+}

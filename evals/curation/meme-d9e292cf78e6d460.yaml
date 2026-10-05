@@ -1,0 +1,128 @@
+slug: meme-d9e292cf78e6d460
+resolved: false
+canonical_name: 大东北我的家乡
+aliases: []
+definition: 以《大东北我的家乡》为基础，网友借助虚拟歌姬或AI工具，把家乡、曲风和演唱形象改成不同版本的歌曲二创梗。
+usage_context: 替换家乡或音乐风格，制作夸张的歌颂家乡版本。
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV11PWnzCEyQ
+  role: derivative
+  note: 《大德国是我的家乡》德国战车×雨姐！工农业重金属（源画面引用，不作首次出处断言）
+- url: https://www.bilibili.com/video/BV1n14czRE2o
+  role: derivative
+  note: 凯尔特史诗-《大北境，我的家乡》Northlands, my heart's own home（源画面引用，不作首次出处断言）
+- url: https://www.bilibili.com/video/BV11u4CzJEor
+  role: derivative
+  note: 50年代经典布鲁斯《大东北我的家乡》（ai）（源画面引用，不作首次出处断言）
+- url: https://www.bilibili.com/video/BV1di4izmEiL
+  role: derivative
+  note: 《洛圣都我的家乡》（源画面引用，不作首次出处断言）
+evidence_map:
+  ocr-narration-BV1wgswzQEPC: null
+  ocr-BV11PWnzCEyQ: null
+  ocr-BV1n14czRE2o: null
+  ocr-BV11u4CzJEor: null
+  ocr-BV1di4izmEiL: null
+claims:
+- key: definition
+  statement: 以《大东北我的家乡》为基础，网友借助虚拟歌姬或AI工具，把家乡、曲风和演唱形象改成不同版本的歌曲二创梗。
+  stance: supports
+  evidence:
+  - ocr-narration-BV1wgswzQEPC
+- key: usage_context
+  statement: 替换家乡或音乐风格，制作夸张的歌颂家乡版本。
+  stance: supports
+  evidence:
+  - ocr-narration-BV1wgswzQEPC
+events:
+- event_type: remix
+  description: 大东北我的家乡出现衍生作品《《大德国是我的家乡》德国战车×雨姐！工农业重金属》
+  occurred_at_start: 2025-10-17 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示投稿时间；不是首次出处或传播爆发时间
+  evidence:
+  - ocr-BV11PWnzCEyQ
+- event_type: remix
+  description: 大东北我的家乡出现衍生作品《凯尔特史诗-《大北境，我的家乡》Northlands, my heart's own home》
+  occurred_at_start: 2025-10-11 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示投稿时间；不是首次出处或传播爆发时间
+  evidence:
+  - ocr-BV1n14czRE2o
+- event_type: remix
+  description: 大东北我的家乡出现衍生作品《50年代经典布鲁斯《大东北我的家乡》（ai）》
+  occurred_at_start: 2025-10-13 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示投稿时间；不是首次出处或传播爆发时间
+  evidence:
+  - ocr-BV11u4CzJEor
+- event_type: remix
+  description: 大东北我的家乡出现衍生作品《《洛圣都我的家乡》》
+  occurred_at_start: 2025-10-15 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示投稿时间；不是首次出处或传播爆发时间
+  evidence:
+  - ocr-BV1di4izmEiL
+relations: []
+gold:
+  canonical:
+  - 大东北我的家乡
+  alias: []
+  origin_intent:
+  - 大东北我的家乡的出处
+  description: []
+  must_not_return: []
+curation:
+  curator: ''
+  confirmed_by: ''
+  drafted_by: codex
+  source_episodes:
+  - BV1wgswzQEPC
+  draft_basis:
+  - 009.0s 这个梗呢原本是一首歌
+  - 030.0s 后来DJ手何鹏的版本以贼拉具有特色的前奏
+  - 054.0s 这首歌作为知名视频主“东北雨姐”的常用BGM
+  - 062.0s 这首歌就变成了梗曲
+  - 072.0s 而在最近，这首歌又一次焕发生机
+  - 101.0s 打大东北是我的家乡～
+  draft_notes: '009-134s song segment; opening玩家老了 excluded
+
+    Read full stored narration and sheets0_0-3. Song credits visible at10/11s but
+    no original recording metadata: omit original author/date and structured firstsource.
+    Do not repeat claims about东北雨姐 misconduct as established fact. Narration74s names梨茗子
+    while displayed German citation names眉川伊芙琳: do not assign German edit to梨茗子. Exact
+    final o in BV1n14czRE2o must not be conflated with unresolved 0 variant. Existing丹尼尔
+    record cites a rendition, not this broader template; separate identity.
+
+    Excluded references: {}'
+  ingestion_ok: true
+  findings:
+  - 出处未知，不把衍生投稿日期当作首次来源
+  - 同一Codex冻结草稿后另次证据复核，独立性有限
+  - 本批不生成评测描述查询；人工查询文件原字节保留
+  draft_origin_sha256: e4ea6a00a4295870d52d1562bb05a91d1d4491ae8882f7f55553fc465d31938c
+  automated_review:
+    reviewer: codex
+    decision: accept
+    reviewed_at: '2026-10-05'
+    review_started_at: '2026-10-05T09:41:46.579033+00:00'
+    method: same_model_frozen_passes
+    limitations: Same model; separate frozen passes, not human or independent-model
+      review.
+    frozen_draft:
+      path: evals/reviews/meme-d9e292cf78e6d460.json
+      sha256: 1c1466339ed076b553a104b0eff2801b01e452d89faec8362ac8e2a3aee41b2a
+    checks:
+      identity: 009-134s歌曲，与开场老人视频和135s后AI采访分开。
+      meaning: 76/79s解说与72德国、87北境、100布鲁斯、114洛圣都画面支持替换家乡/曲风的二创。
+      usage: 使用场景逐条与解说和源帧核对，仅限该模板或片段机制。
+      origins: 无可验证首次出处，保留unknown；不把原作者标签或最早可见二创日期当首发。
+      events: 四条匹配BV和标题为衍生投稿；原歌演唱者及74s作者冲突未写成出处。
+      queries: 本批未生成描述评测查询；description为空，不把canonical/origin意图查询当人工描述。人工_descriptions.yaml字节保留。
+    fingerprint: eb76efdb9b2a475dcd1b8d9a84e0c9516f44a692875f7d7ae8c5923f730baefb

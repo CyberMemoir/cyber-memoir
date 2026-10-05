@@ -1,0 +1,124 @@
+{
+  "frozen_at": "2026-10-05T09:41:46.137666+00:00",
+  "record": {
+    "slug": "meme-f030be1c495235f1",
+    "resolved": false,
+    "canonical_name": "玩家老了",
+    "aliases": [],
+    "definition": "用AI视频想象游戏玩家多年后老去的样子，让老人继续使用熟悉的游戏术语、动作和行为，形成年龄与玩家习惯的反差。",
+    "usage_context": "把某个游戏玩家群体设想成老人，保留游戏习惯制作段子。",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [
+      {
+        "url": "https://www.bilibili.com/video/BV1ZFx1zgEdj",
+        "role": "derivative",
+        "note": "S70世界总决赛上，老Faker按下闪现后因体力不支倒在赛场，解说纷纷预测今年是LPL最有希望的一年。（源画面引用，不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1KS4nz9EYM",
+        "role": "derivative",
+        "note": "Sora2生成50年后的蔚蓝档案玩家belike（源画面引用，不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1fkxizSEyy",
+        "role": "derivative",
+        "note": "50年后的Minecraft玩家be like:（源画面引用，不作首次出处断言）"
+      }
+    ],
+    "evidence_map": {
+      "ocr-narration-BV1oB4izjExH": null,
+      "ocr-BV1ZFx1zgEdj": null,
+      "ocr-BV1KS4nz9EYM": null,
+      "ocr-BV1fkxizSEyy": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "用AI视频想象游戏玩家多年后老去的样子，让老人继续使用熟悉的游戏术语、动作和行为，形成年龄与玩家习惯的反差。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1oB4izjExH"
+        ]
+      },
+      {
+        "key": "usage_context",
+        "statement": "把某个游戏玩家群体设想成老人，保留游戏习惯制作段子。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1oB4izjExH"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "event_type": "remix",
+        "description": "玩家老了出现衍生作品《S70世界总决赛上，老Faker按下闪现后因体力不支倒在赛场，解说纷纷预测今年是LPL最有希望的一年。》",
+        "occurred_at_start": "2025-10-09 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1ZFx1zgEdj"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "玩家老了出现衍生作品《Sora2生成50年后的蔚蓝档案玩家belike》",
+        "occurred_at_start": "2025-10-10 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1KS4nz9EYM"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "玩家老了出现衍生作品《50年后的Minecraft玩家be like:》",
+        "occurred_at_start": "2025-10-08 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1fkxizSEyy"
+        ]
+      }
+    ],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "玩家老了"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "玩家老了的出处"
+      ],
+      "description": [],
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV1oB4izjExH"
+      ],
+      "draft_basis": [
+        "019.0s 玩家老了",
+        "025.0s 那如果这些玩家老了之后又会是什么样子呢",
+        "034.0s 有些视频甚至还有剧情",
+        "035.0s 如果你正在玩相应的游戏"
+      ],
+      "draft_notes": "019-091s aged-player segment\nOpening strongman/anime clips6-18 are background AI progress, not derivatives of this meme. Frame60 creator label differs from resolved metadata uploader forBV1ZA4JzKEu4: do not silently correct evidence; proposed relation binds video ID/title only, no personal author assertion. Exclude unrelated208s retirement/hakimi citation. Definition treats footage as fictional imagining, not real aged players.\nExcluded references: {\"BV1PR4nznEFi\": \"shared citation resolver can bind opening of another episode\", \"BV1ZA4JzKEu4\": \"source label and platform uploader disagree\"}",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未知，不把衍生投稿日期当作首次来源",
+        "同一Codex冻结草稿后另次证据复核，独立性有限",
+        "本批不生成评测描述查询；人工查询文件原字节保留"
+      ],
+      "draft_origin_sha256": "e4ea6a00a4295870d52d1562bb05a91d1d4491ae8882f7f55553fc465d31938c"
+    }
+  }
+}

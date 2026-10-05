@@ -1,0 +1,132 @@
+{
+  "frozen_at": "2026-10-05T09:41:46.086515+00:00",
+  "record": {
+    "slug": "meme-0629188c2a2fd803",
+    "resolved": false,
+    "canonical_name": "采访AI假人",
+    "aliases": [],
+    "definition": "模仿街头采访，询问视频中的人物是否知道自己由AI生成；人物以不合常理的动作或能力回应，之后也出现故意模仿AI质感的真人拍摄。",
+    "usage_context": "用采访和异常动作制造虚拟人物知道自己是AI的反差，也可模仿这种视频风格。",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [
+      {
+        "url": "https://www.bilibili.com/video/BV1YfjdzMEXm",
+        "role": "reference",
+        "note": "你知道我们都是人工智能生成的吗（源画面引用，不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1u7xezFEpW",
+        "role": "derivative",
+        "note": "⚡️采访AI假人会羡慕屏幕前的真人吗⚡️（源画面引用，不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1nyH3zBEzC",
+        "role": "derivative",
+        "note": "采访ai角色是否知道自己是ai，状况频出（源画面引用，不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1cg4tzeEDy",
+        "role": "derivative",
+        "note": "路人被告知是ai生成的（源画面引用，不作首次出处断言）"
+      }
+    ],
+    "evidence_map": {
+      "ocr-narration-BV1wgswzQEPC": null,
+      "ocr-BV1YfjdzMEXm": null,
+      "ocr-BV1u7xezFEpW": null,
+      "ocr-BV1nyH3zBEzC": null,
+      "ocr-BV1cg4tzeEDy": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "模仿街头采访，询问视频中的人物是否知道自己由AI生成；人物以不合常理的动作或能力回应，之后也出现故意模仿AI质感的真人拍摄。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1wgswzQEPC"
+        ]
+      },
+      {
+        "key": "usage_context",
+        "statement": "用采访和异常动作制造虚拟人物知道自己是AI的反差，也可模仿这种视频风格。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1wgswzQEPC"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "event_type": "remix",
+        "description": "采访AI假人出现衍生作品《⚡️采访AI假人会羡慕屏幕前的真人吗⚡️》",
+        "occurred_at_start": "2025-10-08 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1u7xezFEpW"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "采访AI假人出现衍生作品《采访ai角色是否知道自己是ai，状况频出》",
+        "occurred_at_start": "2025-10-03 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1nyH3zBEzC"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "采访AI假人出现衍生作品《路人被告知是ai生成的》",
+        "occurred_at_start": "2025-10-14 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1cg4tzeEDy"
+        ]
+      }
+    ],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "采访AI假人"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "采访AI假人的出处"
+      ],
+      "description": [],
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV1wgswzQEPC"
+      ],
+      "draft_basis": [
+        "135.0s 这个梗呢最初是AI一种的视频形式",
+        "138.0s 一位记者询问对方“你是AI生成的吗”",
+        "140.0s 或者是“你是什么时候意识到自己是AI的",
+        "148.0s 看着很自然，其实一般人真的做不到",
+        "183.0s 后来也有人会故意混淆AI视频和现实世界的界限",
+        "196.0s 如果拍摄者故意加上水印"
+      ],
+      "draft_notes": "135-197s interview segment\nExact reference BV1YfjdzMEXm frame/title agree, but sourceframe原作者 label does not establish first meme origin. Real-shot versus generated status of each cited clip is not independently established; definition describes presentation, not an AI detection claim. Opening player footage excluded.\nExcluded references: {}",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未知，不把衍生投稿日期当作首次来源",
+        "同一Codex冻结草稿后另次证据复核，独立性有限",
+        "本批不生成评测描述查询；人工查询文件原字节保留"
+      ],
+      "draft_origin_sha256": "e4ea6a00a4295870d52d1562bb05a91d1d4491ae8882f7f55553fc465d31938c"
+    }
+  }
+}

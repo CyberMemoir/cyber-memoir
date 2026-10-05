@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "public_records": 116,
+  "public_records": 124,
   "records": [
     {
       "path": "evals/curation/2026.yaml",
@@ -581,6 +581,46 @@
       "path": "evals/curation/xxx.yaml",
       "name": "主人不在家，我XXX",
       "review_fingerprint": "cc7b282a0756a0ca3976eb4662908263005306f3f00fd16a5c88ff18908adb40"
+    },
+    {
+      "path": "evals\\curation\\meme-d9e292cf78e6d460.yaml",
+      "name": "大东北我的家乡",
+      "review_fingerprint": "eb76efdb9b2a475dcd1b8d9a84e0c9516f44a692875f7d7ae8c5923f730baefb"
+    },
+    {
+      "path": "evals\\curation\\meme-0629188c2a2fd803.yaml",
+      "name": "采访AI假人",
+      "review_fingerprint": "8a88686053ddba41efd93b6491d7596b0550fe42d58819cd8d1a5b509b419fe7"
+    },
+    {
+      "path": "evals\\curation\\meme-7156cdf2c6af3cca.yaml",
+      "name": "活力大湾区，魅力新广州",
+      "review_fingerprint": "5949beef42c21f95be50246d47408af7832eb9b74810771867f00b9c19e10620"
+    },
+    {
+      "path": "evals\\curation\\meme-f030be1c495235f1.yaml",
+      "name": "玩家老了",
+      "review_fingerprint": "302ec2f3055ed3acb7b2349c476a03ede51c1e8e65f41bb37338f1db806cef28"
+    },
+    {
+      "path": "evals\\curation\\meme-72f718af2da5bd20.yaml",
+      "name": "丁亮翻遍硬盘都没找到这集",
+      "review_fingerprint": "71ef0f143c84dd35abe9cbe7209b18e7e834584aa938ce148384c8f5e5871a95"
+    },
+    {
+      "path": "evals\\curation\\meme-1ec7f8771dd5b679.yaml",
+      "name": "何意味",
+      "review_fingerprint": "2a71a14b4d2b5ce510806bf9908c86aa50ae41cb89fc83dda94b97eb0a8d4a8f"
+    },
+    {
+      "path": "evals\\curation\\meme-1ea4c37d8d126d14.yaml",
+      "name": "爱做局的朵拉女士",
+      "review_fingerprint": "2b3ad6e7fb324eb2cdbdabb44e983906d454c1651ea42c0be50cb3942b67dcf6"
+    },
+    {
+      "path": "evals\\curation\\meme-ac90eb34865fb9bb.yaml",
+      "name": "朵拉的小曲",
+      "review_fingerprint": "07d5fb42ba4fed6d16be0befc76d92094f9139001076365a843e07ac4a4d3987"
     }
   ],
   "source_episodes": [
@@ -623,6 +663,7 @@
     "BV1L6dhBQEdR",
     "BV1LvjR6dEVk",
     "BV1MGN3zkEoX",
+    "BV1NH4mzZEsq",
     "BV1NJsdz5E1q",
     "BV1NsZsBxEoR",
     "BV1P8Gw6yEjS",
@@ -658,6 +699,7 @@
     "BV1eMiRBAEwd",
     "BV1es5169EHt",
     "BV1exckzbE86",
+    "BV1fKWvzBEto",
     "BV1fXzLBzEwD",
     "BV1g4be69Edh",
     "BV1gA2vBwEkS",
@@ -667,9 +709,11 @@
     "BV1ii4C6QEk8",
     "BV1jBZCBbE2D",
     "BV1krR9BxE51",
+    "BV1mK4uzWEBo",
     "BV1mgen69Ewc",
     "BV1mtY164EUu",
     "BV1nN24BoEyq",
+    "BV1oB4izjExH",
     "BV1oUDLBaE8n",
     "BV1omyMBtEFS",
     "BV1pKwxzwE2T",
@@ -687,6 +731,7 @@
     "BV1wSZYB3ExD",
     "BV1wVXLB5Exm",
     "BV1weKQ6YE3D",
+    "BV1wgswzQEPC",
     "BV1woUpBWEV9",
     "BV1xWtJ6iEGs",
     "BV1yBc4zNE8Z",
@@ -786,6 +831,10 @@
       "sha256": "6f3f2b09678c15dc1910c6814b9da64bbed92f1728ffdd945fb6ab710a068d3f"
     },
     {
+      "path": "evals/curation/meme-0629188c2a2fd803.yaml",
+      "sha256": "16e6fd09cd118d7ad73d25259683f00f482383912b01e847804b11881a58394a"
+    },
+    {
       "path": "evals/curation/meme-09.yaml",
       "sha256": "482e3e3eefe7e9dd54fd43d9ba212040211119a1c1cd2467f8c6ae358c5a0df2"
     },
@@ -852,6 +901,14 @@
     {
       "path": "evals/curation/meme-19edcf2c7f5f42ea.yaml",
       "sha256": "7231ee864c063a7c8b933b169577664aa6020b3dcdaad7838200b56e37528816"
+    },
+    {
+      "path": "evals/curation/meme-1ea4c37d8d126d14.yaml",
+      "sha256": "64f444157be068c709e2392b94dcb69258fd78cac98f09cbaa06a22ef18094b2"
+    },
+    {
+      "path": "evals/curation/meme-1ec7f8771dd5b679.yaml",
+      "sha256": "4057cfd9f58e6d316b0d66ec1687c97108394f826bccf930651b561a57957db0"
     },
     {
       "path": "evals/curation/meme-20.yaml",
@@ -1002,8 +1059,16 @@
       "sha256": "e3948eb78d3b01eeb823cea48c857cfe45e270ce3a6e7a61842eaaeaba29875b"
     },
     {
+      "path": "evals/curation/meme-7156cdf2c6af3cca.yaml",
+      "sha256": "3b958044e02d30c8499eeead2e930a0803797c28a1dbed5e713cc177b98c03f3"
+    },
+    {
       "path": "evals/curation/meme-72.yaml",
       "sha256": "589e9d0ce46a92a2bbe098ed65f2e866c6ad2961eb2a4fed4020a0f20329f48b"
+    },
+    {
+      "path": "evals/curation/meme-72f718af2da5bd20.yaml",
+      "sha256": "63acf2e35af41a6a298a7cc2c261d36d3f66f17d86882754163f589bfd235463"
     },
     {
       "path": "evals/curation/meme-73.yaml",
@@ -1086,6 +1151,10 @@
       "sha256": "f5efe9e61adfed3a8a49718ea974c5471ec282d3def4043f93bb71b00b9d3615"
     },
     {
+      "path": "evals/curation/meme-ac90eb34865fb9bb.yaml",
+      "sha256": "cb3306ef616dbb3f92a681195f98024d8b20dc46ac34f9c64fe2400dfc3d6fef"
+    },
+    {
       "path": "evals/curation/meme-b33fe88c66f0d676.yaml",
       "sha256": "42662100c487baa015d92d1fbe2a17a060bce385db8467451ee72c04bb35e47f"
     },
@@ -1102,12 +1171,20 @@
       "sha256": "e579035776f4b0073fd3966511383c712cd66cce831903cdd413a6943d0416f4"
     },
     {
+      "path": "evals/curation/meme-d9e292cf78e6d460.yaml",
+      "sha256": "27255d9cf4402e80994c9ae04b2c26f73847d9a15943e9e63332d01f6cfef87c"
+    },
+    {
       "path": "evals/curation/meme-e0a743010f0af288.yaml",
       "sha256": "101daa3cbbe18fb36e52966a6d940cf8c40019fbb8799504432a136299dff536"
     },
     {
       "path": "evals/curation/meme-eeb55a5c2e7b6e98.yaml",
       "sha256": "43d08aff1aeb23c7d259152bde4fec017a92b69255dd23d4d1f2705be2f8c396"
+    },
+    {
+      "path": "evals/curation/meme-f030be1c495235f1.yaml",
+      "sha256": "6e85fc9200a271c4cc6e47f2377c9f715356c742172e01e058b4328e893704c6"
     },
     {
       "path": "evals/curation/meme-f48df681485221d4.yaml",
@@ -1338,6 +1415,10 @@
       "sha256": "5370eeb26b6a3a59294228036c8f55f55f7c19732273e6801453ac075d936f79"
     },
     {
+      "path": "evals/feasibility/BV1NH4mzZEsq.derivatives.csv",
+      "sha256": "08ee055e3be57ff5b318ce6cee1466da37334f83bd818f4e75e7df050f5cccfe"
+    },
+    {
       "path": "evals/feasibility/BV1NJsdz5E1q.derivatives.csv",
       "sha256": "40b475077be23a337d598545db1fcd027a306c9b694a3e313bd644523ec995b9"
     },
@@ -1478,6 +1559,10 @@
       "sha256": "c66cf0d44c0bd5706dba4e788ab9d00f62d393bad71511cd9f780b50d29db5be"
     },
     {
+      "path": "evals/feasibility/BV1fKWvzBEto.derivatives.csv",
+      "sha256": "639eef1084a0083f55f78eb496cafa7c73188b93fe25303ba0139ea8502b1727"
+    },
+    {
       "path": "evals/feasibility/BV1fXzLBzEwD.derivatives.csv",
       "sha256": "85b4fa5bb4480e264a3808348893cb36db3f6756436e9344d9e01eeb83b4aa03"
     },
@@ -1514,6 +1599,10 @@
       "sha256": "b872756d59ab0342fff56f800758f0a2f40cf97f2f4351bf74e69e3bf93ac422"
     },
     {
+      "path": "evals/feasibility/BV1mK4uzWEBo.derivatives.csv",
+      "sha256": "b95be2ae0b4da57789790f32a696583f4035fa12ddec776ec57ebc0869e339a2"
+    },
+    {
       "path": "evals/feasibility/BV1mgen69Ewc.derivatives.csv",
       "sha256": "a75242c846c06099a67666685e068ee2f4faf592d6e5197ef6f861f762af0ba4"
     },
@@ -1524,6 +1613,10 @@
     {
       "path": "evals/feasibility/BV1nN24BoEyq.derivatives.csv",
       "sha256": "227fef7a96c25230ceaeb9db6102048fb21a9d980333fffd4b92bce203df765d"
+    },
+    {
+      "path": "evals/feasibility/BV1oB4izjExH.derivatives.csv",
+      "sha256": "2ba0f525cf613f96ddd446a0799b1969e5039e6628d4ad234223d991955e1702"
     },
     {
       "path": "evals/feasibility/BV1oUDLBaE8n.derivatives.csv",
@@ -1592,6 +1685,10 @@
     {
       "path": "evals/feasibility/BV1weKQ6YE3D.derivatives.csv",
       "sha256": "625a688f9dc898640c9e9455034ee701a65c86902decaa47415979d3eb2a6e88"
+    },
+    {
+      "path": "evals/feasibility/BV1wgswzQEPC.derivatives.csv",
+      "sha256": "ce47e15043d21dab60b85d9332abeed7b9238d8cc14eb3311b6478037dc181df"
     },
     {
       "path": "evals/feasibility/BV1woUpBWEV9.derivatives.csv",
@@ -1782,6 +1879,10 @@
       "sha256": "632a095057f194683484faabf8467bc9d928c54043e6a1abb29fd89f21271fbc"
     },
     {
+      "path": "evals/feasibility/materials/BV1NH4mzZEsq.materials.json",
+      "sha256": "509b1a1d41be2a67ef5d301f44dd05c2b5c7b409a98594093b9d73fa06d13696"
+    },
+    {
       "path": "evals/feasibility/materials/BV1NJsdz5E1q.materials.json",
       "sha256": "f69018225f503d725d1ee7f8e60ed0e6d9c7b070f6858b4d3b68a3016a8826ad"
     },
@@ -1918,6 +2019,10 @@
       "sha256": "f8d4029498f2ec60bd1bd0603c4afc41a055f48a5d5ea53ab86f8548443507be"
     },
     {
+      "path": "evals/feasibility/materials/BV1fKWvzBEto.materials.json",
+      "sha256": "87101ff607196a0dc71b14174ae66c25acf7e7c4f0980cb4ffd6b7fada0a24e6"
+    },
+    {
       "path": "evals/feasibility/materials/BV1fXzLBzEwD.materials.json",
       "sha256": "d2fbb2b70f4242337bac450ff54a8e1d2e5cb773f8f832d7a00121e19dac4aca"
     },
@@ -1954,6 +2059,10 @@
       "sha256": "4830037165ce5b0071ac74e596a8f6703e9476ab2e1dbde1926d66fd53124501"
     },
     {
+      "path": "evals/feasibility/materials/BV1mK4uzWEBo.materials.json",
+      "sha256": "51605a340525e74a808ab44324f1bb4723e940e24b7d06afe9b799a98567944e"
+    },
+    {
       "path": "evals/feasibility/materials/BV1mgen69Ewc.materials.json",
       "sha256": "958f19d54a9359ca7abb3f4c137fafa31f3aa19eee26a55e31736a1bf238c9de"
     },
@@ -1964,6 +2073,10 @@
     {
       "path": "evals/feasibility/materials/BV1nN24BoEyq.materials.json",
       "sha256": "0dbf92458e7e7d611d4897ab59d8db840605ac77f8c9603a093df40629850756"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1oB4izjExH.materials.json",
+      "sha256": "72c3e7b514b78d61d8ea43115a1af76bd18122daaa225c1b6a72583990200848"
     },
     {
       "path": "evals/feasibility/materials/BV1oUDLBaE8n.materials.json",
@@ -2034,6 +2147,10 @@
       "sha256": "1f3175b37ce032ccf7e800c87c1490602bc394a0226631e23c0f86abd4767d94"
     },
     {
+      "path": "evals/feasibility/materials/BV1wgswzQEPC.materials.json",
+      "sha256": "29fd91d12f393ca33974a23ecddb636255cb769769b21d02b89b09a8a9d96853"
+    },
+    {
       "path": "evals/feasibility/materials/BV1woUpBWEV9.materials.json",
       "sha256": "594c3f4d2a00bdfe6f56ccb719560d6247946c0f7fec4481edf9ebce06809b28"
     },
@@ -2070,12 +2187,24 @@
       "sha256": "a8bf5773379a77723fb582cdb643cac71033187c921eaef987915c77fce6d0e3"
     },
     {
+      "path": "evals/reviews/meme-0629188c2a2fd803.json",
+      "sha256": "abbd87ca70e158f3e17cd2fe7263d963cd87eaac908a3527db1b9c4a894f081a"
+    },
+    {
       "path": "evals/reviews/meme-0bb1a693b6858894.json",
       "sha256": "30516e954c80517d0b4e88faa35c558d2d277d6a0d44d67466c69fc4fe27e1c3"
     },
     {
       "path": "evals/reviews/meme-19edcf2c7f5f42ea.json",
       "sha256": "716320ef778c109f456883560f7f311d164eb2d94640ce75b05bfdb15a6c2510"
+    },
+    {
+      "path": "evals/reviews/meme-1ea4c37d8d126d14.json",
+      "sha256": "4baf3a0cc785a38b9db68580567f308762c592a22b30d1fc70899d30b83ed9d6"
+    },
+    {
+      "path": "evals/reviews/meme-1ec7f8771dd5b679.json",
+      "sha256": "aafdafa745be2cdbb22c6ebb0d571fef7b170357335842f69c4206508d132179"
     },
     {
       "path": "evals/reviews/meme-2960cdfcb6e42492.json",
@@ -2118,6 +2247,14 @@
       "sha256": "4bdc42d3a3a69e88bc86b87f63158345d24601e22e5eeaa6ff3e98533bbf90d3"
     },
     {
+      "path": "evals/reviews/meme-7156cdf2c6af3cca.json",
+      "sha256": "54a4c9843830855e890a25585545f74de9766821513338946213f84ded1e090a"
+    },
+    {
+      "path": "evals/reviews/meme-72f718af2da5bd20.json",
+      "sha256": "4422a87cab6ad99e0c489a9ce5d7cc799afe1766acb6be06f1a9a6bd070d4bf9"
+    },
+    {
       "path": "evals/reviews/meme-82afdae2056d71c0.json",
       "sha256": "0f6d22c9a28f54f4e2bc55e96900e78385afd8b3966746b6b3aafc84f30561a5"
     },
@@ -2138,6 +2275,10 @@
       "sha256": "c5afa46735ac863181705cabc9b06b0019b4ba6f0b1f218fe616f4eda3985508"
     },
     {
+      "path": "evals/reviews/meme-ac90eb34865fb9bb.json",
+      "sha256": "07da48d1c96c2d38a6f8fff678560bb9e3c781c18c7757ad428f128a6745c5ab"
+    },
+    {
       "path": "evals/reviews/meme-b33fe88c66f0d676.json",
       "sha256": "dae3219b24ca4268d71a1397fbb79bde494120e04bd6ac0f0437eec9ecb4a19a"
     },
@@ -2150,12 +2291,20 @@
       "sha256": "20c12e4b7bb327497e0760ace50fe94df090b07e32688ef02bdd5c0d67b1904a"
     },
     {
+      "path": "evals/reviews/meme-d9e292cf78e6d460.json",
+      "sha256": "1c1466339ed076b553a104b0eff2801b01e452d89faec8362ac8e2a3aee41b2a"
+    },
+    {
       "path": "evals/reviews/meme-e0a743010f0af288.json",
       "sha256": "4dec15bbc22c27f49e4ccaf4cff5c21de1ae8e10190a224310b6f781fca233ad"
     },
     {
       "path": "evals/reviews/meme-eeb55a5c2e7b6e98.json",
       "sha256": "e6b50ee306cdf465c16db96dd138e4e2c9382bbc6772ad863ee194883c827b36"
+    },
+    {
+      "path": "evals/reviews/meme-f030be1c495235f1.json",
+      "sha256": "04267345d32f5d2033bd62d0464138377cd35d3350b050223a74c8f43d89be34"
     },
     {
       "path": "evals/reviews/meme-f48df681485221d4.json",
@@ -2175,7 +2324,7 @@
     },
     {
       "path": "evals/validate_curation.py",
-      "sha256": "881a5e407ba6664b16113b673edf206f55aed18be24cae1976bf1a3d54f5078c"
+      "sha256": "dc6fe6109d6c0ad6ae1a05a16e06e1f4fc2d0976fbf0fbf0614b430f91025134"
     },
     {
       "path": "evals/vault_loop.py",
