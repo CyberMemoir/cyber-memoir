@@ -1,0 +1,77 @@
+{
+  "frozen_at": "2026-10-05T15:00:50.776460+00:00",
+  "record": {
+    "slug": "meme-49d180ecf5613281",
+    "resolved": false,
+    "canonical_name": "67",
+    "aliases": [],
+    "definition": "在视频、对话或篮球剪辑中反复喊出或强调“67”，常配合双手交替上下摆动的动作；相关少年喊出数字的片段也被用来剪辑和恶搞。",
+    "usage_context": "遇到这个数字就接梗，或用喊数字和手势制造无厘头的效果。",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [],
+    "evidence_map": {
+      "ocr-narration-BV1eUxCzfEex": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "在视频、对话或篮球剪辑中反复喊出或强调“67”，常配合双手交替上下摆动的动作；相关少年喊出数字的片段也被用来剪辑和恶搞。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1eUxCzfEex"
+        ]
+      },
+      {
+        "key": "usage_context",
+        "statement": "遇到这个数字就接梗，或用喊数字和手势制造无厘头的效果。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1eUxCzfEex"
+        ]
+      }
+    ],
+    "events": [],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "67"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "67的出处"
+      ],
+      "description": [],
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV1eUxCzfEex"
+      ],
+      "draft_basis": [
+        "097.0s 67",
+        "109.0s Skrilla的歌曲《Doot Doot》",
+        "116.0s （可能指代的是芝加哥67街）",
+        "130.0s 因此在剪辑中一旦提到67这个词",
+        "192.0s 在油管主Cam Wilder",
+        "199.0s CRISP",
+        "211.0s 该小孩的形象还被各种魔化"
+      ],
+      "draft_notes": "097-219s\nNarration linksSkrilla DootDoot/basketball edits, but firstorigin chronology/Chicago67thStreet/gesture source not independently established; omit definitive origin,date and speculative place. Avoid copyrighted lyric quotation and youth personalidentity claims. No resolved sourceURLs for this segment;explicit episode binding. Horror edits described as fictional, not claims about child.\nExcluded references: {}",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未知，不把衍生投稿日期当作首次来源",
+        "同一Codex冻结草稿后另次证据复核，独立性有限",
+        "本批不生成评测描述查询；人工查询文件原字节保留"
+      ],
+      "draft_origin_sha256": "1080d30b2a766a6a85d2d828c8dc7b906a25168e4fd48a78ce435e1c74e98474"
+    }
+  }
+}

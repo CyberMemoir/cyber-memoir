@@ -1,0 +1,80 @@
+slug: meme-c37f592b73d4eeb4
+resolved: false
+canonical_name: 你知道XX但你没法证明
+aliases: []
+definition: 使用《嗜血法医》中道克斯怀疑他人的表情或剧照，配上“你知道XX但你没法证明”一类文案，表达有所怀疑或确信却拿不出证据的情境。
+usage_context: 用反应图调侃有直觉或猜测却缺少证据，也可用于无厘头的怀疑段子。
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources: []
+evidence_map:
+  ocr-narration-BV1eUxCzfEex: null
+claims:
+- key: definition
+  statement: 使用《嗜血法医》中道克斯怀疑他人的表情或剧照，配上“你知道XX但你没法证明”一类文案，表达有所怀疑或确信却拿不出证据的情境。
+  stance: supports
+  evidence:
+  - ocr-narration-BV1eUxCzfEex
+- key: usage_context
+  statement: 用反应图调侃有直觉或猜测却缺少证据，也可用于无厘头的怀疑段子。
+  stance: supports
+  evidence:
+  - ocr-narration-BV1eUxCzfEex
+events: []
+relations: []
+gold:
+  canonical:
+  - 你知道XX但你没法证明
+  alias: []
+  origin_intent:
+  - 你知道XX但你没法证明的出处
+  description: []
+  must_not_return: []
+curation:
+  curator: ''
+  confirmed_by: ''
+  drafted_by: codex
+  source_episodes:
+  - BV1eUxCzfEex
+  draft_basis:
+  - 220.0s 你知道xx但你没法证明+bro无处不在
+  - 280.0s doakes就坐在车里视奸主角
+  - 289.0s 同时也有另一张doakes
+  draft_notes: '220-343s
+
+    Staticreaction template distinct fromDoakes transition below. Frame280/289 and
+    narration support fictional character/sourcework, not actor/episode/date. Omit
+    diagnosisPTSD and elaborate plot assertions unnecessary to meme. All375s+BVrefs
+    are transition derivatives, not sources of static image. Explicit episode binding,
+    unknownfirstorigin.
+
+    Excluded references: {}'
+  ingestion_ok: true
+  findings:
+  - 出处未知，不把衍生投稿日期当作首次来源
+  - 同一Codex冻结草稿后另次证据复核，独立性有限
+  - 本批不生成评测描述查询；人工查询文件原字节保留
+  draft_origin_sha256: 1080d30b2a766a6a85d2d828c8dc7b906a25168e4fd48a78ce435e1c74e98474
+  automated_review:
+    reviewer: codex
+    decision: accept
+    reviewed_at: '2026-10-05'
+    review_started_at: '2026-10-05T15:02:23.966068+00:00'
+    method: same_model_frozen_passes
+    limitations: Same model; separate frozen passes, not human or independent-model
+      review.
+    frozen_draft:
+      path: evals/reviews/meme-c37f592b73d4eeb4.json
+      sha256: a259751b2aacacadc46b670fe82798694d0bdf36441845e4ee68e814a2caf111
+    checks:
+      identity: 220-343s道克斯静态反应图，与344s后的动态转场分别处理。
+      meaning: 280/289/300s剧照和配文支持怀疑但无证据模板；不添加诊断、演员或具体集数。
+      usage: 使用场景逐条与解说和源帧核对，仅限该模板或片段机制。
+      origins: 无可验证首次出处，保留unknown；不把原作者标签或最早可见二创日期当首发。
+      events: 不借375s之后动态转场引用为静态图来源；原集明确绑定，首次出处unknown。
+      queries: 本批未生成描述评测查询；description为空，不把canonical/origin意图查询当人工描述。人工_descriptions.yaml字节保留。
+    fingerprint: f5e3875c828588958f4c86ceb183a8c817c283c5caab6e28d702fd1b4bbccbe7

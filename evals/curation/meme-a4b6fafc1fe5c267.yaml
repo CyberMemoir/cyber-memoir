@@ -1,0 +1,78 @@
+slug: meme-a4b6fafc1fe5c267
+resolved: false
+canonical_name: 寻找伪人改图
+aliases: []
+definition: 以游戏《寻找伪人》中从门镜观察来客的场景为模板，把门外人物替换成其他作品角色或人物，并改写对话和选项的图片二创。
+usage_context: 把熟悉的人物放进诡异的门外来客场景，制造角色与游戏氛围的反差。
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources: []
+evidence_map:
+  ocr-narration-BV1eUxCzfEex: null
+claims:
+- key: definition
+  statement: 以游戏《寻找伪人》中从门镜观察来客的场景为模板，把门外人物替换成其他作品角色或人物，并改写对话和选项的图片二创。
+  stance: supports
+  evidence:
+  - ocr-narration-BV1eUxCzfEex
+- key: usage_context
+  statement: 把熟悉的人物放进诡异的门外来客场景，制造角色与游戏氛围的反差。
+  stance: supports
+  evidence:
+  - ocr-narration-BV1eUxCzfEex
+events: []
+relations: []
+gold:
+  canonical:
+  - 寻找伪人改图
+  alias: []
+  origin_intent:
+  - 寻找伪人改图的出处
+  description: []
+  must_not_return: []
+curation:
+  curator: ''
+  confirmed_by: ''
+  drafted_by: codex
+  source_episodes:
+  - BV1eUxCzfEex
+  draft_basis:
+  - 006.0s 寻找伪人改图
+  - 032.0s 而主角每晚必须透过门镜观察来客
+  - 040.0s 有了下面这些创作
+  draft_notes: '006-096s
+
+    Three direct source frames show interface edits; do not infer creators as firstorigin
+    from unsourced handles or assert detailed game mechanics/lore. Subsequent67 andDoakes
+    clips excluded;explicit episode binding.
+
+    Excluded references: {}'
+  ingestion_ok: true
+  findings:
+  - 出处未知，不把衍生投稿日期当作首次来源
+  - 同一Codex冻结草稿后另次证据复核，独立性有限
+  - 本批不生成评测描述查询；人工查询文件原字节保留
+  draft_origin_sha256: 1080d30b2a766a6a85d2d828c8dc7b906a25168e4fd48a78ce435e1c74e98474
+  automated_review:
+    reviewer: codex
+    decision: accept
+    reviewed_at: '2026-10-05'
+    review_started_at: '2026-10-05T15:02:23.923959+00:00'
+    method: same_model_frozen_passes
+    limitations: Same model; separate frozen passes, not human or independent-model
+      review.
+    frozen_draft:
+      path: evals/reviews/meme-a4b6fafc1fe5c267.json
+      sha256: cf99fd8d5541ad47a1dd08d55053865fdde636a8e7197ccc1ff9bcefe16ddd5a
+    checks:
+      identity: 006-096s门镜来客界面改图，与后续67和Doakes分开。
+      meaning: 32/40/55/80s原画面支持角色替换及选项改写；不添加游戏机制细节或无链接作者身份。
+      usage: 使用场景逐条与解说和源帧核对，仅限该模板或片段机制。
+      origins: 无可验证首次出处，保留unknown；不把原作者标签或最早可见二创日期当首发。
+      events: 该段没有可确认引用，使用原集解说绑定，无虚构首发事件。
+      queries: 本批未生成描述评测查询；description为空，不把canonical/origin意图查询当人工描述。人工_descriptions.yaml字节保留。
+    fingerprint: c93ca1c9b33ba726616c6b4c914e67a67400b48fa15ee1a9138662424f6d0c9c

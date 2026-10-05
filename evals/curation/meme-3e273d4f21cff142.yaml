@@ -1,0 +1,85 @@
+slug: meme-3e273d4f21cff142
+resolved: false
+canonical_name: 小羊啊我长大了
+aliases: []
+definition: 把《喜羊羊与灰太狼》中懒羊羊的得意表情与成长经历、现实照片和文案拼接，并配上《奇思妙想喜羊羊》的图文或视频模板；既可表达努力和自我鼓励，也有故意把闯祸写成成就的反讽版本。
+usage_context: 分享克服困难的经历、自我鼓励，或反讽犯错后仍自夸的情境。
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources: []
+evidence_map:
+  ocr-narration-BV1Kb4JzJEeg: null
+claims:
+- key: definition
+  statement: 把《喜羊羊与灰太狼》中懒羊羊的得意表情与成长经历、现实照片和文案拼接，并配上《奇思妙想喜羊羊》的图文或视频模板；既可表达努力和自我鼓励，也有故意把闯祸写成成就的反讽版本。
+  stance: supports
+  evidence:
+  - ocr-narration-BV1Kb4JzJEeg
+- key: usage_context
+  statement: 分享克服困难的经历、自我鼓励，或反讽犯错后仍自夸的情境。
+  stance: supports
+  evidence:
+  - ocr-narration-BV1Kb4JzJEeg
+events: []
+relations: []
+gold:
+  canonical:
+  - 小羊啊我长大了
+  alias: []
+  origin_intent:
+  - 小羊啊我长大了的出处
+  description: []
+  must_not_return: []
+curation:
+  curator: ''
+  confirmed_by: ''
+  drafted_by: codex
+  source_episodes:
+  - BV1Kb4JzJEeg
+  draft_basis:
+  - 006.0s 这个梗的组成方式是动画第111话“羊有羊性?中
+  - 011.0s 配上虽然不是非常经典但也比较知名的主题曲一“奇思妙想喜羊羊
+  - 015.0s 然后加上自己遇到各种现实困境但永不退缩的现实照片和文案
+  - 019.0s 组合在一起表达一种努力成长不怕困难的决心
+  - 025.0s 把现实照片和文案变成自己闯下的祸事
+  - 029.0s 简直把“犯了错还装乖巧”“演绎到了极致所以也有人效仿
+  - 032.0s I corrupted 88,000 on the road today.
+  - 103.0s 不过也有网友讨厌这种梗铺天盖地出现在眼皮子下面
+  draft_notes: '001-110s
+
+    Frame6 specifically shows111羊有羊性 but no original episode URL: omit structured
+    firstsource and exact episode claim from definition. No verification of depicted
+    personal biographies/history/crime. Fictional AI/skit disclaimers32/52s mean do
+    not repeat actions as real. Userhandles visible but no resolved personal attribution.
+    Explicit episode binding.
+
+    Excluded references: {}'
+  ingestion_ok: true
+  findings:
+  - 出处未知，不把衍生投稿日期当作首次来源
+  - 同一Codex冻结草稿后另次证据复核，独立性有限
+  - 本批不生成评测描述查询；人工查询文件原字节保留
+  draft_origin_sha256: 1080d30b2a766a6a85d2d828c8dc7b906a25168e4fd48a78ce435e1c74e98474
+  automated_review:
+    reviewer: codex
+    decision: accept
+    reviewed_at: '2026-10-05'
+    review_started_at: '2026-10-05T15:02:23.903187+00:00'
+    method: same_model_frozen_passes
+    limitations: Same model; separate frozen passes, not human or independent-model
+      review.
+    frozen_draft:
+      path: evals/reviews/meme-3e273d4f21cff142.json
+      sha256: 05ff160b581fd8ff4ce83007b68b67deb82ca5ffb408095ace87dcb362f14674
+    checks:
+      identity: 懒羊羊得意表情、成长图文和反讽版本，单集001-110s。
+      meaning: 6/11/15/19/25/29s支持模板与自我鼓励；32/52s虚构AI及演绎提示，因此不将个人经历、犯罪或历史画面当事实。
+      usage: 使用场景逐条与解说和源帧核对，仅限该模板或片段机制。
+      origins: 无可验证首次出处，保留unknown；不把原作者标签或最早可见二创日期当首发。
+      events: 无精确可解析原片或二创URL，显式集绑定；不写个人作者和首次来源。
+      queries: 本批未生成描述评测查询；description为空，不把canonical/origin意图查询当人工描述。人工_descriptions.yaml字节保留。
+    fingerprint: a7b6995e972a945eb388885814b9c3262d7c395984a599cc23257aae99970cff

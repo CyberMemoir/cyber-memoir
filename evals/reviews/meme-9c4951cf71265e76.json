@@ -1,0 +1,77 @@
+{
+  "frozen_at": "2026-10-05T23:04:52.558073+00:00",
+  "record": {
+    "slug": "meme-9c4951cf71265e76",
+    "resolved": false,
+    "canonical_name": "W SPEED",
+    "aliases": [],
+    "definition": "在IShowSpeed的日常片段中加上W SPEED或SPEED赢的字幕，用胜利式卡点剪辑和夸张赞美包装喝水等普通小事，制造小事大夸的反差；也有用L SPEED表示相反效果的变体。",
+    "usage_context": "把普通行为剪成赢麻了的高光，或用夸张胜负评价制造反差笑点。",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [],
+    "evidence_map": {
+      "ocr-narration-BV1jtW3zTE9M": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "在IShowSpeed的日常片段中加上W SPEED或SPEED赢的字幕，用胜利式卡点剪辑和夸张赞美包装喝水等普通小事，制造小事大夸的反差；也有用L SPEED表示相反效果的变体。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1jtW3zTE9M"
+        ]
+      },
+      {
+        "key": "usage_context",
+        "statement": "把普通行为剪成赢麻了的高光，或用夸张胜负评价制造反差笑点。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1jtW3zTE9M"
+        ]
+      }
+    ],
+    "events": [],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "W SPEED"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "W SPEED的出处"
+      ],
+      "description": [],
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV1jtW3zTE9M"
+      ],
+      "draft_basis": [
+        "188.0s W'speed",
+        "212.0s 而最近来自作者crunchypee43的一个",
+        "220.0s 他的原视频是这样的",
+        "232.0s SPEED 赢",
+        "254.0s *SP",
+        "278.0s SPEED输",
+        "304.0s RESPEO"
+      ],
+      "draft_notes": "188-结束\nFrozenfullnarration198-246 and232/278 onscreenW/L supporttemplate. crunchypee43 onlynarrator attribution,no exactoriginalURL:do not assert inventorship/newtrend chronology. No actualcharity/personality/China visitfacts. AllprecedingInvincible refs unrelated here;zero lineage explicitepisodebinding. Firstoriginunknown.\nExcluded references: {}",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未知，不把衍生投稿日期当作首次来源",
+        "同一Codex冻结草稿后另次证据复核，独立性有限",
+        "本批不生成评测描述查询；人工查询文件原字节保留"
+      ],
+      "draft_origin_sha256": "1e1b16959e23bc88ecf66befa1a8e4da2cd0c066a017e5e412fba2b6cc7b6358"
+    }
+  }
+}

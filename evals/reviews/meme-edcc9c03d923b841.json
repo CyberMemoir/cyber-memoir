@@ -1,0 +1,148 @@
+{
+  "frozen_at": "2026-10-05T19:02:02.711071+00:00",
+  "record": {
+    "slug": "meme-edcc9c03d923b841",
+    "resolved": false,
+    "canonical_name": "技能五子棋",
+    "aliases": [],
+    "definition": "围绕喜人奇妙夜2中把传统五子棋与加入技能的五子棋作夸张对比的载歌载舞表演，截取台词、动作和配乐进行模仿或改编的梗；也有动画、音乐改编和游戏复刻版本。",
+    "usage_context": "用夸张表演表达无聊与好玩的反差，或把表演改成不同角色、曲风和游戏形式。",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [
+      {
+        "url": "https://www.bilibili.com/video/BV1qanSzTEQ7",
+        "role": "derivative",
+        "note": "传统的五子棋😯就是把五个子连成一条线👓好无趣😫好无聊😩而 技能五子棋  🤓☝就是在传统的五子棋🧐加入技能🤭好好玩🥰💥💥💥要爆了💥💥💥（源画面引用，不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1XrHAzqEqK",
+        "role": "derivative",
+        "note": "假如《技能五子棋》是R&B（源画面引用，不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1k8nyzAEKA",
+        "role": "derivative",
+        "note": "【喜人奇妙夜】APT.（源画面引用，不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1X3HEzVE8b",
+        "role": "derivative",
+        "note": "肝了三天，我把技能五子棋游戏实现了，已上线（源画面引用，不作首次出处断言）"
+      }
+    ],
+    "evidence_map": {
+      "ocr-narration-BV13xHVzbE3z": null,
+      "ocr-BV1qanSzTEQ7": null,
+      "ocr-BV1XrHAzqEqK": null,
+      "ocr-BV1k8nyzAEKA": null,
+      "ocr-BV1X3HEzVE8b": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "围绕喜人奇妙夜2中把传统五子棋与加入技能的五子棋作夸张对比的载歌载舞表演，截取台词、动作和配乐进行模仿或改编的梗；也有动画、音乐改编和游戏复刻版本。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV13xHVzbE3z"
+        ]
+      },
+      {
+        "key": "usage_context",
+        "statement": "用夸张表演表达无聊与好玩的反差，或把表演改成不同角色、曲风和游戏形式。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV13xHVzbE3z"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "event_type": "remix",
+        "description": "技能五子棋出现衍生作品《传统的五子棋😯就是把五个子连成一条线👓好无趣😫好无聊😩而 技能五子棋  🤓☝就是在传统的五子棋🧐加入技能🤭好好玩🥰💥💥💥要爆了💥💥💥》",
+        "occurred_at_start": "2025-09-27 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1qanSzTEQ7"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "技能五子棋出现衍生作品《假如《技能五子棋》是R&B》",
+        "occurred_at_start": "2025-10-02 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1XrHAzqEqK"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "技能五子棋出现衍生作品《【喜人奇妙夜】APT.》",
+        "occurred_at_start": "2025-09-30 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1k8nyzAEKA"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "技能五子棋出现衍生作品《肝了三天，我把技能五子棋游戏实现了，已上线》",
+        "occurred_at_start": "2025-09-30 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1X3HEzVE8b"
+        ]
+      }
+    ],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "技能五子棋"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "技能五子棋的出处"
+      ],
+      "description": [],
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV13xHVzbE3z"
+      ],
+      "draft_basis": [
+        "002.0s 这个梗来源于今年9月的喜剧综艺节目",
+        "004.0s 《喜人奇妙夜2》中的节目",
+        "005.0s 原作品呢用一种非常无厘头“漫才”的形式",
+        "008.0s 对生活中“输赢和快乐”的现象和思想进行了解构",
+        "026.0s 所以作品中呢也出现了许多很“爆”的名场面",
+        "029.0s 最出圈的就是这一段",
+        "059.0s 作为最能升华主旨的一段表演",
+        "071.0s 所以在节目播出后",
+        "072.0s 这段载歌载舞的表演便被网友们迅速单独截出来",
+        "076.0s 用各种各样更抽象的形式来对其进行二创",
+        "079.0s 从某种意义上来说反而也是对主旨的拓展了呢",
+        "146.0s （甚至有人做了游戏还原）"
+      ],
+      "draft_notes": "001-153s\nFullperformance snippets35/45 and programcover4 read;do not quote long skit/songlyrics. Program attribution supportswork context but exact officialprimaryURL not pinned,firstoriginunknown;no actor identities or audience polarization asserted. Frame97handle六六有两只猫 differs platformH六六66;review identity before accepting corresponding event,prefer omit if conflict unresolved.\nExcluded references: {\"BV1dGHwzBE9H\": \"Source-frame author 六六有两只猫 conflicts with resolved uploader H六六66; exclude unconfirmed identity\"}",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未知，不把衍生投稿日期当作首次来源",
+        "同一Codex冻结草稿后另次证据复核，独立性有限",
+        "本批不生成评测描述查询；人工查询文件原字节保留"
+      ],
+      "draft_origin_sha256": "7deb36a67f168b7f753756392e9355466adb5ddbf09dd204dd8e657b0e8888c3"
+    }
+  }
+}

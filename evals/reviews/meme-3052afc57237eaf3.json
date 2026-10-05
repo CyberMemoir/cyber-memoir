@@ -1,0 +1,77 @@
+{
+  "frozen_at": "2026-10-05T23:04:52.576200+00:00",
+  "record": {
+    "slug": "meme-3052afc57237eaf3",
+    "resolved": false,
+    "canonical_name": "听泉记笔记",
+    "aliases": [],
+    "definition": "以听泉低头拿着小本子书写的直播截图为主体的表情包，用来表示正在认真记录；放在不值得记笔记的场合时，又变成对过度记录或记录无用内容的调侃。",
+    "usage_context": "回应看似需要记住的信息，或反讽把无关紧要的话当成重要知识记录下来。",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [],
+    "evidence_map": {
+      "ocr-narration-BV1kKpyziESm": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "以听泉低头拿着小本子书写的直播截图为主体的表情包，用来表示正在认真记录；放在不值得记笔记的场合时，又变成对过度记录或记录无用内容的调侃。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1kKpyziESm"
+        ]
+      },
+      {
+        "key": "usage_context",
+        "statement": "回应看似需要记住的信息，或反讽把无关紧要的话当成重要知识记录下来。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1kKpyziESm"
+        ]
+      }
+    ],
+    "events": [],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "听泉记笔记"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "听泉记笔记的出处"
+      ],
+      "description": [],
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV1kKpyziESm"
+      ],
+      "draft_basis": [
+        "001.0s 听泉记笔记",
+        "022.0s 便来自于24年听泉的某场直播（2024-11-20）",
+        "048.0s 本子拿过来",
+        "069.0s 怎么hello",
+        "083.0s 便被大家截屏做成表情包",
+        "097.0s 甚至出现了宛如喜报一般文字",
+        "102.0s 听泉的反应是："
+      ],
+      "draft_notes": "001-112s\n22/83notebook and97parodycaption read. LiveNov20date/workdiscipline narrationnotindependentlyestablished:omit date/employmentincident/currentpopularity. 14/19clips backgroundappraisal notnotebookfirstsource;113+开门/馒头/猫/face imitation othermemes excluded allrefs.113frame exactBV1rRHbz9Ews lowerws notuppercaseWS unrelatedphonereview;notborrowed. Firstoriginunknown.\nExcluded references: {}",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未知，不把衍生投稿日期当作首次来源",
+        "同一Codex冻结草稿后另次证据复核，独立性有限",
+        "本批不生成评测描述查询；人工查询文件原字节保留"
+      ],
+      "draft_origin_sha256": "1e1b16959e23bc88ecf66befa1a8e4da2cd0c066a017e5e412fba2b6cc7b6358"
+    }
+  }
+}
