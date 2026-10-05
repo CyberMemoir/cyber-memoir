@@ -1,0 +1,142 @@
+{
+  "frozen_at": "2026-10-05T09:41:46.112879+00:00",
+  "record": {
+    "slug": "meme-7156cdf2c6af3cca",
+    "resolved": false,
+    "canonical_name": "活力大湾区，魅力新广州",
+    "aliases": [],
+    "definition": "网友在外地或外国地标前喊出「活力大湾区，魅力新广州」，把当地建筑说成广州地标的错位介绍梗，也出现AI人物和虚拟角色版本。",
+    "usage_context": "在明显不属于广州的场景中喊出口号，制造地理错位的反差。",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [
+      {
+        "url": "https://www.bilibili.com/video/BV15VH3zfE8y",
+        "role": "derivative",
+        "note": "活力大湾区，魅力新广州（源画面引用，不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV12T4CzDEZB",
+        "role": "derivative",
+        "note": "活力大湾区 魅力新广州（源画面引用，不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1T14Xz2Em2",
+        "role": "derivative",
+        "note": "【MLTD】活力大湾区，魅力新广州！（源画面引用，不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1A142zpEcq",
+        "role": "derivative",
+        "note": "活力大湾区，魅力新广州（源画面引用，不作首次出处断言）"
+      }
+    ],
+    "evidence_map": {
+      "ocr-narration-BV1fKWvzBEto": null,
+      "ocr-BV15VH3zfE8y": null,
+      "ocr-BV12T4CzDEZB": null,
+      "ocr-BV1T14Xz2Em2": null,
+      "ocr-BV1A142zpEcq": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "网友在外地或外国地标前喊出「活力大湾区，魅力新广州」，把当地建筑说成广州地标的错位介绍梗，也出现AI人物和虚拟角色版本。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1fKWvzBEto"
+        ]
+      },
+      {
+        "key": "usage_context",
+        "statement": "在明显不属于广州的场景中喊出口号，制造地理错位的反差。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1fKWvzBEto"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "event_type": "remix",
+        "description": "活力大湾区，魅力新广州出现衍生作品《活力大湾区，魅力新广州》",
+        "occurred_at_start": "2025-10-03 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV15VH3zfE8y"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "活力大湾区，魅力新广州出现衍生作品《活力大湾区 魅力新广州》",
+        "occurred_at_start": "2025-10-13 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV12T4CzDEZB"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "活力大湾区，魅力新广州出现衍生作品《【MLTD】活力大湾区，魅力新广州！》",
+        "occurred_at_start": "2025-10-14 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1T14Xz2Em2"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "活力大湾区，魅力新广州出现衍生作品《活力大湾区，魅力新广州》",
+        "occurred_at_start": "2025-10-13 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1A142zpEcq"
+        ]
+      }
+    ],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "活力大湾区，魅力新广州"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "活力大湾区，魅力新广州的出处"
+      ],
+      "description": [],
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV1fKWvzBEto"
+      ],
+      "draft_basis": [
+        "004.0s 这个梗呢来自于即将在广州举办的第十五届全国运动会的宣传语",
+        "007.0s 激情全运会活力大湾区魅力新广州",
+        "018.0s 一边用粤语喊着“活力大湾区，魅力新广州",
+        "021.0s 一边介绍旁边的地标性建筑",
+        "034.0s 再后来呢因为近期AI技术的突破",
+        "094.0s 这个梗的盛行还得到了广州媒体的报道"
+      ],
+      "draft_notes": "004-096s slogan/template\nFrames/sheets1_0-1 and exact metadata match. Do not restate event as upcoming/current or claim geography of whole national event; source describes slogan context only. Reporter/official-media footage94s has no resolved BV binding, omit event for it. Unknown firstsource.\nExcluded references: {}",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未知，不把衍生投稿日期当作首次来源",
+        "同一Codex冻结草稿后另次证据复核，独立性有限",
+        "本批不生成评测描述查询；人工查询文件原字节保留"
+      ],
+      "draft_origin_sha256": "e4ea6a00a4295870d52d1562bb05a91d1d4491ae8882f7f55553fc465d31938c"
+    }
+  }
+}

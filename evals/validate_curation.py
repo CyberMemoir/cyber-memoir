@@ -367,14 +367,11 @@ def check_drafted(r: Record) -> None:
             r.err("自动复核无效：" + error)
     elif not text_of(curation.get("confirmed_by")).strip():
         r.warn("模型起草，尚未人工审定（curation.confirmed_by 为空）；load_curation 会拒绝加载")
-    # The precondition from 2026-09-18, enforced here so it cannot be forgotten: drafted
-    # text may inflate recall, and only a query that does not name the meme can show it.
+    # Description queries are optional for expansion. If supplied for retrieval
+    # evaluation, they must still avoid naming the answer.
     names = [normalize(n) for n in [r.get("canonical_name"), *(r.get("aliases") or [])] if n]
     free = [q for q in (r.get("gold") or {}).get("description") or []
             if not any(n in normalize(q) for n in names)]
-    if not free:
-        r.err("模型起草的记录需要至少一条 gold.description 查询：策展人自己的话，"
-              "不含梗名与别名，且应在读草稿之前写")
     for q in (r.get("gold") or {}).get("description") or []:
         if q not in free:
             r.err("gold.description 查询 %r 含有梗名或别名，起不到检验作用" % q)

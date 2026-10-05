@@ -1,0 +1,138 @@
+{
+  "frozen_at": "2026-10-05T09:41:46.160748+00:00",
+  "record": {
+    "slug": "meme-72f718af2da5bd20",
+    "resolved": false,
+    "canonical_name": "丁亮翻遍硬盘都没找到这集",
+    "aliases": [],
+    "definition": "网友借助AI视频和语音，为《熊出没》角色编出原作没有的荒诞新剧情，并用「丁亮翻遍硬盘都没找到这集」调侃这种仿佛动画正片的二创。",
+    "usage_context": "评论或制作看似《熊出没》正片、剧情却荒诞的非官方片段。",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [
+      {
+        "url": "https://www.bilibili.com/video/BV1FVx9zeEyV",
+        "role": "derivative",
+        "note": "「熊出没」Sora 神人短剧, 转发给你喜欢赤石的朋友⑧（源画面引用，不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1rk4Hz7EXd",
+        "role": "derivative",
+        "note": "丁亮把库房掀了都没找到这集（源画面引用，不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV12YxLzKE3q",
+        "role": "derivative",
+        "note": "【sora2熊出没】不要从我身边抢走小祥！ 好想见到小祥…saki酱●▛▙saki酱●▛▙saki酱●▛▙saki酱●▛▙saki酱●▛▙saki酱●▛▙（源画面引用，不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1oc47zfEFZ",
+        "role": "derivative",
+        "note": "Sora2生成:熊二肘击机长光头强导致坠机（源画面引用，不作首次出处断言）"
+      }
+    ],
+    "evidence_map": {
+      "ocr-narration-BV1oB4izjExH": null,
+      "ocr-BV1FVx9zeEyV": null,
+      "ocr-BV1rk4Hz7EXd": null,
+      "ocr-BV12YxLzKE3q": null,
+      "ocr-BV1oc47zfEFZ": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "网友借助AI视频和语音，为《熊出没》角色编出原作没有的荒诞新剧情，并用「丁亮翻遍硬盘都没找到这集」调侃这种仿佛动画正片的二创。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1oB4izjExH"
+        ]
+      },
+      {
+        "key": "usage_context",
+        "statement": "评论或制作看似《熊出没》正片、剧情却荒诞的非官方片段。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1oB4izjExH"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "event_type": "remix",
+        "description": "丁亮翻遍硬盘都没找到这集出现衍生作品《「熊出没」Sora 神人短剧, 转发给你喜欢赤石的朋友⑧》",
+        "occurred_at_start": "2025-10-07 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1FVx9zeEyV"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "丁亮翻遍硬盘都没找到这集出现衍生作品《丁亮把库房掀了都没找到这集》",
+        "occurred_at_start": "2025-10-10 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1rk4Hz7EXd"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "丁亮翻遍硬盘都没找到这集出现衍生作品《【sora2熊出没】不要从我身边抢走小祥！ 好想见到小祥…saki酱●▛▙saki酱●▛▙saki酱●▛▙saki酱●▛▙saki酱●▛▙saki酱●▛▙》",
+        "occurred_at_start": "2025-10-06 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV12YxLzKE3q"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "丁亮翻遍硬盘都没找到这集出现衍生作品《Sora2生成:熊二肘击机长光头强导致坠机》",
+        "occurred_at_start": "2025-10-10 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1oc47zfEFZ"
+        ]
+      }
+    ],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "丁亮翻遍硬盘都没找到这集"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "丁亮翻遍硬盘都没找到这集的出处"
+      ],
+      "description": [],
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV1oB4izjExH"
+      ],
+      "draft_basis": [
+        "093.0s 丁亮翻遍硬盘都没找到这集",
+        "105.0s 有些真的做的太好"
+      ],
+      "draft_notes": "093-159s Bear cartoon segment;161s onward other AI videos excluded\nNo official episode/creator endorsement claim; phrase not literal proof of disk search. Unresolved BV1xfxDzKER8 and other case/OCR variants not corrected or used. Hakimi/leader161s onwards separate examples and not Bear derivatives. Unknown firstsource.\nExcluded references: {}",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未知，不把衍生投稿日期当作首次来源",
+        "同一Codex冻结草稿后另次证据复核，独立性有限",
+        "本批不生成评测描述查询；人工查询文件原字节保留"
+      ],
+      "draft_origin_sha256": "e4ea6a00a4295870d52d1562bb05a91d1d4491ae8882f7f55553fc465d31938c"
+    }
+  }
+}
