@@ -1,0 +1,150 @@
+{
+  "frozen_at": "2026-10-03T19:41:25.788439+00:00",
+  "record": {
+    "slug": "meme-46499d18efb1feda",
+    "resolved": false,
+    "canonical_name": "我赚钱啦赚钱啦",
+    "aliases": [],
+    "definition": "将歌曲「我赚钱啦」用于整活剪辑、演绎赚到一点小钱时情景的梗。",
+    "usage_context": "用来演绎生活中赚了点小钱的场面。",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [
+      {
+        "url": "https://www.bilibili.com/video/BV15V1DB1EsX",
+        "role": "derivative",
+        "note": "我小时候以为有100元：（BV1C1C9BYE6i画面引用；不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1F6CPB9EPJ",
+        "role": "derivative",
+        "note": "⚡️我没钱了没钱了，我都不知道怎么去赚啊⚡️（BV1C1C9BYE6i画面引用；不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1JCCKB8Eou",
+        "role": "derivative",
+        "note": "⚡我统一六国了⚡（BV1C1C9BYE6i画面引用；不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1rYC1BzE7m",
+        "role": "derivative",
+        "note": "【恐怖片】我上学啦（BV1C1C9BYE6i画面引用；不作首次出处断言）"
+      }
+    ],
+    "evidence_map": {
+      "ocr-narration-BV1C1C9BYE6i": null,
+      "ocr-BV15V1DB1EsX": null,
+      "ocr-BV1F6CPB9EPJ": null,
+      "ocr-BV1JCCKB8Eou": null,
+      "ocr-BV1rYC1BzE7m": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "将歌曲「我赚钱啦」用于整活剪辑、演绎赚到一点小钱时情景的梗。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1C1C9BYE6i"
+        ]
+      },
+      {
+        "key": "usage_context",
+        "statement": "用来演绎生活中赚了点小钱的场面。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1C1C9BYE6i"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "event_type": "remix",
+        "description": "我赚钱啦赚钱啦出现衍生作品《我小时候以为有100元：》",
+        "occurred_at_start": "2025-11-08 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV15V1DB1EsX"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "我赚钱啦赚钱啦出现衍生作品《⚡️我没钱了没钱了，我都不知道怎么去赚啊⚡️》",
+        "occurred_at_start": "2025-11-13 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1F6CPB9EPJ"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "我赚钱啦赚钱啦出现衍生作品《⚡我统一六国了⚡》",
+        "occurred_at_start": "2025-11-14 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1JCCKB8Eou"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "我赚钱啦赚钱啦出现衍生作品《【恐怖片】我上学啦》",
+        "occurred_at_start": "2025-11-15 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1rYC1BzE7m"
+        ]
+      }
+    ],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "我赚钱啦赚钱啦"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "我赚钱啦赚钱啦的出处"
+      ],
+      "description": [
+        "一首欢快的老歌说挣了钱不知道怎么花，后来大家拿来演生活中赚到一点小钱的场面"
+      ],
+      "description_source": "model",
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV1C1C9BYE6i"
+      ],
+      "description_authored_by": "codex",
+      "description_basis": "Stored narration, before definition drafting; model-generated, not human benchmark",
+      "draft_basis": [
+        "001.0s 我赚钱啦赚钱啦",
+        "009.0s 其实是出自05年的网络神曲《我赚钱啦》",
+        "043.0s 因为这首歌听起来欢快的氛围",
+        "046.0s 和有些戏意味的歌词",
+        "061.0s 最近这首歌呢就被一些网友从互联网里挖了出来",
+        "065.0s 并主要结合着开头这几句",
+        "067.0s “赚钱了不知道怎么去花”",
+        "070.0s 来演绎一些生活中赚了点小钱时的情况belike",
+        "088.0s “赚到一点小钱就堪比赚大钱了”这种精神美丽感",
+        "098.0s 从而用鬼畜的形式做出了一个又一个的二创视频"
+      ],
+      "draft_notes": "001-098s song and reuse; dated citation frames are examples, not origin.\nOmit2005 and creator: narration/song-page names differ. Animated MV citation unresolved, not assigned origin. Four resolved scenes show reuse; dates only derivative upload dates.",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未证实，保留unknown；不把二创投稿日期当作首次出处",
+        "同一Codex模型分阶段复核，独立性有限；未声称人工确认"
+      ],
+      "draft_origin_sha256": "d9bf103ce2d3978a1043a0707a193ecf375fe092392c3d00b3795e866414061f"
+    }
+  }
+}

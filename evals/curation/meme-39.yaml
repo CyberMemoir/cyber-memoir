@@ -1,0 +1,148 @@
+slug: meme-39
+resolved: false
+canonical_name: 奶龙大笑
+aliases: []
+definition: 有人把一张「奶龙」捧腹大笑的表情包用AI动起来，配上水牛变音的狂笑，做成抽象视频。
+usage_context: 该视频使用的变音狂笑也被网友单独拿来配抽象视频。
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1RvBKBTEhu
+  role: derivative
+  note: 人类完蛋了。（BV1ZPieB5EK7 画面中引用）
+- url: https://www.bilibili.com/video/BV1qavHBCEzA
+  role: reference
+  note: 你所不知道的奶龙（BV1ZPieB5EK7 画面中引用）
+- url: https://www.bilibili.com/video/BV13miTBcEK7
+  role: reference
+  note: 蔚蓝档案X奶龙（BV1ZPieB5EK7 画面中引用）
+evidence_map:
+  ocr-narration-BV1ZPieB5EK7: null
+  ocr-BV1RvBKBTEhu: null
+  ocr-BV1qavHBCEzA: null
+  ocr-BV13miTBcEK7: null
+claims:
+- key: definition
+  statement: 有人把一张「奶龙」捧腹大笑的表情包用AI动起来，配上水牛变音的狂笑，做成抽象视频。
+  evidence:
+  - ocr-narration-BV1ZPieB5EK7
+  stance: supports
+- key: usage_context
+  statement: 该视频使用的变音狂笑也被网友单独拿来配抽象视频。
+  evidence:
+  - ocr-narration-BV1ZPieB5EK7
+  stance: supports
+events:
+- event_type: remix
+  description: 奶龙大笑 出现衍生作品《人类完蛋了。》
+  occurred_at_start: 2025-12-23 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1ZPieB5EK7 画面引用发现
+  evidence:
+  - ocr-BV1RvBKBTEhu
+relations: []
+gold:
+  canonical:
+  - 奶龙大笑
+  alias: []
+  origin_intent:
+  - 奶龙大笑的出处
+  description:
+  - 用AI让一张捧腹大笑的表情包动起来、再配上狂妄的笑声
+  - 水牛变音的那阵狂笑被单独拿出来配抽象视频
+  must_not_return: []
+  description_source: model
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis:
+  - 004.0s 2025年的奶龙梗可以说是很权威了
+  - 007.0s 而25年的ai梗又非常的多
+  - 013.0s 这个梗其实就是有人将一张奶龙捧腹大笑的表情包用ai让它动了起来
+  - 017.0s 并配上了狂妄大笑的声音
+  - 019.0s 让整个视频看起来非常抽象
+  - 021.0s 这个声音呢其实是出自一个叫作“八极哥的博主
+  - 024.0s 他的视频近来都会使用这种水牛变音特效
+  - 039.0s 而这段变音狂笑呢又足够抽象
+  - 042.0s 就经常被网友们单独拿来配一些抽象视频
+  - 045.0s 至于这个奶龙表情包呢
+  - 046.0s 我们就又要提到另一个叫作“用实力证明自己”的博主
+  - 050.0s 他的真名叫季洪行
+  - 057.0s 所以在他刚火时就有人用ai制作了这样的奶龙表情包来玩他的梗
+  - 061.0s 而最近有网友用ai让这个表情包动起来的同时
+  - 065.0s 还将八极哥的大笑声音用在了这个视频身上
+  - 070.0s 这也使得众多网友在玩这些表情包的同时也纷纷跟进
+  - 073.0s 创作出了更多更抽象的奶龙大笑
+  draft_notes: '段落边界（D-14）：BV1ZPieB5EK7 整集只有一个梗（奶龙大笑），解说 004-073s。004-019s 讲这个梗的两个要素（奶龙表情包＋AI
+    动起来＋狂妄笑声），021-042s 讲笑声出自博主「八极哥」的水牛变音，045-067s 讲奶龙表情包的来历与这次把两者合到一起，070-073s 讲网友跟进。定义取
+    013/017/021/024/061/065s，usage 取 039/042s。
+
+    usage_context 依据：042s「就经常被网友们单独拿来配一些抽象视频」说明这段笑声怎么用（039s 先说明它足够抽象）；070-073s（众多网友纷纷跟进、创作出更多更抽象的奶龙大笑）是传播与二创，没有写进
+    usage。
+
+    OCR 可疑未改：021s 的引号残缺（一个叫作“八极哥的博主）；046-050s 的博主「用实力证明自己」与真名「季洪行」、051s「香肠派对」都照抄在
+    basis 中；024s「水牛变音特效」按原文抄。
+
+    未写（D-4）：046-057s 的博主来历（真名季洪行、建模像香肠派对的角色、有人用 ai 做奶龙表情包来玩他的梗）属来源与事件材料（GPT 的范畴），没有写进定义。
+
+    可疑关系：本条三条已解析衍生作品（BV1RvBKBTEhu 2025-12-23、BV1qavHBCEzA 2025-12-29、BV13miTBcEK7
+    2025-12-31）与 events 一致；lineage 里另有一个未解析行（BV18JDqYpEQX），本条 sources 未包含，我未改动。
+
+    未发现只存在于画面、且定义必须依赖的含义，故未加 automation_hold。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - One supported20251223 remix; two identity-conflicting references, no original
+    creator claim. Two blind model queries with provenance.
+  description_query_provenance:
+    author: DeepSeek
+    source: model
+    proposed_at: '2026-09-30'
+    basis: Blind source-only proposals before definition drafting.
+    proposal_file: ai_context/model_queries_batches7_8.yaml
+    source_episode: BV1ZPieB5EK7
+    source_spans:
+    - 013.0s 这个梗其实就是有人将一张奶龙捧腹大笑的表情包用ai让它动了起来
+    - 017.0s 并配上了狂妄大笑的声音
+    - 021.0s 这个声音呢其实是出自一个叫作“八极哥的博主
+    - 024.0s 他的视频近来都会使用这种水牛变音特效
+    - 042.0s 就经常被网友们单独拿来配一些抽象视频
+    - 065.0s 还将八极哥的大笑声音用在了这个视频身上
+    reviewer: gpt
+    reviewed_at: '2026-10-01'
+    semantic_review: 013/017/024/042/065s directly supports animated laughing image
+      and standalone distorted audio use. Combined image/audio explicitly same meme009/011s;
+      both proposals independently source-supported and exact spans checked.
+  gpt_repair_notes: 'Creator handle omitted: 八极哥 narration versus 八级哥 screen not silently
+    equated. Audio use distinguished from whole image/audio template.92s 可惜是便太 versus
+    resolved 账号已注销,77s 档蔚军之王/title砂狼白子奶龙化 versus resolved 早瀨優香_/蔚蓝档案X奶龙 are conflicts,
+    reference only.98s exact Rii_in/title/date supports one remix.'
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: Full BV1ZPieB5EK7 narration/screens/citations read.009/011/013/017/061/065s
+        explicitly combine animated laughing image and distorted laugh, not separate
+        meme conflation.
+      meaning: 013/017/019/024s directly supports AI animation, laugh effect and abstract
+        video. Unresolved creator spelling conflict omitted, no invented original
+        uploader.
+      usage: 039/042s explicitly says laugh alone used over abstract videos; wording
+        identifies audio component rather than asserting entire template always used
+        that way.
+      origins: Unknown fields/empty relations retained.021/046/050/057s unverified
+        creator/name history not made primary origin. Broken quote and name variants
+        preserved in raw evidence.
+      events: Resolved CSV and all citation frames checked.98s Rii_in/BV1RvBKBTEhu
+        exact title/date20251223 retained.92s uploader mismatch and77s title/uploader
+        mismatch reference only, two events removed.
+      queries: Two blind source-only proposals exact spans verified and semantically
+        reviewed against013/017/024/042/065s before application. MODEL source/DeepSeek
+        provenance recorded; no human query replaced or benchmark claim.
+    fingerprint: 20fe9ccefe04252a1459ac354baba75557f38ade19a218812b0141cfc3a0ea2f

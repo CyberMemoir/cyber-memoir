@@ -1,0 +1,89 @@
+{
+  "frozen_at": "2026-10-05T04:37:18.781146+00:00",
+  "record": {
+    "slug": "meme-e0a743010f0af288",
+    "resolved": false,
+    "canonical_name": "狮子朝着苹果吼",
+    "aliases": [],
+    "definition": "狮子对着长有人脸的苹果大吼的合成梗图，用来表达钓鱼激怒他人的场景。",
+    "usage_context": "用狮子的怒吼和苹果的表情表现钓鱼、激怒他人的场景。",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [
+      {
+        "url": "https://www.bilibili.com/video/BV1viWmzqELq",
+        "role": "reference",
+        "note": "呵异味（BV1YzxAzCEKE画面引用；不作首次出处断言）"
+      }
+    ],
+    "evidence_map": {
+      "ocr-narration-BV1YzxAzCEKE": null,
+      "ocr-BV1viWmzqELq": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "狮子对着长有人脸的苹果大吼的合成梗图，用来表达钓鱼激怒他人的场景。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1YzxAzCEKE"
+        ]
+      },
+      {
+        "key": "usage_context",
+        "statement": "用狮子的怒吼和苹果的表情表现钓鱼、激怒他人的场景。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1YzxAzCEKE"
+        ]
+      }
+    ],
+    "events": [],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "狮子朝着苹果吼"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "狮子朝着苹果吼的出处"
+      ],
+      "description": [
+        "有个人脸苹果的表情包，有时吐舌头，有时被狮子大吼，是哪一个梗？"
+      ],
+      "description_source": "model",
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV1YzxAzCEKE"
+      ],
+      "description_authored_by": "codex",
+      "description_basis": "Stored narration, before definition drafting; model-generated, not human benchmark",
+      "draft_basis": [
+        "005.0s 内容就是一个人脸苹果",
+        "007.0s 要么是吐舌，享要么是被一只狮子大吼",
+        "038.0s 特别是这个苹果的表情由为奇异",
+        "053.0s 其中传播较广的这张狮子对着苹果大吼的梗图",
+        "057.0s 其原图来自于一张狮子对着猴子大吼的图片",
+        "061.0s 这张图片是由两张照片合成而来的",
+        "064.0s 用法呢也是十分易懂",
+        "065.0s 就是用来表达那些钓鱼激怒他人的场景啦"
+      ],
+      "draft_notes": "053-070s狮子苹果图；002-049s苹果表情背景\n98s引用作为示例，不当首发或二创事件。15/21s水果系列和作者只有解说归属，缺直接首帖，不写asmrai创始或传播年份。吐舌苹果是背景版本。",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未证实，保留unknown；不把二创投稿日期当作首次出处",
+        "同一Codex模型分阶段复核，独立性有限；未声称人工确认"
+      ],
+      "draft_origin_sha256": "77795137ab485004e5d7e89ebfa0d1b6ce54bb6ac60eba40e551a72ff80c4438"
+    }
+  }
+}

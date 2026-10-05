@@ -1,0 +1,88 @@
+{
+  "frozen_at": "2026-10-05T04:37:18.829244+00:00",
+  "record": {
+    "slug": "meme-84602ab78974d8b7",
+    "resolved": false,
+    "canonical_name": "野原广志领域展开",
+    "aliases": [],
+    "definition": "《野原广志午餐的流派》动画OP中的动作被网友联想到《咒术回战》的领域展开，并据此制作人物和场景改编。",
+    "usage_context": "把动画OP的动作套到不同角色或场景，配合领域展开的文案进行二创。",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [],
+    "evidence_map": {
+      "ocr-narration-BV1NJsdz5E1q": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "《野原广志午餐的流派》动画OP中的动作被网友联想到《咒术回战》的领域展开，并据此制作人物和场景改编。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1NJsdz5E1q"
+        ]
+      },
+      {
+        "key": "usage_context",
+        "statement": "把动画OP的动作套到不同角色或场景，配合领域展开的文案进行二创。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1NJsdz5E1q"
+        ]
+      }
+    ],
+    "events": [],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "野原广志领域展开"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "野原广志领域展开的出处"
+      ],
+      "description": [
+        "有个吃午饭动画开头的动作被改成施展领域，好多不同角色都被套进去，是哪个梗？"
+      ],
+      "description_source": "model",
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV1NJsdz5E1q"
+      ],
+      "description_authored_by": "codex",
+      "description_basis": "Stored narration, before definition drafting; model-generated, not human benchmark",
+      "draft_basis": [
+        "048.0s 而这部漫画近期迎来了动画化",
+        "050.0s 动画播出后",
+        "051.0s 就立刻因为OP中的画面",
+        "052.0s 诞生了新梗",
+        "053.0s 那就是这一段",
+        "065.0s 这一段画面被网友们吐槽",
+        "066.0s 很像咒术回战里的领域展开",
+        "069.0s 于是各种二创",
+        "070.0s 便层出不穷的冒了出来",
+        "082.0s 要上咯",
+        "083.0s 领域展开",
+        "094.0s 领域展开",
+        "095.0s 午餐的流派",
+        "119.0s 领域展开"
+      ],
+      "draft_notes": "048-133s动画OP领域展开；漫画身份和配音背景另段\n53/65s原OP画面，82/94/108/119s二创。108s BV1E1s8zhE8D有标题但日期未解析，先不生成来源或事件；不制造日期。无原始OP直接链接，origin未知。",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未证实，保留unknown；不把二创投稿日期当作首次出处",
+        "同一Codex模型分阶段复核，独立性有限；未声称人工确认"
+      ],
+      "draft_origin_sha256": "77795137ab485004e5d7e89ebfa0d1b6ce54bb6ac60eba40e551a72ff80c4438"
+    }
+  }
+}

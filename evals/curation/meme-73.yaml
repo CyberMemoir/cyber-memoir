@@ -1,0 +1,131 @@
+slug: meme-73
+resolved: false
+canonical_name: 爱你老己
+aliases: []
+definition: 把自己对朋友、亲人的优待用在自己身上的一种说法，用「老己」称呼自己。
+usage_context: 用来表示对自己好、给自己积极的心理暗示。
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1XH4y1T71B
+  role: reference
+  note: 【英雄联盟背景故事解说】铁腕豪强？妈宝男？说的都是他！（BV14FqUBME5b 画面中引用）
+- url: https://www.bilibili.com/video/BV1na2zBoEFp
+  role: derivative
+  note: 爱你老股 明天见（BV14FqUBME5b 画面中引用）
+evidence_map:
+  ocr-narration-BV14FqUBME5b: null
+  ocr-BV1XH4y1T71B: null
+  ocr-BV1na2zBoEFp: null
+claims:
+- key: definition
+  statement: 把自己对朋友、亲人的优待用在自己身上的一种说法，用「老己」称呼自己。
+  evidence:
+  - ocr-narration-BV14FqUBME5b
+  stance: supports
+- key: usage_context
+  statement: 用来表示对自己好、给自己积极的心理暗示。
+  evidence:
+  - ocr-narration-BV14FqUBME5b
+  stance: supports
+events:
+- event_type: remix
+  description: 爱你老己 出现衍生作品《爱你老股 明天见》
+  occurred_at_start: 2025-12-08 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV14FqUBME5b 画面引用发现
+  evidence:
+  - ocr-BV1na2zBoEFp
+relations: []
+gold:
+  canonical:
+  - 爱你老己
+  alias: []
+  origin_intent:
+  - 爱你老己的出处
+  description:
+  - 对自己好点
+  must_not_return: []
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis:
+  - 003.0s 现在的人们活的那叫一个通透
+  - 005.0s “爱人不如爱己，爱人要先爱己”
+  - 009.0s 这个“老己”梗也是基于这个理念
+  - 011.0s 相信很多人对待朋
+  - 012.0s 对待家人的时候那叫一个大方
+  - 014.0s 而"老己＂简单的说
+  - 015.0s 就是把自己对“朋友”“亲人"的优待
+  - 017.0s 用在自己身上
+  - 018.0s 关于这个梗的出处说法有很多
+  - 020.0s 有人说和地方方言有关系
+  - 022.0s 但更多人认为改编自
+  - 023.0s 《英雄联盟》的“腕豪”瑟提的台词
+  - 025.0s “爱你老妈，明天见
+  - 034.0s 瑟提游戏中的这句“爱你老妈”
+  - 036.0s 所以一些网友呢
+  - 037.0s 可能就是把瑟提这个句式中的“老妈”
+  - 040.0s 来表示一种对自己好
+  - 042.0s 给自己积极的心理暗示的感觉
+  - 044.0s 也因此诞生了许多“老己”相关的句式
+  - 046.0s 网友们也会用AI来把这些句式
+  - 048.0s 用在一些作品的角色上
+  - 050.0s 让他们也一起“爱老己”
+  - 052.0s 不得不说还是满满的正能量啊
+  draft_notes: '段落边界（D-14）：BV14FqUBME5b 整集只有一个梗（爱你老己），解说 003-052s。003-017s 讲「老己」这个理念与含义（把自己对朋友、亲人的优待用在自己身上），018-037s
+    讲出处说法（方言说／改编自瑟提的台词），040-052s 讲它表示对自己好、以及网友用 AI 套在作品角色上。定义取 009/014/015/017/023/025/037s，usage
+    取 040/042s。
+
+    usage_context 依据：040s「来表示一种对自己好」＋042s「给自己积极的心理暗示的感觉」说明这个句式的用意；044-050s（诞生许多「老己」句式、用
+    AI 用在作品角色上）是衍生与传播，没有写进 usage。
+
+    OCR 可疑未改：014s「而"老己＂简单的说」与 015s「就是把自己对“朋友”“亲人"的优待」的引号残缺、混用，照抄在 basis 中，没有替它补引号；025/026s
+    的「明天见」被重复粘到下一行句首，也未改。
+
+    未写（D-4/D-6）：018/020s 的出处分歧（关于这个梗的出处说法有很多／有人说和地方方言有关系）没有写进定义，定义只写 022/023s「更多人认为」的那一支；026-032s
+    的瑟提剧情设定、046-050s 的 AI 二创都属来源与事件材料，未写。
+
+    可疑关系（只报告，未改）：本条两条已解析衍生作品（BV1XH4y1T71B 2024-04-11、BV1na2zBoEFp 2025-12-08）与 events
+    一致；但第二条的标题是「爱你老股 明天见」（老股），与本条名字「爱你老己」不是同一个字，我没有改动它，请 GPT 判断这条衍生关系是否准确。
+
+    未发现只存在于画面、且定义必须依赖的含义，故未加 automation_hold。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 衍生关系来自 BV14FqUBME5b 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+  - 传播区间 2024-04-11 .. 2025-12-08（2 条）
+  gpt_repair_notes: Removed unqualified phrase-origin assertion:018/020/022/037s explicitly
+    says multiple accounts and possible adaptation.26s game-background explainer is
+    reference, not a remix.65s 老股 is a displayed variant, not silently corrected to
+    老己; exact case-sensitive BV/title supports its resolved date, partial uploader
+    caption not expanded in a cultural claim. Raw evidence unchanged. Report date
+    is stale; actual job completed2026-10-01.
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: Read full BV14FqUBME5b narration003-052s, screen002-109s and both
+        citation frames.009/014/015/017s identifies 老己 as self-directed familiar address,
+        not an earliest uploader.
+      meaning: Definition restricted to009/014/015/017s treatment of self as friends/family;
+        removed definite game-origin wording because018/020/022/037s contains explicit
+        competing accounts and possibility.
+      usage: 040/042s directly supports 对自己好 and positive self-suggestion;046/048s
+        AI use is spread and not substituted for purpose.
+      origins: Unknown origin fields and empty relations preserved. A majority theory
+        and reference game quotation do not establish primary origin or adaptation
+        as confirmed fact.
+      events: Resolved CSV and exact26/65s frames read.26s source/title/uploader match
+        but describe game background, reference only.65s exact BV1na2zBoEFp and 爱你老股明天见
+        supports the dated20251208 variant; name variation retained, no author/date
+        inferred from narration.
+      queries: Human 对自己好点 preserved verbatim, directly supported040/042s. No generated
+        query, fabricated human confirmation or human benchmark substitution.
+    fingerprint: 52cb4e706af2f8c73530cfc09c0a53e1fdd809b46a441d667186ad2161cac07a

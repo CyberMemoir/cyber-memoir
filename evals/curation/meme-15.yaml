@@ -1,0 +1,101 @@
+slug: meme-15
+resolved: false
+canonical_name: 严肃脸
+aliases: []
+definition: 一个把「の颜（加油脸）」p上文字做成表情包的模板：看起来似怒非怒、似崩非崩，在被称为严肃脸之前就有过一次热度。
+usage_context: 把这两张表情包放在一起用，表达“兄弟严肃我也严肃”或者“兄弟脑瘫我也脑瘫”。
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1NajgzFE9b
+  role: derivative
+  note: 孔融让梨 ？（剧情非历史真实纯属虚构）（BV1PxLX6cEH8 画面中引用）
+- url: https://www.bilibili.com/video/BV1jN5q6iEbx
+  role: derivative
+  note: 【说记】严肃点...（BV1PxLX6cEH8 画面中引用）
+evidence_map:
+  ocr-narration-BV1PxLX6cEH8: null
+  ocr-BV1NajgzFE9b: null
+  ocr-BV1jN5q6iEbx: null
+claims:
+- key: definition
+  statement: 一个把「の颜（加油脸）」p上文字做成表情包的模板：看起来似怒非怒、似崩非崩，在被称为严肃脸之前就有过一次热度。
+  evidence:
+  - ocr-narration-BV1PxLX6cEH8
+  stance: supports
+- key: usage_context
+  statement: 把这两张表情包放在一起用，表达“兄弟严肃我也严肃”或者“兄弟脑瘫我也脑瘫”。
+  evidence:
+  - ocr-narration-BV1PxLX6cEH8
+  stance: supports
+events:
+- event_type: remix
+  description: 严肃脸 出现衍生作品《孔融让梨 ？（剧情非历史真实纯属虚构）》
+  occurred_at_start: 2025-05-25 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1PxLX6cEH8 画面引用发现
+  evidence:
+  - ocr-BV1NajgzFE9b
+- event_type: remix
+  description: 严肃脸 出现衍生作品《【说记】严肃点...》
+  occurred_at_start: 2026-05-15 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1PxLX6cEH8 画面引用发现
+  evidence:
+  - ocr-BV1jN5q6iEbx
+relations: []
+gold:
+  canonical:
+  - 严肃脸
+  alias: []
+  origin_intent:
+  - 严肃脸的出处
+  description:
+  - 突然正经
+  must_not_return: []
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: Vincent
+  draft_basis: '002.0s 最近有两个表情包组合模板火了
+
+    013.0s 这第一个呢
+
+    015.0s 它真正的名字呢叫做“の颜（加油脸）
+
+    018.0s 是由画师所制作的形象
+
+    030.0s 而在其被网友搬运进国内后
+
+    032.0s 就因为其看起来有一种似以怒非怒
+
+    035.0s 似崩非崩的抽象搞笑感
+
+    037.0s 被网友们p上各种文字
+
+    039.0s 来制作成表情包
+
+    040.0s 在被称为严肃脸之前呢
+
+    042.0s 其实就有过一次热度了
+
+    069.0s 最近网友们把他们放在一起
+
+    071.0s 传达一种兄弟严肃我也严肃
+
+    073.0s 或者兄弟脑瘫我也脑瘫的感觉'
+  draft_notes: '段落：这一集讲两个模板。002-012s 引入；013-044s 第一个（の颜／加油脸，即严肃脸）；046-064s 第二个（孔融让梨作者的图）；066-076s
+    两张一起用。定义只取第一个的段落，用法取 066-076s。
+
+    用法有出处：071/073s 是陈述意思的句子（“传达一种…”），不是我的推断。
+
+    可疑 OCR：015s 名字缺右引号；032s「似以怒非怒」（似怒非怒？）。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 衍生关系来自 BV1PxLX6cEH8 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+  - 传播区间 2025-05-25 .. 2026-05-15（2 条）

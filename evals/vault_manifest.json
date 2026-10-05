@@ -1,0 +1,2185 @@
+{
+  "schema": 1,
+  "public_records": 116,
+  "records": [
+    {
+      "path": "evals/curation/2026.yaml",
+      "name": "2026北极熊",
+      "review_fingerprint": "6397ac923994895d20432e58eeae4194115a100126afe1ea966b1cc39015aeba"
+    },
+    {
+      "path": "evals/curation/avgn.yaml",
+      "name": "AVGN舞",
+      "review_fingerprint": "7ad23c9c4f1db6bb5b7b9ac414207ba99d11b1eeec908d9a2841c5f8c2240411"
+    },
+    {
+      "path": "evals/curation/be-water.yaml",
+      "name": "Be water",
+      "review_fingerprint": "f3588cfa5fa1a79f12b99df36d3b94363a8f3ee22e00c64667812cfd9091e2ae"
+    },
+    {
+      "path": "evals/curation/cai-shi-wang-dao.yaml",
+      "name": "才是王道",
+      "review_fingerprint": "542daf31ca7c20495a29e42c52765ad456d515e8c32755af7659a3f5e31eaefb"
+    },
+    {
+      "path": "evals/curation/coke.yaml",
+      "name": "Coke高招",
+      "review_fingerprint": "882959f6e8f26ee0bda643ec79d5d7aadea27f6e99f09f2687489546afcb31f7"
+    },
+    {
+      "path": "evals/curation/da-gou-jiao.yaml",
+      "name": "大狗叫",
+      "review_fingerprint": "271822ae63402d677acef60883f1bcf9b32aa0d97042e700764ba896492819dc"
+    },
+    {
+      "path": "evals/curation/dan-zi-zhen-shi-fei-du-du-de.yaml",
+      "name": "胆子真是肥嘟嘟的",
+      "review_fingerprint": "78d4c649262e2cee02b7ab9526e247c797d09e462495baca3eae571ca323ab45"
+    },
+    {
+      "path": "evals/curation/dlss-5-on.yaml",
+      "name": "外国人最近狂玩的DLSS 5 ON梗",
+      "review_fingerprint": "7dd831b36a612b04825c2450da0344b284049b9f790ecc7cb7d3ba47f1a738ab"
+    },
+    {
+      "path": "evals/curation/him.yaml",
+      "name": "真人版HIM",
+      "review_fingerprint": "70c41fffe6f4aa45c399e252c28fe5ca8705ebb1862a8e642e1c6a7d2baaebd2"
+    },
+    {
+      "path": "evals/curation/i-can-t-wait.yaml",
+      "name": "I can't wait",
+      "review_fingerprint": "aac878204d280624d04f1d1e9da8db5ad26ba0067141006861f7f60674a628c2"
+    },
+    {
+      "path": "evals/curation/l.yaml",
+      "name": "我是L名场面",
+      "review_fingerprint": "df96c59177e0bc5249285b53a45d0edf1e9bd1c612b1d12e9dc6914d4fa22179"
+    },
+    {
+      "path": "evals/curation/lang-wang-si-yi.yaml",
+      "name": "狼王撕衣",
+      "review_fingerprint": "5c53a13d43cc9350f44085222934d0fac617af23314a7e77c809365bf0e5974a"
+    },
+    {
+      "path": "evals/curation/lao-sou-xi-wan-tong.yaml",
+      "name": "老叟戏顽童",
+      "review_fingerprint": "5ebc7f1977e6635a6942ff3e5e9c54bc6407db9f3316731a575ede9dc18ac0f5"
+    },
+    {
+      "path": "evals/curation/leek.yaml",
+      "name": "大葱哥",
+      "review_fingerprint": "638468e4bf17327021edaddd6e81ddd88639e1929ea25312100c496e130a87b5"
+    },
+    {
+      "path": "evals/curation/meme-03.yaml",
+      "name": "《正太扭腰》",
+      "review_fingerprint": "eeda45fbdbf2a82097d9121fd9b47a41f7c8e39b23f2d25992fe857916aeaab6"
+    },
+    {
+      "path": "evals/curation/meme-04.yaml",
+      "name": "佛得角门神",
+      "review_fingerprint": "0e2a81694519b459c84f6b49475af89bdeb1bcd2c6b6056d3de2f2dbeec1faef"
+    },
+    {
+      "path": "evals/curation/meme-06.yaml",
+      "name": "六人定律",
+      "review_fingerprint": "e0cf4896bb6534866f6b2c8ab1bc571e4fb3839a248370d684079214368cc59a"
+    },
+    {
+      "path": "evals/curation/meme-09.yaml",
+      "name": "大阪和摄政王",
+      "review_fingerprint": "68178408128becc08536142e57dc0b3f6b821950327c8bf81c44e8653fbf4880"
+    },
+    {
+      "path": "evals/curation/meme-0bb1a693b6858894.yaml",
+      "name": "Papa小孩",
+      "review_fingerprint": "03cac898b4d95ca6fe7996230509fa9384bb5ca7c7414c4bd552507a76733711"
+    },
+    {
+      "path": "evals/curation/meme-10.yaml",
+      "name": "宗主第二招",
+      "review_fingerprint": "125e4cd0759df79d99a0805c017adb1bbf87c18f3fc90174f60188c7fba96754"
+    },
+    {
+      "path": "evals/curation/meme-100.yaml",
+      "name": "超级变色龙",
+      "review_fingerprint": "d7dd2bf6d1805b1a4162ad3ed7a615a07d55bb11d18862b4728220d410058c7f"
+    },
+    {
+      "path": "evals/curation/meme-103.yaml",
+      "name": "选择大于努力",
+      "review_fingerprint": "c6e3964ae4f1860c1314234f614b66d9b1072ec2e19f9ada5b2743eb32f4be3d"
+    },
+    {
+      "path": "evals/curation/meme-104.yaml",
+      "name": "重大历史机遇！家是本",
+      "review_fingerprint": "32fe9f4f4a03be511950bf05c6cef46624d96e0a579495728e78f3897dbc6447"
+    },
+    {
+      "path": "evals/curation/meme-106.yaml",
+      "name": "阿米嘎蒂朵喵喵",
+      "review_fingerprint": "9c7b000a25390c989baabe4780ffddbacf2a78844240c87a8d6f26b519f62216"
+    },
+    {
+      "path": "evals/curation/meme-107.yaml",
+      "name": "青蛙教练",
+      "review_fingerprint": "bd4d162c64ee016cba9a80812d89e8d55665f76b86248a1ee91f776cc1a1b296"
+    },
+    {
+      "path": "evals/curation/meme-108.yaml",
+      "name": "顶富熊大快跑",
+      "review_fingerprint": "ba598342fc85a87ba75d1c57f8502463f43179c280ab5c794e488ebfb573e2d3"
+    },
+    {
+      "path": "evals/curation/meme-109.yaml",
+      "name": "食猴鹰怎么火了",
+      "review_fingerprint": "9c38128ce0472ef2e4a62b41a65584b01d24cba9b7a2c02766628b775e7afcb4"
+    },
+    {
+      "path": "evals/curation/meme-11.yaml",
+      "name": "干瘪瘪的芝士球",
+      "review_fingerprint": "758e11ddcdb8d7528aa3bad616b7ff83aabf40e6bf88b434bb4b11101854aded"
+    },
+    {
+      "path": "evals/curation/meme-110.yaml",
+      "name": "香港究竟有几个区",
+      "review_fingerprint": "f9eba47909d081753df531b952af22c2d3909064d9dca5ddee88bcf356285c5c"
+    },
+    {
+      "path": "evals/curation/meme-13.yaml",
+      "name": "轻松绷住",
+      "review_fingerprint": "c611f163eeb94ae518aaa57364bab06737ae8c7f9334081e6dd5a55d7dff05af"
+    },
+    {
+      "path": "evals/curation/meme-15.yaml",
+      "name": "严肃脸",
+      "review_fingerprint": "f608e5420f06f3872a16ac47d0554593ac6b84272620f3c8a217397a240e97d3"
+    },
+    {
+      "path": "evals/curation/meme-16.yaml",
+      "name": "中奖概率倍儿高",
+      "review_fingerprint": "a09d780b32aad2605ec4959f1f159c087f18e5895938e703a6aa30d09e6bbdfc"
+    },
+    {
+      "path": "evals/curation/meme-19.yaml",
+      "name": "低音炮丹尼尔",
+      "review_fingerprint": "8e999d6515c46b6345894de0a6f0f1cb4df7b4fec995ceb0df435cb3b2b32f15"
+    },
+    {
+      "path": "evals/curation/meme-19edcf2c7f5f42ea.yaml",
+      "name": "芙莉莲仰视",
+      "review_fingerprint": "726c8a7e24706e3ac6546c1da5a79f337f75dd04b08c97c401a77f4a1f79c45d"
+    },
+    {
+      "path": "evals/curation/meme-20.yaml",
+      "name": "章鱼哥的美妙音乐",
+      "review_fingerprint": "17b7aa8efba6ae393de650fd06ba565224ac2e05ba4af74a0be6122d0c05e5ec"
+    },
+    {
+      "path": "evals/curation/meme-23.yaml",
+      "name": "你已急哭",
+      "review_fingerprint": "7d65ee53661fe78a65e78763455eaa55b8475e294ab19a73ab9749fed2b7a256"
+    },
+    {
+      "path": "evals/curation/meme-24.yaml",
+      "name": "偷菜",
+      "review_fingerprint": "5d26554471b4fb2f5aacafada1afafe9c987b36aae67aef4afecf3f46b9e8b24"
+    },
+    {
+      "path": "evals/curation/meme-26.yaml",
+      "name": "关羽之歌",
+      "review_fingerprint": "c8bef4885dc6765f95b56bf44feb0ddd7816a6da195a556bfa30ea8f956a9074"
+    },
+    {
+      "path": "evals/curation/meme-28.yaml",
+      "name": "区",
+      "review_fingerprint": "39671117363be8ab2a216a66be171686a529c960c9b9fd7c1581416e4f6dfb31"
+    },
+    {
+      "path": "evals/curation/meme-29.yaml",
+      "name": "去酒吧看看",
+      "review_fingerprint": "ae4582f0ccfad077afcf3101041b7ff0f2f39f02b29978d0e192db4b4f32275e"
+    },
+    {
+      "path": "evals/curation/meme-2960cdfcb6e42492.yaml",
+      "name": "噔→噔→噔→噔 ↗噔→噔↘",
+      "review_fingerprint": "5a98aea3affc2415ef6ddbeddb98ba5823dc64df4df23ce2f494bda1aea75625"
+    },
+    {
+      "path": "evals/curation/meme-30.yaml",
+      "name": "唐嘉琦是咋回事",
+      "review_fingerprint": "9157e5e8c19688bbb401a4fee134dce65c1b310b99dae2de941558a81983d53d"
+    },
+    {
+      "path": "evals/curation/meme-33.yaml",
+      "name": "国产吉尔伽美什",
+      "review_fingerprint": "3577aaa9f4e6ca8345446ae92cb23c591277749483608be13e8fe960554529b0"
+    },
+    {
+      "path": "evals/curation/meme-330c9a71e5ca4f70.yaml",
+      "name": "苦命鸳鸯",
+      "review_fingerprint": "61644076c11b28106b8089d923f5dbe5e7d72f58ee94fcddde3d4cb57638c654"
+    },
+    {
+      "path": "evals/curation/meme-33b12eb5c15b91ec.yaml",
+      "name": "X的那边",
+      "review_fingerprint": "8bcb8e674dd90ac175d32dbbe5fcddd4036e9b63796a61ef0940d3ec3ff0e062"
+    },
+    {
+      "path": "evals/curation/meme-36.yaml",
+      "name": "大脚忍者",
+      "review_fingerprint": "584e5e0f554dca8b2b9a09f583b09fc5121addb5377ab85cbd29a35d079357e3"
+    },
+    {
+      "path": "evals/curation/meme-3832130ae5aaf0bf.yaml",
+      "name": "高松灯企鹅",
+      "review_fingerprint": "d9e898b1e929d57787f6be9b9d308caa3239aaf0a5cf9ff3907d09722e47bae6"
+    },
+    {
+      "path": "evals/curation/meme-39.yaml",
+      "name": "奶龙大笑",
+      "review_fingerprint": "20fe9ccefe04252a1459ac354baba75557f38ade19a218812b0141cfc3a0ea2f"
+    },
+    {
+      "path": "evals/curation/meme-3b926888f5e223f5.yaml",
+      "name": "十二少",
+      "review_fingerprint": "cb424a4217bb16944a04c4ae6fac052392d7795a29c31b0599e57a7254304e47"
+    },
+    {
+      "path": "evals/curation/meme-41.yaml",
+      "name": "学功夫 练武术",
+      "review_fingerprint": "7fb2805cddc798d36ee1b900a8d71982f9cc7a3514256f9581850dd086d996d0"
+    },
+    {
+      "path": "evals/curation/meme-43.yaml",
+      "name": "尴尬狗",
+      "review_fingerprint": "26a04aec6fcbb8df3fd7c536121199a4a29edee1e9379c32222eb650a773daba"
+    },
+    {
+      "path": "evals/curation/meme-45.yaml",
+      "name": "幼年形态已经很完美了",
+      "review_fingerprint": "5c77bf963786bb4375fd93344cfba298015965ce8ce7503061859d92bb716547"
+    },
+    {
+      "path": "evals/curation/meme-45c3b6c3e44c915b.yaml",
+      "name": "平移饿狼",
+      "review_fingerprint": "5d3ecd2aba9beef8a5ff2891e284792f5e126ada1c1f60468486fe907642f088"
+    },
+    {
+      "path": "evals/curation/meme-46.yaml",
+      "name": "弹丸论破手势舞",
+      "review_fingerprint": "494fc7acab05c45a9cbe2ac58909d0fff722c4b6795bb1ddaf5dc45ed86331ad"
+    },
+    {
+      "path": "evals/curation/meme-46499d18efb1feda.yaml",
+      "name": "我赚钱啦赚钱啦",
+      "review_fingerprint": "a8ea49d9908e113a59a69893e65b90356b70a6e53087403a4b60f81579a4cc0b"
+    },
+    {
+      "path": "evals/curation/meme-47.yaml",
+      "name": "忧郁程度",
+      "review_fingerprint": "03b903f612576a0d1c21376ae59a6c793bad4f34389322a80f21d97553f7c0c8"
+    },
+    {
+      "path": "evals/curation/meme-48.yaml",
+      "name": "我也要死吗",
+      "review_fingerprint": "319cf6b1b773897e83350b9275ce79682669171a726f113b06c0b6489c8b6319"
+    },
+    {
+      "path": "evals/curation/meme-4ca1f4e2f80f7232.yaml",
+      "name": "当你的朋友说开车来接你",
+      "review_fingerprint": "ec525da34f64de44d948156c15482d9e932f288860bdda7dc9c2dbd1836c6753"
+    },
+    {
+      "path": "evals/curation/meme-4d2638b04f56e13a.yaml",
+      "name": "许愿柳",
+      "review_fingerprint": "56859541de623d37ec26766afd18727b6ed398058d9e829a0d013fe7821b7386"
+    },
+    {
+      "path": "evals/curation/meme-52.yaml",
+      "name": "我的身材很曼妙",
+      "review_fingerprint": "49cb5b668734395c19b1d81bd0905e0197af434e7200285beecadb8cf2f476ef"
+    },
+    {
+      "path": "evals/curation/meme-53.yaml",
+      "name": "我真求你了天猫",
+      "review_fingerprint": "1fd6687bf4516b98c044f23a803eb32800a9169bc9701f5abe9069c6d2ead7ab"
+    },
+    {
+      "path": "evals/curation/meme-56.yaml",
+      "name": "抖肩舞",
+      "review_fingerprint": "d06b99d74b0f901dfdd076ccc10b2ce3a70b4d97eb887e530f52428ad941811e"
+    },
+    {
+      "path": "evals/curation/meme-58.yaml",
+      "name": "撒贝宁老鼠干",
+      "review_fingerprint": "763ff907058d1a5df2356c1fef082ef7af935c0537ea1605b3c81c3f73909019"
+    },
+    {
+      "path": "evals/curation/meme-62.yaml",
+      "name": "星光坏事做尽",
+      "review_fingerprint": "49ba4b7d93c42e064345c0f8721b3ae683d3e75f3f84e300a42511c44921b4df"
+    },
+    {
+      "path": "evals/curation/meme-63.yaml",
+      "name": "曾经的王",
+      "review_fingerprint": "d702c7bd1e656d7770ca9ba01a8a721687e9b78bfabc1b02e59c478ab6ee6b28"
+    },
+    {
+      "path": "evals/curation/meme-65.yaml",
+      "name": "机器孙子团",
+      "review_fingerprint": "b710aafe2204a12c7f6619eb8d7764313a4614015c296f07df94bd4a0215b0d1"
+    },
+    {
+      "path": "evals/curation/meme-662ffe2bfed041bb.yaml",
+      "name": "企鹅跳舞",
+      "review_fingerprint": "c88f82c70363ca38a2b93f11e29753b7989c6da0364cb75b93e8d2a760183682"
+    },
+    {
+      "path": "evals/curation/meme-67.yaml",
+      "name": "没想降维打击",
+      "review_fingerprint": "9404db0d9321a41e84f68743e052b79511290abe1239ccd1219ca36b60bab2dc"
+    },
+    {
+      "path": "evals/curation/meme-68.yaml",
+      "name": "法国口音",
+      "review_fingerprint": "68bd4acdbfec6998d6ad3c98d2b64d3073f67d31282f6d030c2ced1d17426394"
+    },
+    {
+      "path": "evals/curation/meme-6cc53ba86b5a2287.yaml",
+      "name": "自以为是野原广志的普通人",
+      "review_fingerprint": "ce021c8aa4241a473ce4447bb4d573dd9bd7088d15de1c2a8334ce99d142cc49"
+    },
+    {
+      "path": "evals/curation/meme-70.yaml",
+      "name": "火爆全网的蕾塞舞",
+      "review_fingerprint": "5c1619d84c62bf12ea676b06f3464e4a49846eaf683df7aa3ea05a3feb36a90c"
+    },
+    {
+      "path": "evals/curation/meme-72.yaml",
+      "name": "燃烧我的卡路里咋又火了",
+      "review_fingerprint": "3c98e7e0b3df8a27881a70ef6a247223dff907462f11d7ea2f2616faa3e5c02f"
+    },
+    {
+      "path": "evals/curation/meme-73.yaml",
+      "name": "爱你老己",
+      "review_fingerprint": "52cb4e706af2f8c73530cfc09c0a53e1fdd809b46a441d667186ad2161cac07a"
+    },
+    {
+      "path": "evals/curation/meme-75.yaml",
+      "name": "牛巴里巴",
+      "review_fingerprint": "7a4943ad119e7606522660d92dfc4b47d4e10c32fa136358ab8e5c364741f494"
+    },
+    {
+      "path": "evals/curation/meme-77.yaml",
+      "name": "狮子吼小猫头鹰",
+      "review_fingerprint": "213ac53af7a66add671e388985dda4cd04bf41db055e2668fa1ce58058c7bb3d"
+    },
+    {
+      "path": "evals/curation/meme-79.yaml",
+      "name": "琵琶曲",
+      "review_fingerprint": "2fbf2a0d2855a6dd12d59a972859d8e9593a066168631d818b2815cdfb5cba37"
+    },
+    {
+      "path": "evals/curation/meme-80.yaml",
+      "name": "疯狂的鸽子",
+      "review_fingerprint": "97bbd2b1efc78245a4f6bf7ec051002ee35bd1d1e83a282b8615ee0e84d09259"
+    },
+    {
+      "path": "evals/curation/meme-82.yaml",
+      "name": "看到过去的自己",
+      "review_fingerprint": "6cad56c6bdae63db1822371bc694b1375656f6dfe83e5b29e472d41c83c3cc62"
+    },
+    {
+      "path": "evals/curation/meme-82afdae2056d71c0.yaml",
+      "name": "雷霆",
+      "review_fingerprint": "52666a24916e38afd76e4505ed6ee3102ee48ea3289f993728ac46418541dba2"
+    },
+    {
+      "path": "evals/curation/meme-84602ab78974d8b7.yaml",
+      "name": "野原广志领域展开",
+      "review_fingerprint": "9acfa322ee55a3af8e1c6fee9a969c0f158bad42ca4dfcb9e2e1f91b5afcaf4c"
+    },
+    {
+      "path": "evals/curation/meme-86.yaml",
+      "name": "秀芹多吃点怎么了",
+      "review_fingerprint": "26d1c28c369e66440f98529e29dfb475c7d637713bfdc88989c62487cca1e01a"
+    },
+    {
+      "path": "evals/curation/meme-88.yaml",
+      "name": "绝望的蛋小黄",
+      "review_fingerprint": "36bac3542aac57a22c69fd45e5826acccc6db3618e86ae678ab5e6b1862358f4"
+    },
+    {
+      "path": "evals/curation/meme-8a60a9957dd1a964.yaml",
+      "name": "没建模没经济的我",
+      "review_fingerprint": "cce4281d52258b96d593c5f7254c65f328fcab39e0be61c6cb50d974f2e23355"
+    },
+    {
+      "path": "evals/curation/meme-90.yaml",
+      "name": "老子才是老大",
+      "review_fingerprint": "05880b61efae31fbbe63fbeb96e6fa79c54129c5fab9c5afde19fa2c471bb83f"
+    },
+    {
+      "path": "evals/curation/meme-9015826bd66c572e.yaml",
+      "name": "他是我们这里最没天赋的人",
+      "review_fingerprint": "17b7f6ead0a2d5924c978fe6b6db3ad79de1b5fa94916bb02df568f0405c93a4"
+    },
+    {
+      "path": "evals/curation/meme-91.yaml",
+      "name": "老贝榨",
+      "review_fingerprint": "86892eff22c0adbc563ea92e413e5f58ba34d8c94dd0f7fb131954a2cefab756"
+    },
+    {
+      "path": "evals/curation/meme-92.yaml",
+      "name": "肉肉肉",
+      "review_fingerprint": "60cdb1241188ccac88ad4c57ef8d74ee6a6e87a05659d0d989973f051f4b96b4"
+    },
+    {
+      "path": "evals/curation/meme-94.yaml",
+      "name": "至少穿的像个人",
+      "review_fingerprint": "064eaf5f9302844a32e59a64daacb63cda561e2fe443f45e11feac5e332fe625"
+    },
+    {
+      "path": "evals/curation/meme-95.yaml",
+      "name": "节奏挑战",
+      "review_fingerprint": "1abdec95c35e2eb293cd9d655fd34f6d1bbf8ea10665d56fdcb7ec4f3da78cb2"
+    },
+    {
+      "path": "evals/curation/meme-98.yaml",
+      "name": "误闯天嘉",
+      "review_fingerprint": "0fe8dc3971a03381fa2a31315abdd05b5142d12ff9f86e82e20c6d2a5a887e66"
+    },
+    {
+      "path": "evals/curation/meme-99.yaml",
+      "name": "走个面儿",
+      "review_fingerprint": "e13493c35636bdc7d438535ba17db9934319f11e8d182bad2502db106364c00b"
+    },
+    {
+      "path": "evals/curation/meme-a8dcd9ddc358dc67.yaml",
+      "name": "Galgame里面不是这样的",
+      "review_fingerprint": "1f07261175109fe19dccd5bf753711f2feaddcb77f0742f1dc39f47e921198eb"
+    },
+    {
+      "path": "evals/curation/meme-b33fe88c66f0d676.yaml",
+      "name": "雷霆坐姿",
+      "review_fingerprint": "7407be14293bfbedc7ce35b92e372565f635dcd7190cd76ab5424cecbc59c5f2"
+    },
+    {
+      "path": "evals/curation/meme-b977858bcb3406a6.yaml",
+      "name": "外卖教练",
+      "review_fingerprint": "1ec78b1cbead89a4f631beb38d8da4dc5d9564911c7656f3258f6be360f3870b"
+    },
+    {
+      "path": "evals/curation/meme-bb9abacad57fea6d.yaml",
+      "name": "爹系男友喜欢吗",
+      "review_fingerprint": "dcd7e72488195dda287276aa46127bd0dadac1ffeb5c42ece61465cb97b32597"
+    },
+    {
+      "path": "evals/curation/meme-ce004bf760dd69ee.yaml",
+      "name": "智斗天花板",
+      "review_fingerprint": "3f2f5f5a920a1fcf8c857a6b1015c4f84ec7877026c8840a16436972a52f9a94"
+    },
+    {
+      "path": "evals/curation/meme-e0a743010f0af288.yaml",
+      "name": "狮子朝着苹果吼",
+      "review_fingerprint": "f113bbfe2184a3a48d72b1884b2c6f6619f2b636ea1749c5600c1d45196a13be"
+    },
+    {
+      "path": "evals/curation/meme-eeb55a5c2e7b6e98.yaml",
+      "name": "谁有多余XX",
+      "review_fingerprint": "8b31145a38f41edd3f725fcb87d0907ae92e8801ea90864ad640d84251d04b9b"
+    },
+    {
+      "path": "evals/curation/meme-f48df681485221d4.yaml",
+      "name": "锻刀大赛",
+      "review_fingerprint": "757f0112cea92c8c4e82f997fbacfce533880b20f0b83ec6dbac827de2361e73"
+    },
+    {
+      "path": "evals/curation/meme-f59565357c264d06.yaml",
+      "name": "被生活磨平了妙脆角",
+      "review_fingerprint": "b5e17b51d3e8045539102072b5f9c35c366cb5e6c1023d778542851368ebb2a3"
+    },
+    {
+      "path": "evals/curation/ni-hui-XXX-ma.yaml",
+      "name": "你会XXX吗",
+      "review_fingerprint": "ebe3822557db8cc497686962f64348e413411ec62f3fdd30f9b3a6e258f924d1"
+    },
+    {
+      "path": "evals/curation/ni-zhou.yaml",
+      "name": "泥肘",
+      "review_fingerprint": "4fccae353c711cd978fbe543b43e42ee5d8155cacc4731a6a9979957c5c514fb"
+    },
+    {
+      "path": "evals/curation/niu-lai.yaml",
+      "name": "牛来",
+      "review_fingerprint": "b816e52e68397ab21607e7186ef949cc615a2a7a0c1305bc6a99fff814fa9b0a"
+    },
+    {
+      "path": "evals/curation/p.yaml",
+      "name": "不许P圣诞帽是咋回事",
+      "review_fingerprint": "b29b538cce25df343d88ab9c02c7f812c20f0496e8ca649cc443cb38c33bc1b5"
+    },
+    {
+      "path": "evals/curation/song-zhen-da-you-bian.yaml",
+      "name": "松针大油边",
+      "review_fingerprint": "60350b338f0aa9ae1686f1396fd7c9d679903f33e04f43f421eaf546a1dc2dbe"
+    },
+    {
+      "path": "evals/curation/vs.yaml",
+      "name": "闹吃VS古振兴",
+      "review_fingerprint": "a6b1ceb7470e9adf2e89de3a4508d359594cd23174ce304cd6e14b98ffdfc07e"
+    },
+    {
+      "path": "evals/curation/xiong-da-hui-mou.yaml",
+      "name": "熊大回眸",
+      "review_fingerprint": "dce57d025ea35c3923c44aaa3197430cf1c486292ac9914ec59745c97bfe7176"
+    },
+    {
+      "path": "evals/curation/xx-19d9f6593b2d54d9.yaml",
+      "name": "眼睛瞎在XX上",
+      "review_fingerprint": "262d19fe16adc4d83d2ad2af08f1bcdc738efeb0353a5b1213179bd62eef3553"
+    },
+    {
+      "path": "evals/curation/xx-29e11cbda77bceb0.yaml",
+      "name": "高考当天免费XX是咋回事",
+      "review_fingerprint": "3b3aaa075415aeddc73673398d1fdcad1d9271d4850f173811e9ea516df20a85"
+    },
+    {
+      "path": "evals/curation/xx-364f6c218759ff7a.yaml",
+      "name": "如果XX是你的力量",
+      "review_fingerprint": "df13f0cdd38bee579126ace4becd93b1ccacc09e847f7695206cffd705b40d55"
+    },
+    {
+      "path": "evals/curation/xx-74036a4cefff2bfc.yaml",
+      "name": "睾酮打到XX上了",
+      "review_fingerprint": "d51bb5e35dc1d6b1e2b4356087999206315f91fbff49e86814ddb57ec86bcb02"
+    },
+    {
+      "path": "evals/curation/xx-d2a63d26cfb288e5.yaml",
+      "name": "XX做了噩梦",
+      "review_fingerprint": "698e907ad365058ad0988bba47015ee4b867167e5cb1506aed185914dd78d46f"
+    },
+    {
+      "path": "evals/curation/xx-ead89066dfe809d9.yaml",
+      "name": "这XX有力气",
+      "review_fingerprint": "dbad739105d31ea432c76aa8e2580d84ae60d38ddb2f7b830127ebbc1040e600"
+    },
+    {
+      "path": "evals/curation/xx.yaml",
+      "name": "XX人吃到美食",
+      "review_fingerprint": "b1e09c10318691772a3338785d9f642a9dcd56201226cd7b8e74aef97747f8ce"
+    },
+    {
+      "path": "evals/curation/xxx-d2b877224b99f6a8.yaml",
+      "name": "XXX你被捕了",
+      "review_fingerprint": "f402e16d760204945de91a50e1cb826d9dfcff65c88466f115cb45cb62534e69"
+    },
+    {
+      "path": "evals/curation/xxx.yaml",
+      "name": "主人不在家，我XXX",
+      "review_fingerprint": "cc7b282a0756a0ca3976eb4662908263005306f3f00fd16a5c88ff18908adb40"
+    }
+  ],
+  "source_episodes": [
+    "BV11UTL6gECb",
+    "BV12fqwB3EF1",
+    "BV13ptA6AEAW",
+    "BV14FqUBME5b",
+    "BV14k7p69Eds",
+    "BV14oEq6eEvS",
+    "BV157XrBqELk",
+    "BV15KJw61EuV",
+    "BV15uFzzSEzr",
+    "BV15y61BHEkw",
+    "BV16Sbo6TEBX",
+    "BV176BYBUEcG",
+    "BV17LTF6mErp",
+    "BV17awezjEr4",
+    "BV17dftBRE9C",
+    "BV17kcFzmEqQ",
+    "BV17mAUzxEFu",
+    "BV17udjB2EqL",
+    "BV18AVp62ETL",
+    "BV1AGyrBaE5q",
+    "BV1Av2FBpEc1",
+    "BV1BiKP6dEPr",
+    "BV1BojA6UEB9",
+    "BV1C1C9BYE6i",
+    "BV1DSirBREDy",
+    "BV1DsKG6KE6q",
+    "BV1Eh596QEgQ",
+    "BV1FUBrBLESX",
+    "BV1G6tm6bEBT",
+    "BV1GLzCBzE6S",
+    "BV1HLfuBgEwy",
+    "BV1HwUNBTE6r",
+    "BV1J1UUBoEfo",
+    "BV1J1r5BVE6i",
+    "BV1J4mCB6Emw",
+    "BV1JpLv6uEfj",
+    "BV1L6dhBQEdR",
+    "BV1LvjR6dEVk",
+    "BV1MGN3zkEoX",
+    "BV1NJsdz5E1q",
+    "BV1NsZsBxEoR",
+    "BV1P8Gw6yEjS",
+    "BV1PUmqBwEr3",
+    "BV1PkgE69EoL",
+    "BV1PxLX6cEH8",
+    "BV1QeEb67EYc",
+    "BV1Qs1rBjEjn",
+    "BV1R323BqEcv",
+    "BV1RumbBdEo1",
+    "BV1ScKn69Enz",
+    "BV1Twk7BPEdP",
+    "BV1TxoXBvEc6",
+    "BV1UGCEBuEuj",
+    "BV1Ut3F6VE5x",
+    "BV1Wq9fB6EY6",
+    "BV1XA6RBgE21",
+    "BV1XabQ6VEWS",
+    "BV1Xsuc67E8r",
+    "BV1YWqZBkEJk",
+    "BV1YewXzoEjT",
+    "BV1YzxAzCEKE",
+    "BV1ZPieB5EK7",
+    "BV1a4AnzKEWy",
+    "BV1a9816ZER9",
+    "BV1aaY96dERK",
+    "BV1b7rkBKEuy",
+    "BV1bWqhBZEAs",
+    "BV1bdDCBaEhK",
+    "BV1cyMi6tEKw",
+    "BV1dZ6gBREHw",
+    "BV1dogD6aEpG",
+    "BV1eMiRBAEwd",
+    "BV1es5169EHt",
+    "BV1exckzbE86",
+    "BV1fXzLBzEwD",
+    "BV1g4be69Edh",
+    "BV1gA2vBwEkS",
+    "BV1h8rDBFELA",
+    "BV1i8sbzXEzG",
+    "BV1iXVG6aEHq",
+    "BV1ii4C6QEk8",
+    "BV1jBZCBbE2D",
+    "BV1krR9BxE51",
+    "BV1mgen69Ewc",
+    "BV1mtY164EUu",
+    "BV1nN24BoEyq",
+    "BV1oUDLBaE8n",
+    "BV1omyMBtEFS",
+    "BV1pKwxzwE2T",
+    "BV1qksqz1EzT",
+    "BV1rkydBTEyG",
+    "BV1tUsJzUER9",
+    "BV1tgywB8EeA",
+    "BV1twLH6LE4R",
+    "BV1ubh26ZEsb",
+    "BV1vQ8i6uEYf",
+    "BV1vwG369EkM",
+    "BV1wAPszAEwM",
+    "BV1wFkCBhEz2",
+    "BV1wSRxB7E2x",
+    "BV1wSZYB3ExD",
+    "BV1wVXLB5Exm",
+    "BV1weKQ6YE3D",
+    "BV1woUpBWEV9",
+    "BV1xWtJ6iEGs",
+    "BV1yBc4zNE8Z",
+    "BV1ysME67Em9",
+    "BV1zAC4B7ERC",
+    "BV1zzsUz7EEP"
+  ],
+  "notes": [
+    "Portable export resets resolved and evidence database IDs only; published claims/evidence fingerprints unchanged.",
+    "Unknown origins retained. Model descriptions are not human benchmark.",
+    "Same-Codex reviews have limited independence and retain byte-identical frozen review artifacts.",
+    "Seven quarantined local records excluded from this publishable export."
+  ],
+  "files": [
+    {
+      "path": "evals/automation_review.py",
+      "sha256": "a674679f12c584ff6921014179adf2c8936bb4bbf49a8ec95c6d5fef6e2a0370"
+    },
+    {
+      "path": "evals/build_gold.py",
+      "sha256": "2eeda8cf80c113f16c56fad8f95e82104c7febae5449788b69c0fc36b9fa5fbf"
+    },
+    {
+      "path": "evals/curation/2026.yaml",
+      "sha256": "2bfd7eba04e2af9a8b25391fd26410dac1cf6f4aef9add0c8e5cba9dbb7cf9c2"
+    },
+    {
+      "path": "evals/curation/_descriptions.yaml",
+      "sha256": "07a0c011eb6e6703dbcd8a3190cc23abab9eef6379232349e2e44090e809651e"
+    },
+    {
+      "path": "evals/curation/_negatives.yaml",
+      "sha256": "6adc3b8b71d858e291035c9b37d8043dab7adf30bfca92209159c4941738abdf"
+    },
+    {
+      "path": "evals/curation/avgn.yaml",
+      "sha256": "a9afdbbad21bd1d9d17be8f6569fbc91f23c29704b1160263171cd7022459465"
+    },
+    {
+      "path": "evals/curation/be-water.yaml",
+      "sha256": "aa9ae55ee438532f0ad1d29f103b9731f43b1ba6e902507bae23d88482b57bb4"
+    },
+    {
+      "path": "evals/curation/cai-shi-wang-dao.yaml",
+      "sha256": "758d2da6cf582049bf76d27c9520a730e33eb4b17f606dbd656fe3648f0bba29"
+    },
+    {
+      "path": "evals/curation/coke.yaml",
+      "sha256": "0beed49cb8b7121306145bf713a03839f03ed3c4b5d3f8db9847d58d0e37cce5"
+    },
+    {
+      "path": "evals/curation/da-gou-jiao.yaml",
+      "sha256": "0bb1d02dd7ced9e775af3601e6abb4f8be92e9c54c8da6897b3530157dc2a6c6"
+    },
+    {
+      "path": "evals/curation/dan-zi-zhen-shi-fei-du-du-de.yaml",
+      "sha256": "168be3f6d77ce806ac22cfa74a8e94fefcfe2110c1b26e62c4d5c92b9c53b5cd"
+    },
+    {
+      "path": "evals/curation/dlss-5-on.yaml",
+      "sha256": "d48eedef70471e806b516fdd0dcd4955f19071e94c1f1879345675f92e45044b"
+    },
+    {
+      "path": "evals/curation/him.yaml",
+      "sha256": "c35d6c7d5f5a89335dab41f6be33b57221738d9f97edbdf632757f60699d0cc5"
+    },
+    {
+      "path": "evals/curation/i-can-t-wait.yaml",
+      "sha256": "f7563399d23bca6c5f50919093cd85b6363d42e47ed454bd01744c49cd87f161"
+    },
+    {
+      "path": "evals/curation/l.yaml",
+      "sha256": "305a80f302bf3342fc8fd534cc0110eed6f056bda6f4ef143fa66811b62a5410"
+    },
+    {
+      "path": "evals/curation/lang-wang-si-yi.yaml",
+      "sha256": "dba5677d29990e4c8a8b1dac0209235268f625b4a70fa01a251ee2b00a293963"
+    },
+    {
+      "path": "evals/curation/lao-sou-xi-wan-tong.yaml",
+      "sha256": "2f1e3506d75f78bbec1a988d78166c3b9905002c9765edeff8af4bbb237c3623"
+    },
+    {
+      "path": "evals/curation/leek.yaml",
+      "sha256": "f4d687dd2a5f69c46fa8aa093c21791ecaa4a04833a8aee38b448270587d3293"
+    },
+    {
+      "path": "evals/curation/meme-03.yaml",
+      "sha256": "082df565b12a3cb368bb854057d7719b92c791142afc1497a090bfacd38d7ab7"
+    },
+    {
+      "path": "evals/curation/meme-04.yaml",
+      "sha256": "db7e87fe5185eef0c5a36173d46e94ff7b3c22905e0b3ed0bb8b068b5eb67235"
+    },
+    {
+      "path": "evals/curation/meme-06.yaml",
+      "sha256": "6f3f2b09678c15dc1910c6814b9da64bbed92f1728ffdd945fb6ab710a068d3f"
+    },
+    {
+      "path": "evals/curation/meme-09.yaml",
+      "sha256": "482e3e3eefe7e9dd54fd43d9ba212040211119a1c1cd2467f8c6ae358c5a0df2"
+    },
+    {
+      "path": "evals/curation/meme-0bb1a693b6858894.yaml",
+      "sha256": "4fcf14a3143187dbe628573a1709d04879d1931c3110ed9f808cffd3b757e2c5"
+    },
+    {
+      "path": "evals/curation/meme-10.yaml",
+      "sha256": "e71c1e85117939ace32ffac6705acca9229180673ccc7b8e3f3f4b3f50e7bd98"
+    },
+    {
+      "path": "evals/curation/meme-100.yaml",
+      "sha256": "6f890b14860c9f5b341b2267eaa54c96e906cd4e43a14c71479f12c6c3b102a0"
+    },
+    {
+      "path": "evals/curation/meme-103.yaml",
+      "sha256": "b924239ca785744244e17c176c357683ff09db961748ad1b847fee3f96013728"
+    },
+    {
+      "path": "evals/curation/meme-104.yaml",
+      "sha256": "08123183c52aa590789b764ed40720be4cfa7605b85427fdb6d1ead5153f2f8a"
+    },
+    {
+      "path": "evals/curation/meme-106.yaml",
+      "sha256": "cb29c0334c4681608d970cead09d0344e9989a6f5cb30d24b2c9f31bb9d52530"
+    },
+    {
+      "path": "evals/curation/meme-107.yaml",
+      "sha256": "82f8a13178d4428da965c48124d8976a9f3acb9de071a1d5e918b8551f55410b"
+    },
+    {
+      "path": "evals/curation/meme-108.yaml",
+      "sha256": "ea323592901ffea24739855054fea31a9739405b91c5d6eaa6eaafd29334a789"
+    },
+    {
+      "path": "evals/curation/meme-109.yaml",
+      "sha256": "285565c402e54426c16391ed7baca821bef778aebc229d7bd23674840a729b77"
+    },
+    {
+      "path": "evals/curation/meme-11.yaml",
+      "sha256": "5e755febf27b6a5e805c33fad15e2b27de569eb464789f1c281b5cb531081739"
+    },
+    {
+      "path": "evals/curation/meme-110.yaml",
+      "sha256": "23420931c80cb4d065c2fbc5900a13d0560aa157767a4bf23800c7df05817cd5"
+    },
+    {
+      "path": "evals/curation/meme-13.yaml",
+      "sha256": "7175a3214f272a294f30da2d0e86eba39a6e8791cccde8b5f4fb03a02d9ba3bc"
+    },
+    {
+      "path": "evals/curation/meme-15.yaml",
+      "sha256": "a11bb593eefcf443c42053a2367a9bab91be15f29770fbbcef92205924368afb"
+    },
+    {
+      "path": "evals/curation/meme-16.yaml",
+      "sha256": "09ee52cc94dadaf57a3da45132b617f44a67d6d68553422cdfc574aae17a4d1a"
+    },
+    {
+      "path": "evals/curation/meme-19.yaml",
+      "sha256": "68d6098e8db321b00f86959006b33657bf90b0074085b048b9f05e48421af81c"
+    },
+    {
+      "path": "evals/curation/meme-19edcf2c7f5f42ea.yaml",
+      "sha256": "7231ee864c063a7c8b933b169577664aa6020b3dcdaad7838200b56e37528816"
+    },
+    {
+      "path": "evals/curation/meme-20.yaml",
+      "sha256": "8448fe099449793fb42ac1e26f5a0090a66767e053b1359029fa352e2f33cb8d"
+    },
+    {
+      "path": "evals/curation/meme-23.yaml",
+      "sha256": "125479baa4883199d09ad062cc8f64c82648b8c6cef90d02194e985bd2d8d97e"
+    },
+    {
+      "path": "evals/curation/meme-24.yaml",
+      "sha256": "aa23555384f2063a9ce1dd7ed9bc618f753223bdcbd725317a7dd68f39dee00b"
+    },
+    {
+      "path": "evals/curation/meme-26.yaml",
+      "sha256": "94838b5cdb83a7b2eb92c44be9e2c7e294d0f15c67788e32f861a806d7eff027"
+    },
+    {
+      "path": "evals/curation/meme-28.yaml",
+      "sha256": "b3569bb5c088b68852c560a776b59d1b7fca3082c453e3852132072bc65a0b85"
+    },
+    {
+      "path": "evals/curation/meme-29.yaml",
+      "sha256": "6b14458fbe0e804a27f33bc4a04573cd6211aefa521cb6a7b55ffb103d2a2404"
+    },
+    {
+      "path": "evals/curation/meme-2960cdfcb6e42492.yaml",
+      "sha256": "836c26993bcca1292e1c805944360c6352738274ab48e7ddc9e92be3a8552cc0"
+    },
+    {
+      "path": "evals/curation/meme-30.yaml",
+      "sha256": "1f8e8f439638484333727f885081413504c9a6d35f5316739047cc88e2c8ac85"
+    },
+    {
+      "path": "evals/curation/meme-33.yaml",
+      "sha256": "63edd71eb106e50e7d0f17f82aa5ed7f58df74b6a162720aa8bc18384ae02889"
+    },
+    {
+      "path": "evals/curation/meme-330c9a71e5ca4f70.yaml",
+      "sha256": "73989c8d2813c04fb94c10e351c7ac7b77dbe7ad34a0abc27a813080bb281f5d"
+    },
+    {
+      "path": "evals/curation/meme-33b12eb5c15b91ec.yaml",
+      "sha256": "114d4f196621941a06c043a79b3197bd221d4ff8c64109c937c637280dc7bc94"
+    },
+    {
+      "path": "evals/curation/meme-36.yaml",
+      "sha256": "6e3a55b4f18aea422d33cdde7519cc4a9c3b13a9ce82cca087e90f0bdd4dfaa0"
+    },
+    {
+      "path": "evals/curation/meme-3832130ae5aaf0bf.yaml",
+      "sha256": "b99eb6dce6355ae65a34d288826c34e1ba26bfedaf6f3e7e180b1236d8de337d"
+    },
+    {
+      "path": "evals/curation/meme-39.yaml",
+      "sha256": "efe28c9bfb38f48b245b8fe446e6518fbfa8194ed9877d890ebdf2ebd235d398"
+    },
+    {
+      "path": "evals/curation/meme-3b926888f5e223f5.yaml",
+      "sha256": "52d65df4e42b9285b8285fc406e25af425c4682d840c01557c0d671898c1f9d4"
+    },
+    {
+      "path": "evals/curation/meme-41.yaml",
+      "sha256": "54284a84533862c5e8bc84774229f989e21c5f9a9f7b2826fff128a0996cf7e0"
+    },
+    {
+      "path": "evals/curation/meme-43.yaml",
+      "sha256": "b4631962baf03566422d6d23ad7859050cfd40033596cca580fae6023e830194"
+    },
+    {
+      "path": "evals/curation/meme-45.yaml",
+      "sha256": "e2315fbc0ad785e7e72a59a5bb6d25397c84ba0218fff3c80705ef91b0f9ef5d"
+    },
+    {
+      "path": "evals/curation/meme-45c3b6c3e44c915b.yaml",
+      "sha256": "2b1e94fe181bf773616dd84d51fa398805c514bebf32b16a3e57118768a477c2"
+    },
+    {
+      "path": "evals/curation/meme-46.yaml",
+      "sha256": "0a910b37a8743cd7d5dd56f7e09cd5f4f01938fd7f39d35358e0c90eb0310e8b"
+    },
+    {
+      "path": "evals/curation/meme-46499d18efb1feda.yaml",
+      "sha256": "3c586629d06e31e57d7bc9efe143b062b5246f112c6b6cde38297478e48e0191"
+    },
+    {
+      "path": "evals/curation/meme-47.yaml",
+      "sha256": "d7b7d9b0470b28526cf0f1de8298b9451b58f2c51636c3adb2992e7ecf2441f0"
+    },
+    {
+      "path": "evals/curation/meme-48.yaml",
+      "sha256": "435ac9c5ec928b2658aaedffa5d0b526cb199cfd6acda84d4d3bab86d010f757"
+    },
+    {
+      "path": "evals/curation/meme-4ca1f4e2f80f7232.yaml",
+      "sha256": "4b39e66ac5eb1bcb709680212befb883bba1af3a1256f08eaae3dd1ba9bc6eed"
+    },
+    {
+      "path": "evals/curation/meme-4d2638b04f56e13a.yaml",
+      "sha256": "aac0239474633befe1c2ea5b53649e7f694256c5be1a5fc1b59403d2f7f81fbd"
+    },
+    {
+      "path": "evals/curation/meme-52.yaml",
+      "sha256": "a875c5eaf5f87293c53dd2cf97c3dbc90893263e630f926bf7b198c2c772df0d"
+    },
+    {
+      "path": "evals/curation/meme-53.yaml",
+      "sha256": "25ed4724bb91714decfda1067adbdb0eba58b158e856f25db7b6c10e48aa5186"
+    },
+    {
+      "path": "evals/curation/meme-56.yaml",
+      "sha256": "a9948e83dd9bdda5af826eb80f1d447e9ee76cb58567574637ee84a378e8fb33"
+    },
+    {
+      "path": "evals/curation/meme-58.yaml",
+      "sha256": "2e404223e54f1a4a61714b3663d348e8315ec2a3c30def7a385a76fde327216a"
+    },
+    {
+      "path": "evals/curation/meme-62.yaml",
+      "sha256": "553f3ee8581f3fa777ec42b7e8bd453dbc7289c88bda92f006a4f07ce88480ed"
+    },
+    {
+      "path": "evals/curation/meme-63.yaml",
+      "sha256": "7bee69a46152e07f3cae8357ab053ec1f1e0e2ba787befa8f81fe97b9fc3997a"
+    },
+    {
+      "path": "evals/curation/meme-65.yaml",
+      "sha256": "1b1c7ded593e7c9145e4a234f09e40923aad2267b4f4bb0158117cfe53b5c298"
+    },
+    {
+      "path": "evals/curation/meme-662ffe2bfed041bb.yaml",
+      "sha256": "e47171fdb5292c8b30b4023b4cda17e150a036d05b5accead83544087ea0d612"
+    },
+    {
+      "path": "evals/curation/meme-67.yaml",
+      "sha256": "ef46184e5eb38d9b29de1ff22687822744f419bfcfaf3ada51f917c8c148f8dd"
+    },
+    {
+      "path": "evals/curation/meme-68.yaml",
+      "sha256": "7fcd5cc427f269826cedd942bb3979e1c020e93c1e055d7c41cfa45c34e372ba"
+    },
+    {
+      "path": "evals/curation/meme-6cc53ba86b5a2287.yaml",
+      "sha256": "0cc6e1fb8857fe76ad02eee51913aa9d3f8f27fdc155ba803b1d794132570882"
+    },
+    {
+      "path": "evals/curation/meme-70.yaml",
+      "sha256": "e3948eb78d3b01eeb823cea48c857cfe45e270ce3a6e7a61842eaaeaba29875b"
+    },
+    {
+      "path": "evals/curation/meme-72.yaml",
+      "sha256": "589e9d0ce46a92a2bbe098ed65f2e866c6ad2961eb2a4fed4020a0f20329f48b"
+    },
+    {
+      "path": "evals/curation/meme-73.yaml",
+      "sha256": "552758d3f592ea3dd64a9480bfb3c92c52d4ba252bf6e111b6d2d08596cd76ce"
+    },
+    {
+      "path": "evals/curation/meme-75.yaml",
+      "sha256": "a233a9f8df87d027164b70b121e4557d281fe57d05519706c22bf1c2ce8d543b"
+    },
+    {
+      "path": "evals/curation/meme-77.yaml",
+      "sha256": "0fca7f037f57ab6306b0148d4946acbab00f6179e78d9a6a05232584f5af9c13"
+    },
+    {
+      "path": "evals/curation/meme-79.yaml",
+      "sha256": "42c52c5530326c2c1963f5ee72b84f69cbe2e2f7e2da59ca177a329c97754a21"
+    },
+    {
+      "path": "evals/curation/meme-80.yaml",
+      "sha256": "9c94f18505cba555941336897de1c9d6d9d969425b2cc83ced776e02fb34d8b2"
+    },
+    {
+      "path": "evals/curation/meme-82.yaml",
+      "sha256": "1f5154281c79edda24222e042a485ac85ff691b47abbe4855372c50051be772b"
+    },
+    {
+      "path": "evals/curation/meme-82afdae2056d71c0.yaml",
+      "sha256": "e80ad84cd1940e1e8b48875dcf1af5a6bd75a07de62bf21e1071c375f8a53506"
+    },
+    {
+      "path": "evals/curation/meme-84602ab78974d8b7.yaml",
+      "sha256": "e443b3c2a9d578fa4e15de36c65bd07dcb6e20e87b874958cd4400336533b50c"
+    },
+    {
+      "path": "evals/curation/meme-86.yaml",
+      "sha256": "6e78e8a7e2aabe061c5a2794b5a54c0f3cf55f56c336ed847b4076bbb9367a1b"
+    },
+    {
+      "path": "evals/curation/meme-88.yaml",
+      "sha256": "01be7bbbf4c32f77a48074097729d44b3c94c83e72e4d9aaf8b4eeaae7029a60"
+    },
+    {
+      "path": "evals/curation/meme-8a60a9957dd1a964.yaml",
+      "sha256": "49aedab9f02f6eeacb9bd0ba8f0ca2773f9d7d0e5ea02fcc1d9915eeee9cf908"
+    },
+    {
+      "path": "evals/curation/meme-90.yaml",
+      "sha256": "4590244e87529000bdc3493060beea96e5d9b06f4e35ec8484d02e58c1b510d3"
+    },
+    {
+      "path": "evals/curation/meme-9015826bd66c572e.yaml",
+      "sha256": "710da7cf0d1673bc05f23427a6b6dab3043316cf3b550c85b16aab1736c954a8"
+    },
+    {
+      "path": "evals/curation/meme-91.yaml",
+      "sha256": "56251039acf3a64e364708954077632b46c599de562cd411d1ed3fcd35d649fc"
+    },
+    {
+      "path": "evals/curation/meme-92.yaml",
+      "sha256": "a77bbdc398923e6233281719f6ab1fe352ea131338362713ed70eb697a250e91"
+    },
+    {
+      "path": "evals/curation/meme-94.yaml",
+      "sha256": "72460777221256a7c10233384dfcf0083f33efd960e31db2a2ef5277e8a1cd2c"
+    },
+    {
+      "path": "evals/curation/meme-95.yaml",
+      "sha256": "34bd99235f0f429561c6e79fd91e37a26762a3f66bbe0a0426128aa2cf8e7fd2"
+    },
+    {
+      "path": "evals/curation/meme-98.yaml",
+      "sha256": "43d77766c7967b8a3487e92b05da7818d56c997b940649fb50ec7e9e81782d6c"
+    },
+    {
+      "path": "evals/curation/meme-99.yaml",
+      "sha256": "7307c49f01e9f60fa2925d6977ab7e65583e666b6cbf54c2475e10d4609648d4"
+    },
+    {
+      "path": "evals/curation/meme-a8dcd9ddc358dc67.yaml",
+      "sha256": "f5efe9e61adfed3a8a49718ea974c5471ec282d3def4043f93bb71b00b9d3615"
+    },
+    {
+      "path": "evals/curation/meme-b33fe88c66f0d676.yaml",
+      "sha256": "42662100c487baa015d92d1fbe2a17a060bce385db8467451ee72c04bb35e47f"
+    },
+    {
+      "path": "evals/curation/meme-b977858bcb3406a6.yaml",
+      "sha256": "21769866364ca51b69bb1a2202f11b8b9bbc9de0bc86c7b87df77d366e48c49f"
+    },
+    {
+      "path": "evals/curation/meme-bb9abacad57fea6d.yaml",
+      "sha256": "99d20269ba67b03ea51ca91f837aab8f779b87dce9fefdbd632c5bb840d92f24"
+    },
+    {
+      "path": "evals/curation/meme-ce004bf760dd69ee.yaml",
+      "sha256": "e579035776f4b0073fd3966511383c712cd66cce831903cdd413a6943d0416f4"
+    },
+    {
+      "path": "evals/curation/meme-e0a743010f0af288.yaml",
+      "sha256": "101daa3cbbe18fb36e52966a6d940cf8c40019fbb8799504432a136299dff536"
+    },
+    {
+      "path": "evals/curation/meme-eeb55a5c2e7b6e98.yaml",
+      "sha256": "43d08aff1aeb23c7d259152bde4fec017a92b69255dd23d4d1f2705be2f8c396"
+    },
+    {
+      "path": "evals/curation/meme-f48df681485221d4.yaml",
+      "sha256": "afde910d480e083193cf145a01513e6094a1cc4fd651819a41f9d2d502e5c32e"
+    },
+    {
+      "path": "evals/curation/meme-f59565357c264d06.yaml",
+      "sha256": "123eadb36db4c6e51c841c6b78e43503f8c16df1afb6579729574459c176d07a"
+    },
+    {
+      "path": "evals/curation/ni-hui-XXX-ma.yaml",
+      "sha256": "0c6ab5d0e51bfc5e4cdd3b26de22ef8f319cf21b2b9d95d2eedace44fd7a3eee"
+    },
+    {
+      "path": "evals/curation/ni-zhou.yaml",
+      "sha256": "48ba4583ac8a6ebbf76d1776b59820a3db324a5877fc0cd480077a1da5c34d15"
+    },
+    {
+      "path": "evals/curation/niu-lai.yaml",
+      "sha256": "ee8d18503719d74cecd58df013d484fd47f589a278a062d9cc54b8c916939978"
+    },
+    {
+      "path": "evals/curation/p.yaml",
+      "sha256": "2c52690aed1f19d76823ed67e6f24c62d76925ee159419211edbc7bc143398d0"
+    },
+    {
+      "path": "evals/curation/song-zhen-da-you-bian.yaml",
+      "sha256": "9d948031f0ac467f62624a848670d77c0c956cdd1b14164cc1c9903376db9c66"
+    },
+    {
+      "path": "evals/curation/vs.yaml",
+      "sha256": "fe215ed7088daa30bdde073cf1f2e7aca28be426677534b4951fccbaad2bfdd4"
+    },
+    {
+      "path": "evals/curation/xiong-da-hui-mou.yaml",
+      "sha256": "52d1e7495794f654d21445ff0dceb98362146285a5fae7c000f6cb17d2ab73e6"
+    },
+    {
+      "path": "evals/curation/xx-19d9f6593b2d54d9.yaml",
+      "sha256": "d159ee769c21efaea247b265a655ae14a31682d94bcc7d34148219782dd1d45a"
+    },
+    {
+      "path": "evals/curation/xx-29e11cbda77bceb0.yaml",
+      "sha256": "cb1d915d827876c53e608c28921eb3c74f016e3e5203d94cebbe4c293c461178"
+    },
+    {
+      "path": "evals/curation/xx-364f6c218759ff7a.yaml",
+      "sha256": "aecbdd32917c059b1136e5c4b714b564e4d6b6cee1e2210fe752ec1eb999886d"
+    },
+    {
+      "path": "evals/curation/xx-74036a4cefff2bfc.yaml",
+      "sha256": "6968d3ad7f8b1b3d01ef5663565c8bfbc603122193a33145c343077f44f02bd6"
+    },
+    {
+      "path": "evals/curation/xx-d2a63d26cfb288e5.yaml",
+      "sha256": "dd91aa4f5ce44154b2573a2452f607122b296ae7dc28b72ca1aba59bcae8ff24"
+    },
+    {
+      "path": "evals/curation/xx-ead89066dfe809d9.yaml",
+      "sha256": "3c6c67ec53053692140bf29369fc9648d4055f73d52dca6494cae64b496d1453"
+    },
+    {
+      "path": "evals/curation/xx.yaml",
+      "sha256": "3b65d654e33473057985b5063666eac0cd1880abd9bfadd382a6aa89c746f27d"
+    },
+    {
+      "path": "evals/curation/xxx-d2b877224b99f6a8.yaml",
+      "sha256": "adededfd1cbc857133b78eb5b18939b3c7a9bfb9e74c702ba47375310b6f5acc"
+    },
+    {
+      "path": "evals/curation/xxx.yaml",
+      "sha256": "6e8104ef66ef74ccbffe3d18e7252928d210099ab438ffcbd7b7fca4a703fff9"
+    },
+    {
+      "path": "evals/feasibility/BV11UTL6gECb.derivatives.csv",
+      "sha256": "7a3fcfbe8343de254e3c6f7832c314c67bbd4032536648edc84c4a06c5ca2ca4"
+    },
+    {
+      "path": "evals/feasibility/BV12fqwB3EF1.derivatives.csv",
+      "sha256": "45d2c087bdf82b1dedc477b88443114b608d90df76150e738dccc188a25c268b"
+    },
+    {
+      "path": "evals/feasibility/BV13ptA6AEAW.derivatives.csv",
+      "sha256": "07f1373e7095d458307298a526e977e742424e589d0f4a36d33785918eba4888"
+    },
+    {
+      "path": "evals/feasibility/BV14FqUBME5b.derivatives.csv",
+      "sha256": "609fb3d16f935ae3a8000c4efbd9aa68a5a69243028c009ed77d75e38f952c9d"
+    },
+    {
+      "path": "evals/feasibility/BV14k7p69Eds.derivatives.csv",
+      "sha256": "e93ba39eb9306f5894922554f521c2c0a4998b1b551a3f07e840d2dad362d6a1"
+    },
+    {
+      "path": "evals/feasibility/BV14oEq6eEvS.derivatives.csv",
+      "sha256": "335797b7cd2bf385c14b8b23d4baff9583f4f7413ea3e278ad90478789606478"
+    },
+    {
+      "path": "evals/feasibility/BV157XrBqELk.derivatives.csv",
+      "sha256": "bbf01f57f87a5fd165763bf4c35e23b07c9da6ebd0e154909220a6f1c3fa1e2b"
+    },
+    {
+      "path": "evals/feasibility/BV15KJw61EuV.derivatives.csv",
+      "sha256": "675f387fe4d6b8c1b8986312a0a46b4bc0aa96bbcd5c43cf23bdddcd80c1dd11"
+    },
+    {
+      "path": "evals/feasibility/BV15uFzzSEzr.derivatives.csv",
+      "sha256": "da5c7d1e58787a74fd6960d0e01447275a6be709f2493b41cf74337d021e885f"
+    },
+    {
+      "path": "evals/feasibility/BV15y61BHEkw.derivatives.csv",
+      "sha256": "040f9e06bf9d5e27ad122668476f00c191a69b4de86a45b00ad2e489c27b7b89"
+    },
+    {
+      "path": "evals/feasibility/BV16Sbo6TEBX.derivatives.csv",
+      "sha256": "a1e0c7144d41ee2de035b37f5b8ddaff807cf5f80ab1449cb259b7e7c0c47822"
+    },
+    {
+      "path": "evals/feasibility/BV176BYBUEcG.derivatives.csv",
+      "sha256": "c03782ce5826a03d55182818fed4f99ce26f5c0146d29977bf559e646ef99851"
+    },
+    {
+      "path": "evals/feasibility/BV17LTF6mErp.derivatives.csv",
+      "sha256": "bf576ea591b2f1a2028ab9395c07f7a997843ebd5545ddecc8e42bfee8ff6ecf"
+    },
+    {
+      "path": "evals/feasibility/BV17awezjEr4.derivatives.csv",
+      "sha256": "0ff53b6c2a1fa5db9f0756ea1e9f63908bf26298836c195d7870f75f05adb237"
+    },
+    {
+      "path": "evals/feasibility/BV17dftBRE9C.derivatives.csv",
+      "sha256": "d1aaa6ca22b3671e1d7e129a2195ac3d4f21775799af23194fe0ef82266f6979"
+    },
+    {
+      "path": "evals/feasibility/BV17kcFzmEqQ.derivatives.csv",
+      "sha256": "44e934c54318ebbe2eb2b45c0dc5fea8b22ead416e295f7cd7fb1ac3671b948e"
+    },
+    {
+      "path": "evals/feasibility/BV17mAUzxEFu.derivatives.csv",
+      "sha256": "4d6f79670025bd274e7ccbb534b4bf1abac33f6a4c5586bde89fee2768988521"
+    },
+    {
+      "path": "evals/feasibility/BV17udjB2EqL.derivatives.csv",
+      "sha256": "0bd7fcb50d61a8baa67f47ebcc23ddb9ec7a7ea13b022856a5ba090ca6e234dd"
+    },
+    {
+      "path": "evals/feasibility/BV18AVp62ETL.derivatives.csv",
+      "sha256": "96494a056d4c78d2caac318ad85445d5f2d810060aa50f1fae617af986f3f8ce"
+    },
+    {
+      "path": "evals/feasibility/BV1AGyrBaE5q.derivatives.csv",
+      "sha256": "faf5d2b6941004c9ee762dd1bed0a97fe24ea7f747adf06fce4f9567d920217d"
+    },
+    {
+      "path": "evals/feasibility/BV1Av2FBpEc1.derivatives.csv",
+      "sha256": "750574bd61f9a37d47ce49b9566107eea74f7eb8330fe9eae4fd9ade936181ab"
+    },
+    {
+      "path": "evals/feasibility/BV1BiKP6dEPr.derivatives.csv",
+      "sha256": "5b6d8e78af4f0ab2c7c8a407a1bac5308a56eb0d39b5091795686efed25228a9"
+    },
+    {
+      "path": "evals/feasibility/BV1BojA6UEB9.derivatives.csv",
+      "sha256": "b939d806d1dcd9ef47b8b691d54d25304800c252ee6dc493c6dcfdfbae8d213e"
+    },
+    {
+      "path": "evals/feasibility/BV1C1C9BYE6i.derivatives.csv",
+      "sha256": "ef121c74c995161678a176164889e7fe78a50503aea82680e308eb758e3b9df4"
+    },
+    {
+      "path": "evals/feasibility/BV1DSirBREDy.derivatives.csv",
+      "sha256": "dd7e4162e53c21fb7ba7b4f04f630f724d0f7cb6b76066d3f8e8cf97cae66af4"
+    },
+    {
+      "path": "evals/feasibility/BV1DsKG6KE6q.derivatives.csv",
+      "sha256": "ca18f026b97106601d09245cd751af7341cba61bcf7aef077e03202629cd483c"
+    },
+    {
+      "path": "evals/feasibility/BV1Eh596QEgQ.derivatives.csv",
+      "sha256": "11d028a4e939272bb1b6705b4b67a4679de2e6a8333eb8aaefd7c2bf37a1430d"
+    },
+    {
+      "path": "evals/feasibility/BV1FUBrBLESX.derivatives.csv",
+      "sha256": "f5dfb585d28332bb573d4d89c2da74b6dd3695fca34b710409d4859f4def543a"
+    },
+    {
+      "path": "evals/feasibility/BV1G6tm6bEBT.derivatives.csv",
+      "sha256": "a7b2e38cc02caf982654594aa8e97e76eeab222f228dfbc0589a7e7b53e8266f"
+    },
+    {
+      "path": "evals/feasibility/BV1GLzCBzE6S.derivatives.csv",
+      "sha256": "ad17769735ba734ce486dea3f4b5a6b793e788f584e695fa9a13cb6ca9b88b93"
+    },
+    {
+      "path": "evals/feasibility/BV1HLfuBgEwy.derivatives.csv",
+      "sha256": "674ddd77c18aba7045051b634cd78def00ec282a5cc6dd129cdb82dadc577f61"
+    },
+    {
+      "path": "evals/feasibility/BV1HwUNBTE6r.derivatives.csv",
+      "sha256": "059a1f6bcb27365255aa35108a6e5a3f59c5811c04d04d1d4443f7808a11a37e"
+    },
+    {
+      "path": "evals/feasibility/BV1J1UUBoEfo.derivatives.csv",
+      "sha256": "677ca21c3435256e51d10d999a7cd07b787990a8fa4983d2b63168c9a1f79ff0"
+    },
+    {
+      "path": "evals/feasibility/BV1J1r5BVE6i.derivatives.csv",
+      "sha256": "909fd3bc3f148b464f814f18b082856c8b2444b750209a497758108c100c09fd"
+    },
+    {
+      "path": "evals/feasibility/BV1J4mCB6Emw.derivatives.csv",
+      "sha256": "efe0d09c3d9021677e32de273ea2439769dd10f570ec2120077947e92d8943f2"
+    },
+    {
+      "path": "evals/feasibility/BV1JpLv6uEfj.derivatives.csv",
+      "sha256": "f5c395c40ae4de0318aad7399562462730a8e1bb8cb2863efb7e447afe03b27a"
+    },
+    {
+      "path": "evals/feasibility/BV1L6dhBQEdR.derivatives.csv",
+      "sha256": "95e8f586bb5319f895216db3a3e3f4f84349c0391cd6e776e630b1923a21ed28"
+    },
+    {
+      "path": "evals/feasibility/BV1LvjR6dEVk.derivatives.csv",
+      "sha256": "e6195fa369e1a0c6ce800603abe9d1ba255821b045c3d37a63fe3a70327acea1"
+    },
+    {
+      "path": "evals/feasibility/BV1MGN3zkEoX.derivatives.csv",
+      "sha256": "5370eeb26b6a3a59294228036c8f55f55f7c19732273e6801453ac075d936f79"
+    },
+    {
+      "path": "evals/feasibility/BV1NJsdz5E1q.derivatives.csv",
+      "sha256": "40b475077be23a337d598545db1fcd027a306c9b694a3e313bd644523ec995b9"
+    },
+    {
+      "path": "evals/feasibility/BV1NsZsBxEoR.derivatives.csv",
+      "sha256": "c1fd22ae0d060e2c42b09b032aa01365c6bece2499e6ba70895f7154f3e9e79b"
+    },
+    {
+      "path": "evals/feasibility/BV1P8Gw6yEjS.derivatives.csv",
+      "sha256": "35912f8d751c299a970da9e8dd319bd19fb5e05d90d3ec81c0105d4dc469fb69"
+    },
+    {
+      "path": "evals/feasibility/BV1PUmqBwEr3.derivatives.csv",
+      "sha256": "66e4b3f634965e4eb32979885d3e0705ad4327578569ba57eb8696aaf5425dd3"
+    },
+    {
+      "path": "evals/feasibility/BV1PkgE69EoL.derivatives.csv",
+      "sha256": "0b59663a85aabcc3b89bfb7a7754b5122abd82dc3f96e7fedd07c18858ab2d15"
+    },
+    {
+      "path": "evals/feasibility/BV1PxLX6cEH8.derivatives.csv",
+      "sha256": "26c122565c8b7f0b93a12d4555f070f5e1cbef5dab9ce046c2129a2599c337cb"
+    },
+    {
+      "path": "evals/feasibility/BV1QeEb67EYc.derivatives.csv",
+      "sha256": "d74649c345de7b8938e2d6269e4490469a5defdb98c943cddaae19b109143b22"
+    },
+    {
+      "path": "evals/feasibility/BV1Qs1rBjEjn.derivatives.csv",
+      "sha256": "d76dfb05d192cbf830595756e7abf28406863816aa1d4cb2dc2166a9106a9e86"
+    },
+    {
+      "path": "evals/feasibility/BV1R323BqEcv.derivatives.csv",
+      "sha256": "d9528dfa7d3ffa9cf8ec8b83768009e171640358ad119fcff3b30cb12ab9d726"
+    },
+    {
+      "path": "evals/feasibility/BV1RumbBdEo1.derivatives.csv",
+      "sha256": "ba6c7bc2c6b19bc7774361f3e55ecf9a9dacf276726dcbe8b074318d24fe31c7"
+    },
+    {
+      "path": "evals/feasibility/BV1ScKn69Enz.derivatives.csv",
+      "sha256": "810e6487ccdd550101224f271054e41772800e4c47add365573fe6b1dd99e2c3"
+    },
+    {
+      "path": "evals/feasibility/BV1Twk7BPEdP.derivatives.csv",
+      "sha256": "fc822691bec97f75ce32a28baa639c9adea4bea769683df7e5c2a65b372f654a"
+    },
+    {
+      "path": "evals/feasibility/BV1TxoXBvEc6.derivatives.csv",
+      "sha256": "186f776cd87b4dedcb624409a3d8370ea2247d0c0befc288b1dd3bce92ad56fa"
+    },
+    {
+      "path": "evals/feasibility/BV1UGCEBuEuj.derivatives.csv",
+      "sha256": "9859b735454e4130a08319b80c8d24e61b281aa9b8e4f8189a08da55314f5c29"
+    },
+    {
+      "path": "evals/feasibility/BV1Ut3F6VE5x.derivatives.csv",
+      "sha256": "fa92f24d61bbb8b6a6221ec4d1981605607322784bf9d2a89b4877fc6cc015c6"
+    },
+    {
+      "path": "evals/feasibility/BV1Wq9fB6EY6.derivatives.csv",
+      "sha256": "c9afc1cfca048ce43ccd02b2ca909046544999d03f61e4f4d73b6dc945760281"
+    },
+    {
+      "path": "evals/feasibility/BV1XA6RBgE21.derivatives.csv",
+      "sha256": "4be4828f9a5cf26497ad0a06c93464cfe39db4b7f33351211724e07ec736ae78"
+    },
+    {
+      "path": "evals/feasibility/BV1XabQ6VEWS.transcript.txt",
+      "sha256": "d92dfd4e3dceda2b08230743a256c76a681f4c9fe575a8a13542f4905cff964e"
+    },
+    {
+      "path": "evals/feasibility/BV1Xsuc67E8r.derivatives.csv",
+      "sha256": "693fbcac75f8c94a4c8c49b94c83b5615f91703254af3cedc899074af7cdb243"
+    },
+    {
+      "path": "evals/feasibility/BV1YWqZBkEJk.derivatives.csv",
+      "sha256": "b7976d47c9c197a12dacb72f218a5844cdb61fbe3285243c611dd7a09f90ce7a"
+    },
+    {
+      "path": "evals/feasibility/BV1YewXzoEjT.derivatives.csv",
+      "sha256": "eee83996454dde7b35febdbaadac20c629127f577853efd845652a0626e38e1b"
+    },
+    {
+      "path": "evals/feasibility/BV1YzxAzCEKE.derivatives.csv",
+      "sha256": "b2838ee24e1cc5c7c874c09b1cb9ce167900179736d0b2ce875184b50c93b535"
+    },
+    {
+      "path": "evals/feasibility/BV1ZPieB5EK7.derivatives.csv",
+      "sha256": "820b42f5a81352f2d2d5e7d17344ce13079a0d63f4cdae197e1829b661da11c1"
+    },
+    {
+      "path": "evals/feasibility/BV1a4AnzKEWy.derivatives.csv",
+      "sha256": "d5a67669ea2ea53a34928e9ed19c6283b787d3f9a00d413af0567802ea88be50"
+    },
+    {
+      "path": "evals/feasibility/BV1a9816ZER9.derivatives.csv",
+      "sha256": "e1f76c865d56765f07c4d3ef95c1f49348e5810da47a75fd845649e71e5d06b7"
+    },
+    {
+      "path": "evals/feasibility/BV1aaY96dERK.derivatives.csv",
+      "sha256": "6de4460ce10e682d53a4e3ffffb8c5452413673e8bcd5b2f8602e7045013b823"
+    },
+    {
+      "path": "evals/feasibility/BV1b7rkBKEuy.derivatives.csv",
+      "sha256": "54db37667fb9d510a385ddeff5e7a6073cf57aedc0e02b98bd4423301540fed5"
+    },
+    {
+      "path": "evals/feasibility/BV1bWqhBZEAs.derivatives.csv",
+      "sha256": "a66ba5ec238fb2ae5e2db0a6741b22e5c71bf3f06940e39040a1be8b754818ff"
+    },
+    {
+      "path": "evals/feasibility/BV1bdDCBaEhK.derivatives.csv",
+      "sha256": "50750a4c8d547ec4f41ececf5c9c652dda9463a24d9e21fafa7d3ebbe620dd35"
+    },
+    {
+      "path": "evals/feasibility/BV1cyMi6tEKw.derivatives.csv",
+      "sha256": "cbd5e3ef4c36beb97453f9dbd067ef6e55bfd7892753ee8d49fae81d78f61846"
+    },
+    {
+      "path": "evals/feasibility/BV1dZ6gBREHw.derivatives.csv",
+      "sha256": "573bb95702eaa1388fb5f1222b3448162755e8c3e2e2cfdb5adbaca4aad9c925"
+    },
+    {
+      "path": "evals/feasibility/BV1dogD6aEpG.derivatives.csv",
+      "sha256": "682b797a367e4b57f6912f637584d8482f4b1753bdbdb8bb9d6e2af9b64c2288"
+    },
+    {
+      "path": "evals/feasibility/BV1eMiRBAEwd.derivatives.csv",
+      "sha256": "934d30ba2ad59398135561bdf9274ada74e5f50c214feff8a270b389dc480c0a"
+    },
+    {
+      "path": "evals/feasibility/BV1es5169EHt.derivatives.csv",
+      "sha256": "d6d3f7a800ebfb1f5afad42d96de349c89cd9fe1bce847292c32450136c87e6f"
+    },
+    {
+      "path": "evals/feasibility/BV1exckzbE86.derivatives.csv",
+      "sha256": "c66cf0d44c0bd5706dba4e788ab9d00f62d393bad71511cd9f780b50d29db5be"
+    },
+    {
+      "path": "evals/feasibility/BV1fXzLBzEwD.derivatives.csv",
+      "sha256": "85b4fa5bb4480e264a3808348893cb36db3f6756436e9344d9e01eeb83b4aa03"
+    },
+    {
+      "path": "evals/feasibility/BV1g4be69Edh.derivatives.csv",
+      "sha256": "5ca9d76b30af02e312a10ea5a594096b2d2e1670eaef77c13dd37722a882fe6b"
+    },
+    {
+      "path": "evals/feasibility/BV1gA2vBwEkS.derivatives.csv",
+      "sha256": "5f0cb6902fc13bbb53acbeb652dd75c3c24b3f9b30cf06a53044e1f6a7781162"
+    },
+    {
+      "path": "evals/feasibility/BV1h8rDBFELA.derivatives.csv",
+      "sha256": "ca7fa70b594af403b424834b5634026d48aa0e3b0eb1763ad205522590e69c2f"
+    },
+    {
+      "path": "evals/feasibility/BV1i8sbzXEzG.derivatives.csv",
+      "sha256": "6f001656c35c40c93094a73fbac4d32fbee504ea16cf7074dc8abb4906a10018"
+    },
+    {
+      "path": "evals/feasibility/BV1iXVG6aEHq.derivatives.csv",
+      "sha256": "5df428fb071b4455202d7193dbb13076f2d2f305e87fb9c112c326bf6d5ff043"
+    },
+    {
+      "path": "evals/feasibility/BV1ii4C6QEk8.derivatives.csv",
+      "sha256": "62e636a577ed8223a78b632b7b708e3dbc975e31a4fa625445f99f5270917708"
+    },
+    {
+      "path": "evals/feasibility/BV1jBZCBbE2D.derivatives.csv",
+      "sha256": "f099cf70b715f43cc0e6bc7e7bc55a54d192ce8b7ac898a9c4ad60d20d3481e1"
+    },
+    {
+      "path": "evals/feasibility/BV1krR9BxE51.derivatives.csv",
+      "sha256": "b872756d59ab0342fff56f800758f0a2f40cf97f2f4351bf74e69e3bf93ac422"
+    },
+    {
+      "path": "evals/feasibility/BV1mgen69Ewc.derivatives.csv",
+      "sha256": "a75242c846c06099a67666685e068ee2f4faf592d6e5197ef6f861f762af0ba4"
+    },
+    {
+      "path": "evals/feasibility/BV1mtY164EUu.derivatives.csv",
+      "sha256": "0baf4ea549d2501603eb6a091a46915a0aecfe31b7076cb609a0f70fd4d1e45e"
+    },
+    {
+      "path": "evals/feasibility/BV1nN24BoEyq.derivatives.csv",
+      "sha256": "227fef7a96c25230ceaeb9db6102048fb21a9d980333fffd4b92bce203df765d"
+    },
+    {
+      "path": "evals/feasibility/BV1oUDLBaE8n.derivatives.csv",
+      "sha256": "60d66d73c3f94f12c7f739ed56e77046576e1aa66f4c8907b1a23a92964bb0d9"
+    },
+    {
+      "path": "evals/feasibility/BV1omyMBtEFS.derivatives.csv",
+      "sha256": "80f4767f289d016f8403e5bcbd6120e2126353fb92223980ca4c03ab0a683d0e"
+    },
+    {
+      "path": "evals/feasibility/BV1pKwxzwE2T.derivatives.csv",
+      "sha256": "a883d897dee8047e1e506252df96a55127741b3d9c04efab579953097fe42235"
+    },
+    {
+      "path": "evals/feasibility/BV1qksqz1EzT.derivatives.csv",
+      "sha256": "abc156a86af69558d30a0fcdcfca158bf583bd8e3d91312d35de6e2f8c78c0f8"
+    },
+    {
+      "path": "evals/feasibility/BV1rkydBTEyG.derivatives.csv",
+      "sha256": "d5e40d35956d58024c66bdcf1c7389083c0798ce8c226d958e8d74fe4b0076cc"
+    },
+    {
+      "path": "evals/feasibility/BV1tUsJzUER9.derivatives.csv",
+      "sha256": "562fb9ee8423b8d3b5eb9ceee4bd85b97132347bc2615808eae3115b033bd4b2"
+    },
+    {
+      "path": "evals/feasibility/BV1tgywB8EeA.derivatives.csv",
+      "sha256": "3b1eb626c0a3b437225ca2daaa50059f74a78ca9eb4a79c06ee3ff7dd306c444"
+    },
+    {
+      "path": "evals/feasibility/BV1twLH6LE4R.derivatives.csv",
+      "sha256": "414fa145a0a226ad7682528b967ab6dfe9e8f7dab5a7916f5d2d8b4140514ec6"
+    },
+    {
+      "path": "evals/feasibility/BV1ubh26ZEsb.derivatives.csv",
+      "sha256": "744dc63712ab61518e1f6b1e5d5f56f09c7cf7c349eb69f8e7744fbac3c6e583"
+    },
+    {
+      "path": "evals/feasibility/BV1vQ8i6uEYf.derivatives.csv",
+      "sha256": "4508e31fcad31ffff09f583416e3d52361767e6f024a694cc5cf47a1e8fc112e"
+    },
+    {
+      "path": "evals/feasibility/BV1vwG369EkM.derivatives.csv",
+      "sha256": "1ab90055b26f32f4f7bb3135d4d49ddc03ec6d479bfc602a4bbabbfdd9813e01"
+    },
+    {
+      "path": "evals/feasibility/BV1wAPszAEwM.derivatives.csv",
+      "sha256": "f95f18e2f448d76dc43dbc2fdd375c7bc0a9e8fb8949c475c33af061f8c67ae5"
+    },
+    {
+      "path": "evals/feasibility/BV1wFkCBhEz2.derivatives.csv",
+      "sha256": "750574bd61f9a37d47ce49b9566107eea74f7eb8330fe9eae4fd9ade936181ab"
+    },
+    {
+      "path": "evals/feasibility/BV1wSRxB7E2x.derivatives.csv",
+      "sha256": "6e03f35cc7657953a72e50fe7a9056e7ee7f6588394ab1b19d269f1ad4b87ba5"
+    },
+    {
+      "path": "evals/feasibility/BV1wSZYB3ExD.derivatives.csv",
+      "sha256": "8ee1120d352fcb58968cac053044ec71f5676dfa9ee771137c257635cc002bd3"
+    },
+    {
+      "path": "evals/feasibility/BV1wVXLB5Exm.derivatives.csv",
+      "sha256": "c1127d5ba733def5c9cca80210d7b1f7a95d8e3215e6e4fd5eefd24356b9b5f4"
+    },
+    {
+      "path": "evals/feasibility/BV1weKQ6YE3D.derivatives.csv",
+      "sha256": "625a688f9dc898640c9e9455034ee701a65c86902decaa47415979d3eb2a6e88"
+    },
+    {
+      "path": "evals/feasibility/BV1woUpBWEV9.derivatives.csv",
+      "sha256": "750574bd61f9a37d47ce49b9566107eea74f7eb8330fe9eae4fd9ade936181ab"
+    },
+    {
+      "path": "evals/feasibility/BV1xWtJ6iEGs.derivatives.csv",
+      "sha256": "eb5454c47af32b9a338e6d74856e1ea9e8b44cdb714ab5db94377e41ea78d816"
+    },
+    {
+      "path": "evals/feasibility/BV1xWtJ6iEGs.transcript.txt",
+      "sha256": "2f1d5dfbf49bef98da25a38245445872ba8df8697f11c1398ca09590ad6a0473"
+    },
+    {
+      "path": "evals/feasibility/BV1yBc4zNE8Z.derivatives.csv",
+      "sha256": "e01bc8726e8c72d148e1ae94afcc7f35e3318540f68f349f4d7ca0ae67f7d2f0"
+    },
+    {
+      "path": "evals/feasibility/BV1ysME67Em9.derivatives.csv",
+      "sha256": "3bb1a2afabe26bc214f1a3e8b579d0afdc9e5d4add57c8745107c4901399f0f5"
+    },
+    {
+      "path": "evals/feasibility/BV1zAC4B7ERC.derivatives.csv",
+      "sha256": "7d6be2953239429c2326095f450cbf59f19e04d4ffab0597c37bffa07d6a19e0"
+    },
+    {
+      "path": "evals/feasibility/BV1zzsUz7EEP.derivatives.csv",
+      "sha256": "21749a2055606e94c235fa56459971336507ce1655b0d781a3b87fd317585091"
+    },
+    {
+      "path": "evals/feasibility/build_materials.py",
+      "sha256": "811c482aa01759ab7457d0eaadb323a3b41d3cc81566913d5520f78709a70d50"
+    },
+    {
+      "path": "evals/feasibility/materials/BV11UTL6gECb.materials.json",
+      "sha256": "a8efa943eae378b538842bbcc37cfb4d5843e021ed25ec31f5ea8d65a4603e97"
+    },
+    {
+      "path": "evals/feasibility/materials/BV12fqwB3EF1.materials.json",
+      "sha256": "bae2a730372a5786c9d0cf5c74ae9f48a0d5044693082f8b94edca5b8939f1ca"
+    },
+    {
+      "path": "evals/feasibility/materials/BV13ptA6AEAW.materials.json",
+      "sha256": "5c06a4a06a06d0288c234637b586f32ac3b6c47abbf89e13cb2b81ebca922124"
+    },
+    {
+      "path": "evals/feasibility/materials/BV14FqUBME5b.materials.json",
+      "sha256": "d38acbb2ffb5b73fc63121609b323991f473d743b18aba5e555d5103832ef3bd"
+    },
+    {
+      "path": "evals/feasibility/materials/BV14k7p69Eds.materials.json",
+      "sha256": "9b505ee630a31e0a7504b28b02615c70e735a3c22e7ef0d0c5f0f3cacfe33667"
+    },
+    {
+      "path": "evals/feasibility/materials/BV14oEq6eEvS.materials.json",
+      "sha256": "12016b07c96673b2428fb386ccb60021d15b8b723e9f995497794a2f23897d43"
+    },
+    {
+      "path": "evals/feasibility/materials/BV157XrBqELk.materials.json",
+      "sha256": "aa59dd90b2335ea4e190a4f6d0fa53976c934261e4664e3052f814cd87cc5885"
+    },
+    {
+      "path": "evals/feasibility/materials/BV15KJw61EuV.materials.json",
+      "sha256": "dcbd1e55c3c8bfbb8f8d61fd881f04d0ebd387f1eef8a591e78699b0249ae886"
+    },
+    {
+      "path": "evals/feasibility/materials/BV15uFzzSEzr.materials.json",
+      "sha256": "6853743535473935d45ac8cce49dcbfb58177f1475fb5f8c326d7d9de20bf85a"
+    },
+    {
+      "path": "evals/feasibility/materials/BV15y61BHEkw.materials.json",
+      "sha256": "0faf1e40553f0b27a9b647c73f41594ddbe14f49856c96c2af193df3f167bc6a"
+    },
+    {
+      "path": "evals/feasibility/materials/BV16Sbo6TEBX.materials.json",
+      "sha256": "1a1473393efda427c997f21e9ed7dc8d058e2b1f255b70d0885bbbfee182a2e1"
+    },
+    {
+      "path": "evals/feasibility/materials/BV176BYBUEcG.materials.json",
+      "sha256": "328c0e50af46489fb4a65cccb4089d9553ddd58137c012309b8313c81b776592"
+    },
+    {
+      "path": "evals/feasibility/materials/BV17LTF6mErp.materials.json",
+      "sha256": "40813fb1cfeca4a09810829007a2e212d0a276a2eb459ebdcebe2323d736e60c"
+    },
+    {
+      "path": "evals/feasibility/materials/BV17awezjEr4.materials.json",
+      "sha256": "9d7ce6bbf76af4c5f13b2fa9881e565d9d8410ce193531bce2059baffe747531"
+    },
+    {
+      "path": "evals/feasibility/materials/BV17dftBRE9C.materials.json",
+      "sha256": "1d58f618edf97c8a9219511fa1d957de15061b3a0b8485eba33d61f461cd03e0"
+    },
+    {
+      "path": "evals/feasibility/materials/BV17kcFzmEqQ.materials.json",
+      "sha256": "fdb7b4b4d78ffbc8d796ba4779e4054fe46e6850c0e91847bf06c14055627dd0"
+    },
+    {
+      "path": "evals/feasibility/materials/BV17mAUzxEFu.materials.json",
+      "sha256": "8699f0954ba8cf5009345fd0c3fe241f2fff1f7b06c8633a8eb94d55ee9b46ed"
+    },
+    {
+      "path": "evals/feasibility/materials/BV17udjB2EqL.materials.json",
+      "sha256": "d2f5852b48d4bdbad631e02285ba0d67535a9e1575f365c3d4a7b332ab6e205a"
+    },
+    {
+      "path": "evals/feasibility/materials/BV18AVp62ETL.materials.json",
+      "sha256": "1c76b4df1dd9bc62efa297d32c9d41ea8304425373d00d2f49efa6c1fbfdc955"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1AGyrBaE5q.materials.json",
+      "sha256": "62d55ebd01a4d35f3c09b425418191f3f35a98cea1dc9248ff82335d0a5ff923"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1Av2FBpEc1.materials.json",
+      "sha256": "9b3b76361291961712694d4e67553ff794e92f02f7485332b27369569a8a9fa9"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1BiKP6dEPr.materials.json",
+      "sha256": "a5dd208a8cb435cc785273bad1a3a4ea3a5f28d25488f76882d69cd215f113ed"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1BojA6UEB9.materials.json",
+      "sha256": "63a91587728938dc14b57724f77bbed9bbec39364dc4587e6a534a6811f57399"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1C1C9BYE6i.materials.json",
+      "sha256": "0f6ea7498a604915fa8ad4b3a6fe789bfb05e12d6d6bbc480737683911b54998"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1DSirBREDy.materials.json",
+      "sha256": "f4c7688f48ffb791db5d11ad3928dab2a3f017d9bd981da2f529ae4883886b57"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1DsKG6KE6q.materials.json",
+      "sha256": "1364800e9dd90386dae99e9033caa1cc8968dde1d3202b986eaa1ad9fe00fe2c"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1Eh596QEgQ.materials.json",
+      "sha256": "aae786d45811834cc313ea567007e4d9820cce5bc3178e66af72906f439d51d6"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1FUBrBLESX.materials.json",
+      "sha256": "00afae345b0bdc6d40d152564016156035f780d3d9bdaf15de1d59f19447ffbf"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1G6tm6bEBT.materials.json",
+      "sha256": "680503da62795baafa31a7c51c4fb577ed1a7bb4907aba06d983aaf4b3edf0b4"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1GLzCBzE6S.materials.json",
+      "sha256": "e6e9eddc1954912eb5838280a5ee597735d799af7e1ad08d967eec6b4fe15ead"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1HLfuBgEwy.materials.json",
+      "sha256": "f6dfb102fc1b34005fcfc8908d218344527208092f893e14fc02f82be85f6a71"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1HwUNBTE6r.materials.json",
+      "sha256": "f542cc9ab8e10c035d3ef88cad139519d9d0ce44eff774f6b25a1990a098b02b"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1J1UUBoEfo.materials.json",
+      "sha256": "9fa234573e7aee5d7c9827445acf514bf52d8662eb50e691ea5b86d5e9079cc3"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1J1r5BVE6i.materials.json",
+      "sha256": "e63f4ca71e3a3fe858e34b512658b0b265e8705fb690b86e12709635c494e149"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1J4mCB6Emw.materials.json",
+      "sha256": "fb03f0a69ebe5bf0bde2ec162191068aa0cf28c0e519bbb257227a030ef35a0f"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1JpLv6uEfj.materials.json",
+      "sha256": "b30910cee14c31e52b8db2a7b668b731c436b55976fa0d7020ad74034db94e21"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1L6dhBQEdR.materials.json",
+      "sha256": "4edf2184783207a8c020131071335d15aac25a9ed600f4b85eae7f49dc88e5e8"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1LvjR6dEVk.materials.json",
+      "sha256": "2637cbd6e4379ee65539377b18bd46d426b19679d0ff3b14b8a934ee51a6ab14"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1MGN3zkEoX.materials.json",
+      "sha256": "632a095057f194683484faabf8467bc9d928c54043e6a1abb29fd89f21271fbc"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1NJsdz5E1q.materials.json",
+      "sha256": "f69018225f503d725d1ee7f8e60ed0e6d9c7b070f6858b4d3b68a3016a8826ad"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1NsZsBxEoR.materials.json",
+      "sha256": "823d90168139d30e098ba36e7c63d9a169cabf4b59516e4aa0b1be260065bbe6"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1P8Gw6yEjS.materials.json",
+      "sha256": "5dba8e568074811ef65e96808abb120bbdb1f4add86f6f5fa8f552d04065722b"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1PUmqBwEr3.materials.json",
+      "sha256": "9014236c36b240078f1316d0b0e50a5cc72d841cced5769a84cc769332b89d35"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1PkgE69EoL.materials.json",
+      "sha256": "102ea7f57b6cdca67e0d6b12b1e555120d488608873b65d3be420118ecb25727"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1PxLX6cEH8.materials.json",
+      "sha256": "b43ae1371801d4123dbdedcff5e073bf7f1efeb859fae9f9cf887c58b5daae01"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1QeEb67EYc.materials.json",
+      "sha256": "86f1b90aa2496e0304f754361a12ab61bde426dec1594e0ff914bcf5e4d37e8a"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1Qs1rBjEjn.materials.json",
+      "sha256": "0e0acd9089c4520885b662fb25066844add0912d7df6d7e576eae9619f32e3b1"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1R323BqEcv.materials.json",
+      "sha256": "1571d935bbc1e9cd2433cac09d9588c644faffdc97f1165c67bf904aa13e2fdd"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1RumbBdEo1.materials.json",
+      "sha256": "cb65671733220b3d3ca5f4626d5a7f2f46cf3a76faaaad01bdaf36cc73626528"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1ScKn69Enz.materials.json",
+      "sha256": "af5b546398b807c20c9d9ada2d51f18102b3149ddb2bcb8caae0e704612f7ad2"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1Twk7BPEdP.materials.json",
+      "sha256": "e58080d39cf39f6d293c959cee5fde39a81bc53e0f2ab45827d72dc0b189dcc8"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1TxoXBvEc6.materials.json",
+      "sha256": "c8b60faa1a04b64ffa8b417cbad829ce6fdcbc4e8fe8d94985de48185fa77a7f"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1UGCEBuEuj.materials.json",
+      "sha256": "25434a1dff55c4ff94a2afbd70e46f5477e561f379f45854dc7ff3f01b5b6aee"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1Ut3F6VE5x.materials.json",
+      "sha256": "3cc76413d6639a75815851fface754b81cdac02f572a2a3572ff1fe9dd5928c6"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1Wq9fB6EY6.materials.json",
+      "sha256": "516e21da9dd9216d1f88ad0ea8016c5e281f254e3cbac2b23e95f6f55dea9270"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1XA6RBgE21.materials.json",
+      "sha256": "eb5ecbb6f81d1c43ccc46fca982f89284e6fc53f3a76a06648aa54a721760f02"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1Xsuc67E8r.materials.json",
+      "sha256": "b039d3a5e38d7dce47181ecc1a7fd879c9d5d355fd86b9699521fe68d2703418"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1YWqZBkEJk.materials.json",
+      "sha256": "3380dba330c0744429a62992ba72a3900cb85a8ccfa0db021f266a52818a2590"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1YewXzoEjT.materials.json",
+      "sha256": "1f10ec0a625b8b1f544c228eb21ef6b5be3912836b677be14dc50a66ca26b6f3"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1YzxAzCEKE.materials.json",
+      "sha256": "c39060ebf3d461634e678fa93e3ea83eab30496ea8b21ed7b177ce4eae502d57"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1ZPieB5EK7.materials.json",
+      "sha256": "a0d847ee90153edf94a77e14c1b8b1815b33d1966bcb0fb72020fa87c145227f"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1a4AnzKEWy.materials.json",
+      "sha256": "ea30536331a955feda52151039172fe4897c665543ef07eac15f14d8427e82a0"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1a9816ZER9.materials.json",
+      "sha256": "dbf003df475b8dd8686fc13ef5d1f489cbe51b602fc9c8059877c224ea94dab1"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1aaY96dERK.materials.json",
+      "sha256": "108d7adc72fab6032236e58768d0ff73c1546bc7d03d661c0843975243768c90"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1b7rkBKEuy.materials.json",
+      "sha256": "ab5ed1755d8b90d0d632b35b969cb583ca1ec9bd81133a847091da311a977a77"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1bWqhBZEAs.materials.json",
+      "sha256": "d7f9111627734fa901a8653aaeb5c95ae3a9cdad233ad1a43d93693820d21d17"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1bdDCBaEhK.materials.json",
+      "sha256": "9b4ddbdf136a83d52689504d0faff2c8a1db9bfa71e936946eb665aba5ac5e06"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1cyMi6tEKw.materials.json",
+      "sha256": "287017329c12d9413c1718691014a4f0eaa349d67b16f82a9656a4015d4ac7b3"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1dZ6gBREHw.materials.json",
+      "sha256": "be7d07b281b564d928640b78273e4f36c4e62dfab1769501b28c3dabfb946d0c"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1dogD6aEpG.materials.json",
+      "sha256": "6427ac1193f11b03c887581c3398055db226c920d302cafe9fd426c19aef2277"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1eMiRBAEwd.materials.json",
+      "sha256": "010a54aa908dbd8808ebdbc5804ce43cd7bdb621647ddb46cafc00836d2ffcf4"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1es5169EHt.materials.json",
+      "sha256": "8dfee4740a682895be2302bcc8227280e65a4c577709e5fcdc2b2e825875c43b"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1exckzbE86.materials.json",
+      "sha256": "f8d4029498f2ec60bd1bd0603c4afc41a055f48a5d5ea53ab86f8548443507be"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1fXzLBzEwD.materials.json",
+      "sha256": "d2fbb2b70f4242337bac450ff54a8e1d2e5cb773f8f832d7a00121e19dac4aca"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1g4be69Edh.materials.json",
+      "sha256": "d97267e82c75ecffebbae87bb1a6f1a1c05bb514a4e01bc8a3e9b928962c0c2a"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1gA2vBwEkS.materials.json",
+      "sha256": "55c8b995bca7487b85bb815ee7d95be98cd12d3a5364baa9169f817adef961f5"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1h8rDBFELA.materials.json",
+      "sha256": "de63d0f013dc226e94feeaa4bdd51025acb2e644fa00d8c36b513cc5eb6c8c81"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1i8sbzXEzG.materials.json",
+      "sha256": "85ccf85557634ab17be2adb022c705b7ebda53b7fa10b6c5f770c349f63994a9"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1iXVG6aEHq.materials.json",
+      "sha256": "34f7e0a372cfeabd9b67a7334b7adf3ce91cc534790dcb111441703a968e8bd4"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1ii4C6QEk8.materials.json",
+      "sha256": "46b78d959a88a661f3935a77fa732be11b3b8fb31e379ed28ccd8b92e6e1e039"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1jBZCBbE2D.materials.json",
+      "sha256": "4903206eb37c7a2750ba9b881fc32f0be20cc2ccc317270b4b7f3a9e42709073"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1krR9BxE51.materials.json",
+      "sha256": "4830037165ce5b0071ac74e596a8f6703e9476ab2e1dbde1926d66fd53124501"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1mgen69Ewc.materials.json",
+      "sha256": "958f19d54a9359ca7abb3f4c137fafa31f3aa19eee26a55e31736a1bf238c9de"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1mtY164EUu.materials.json",
+      "sha256": "a043e860c3cbae99591b525172e222f1c287b22adefa38caf8e3e5f1a7225171"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1nN24BoEyq.materials.json",
+      "sha256": "0dbf92458e7e7d611d4897ab59d8db840605ac77f8c9603a093df40629850756"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1oUDLBaE8n.materials.json",
+      "sha256": "78f0698dba5b3c3a5063253ad17266663d5083ded555396ade961df4845c16cf"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1omyMBtEFS.materials.json",
+      "sha256": "b93c4012a2c5462ad07c312c82f50996ab3e010111389c7094473093100eb70f"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1pKwxzwE2T.materials.json",
+      "sha256": "4dd629db5e8a1abda88a67f8ad7e177a470d9bceb9189f8f683e764dd65fd996"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1qksqz1EzT.materials.json",
+      "sha256": "69d0b834d492b2876bcbc47181640de60fce704c0710ee52f255de50e94443c0"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1rkydBTEyG.materials.json",
+      "sha256": "7a70c2ae9edad87dc8f5b31c84e2565c0db3a5dfc433f22430ef7811f5539a46"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1tUsJzUER9.materials.json",
+      "sha256": "94c43a08fc8792add7dcdee2e91670f92da11baf51adb8f061b0a01d70efd123"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1tgywB8EeA.materials.json",
+      "sha256": "89548099ce11ab44393c04dcfd3b72f9f22b00aeaec2c43fed6a93e3bda001f5"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1twLH6LE4R.materials.json",
+      "sha256": "a5523358930e41e0081ce7e3db9981d474ecbbb6fc5f260fd5f17a22e747d456"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1ubh26ZEsb.materials.json",
+      "sha256": "857f25341851f6bb7c6ecca475331cc473ec339b491ecaa4fff5d3f3f760bcdc"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1vQ8i6uEYf.materials.json",
+      "sha256": "ac011c0e75d77408d6ec2fa39534f46e48bbd196e1cb6821caac809611d93c3a"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1vwG369EkM.materials.json",
+      "sha256": "64c2d4dbbe6d083fdc66a37e66ad5976ba93cffd24e8cf8f6b05674356d1ff9f"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1wAPszAEwM.materials.json",
+      "sha256": "cee61de75811c9a9dd10ea748f567858468a066e9a89075504c2448a69bc4a60"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1wFkCBhEz2.materials.json",
+      "sha256": "e24977c496565b3039f775ff751d6a534eaeb230fea8a394607fea7a3b261dd1"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1wSRxB7E2x.materials.json",
+      "sha256": "ca309808ee465be887285a5619661c7d4e2fefebb8732bcb987406ea8b1f7d64"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1wSZYB3ExD.materials.json",
+      "sha256": "84b9e8435232c5575dd0bcdd95a5a95eda57ea317afed9138c01bc683142e419"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1wVXLB5Exm.materials.json",
+      "sha256": "7f2da2cf596accde5b1c927ad8fa56ab1a72785837647f2ca3d9d7c7de658781"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1weKQ6YE3D.materials.json",
+      "sha256": "1f3175b37ce032ccf7e800c87c1490602bc394a0226631e23c0f86abd4767d94"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1woUpBWEV9.materials.json",
+      "sha256": "594c3f4d2a00bdfe6f56ccb719560d6247946c0f7fec4481edf9ebce06809b28"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1xWtJ6iEGs.materials.json",
+      "sha256": "2ba215a3eb11d008fc71ad8af9a82aed87bd81aab0453dede378e7289f9e8ba1"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1yBc4zNE8Z.materials.json",
+      "sha256": "e3189511e5c3688c8a081087007a5ca9555f8588b48709deec7a57a95d2d608c"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1ysME67Em9.materials.json",
+      "sha256": "15679e1bd08658e0a92e5b489b211568a9acafe37b19e2b61b500a2efc15898a"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1zAC4B7ERC.materials.json",
+      "sha256": "6d8326f0e2cf4fa4dbb2e75eb363db681a1a261a148493456570c23126943b8f"
+    },
+    {
+      "path": "evals/feasibility/materials/BV1zzsUz7EEP.materials.json",
+      "sha256": "3938ce6bfc66ed65c810c3e7c4a31c59b4dbd9ef065bc4e6a0bb4a19eb044d23"
+    },
+    {
+      "path": "evals/feasibility/origin_cues.py",
+      "sha256": "3ab11956c4674be7a50d615a896a06599060099af87f6b3f9624e1e0c846e7ce"
+    },
+    {
+      "path": "evals/feasibility/prep.py",
+      "sha256": "f702681b36291da034ad4d68676051779126906a23cc7c4296c5b33b26258452"
+    },
+    {
+      "path": "evals/load_curation.py",
+      "sha256": "a8bf5773379a77723fb582cdb643cac71033187c921eaef987915c77fce6d0e3"
+    },
+    {
+      "path": "evals/reviews/meme-0bb1a693b6858894.json",
+      "sha256": "30516e954c80517d0b4e88faa35c558d2d277d6a0d44d67466c69fc4fe27e1c3"
+    },
+    {
+      "path": "evals/reviews/meme-19edcf2c7f5f42ea.json",
+      "sha256": "716320ef778c109f456883560f7f311d164eb2d94640ce75b05bfdb15a6c2510"
+    },
+    {
+      "path": "evals/reviews/meme-2960cdfcb6e42492.json",
+      "sha256": "ffb6a1699aa36681aec00cdb3387bc7df3ca014344c10ae9913304e3027f52cc"
+    },
+    {
+      "path": "evals/reviews/meme-330c9a71e5ca4f70.json",
+      "sha256": "d2b822e1596f73eae4931b20d3e4e687edccc230ad7896413a64a8eaca7e8d1c"
+    },
+    {
+      "path": "evals/reviews/meme-33b12eb5c15b91ec.json",
+      "sha256": "be6330d60bcf1ddb08fae9784ebc64e2354ee1262bf12300645c027c0caf2d63"
+    },
+    {
+      "path": "evals/reviews/meme-3832130ae5aaf0bf.json",
+      "sha256": "c163c55a556566381cacf665130d26b680656059c0e1267b7303b69e5a883534"
+    },
+    {
+      "path": "evals/reviews/meme-3b926888f5e223f5.json",
+      "sha256": "dbfbedd46c47eac514f1eb3798327da7532ece73df30e0182a61e6c06ff07d7f"
+    },
+    {
+      "path": "evals/reviews/meme-45c3b6c3e44c915b.json",
+      "sha256": "2e707990cb2a10d394b65f7861f412b8f85d125b9227cbf1c1f64c71bce592bc"
+    },
+    {
+      "path": "evals/reviews/meme-46499d18efb1feda.json",
+      "sha256": "8864ce966e06fd8e88a2339cd4df25662154345cdeeaa7015bb3010dd54a232a"
+    },
+    {
+      "path": "evals/reviews/meme-4ca1f4e2f80f7232.json",
+      "sha256": "15eee27417979a667ad26fb2822fc641247e215df77f87cda3492f1d45556f5e"
+    },
+    {
+      "path": "evals/reviews/meme-662ffe2bfed041bb.json",
+      "sha256": "024c47074ca91feb6be56f8e706d5632d670a719c80140e542890831714456f9"
+    },
+    {
+      "path": "evals/reviews/meme-6cc53ba86b5a2287.json",
+      "sha256": "4bdc42d3a3a69e88bc86b87f63158345d24601e22e5eeaa6ff3e98533bbf90d3"
+    },
+    {
+      "path": "evals/reviews/meme-82afdae2056d71c0.json",
+      "sha256": "0f6d22c9a28f54f4e2bc55e96900e78385afd8b3966746b6b3aafc84f30561a5"
+    },
+    {
+      "path": "evals/reviews/meme-84602ab78974d8b7.json",
+      "sha256": "6e9a51d6fda29c2d0f89c96231cc32e264d1213cd2c46defdfffdfa8ce67e410"
+    },
+    {
+      "path": "evals/reviews/meme-8a60a9957dd1a964.json",
+      "sha256": "e0ea9b6a092e76d1789725275489c81db903de27325d1ecee894c12c4716a2b9"
+    },
+    {
+      "path": "evals/reviews/meme-9015826bd66c572e.json",
+      "sha256": "6326b4cb9bee51cee238a4eb2b8dc9fd2d249106898b5d2e2496545723471b0c"
+    },
+    {
+      "path": "evals/reviews/meme-a8dcd9ddc358dc67.json",
+      "sha256": "c5afa46735ac863181705cabc9b06b0019b4ba6f0b1f218fe616f4eda3985508"
+    },
+    {
+      "path": "evals/reviews/meme-b33fe88c66f0d676.json",
+      "sha256": "dae3219b24ca4268d71a1397fbb79bde494120e04bd6ac0f0437eec9ecb4a19a"
+    },
+    {
+      "path": "evals/reviews/meme-b977858bcb3406a6.json",
+      "sha256": "9306c0d1e530a09ae60d647b33c892932c32d68352043e3a6a19d1ef5cb9979e"
+    },
+    {
+      "path": "evals/reviews/meme-ce004bf760dd69ee.json",
+      "sha256": "20c12e4b7bb327497e0760ace50fe94df090b07e32688ef02bdd5c0d67b1904a"
+    },
+    {
+      "path": "evals/reviews/meme-e0a743010f0af288.json",
+      "sha256": "4dec15bbc22c27f49e4ccaf4cff5c21de1ae8e10190a224310b6f781fca233ad"
+    },
+    {
+      "path": "evals/reviews/meme-eeb55a5c2e7b6e98.json",
+      "sha256": "e6b50ee306cdf465c16db96dd138e4e2c9382bbc6772ad863ee194883c827b36"
+    },
+    {
+      "path": "evals/reviews/meme-f48df681485221d4.json",
+      "sha256": "62bcaf37251dc127eb088b557ac1fd9636fb4ffcf6366fdf407d86f09332bb79"
+    },
+    {
+      "path": "evals/score_buckets.py",
+      "sha256": "9818d25cbe11c3e5260bb41b7208dd2496ae9943fb9093720c905648aac738b7"
+    },
+    {
+      "path": "evals/test_expansion_tools.py",
+      "sha256": "ca4251b47f0eb214900438db2be0a8c93c9b6c5c7a7288e92b0e47ebd0eeccfc"
+    },
+    {
+      "path": "evals/test_same_model_review.py",
+      "sha256": "4b831de6fe62fc8493eb6fac31eff2a149826ce5cbdd63eaf05179d359ca5600"
+    },
+    {
+      "path": "evals/validate_curation.py",
+      "sha256": "881a5e407ba6664b16113b673edf206f55aed18be24cae1976bf1a3d54f5078c"
+    },
+    {
+      "path": "evals/vault_loop.py",
+      "sha256": "ad7ade033a43b6a489f851827423f9c82504304d5851e61b5251000bd911b7fd"
+    }
+  ]
+}

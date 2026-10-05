@@ -1,0 +1,99 @@
+slug: meme-65
+resolved: false
+canonical_name: 机器孙子团
+aliases: []
+definition: 指 2026 年春晚「蔡明」和「王天放」演的小品《奶奶的最爱》里那几位赛博亲人机器人，其中小孙子还会哭。
+usage_context: ''
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1BcZVBGEMd
+  role: reference
+  note: 春晚机器人（哈机米限定款）（BV1jBZCBbE2D 画面中引用）
+evidence_map:
+  ocr-narration-BV1jBZCBbE2D: null
+  ocr-BV1BcZVBGEMd: null
+claims:
+- key: definition
+  statement: 指 2026 年春晚「蔡明」和「王天放」演的小品《奶奶的最爱》里那几位赛博亲人机器人，其中小孙子还会哭。
+  evidence:
+  - ocr-narration-BV1jBZCBbE2D
+  stance: supports
+events: []
+relations: []
+gold:
+  canonical:
+  - 机器孙子团
+  alias: []
+  origin_intent:
+  - 机器孙子团的出处
+  description:
+  - 春晚小品当奶奶的孩子
+  must_not_return: []
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis:
+  - 001.0s 机器孙子团
+  - 003.0s 就是来自2026年春晚了
+  - 012.0s 一下子整了好多机器人节目
+  - 014.0s 这其中最有梗的当属蔡明
+  - 016.0s 和王天放表演的《奶奶的最爱》
+  - 020.0s 那几个赛博亲人跑出来
+  - 022.0s 各种整活还挺难绷得住的
+  - 024.0s 其中小孙子还会哭
+  - 034.0s 这个和香蕉猫是同款音效啊
+  - 039.0s 之后蔡明推出假蔡明那一幕
+  - 044.0s 总之这是个让人眼前一亮的节目
+  - 050.0s 因此一夜之间
+  - 051.0s P图便各种冒了出来
+  - 079.0s 现在又来了赛博孙子
+  draft_notes: '段落边界（D-14）：BV1jBZCBbE2D 一集里讲了不止一个梗。001-081s 是本条「机器孙子团」（2026 春晚蔡明、王天放的小品《奶奶的最爱》）；082s
+    解说自己说「除了这个梗呢还有魔丸变灵珠」，083-086s 转入第二个梗（邓超那一段），087s 起是其他吐槽内容与画面。定义取 001/003/012/014/016/020/024/079s；052-189s
+    大多是 P 图与吐槽画面（083s BV1Kx4y1M75h、117s BV1BcZVBGEMd）。记录名只对应第一个梗，所以没有合并成一条定义，也没有为第二个梗写任何字段。
+
+    usage_context 留空（D-10）：050-052s（因此一夜之间 P图便各种冒了出来）与 022s「各种整活还挺难绷得住的」都是传播与整活评价，本集没有一句说人们在什么场合拿它来做什么。
+
+    OCR 可疑未改：002s「完这个梗呢堂」残缺；006s「去年25年2025」把两年叠在一起；088/089s 的「春节联欢晚会」被重复粘在句尾。均未改，也没有把
+    25/2025 写成日期断言，定义里的 2026 来自 003s。
+
+    未写（D-4）：034s「这个和香蕉猫是同款音效啊」、039/041s 的假蔡明一幕、042s「这道具整挺多呀」、076-081s「以前自己演机器人／现在又来了赛博孙子」等评论未写进定义。
+
+    可疑关系（只报告，未改）：events 第一条是 2023-01-21 的 BV1Kx4y1M75h（笑死！今年春晚邓超也没能控制自己哈哈哈！，画面 083s），它讲的是第二个梗（邓超）而不是机器孙子团，却挂在本条名下；第二条
+    BV1BcZVBGEMd（画面 117s）与机器孙子团相关。我没有改动 sources/events，请 GPT 复核第一条衍生关系。
+
+    未发现只存在于画面、且定义必须依赖的含义，故未加 automation_hold。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 2026 sketch identity supported by narration003/014/016/020/024s. One contextual
+    robot reference, zero asserted dated remixes.
+  gpt_repair_notes: Full episode boundary082/083s identifies unrelated 邓超 meme;2023
+    clip removed from this2026 robot record.117s exact author/date matches robot-themed
+    AI edit but does not establish adaptation of 奶奶的最爱孙子 scene from text; retained
+    contextual reference only, no dated remix. Usage remains empty; human query untouched.
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: Full BV1jBZCBbE2D narration001-089s/screens000-138s and83/117s citation
+        frames read;001-081s robot relatives,082s explicit second-meme boundary excludes
+        邓超.
+      meaning: 003s supports2026,014/016s performers and 奶奶的最爱,020/024s robot relatives
+        and crying grandson. Garbled prior-year006s omitted, no evaluation made fact.
+      usage: Empty usage retained:022/050-052s are commentary and image spread, not
+        explicit situational meaning.
+      origins: Unknown origin fields/empty relations retained; narrated source sketch
+        does not establish first meme uploader/date.
+      events: 83s resolves20230121 邓超 unrelated segment, excluded source/event/evidence
+        key.117s title/author 不爱吃凉栗子/date20260216 match general robot AI edit; specific
+        grandson adaptation uncertain, reference only with zero events.
+      queries: Original human 春晚小品当奶奶的孩子 preserved exactly, matches016/020s sketch/relatives;
+        no model query or human confirmation added.
+    fingerprint: b710aafe2204a12c7f6619eb8d7764313a4614015c296f07df94bd4a0215b0d1

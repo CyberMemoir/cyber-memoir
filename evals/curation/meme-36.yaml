@@ -1,0 +1,89 @@
+slug: meme-36
+resolved: false
+canonical_name: 大脚忍者
+aliases: []
+definition: 指一张摆着抽象姿势的忍者AI图，源自外网的「|wantto be ninja」MEME
+usage_context: 人们为了吐槽这个MEME，就制作了这个抽象的AI图
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1dNdZB8EFi
+  role: derivative
+  note: 我错了不搞这种了（BV1mgen69Ewc 画面中引用）
+evidence_map:
+  ocr-narration-BV1mgen69Ewc: null
+  ocr-BV1dNdZB8EFi: null
+claims:
+- key: definition
+  statement: 指一张摆着抽象姿势的忍者AI图，源自外网的「|wantto be ninja」MEME
+  evidence:
+  - ocr-narration-BV1mgen69Ewc
+  stance: supports
+- key: usage_context
+  statement: 人们为了吐槽这个MEME，就制作了这个抽象的AI图
+  evidence:
+  - ocr-narration-BV1mgen69Ewc
+  stance: supports
+events:
+- event_type: remix
+  description: 大脚忍者 出现衍生作品《我错了不搞这种了》
+  occurred_at_start: 2026-04-19 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1mgen69Ewc 画面引用发现
+  evidence:
+  - ocr-BV1dNdZB8EFi
+relations: []
+gold:
+  canonical:
+  - 大脚忍者
+  alias: []
+  origin_intent:
+  - 大脚忍者的出处
+  description:
+  - 根本没有这种抽象的生物！
+  must_not_return: []
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  draft_basis: 003.0s 摆着抽象姿势的忍者AI图；007.0s 这梗呢其实是源自外网的；009.0s 一个叫“|wantto be ninja”的MEME；012.0s
+    主要就是引用抽象歌曲；015.0s 配合一些看起来很有气势的招式；018.0s 做出来的恶搞视频；034.0s 而人们为了吐槽这个MEME呢；036.0s
+    就制作了这个抽象的AI图。定义合成 003s+009s+012s+015s，usage_context 逐字取 034s+036s。
+  draft_notes: 片段边界：本梗解释占 002-036s；038s 之后讲的是这个图传进国内后与另一个梗合流、网友的二创（070s「从而制作了一个个抽象二创」），属于传播，未写入。疑似
+    OCR 误读：解说行 009s 把外网梗名写成「|wantto be ninja」，014s 又出现「I Want To Be Neenja」，两处拼写不一致且首字母疑似被
+    OCR 认成竖线，本记录照抄 009s 的「|wantto be ninja」，「wantto」之间没有空格、开头多一个竖线，都按 OCR 原样保留，不改写；「MEME」按解说行的大写照抄。略去未写：019s
+    说歌曲是演员「Jennifer Murphy Go Girl」为她的抽象剧场所作，是来源细节不是定义；048-054s 的网友吐槽「根本没有这种生物」「你只是怕了」和
+    056-058s 配合 BGM 打出人气，都是传播与二创。usage_context 非空：034-036s 一句说清了做这张图是为了吐槽那个 MEME。
+  confirmed_by: ''
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 衍生关系来自 BV1mgen69Ewc 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+  - 传播区间 2026-04-19 .. 2026-04-19（1 条）
+  gpt_repair_notes: Removed song-and-move description of the upstream meme from the
+    AI-image definition; narration 003s versus 011-018s distinguishes them. Evidence
+    unchanged.
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-09-30'
+    checks:
+      identity: BV1mgen69Ewc 002-009s identifies the AI ninja image and its relationship
+        to the overseas meme. Kept the OCR spelling of the named upstream meme without
+        inventing a corrected identity.
+      meaning: '003s identifies an AI image in an abstract pose. Removed the conflation
+        with song-and-move videos: 011-018s describes the upstream meme, not necessarily
+        the still image.'
+      usage: 034-036s explicitly says the image was created to mock that meme. This
+        is stated purpose, not an inference from popularity.
+      origins: Overseas attribution is explainer-level commentary. No platform source
+        relationship or first-uploader claim is asserted; origin remains unknown.
+      events: 34s citation frame matches BV1dNdZB8EFi and title 我错了不搞这种了 while discussing
+        the AI image. Resolved derivatives CSV matches title, uploader and 20260419
+        date. No unrelated song event added.
+      queries: Existing human query 根本没有这种抽象的生物！ preserved; 043-048s independently
+        describes this reaction. No model query or human approval added.
+    fingerprint: 584e5e0f554dca8b2b9a09f583b09fc5121addb5377ab85cbd29a35d079357e3

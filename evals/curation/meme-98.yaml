@@ -1,0 +1,103 @@
+slug: meme-98
+resolved: false
+canonical_name: 误闯天嘉
+aliases: []
+definition: 指主持人「李维嘉」在「倩女幽魂」手游庆典公布为玩家购置太空船票计划时的震惊表情包梗
+usage_context: ''
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV15Y6MYREtt
+  role: reference
+  note: 探访海南商业航天发射场一号工位和二号工位!（BV1twLH6LE4R 画面中引用）
+- url: https://www.bilibili.com/video/BV1iPzrBuExA
+  role: reference
+  note: 中国太空旅游2028年首飞20名游客名单（BV1twLH6LE4R 画面中引用）
+- url: https://www.bilibili.com/video/BV1ta6gBkEgC
+  role: reference
+  note: 穿越者：一艘为人而生的飞船（BV1twLH6LE4R 画面中引用）
+evidence_map:
+  ocr-BV15Y6MYREtt: null
+  ocr-BV1iPzrBuExA: null
+  ocr-BV1ta6gBkEgC: null
+  ocr-narration-BV1twLH6LE4R: null
+claims:
+- key: definition
+  statement: 指主持人「李维嘉」在「倩女幽魂」手游庆典公布为玩家购置太空船票计划时的震惊表情包梗
+  evidence:
+  - ocr-narration-BV1twLH6LE4R
+  stance: supports
+events: []
+relations: []
+gold:
+  canonical:
+  - 误闯天嘉
+  alias: []
+  origin_intent:
+  - 误闯天嘉的出处
+  description:
+  - 倩女幽魂要砸三百万上太空，震惊表情包
+  must_not_return: []
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis: '解说 0:04「而是知名主持人李维嘉」；
+
+    解说 0:19「李维嘉就又出了一个新的表情包梗」；解说 0:20「就是这个“误闯天嘉”」；
+
+    解说 0:31「倩女幽魂要砸300W」；
+
+    解说 0:33「为玩家购置一张穿越者壹号的2030年太空船票！」；
+
+    解说 0:83「这个消息对倩女玩家的冲击力有多大了」；
+
+    解说 0:85「以至于维嘉更是现场完美复刻了」；解说 0:87「曾经表情包的名场面」'
+  draft_notes: '片段边界：0s-105s 全片讲本梗（0-20s 李维嘉与旧表情包，22-83s 十周年庆典与太空船票，
+
+    83-105s 现场复刻表情与玩家改图）。本梗的核心解说在 83s-92s。
+
+    usage_context 留空：解说 0:89「就把曾经“震撼全嘉”的老表情包改图」说的是玩家改的是旧表情包，
+
+    不是这个新梗怎么用；没有一句直接说「误闯天嘉」用在哪里，按 D-4/D-13 留空。
+
+    疑似 OCR 误读：解说 0:31 的「300W」与画面 0:054 的「票价：300万元/张」写法不同，两者都保留；
+
+    解说 0:54 的「时间：全程智源机器人CM?正佳集团CEO等等」与 0:56「全程约2.5小时智源机器人CMO」
+
+    重复且带问号，照抄未改。
+
+    未写：不写黄景瑜、杨洋等嘉宾名单（D-5），与本梗定义无关。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 衍生关系来自 BV1twLH6LE4R 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+  - 传播区间 2024-12-02 .. 2026-01-27（3 条）
+  gpt_repair_notes: Removed three false meme-remix events:44/57/66s describe spacecraft/travel/facility
+    background, not expression-meme derivatives. Definition identifies the announced
+    plan rather than endorsing future travel completion or commercial promises.
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: Full BV1twLH6LE4R004/019-020s identifies 李维嘉 and 误闯天嘉.022-033/085-089s
+        ties announcement to expression. Meaning is narration-supported, not screen-only.
+      meaning: Definition limits itself to the announced ticket plan and expression
+        at the game celebration. No endorsement of future2030 flight, tourism claims,
+        or actual spending completion.
+      usage: Left empty.088-089s describes editing the older 震撼全嘉 expression, not
+        an explicitly stated use for this new meme.
+      origins: Unknown platform origin remains; no first source inferred from earlier
+        space/travel videos. Promotional factual claims excluded from definition.
+      events: All three dated clips are background:44s spacecraft,57s tourism list,66s
+        launch facility. Resolved CSV identities/dates match their subjects but none
+        demonstrates expression-meme remix. All sources retained as references, no
+        events remain.
+      queries: Existing human query 倩女幽魂要砸三百万上太空，震惊表情包 preserved as search intent;
+        definition does not adopt commercial promises from query. No model query added.
+    fingerprint: 0fe8dc3971a03381fa2a31315abdd05b5142d12ff9f86e82e20c6d2a5a887e66

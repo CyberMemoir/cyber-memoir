@@ -1,0 +1,115 @@
+slug: meme-86
+resolved: false
+canonical_name: 秀芹多吃点怎么了
+aliases: []
+definition: 指《三国：谋定天下》玩家「秀芹小媳妇儿」抢占资源地后，凭战功让原本指责她的盟友改口支持她多拿资源的玩家故事。
+usage_context: ''
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1Dx6gB2ERv
+  role: derivative
+  note: 秀芹：劳资武勋第一，吃你点地怎么了（BV17dftBRE9C 画面中引用）
+evidence_map:
+  ocr-BV1Dx6gB2ERv: null
+  ocr-narration-BV17dftBRE9C: null
+claims:
+- key: definition
+  statement: 指《三国：谋定天下》玩家「秀芹小媳妇儿」抢占资源地后，凭战功让原本指责她的盟友改口支持她多拿资源的玩家故事。
+  evidence:
+  - ocr-narration-BV17dftBRE9C
+  stance: supports
+events:
+- event_type: remix
+  description: 秀芹多吃点怎么了 出现衍生作品《秀芹：劳资武勋第一，吃你点地怎么了》
+  occurred_at_start: 2026-01-27 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV17dftBRE9C 画面引用发现
+  evidence:
+  - ocr-BV1Dx6gB2ERv
+relations: []
+gold:
+  canonical:
+  - 秀芹多吃点怎么了
+  alias: []
+  origin_intent:
+  - 秀芹多吃点怎么了的出处
+  description:
+  - 一个战略游戏玩家大胃袋吃两城资源
+  must_not_return: []
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis: '003.0s 此秀芹非彼秀芹
+
+    005.0s 跟李云龙的意大利炮一点关系没有
+
+    007.0s 她是《三国：谋定天下》W9-10区
+
+    010.0s 一位ID叫秀芹小媳妇儿的
+
+    025.0s 秀芹一个人
+
+    026.0s 直接包揽两座城的资源地
+
+    036.0s 支援中路去秀芹态度直接拉满
+
+    078.0s 原本指责她的盟友瞬间集体改口
+
+    081.0s 世界频道刷屏
+
+    082.0s 秀芹多吃点怎么了！
+
+    095.0s 20米也正因为这段
+
+    103.0s 以身殉国、罪减一等完美契合
+
+    107.0s 结合历史疯狂二创
+
+    109.0s 让秀芹多吃点怎么了
+
+    111.0s 彻底出圈'
+  draft_notes: '片段边界：本梗解说占 002-111s（全集一个梗）。052-077s 混进解说行的是游戏画面与数值，不是解说，未采用。
+
+    定义依据：007-010s 说她是《三国：谋定天下》W9-10 区一位 ID 叫「秀芹小媳妇儿」的玩家；025-026s 说她一个人直接包揽两座城的资源地；078-082s
+    说原本指责她的盟友集体改口、世界频道刷屏「秀芹多吃点怎么了！」。
+
+    可疑 OCR：010s 画面里出现「秀琴」（025s 也是），解说行一律写「秀芹」，本记录照抄解说的「秀芹」与「秀芹小媳妇儿」；021s「那是寸士寸金」疑为「寸土寸金」，未写入正文。
+
+    usage_context 留空（D-10）：103s「以身殉国、罪减一等完美契合」与 107-111s「结合历史疯狂二创」「彻底出圈」说的是传播与二创，不是使用场合；全集没有一句说这个梗在什么场合被怎样使用。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 衍生关系来自 BV17dftBRE9C 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+  - 传播区间 2026-01-27 .. 2026-01-27（2 条）
+  gpt_repair_notes: 'Clarified the narrated game-story reversal rather than publishing
+    an opaque 剧情 label. Uppercase BV1Dx6gB2ERV resolves to unrelated 我将这样走进2.2/uploader一对哒
+    despite adjacent identical秀芹frame: removed source/event/evidence mapping only,
+    raw material unchanged.'
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: Full BV17dftBRE9C narration003-013s explicitly distinguishes this
+        game player from 李云龙 fiction and gives game/ID. Player story scoped to the
+        game, not historical biography.
+      meaning: 025-026s resource monopolization,049/061-073s combat reversal and078-082s
+        allies changing their response directly support the definition. No exact missing
+        numerical rank or corrupted殉国details reconstructed.
+      usage: Empty preserved:105-111s historical mashup edits/spread do not give a
+        specific general use setting. Player-support reversal is meaning, not invented
+        universal approval of resource monopolization.
+      origins: Narration tells the player story but no primary game-log or creator
+        upload established; unknown origin fields and no derived_from relation retained.
+      events: 105s exact BV1Dx6gB2ERv/title秀芹劳资武勋第一/uploader诸葛不亮了T_T matches CSV20260127
+        and explicit historical-edit scene105-107s.106s uppercase variant resolves
+        unrelated title/uploader, excluded without correcting raw OCR.
+      queries: Existing human query 一个战略游戏玩家大胃袋吃两城资源 preserved, supported013/025-026s.
+        No model query or fictional human confirmation introduced.
+    fingerprint: 26d1c28c369e66440f98529e29dfb475c7d637713bfdc88989c62487cca1e01a

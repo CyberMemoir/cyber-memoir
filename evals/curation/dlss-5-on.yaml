@@ -1,0 +1,112 @@
+slug: dlss-5-on
+resolved: false
+canonical_name: 外国人最近狂玩的DLSS 5 ON梗
+aliases: []
+definition: 英伟达公布DLSS5演示视频后画面变化太大，网友就着「DLSS5 Off」与「DLSS5 On」的开关对比造出的梗图。
+usage_context: ''
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1H5wXzrESG
+  role: derivative
+  note: 用最猛DLSS 5新技术，看最沙雕籽岷表情包！（BV17awezjEr4 画面中引用）
+evidence_map:
+  ocr-BV1H5wXzrESG: null
+  ocr-narration-BV17awezjEr4: null
+claims:
+- key: definition
+  statement: 英伟达公布DLSS5演示视频后画面变化太大，网友就着「DLSS5 Off」与「DLSS5 On」的开关对比造出的梗图。
+  evidence:
+  - ocr-narration-BV17awezjEr4
+  stance: supports
+events:
+- event_type: remix
+  description: 外国人最近狂玩的DLSS 5 ON梗 出现衍生作品《用最猛DLSS 5新技术，看最沙雕籽岷表情包！》
+  occurred_at_start: 2026-03-17 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV17awezjEr4 画面引用发现
+  evidence:
+  - ocr-BV1H5wXzrESG
+relations: []
+gold:
+  canonical:
+  - 外国人最近狂玩的DLSS 5 ON梗
+  alias: []
+  origin_intent:
+  - 外国人最近狂玩的DLSS 5 ON梗的出处
+  description:
+  - 显卡开！
+  must_not_return: []
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis: '037.0s 英伟达又是拿出了最新的DLSS5
+
+    041.0s 所谓的DLSS呢
+
+    042.0s 是深度学习超级采样的缩写
+
+    045.0s 大抵就是让AI增强游戏内的
+
+    047.0s 低分辨率染顿
+
+    049.0s 来达到高画质高帧率的效果
+
+    058.0s 我们来看看英伟达的
+
+    059.0s DLSS5演示视频
+
+    061.0s 同样也是通过开关DLSS
+
+    063.0s 展示了两者的区分
+
+    079.0s 所以这A味爆棚的演示一发出来
+
+    082.0s 网友们就炸锅了
+
+    101.0s 那除去评价以外
+
+    102.0s 网友们也不忘效仿当年开始造梗
+
+    104.0s 也就出现了这一个个DLSS5ON的梗图'
+  draft_notes: '片段边界：本梗解说占 037-104s；125.0s 的解说只有「DLSS5OffDLSS5On」六个字，是画面字幕被并进解说行，未采用；188s
+    之后画面里的 BV1H5wXzrESG 是衍生作品，不属于本梗的解说。
+
+    定义依据：041-049s 说 DLSS 是什么，061-063s 说演示视频用开关 DLSS 展示两者区分，104s 说由此出现了一个个 DLSS5ON
+    的梗图。「DLSS5 Off」「DLSS5 On」照抄画面（061/062/112/113 等秒）；「DLSS5ON」照抄 104s 解说行。
+
+    可疑 OCR：001s 解说行作「DLSS5ON」、001s 与 003s 画面作「DLSS5On」「DLSS 5 ON」、061s 画面作「DLSS 5
+    Off」，同一词在画面里有大写与空格两种写法，本记录按所引证据原样照抄；047s「低分辨率染顿」疑为「渲染」之误，未写入正文；074s「早已究着各种AI视频」疑为「充斥着」，未写入。
+
+    usage_context 留空（D-10）：102s「网友们也不忘效仿当年开始造梗」、104s「也就出现了这一个个DLSS5ON的梗图」说的是这个梗怎么来的与怎么扩散的，不是某人在什么场合怎么用它；全集没有一句说使用场合。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 衍生关系来自 BV17awezjEr4 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+  - 传播区间 2026-03-17 .. 2026-03-17（1 条）
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: Full BV17awezjEr4 narration001/036-104s identifies DLSS5ON. Earlier
+        RTX ON003-032s is historical comparison, not merged identity.
+      meaning: 037/058-069s identifies the DLSS5 demo and changed appearance;079-104s
+        describes reactions and comparison memes. Definition describes meme formation
+        without asserting product performance or an independent technical evaluation.
+        Off/On spellings occur125s in the unchanged narration.
+      usage: Left empty:102-104s states meme creation and spread, not a specific usage
+        situation. Earlier RTX example029-032s was not imported as new-meme usage.
+      origins: No exact original meme creator identified. Unknown origin fields and
+        empty relations retained; no product announcement date inferred.
+      events: 188s exact frame BV1H5wXzrESG names 籽岷 and a DLSS5 meme demonstration.
+        Resolved CSV title/uploader/date20260317 agree with one remix event; same
+        comparison theme, no unrelated later segment.
+      queries: Existing human query 显卡开！ unchanged. No generated queries or human
+        confirmation added.
+    fingerprint: 7dd831b36a612b04825c2450da0344b284049b9f790ecc7cb7d3ba47f1a738ab

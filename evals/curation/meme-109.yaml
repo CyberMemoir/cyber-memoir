@@ -1,0 +1,135 @@
+slug: meme-109
+resolved: false
+canonical_name: 食猴鹰怎么火了
+aliases: []
+definition: 上美老版《黑猫警长》里爱吃猴子的反派「食猴鹰」，在网友围绕《达尔文事变》的整活二创中被重新提起，名台词是「最最最最好吃的猴头」。
+usage_context: 网友用「小时候错怪了食猴鹰」来调侃、批评《达尔文事变》的主角。
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1ZrzCBDEhc
+  role: derivative
+  note: 孩子们别怕，食猴鹰大人来了（BV17kcFzmEqQ 画面中引用）
+- url: https://www.bilibili.com/video/BV1PtzXBpEDy
+  role: reference
+  note: 孩子们......食猴鹰大哥来了！（达尔文事变）（BV17kcFzmEqQ 画面中引用）
+- url: https://www.bilibili.com/video/BV1QE6bBPEZq
+  role: derivative
+  note: 三口吃不掉算炸单（BV17kcFzmEqQ 画面中引用）
+- url: https://www.bilibili.com/video/BV1snFczZE6k
+  role: reference
+  note: 🐵物理“改心”异端猴子！🐵心之怪盗团正义制裁！🐵【p345|战锤|达尔文事变】（BV17kcFzmEqQ 画面中引用）
+evidence_map:
+  ocr-narration-BV17kcFzmEqQ: null
+  ocr-BV1ZrzCBDEhc: null
+  ocr-BV1PtzXBpEDy: null
+  ocr-BV1QE6bBPEZq: null
+  ocr-BV1snFczZE6k: null
+claims:
+- key: definition
+  statement: 上美老版《黑猫警长》里爱吃猴子的反派「食猴鹰」，在网友围绕《达尔文事变》的整活二创中被重新提起，名台词是「最最最最好吃的猴头」。
+  evidence:
+  - ocr-narration-BV17kcFzmEqQ
+  stance: supports
+- key: usage_context
+  statement: 网友用「小时候错怪了食猴鹰」来调侃、批评《达尔文事变》的主角。
+  evidence:
+  - ocr-narration-BV17kcFzmEqQ
+  stance: supports
+events:
+- event_type: remix
+  description: 食猴鹰怎么火了 出现衍生作品《孩子们别怕，食猴鹰大人来了》
+  occurred_at_start: 2026-01-24 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV17kcFzmEqQ 画面引用发现
+  evidence:
+  - ocr-BV1ZrzCBDEhc
+- event_type: remix
+  description: 食猴鹰怎么火了 出现衍生作品《三口吃不掉算炸单》
+  occurred_at_start: 2026-02-01 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV17kcFzmEqQ 画面引用发现
+  evidence:
+  - ocr-BV1QE6bBPEZq
+relations: []
+gold:
+  canonical:
+  - 食猴鹰怎么火了
+  alias: []
+  origin_intent:
+  - 食猴鹰怎么火了的出处
+  description:
+  - 最好吃的猴头
+  must_not_return: []
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis:
+  - 001.0s 相信很多年龄稍大一些的网友对这个食猴鹰
+  - 006.0s 他是上美老版《黑猫警长》中的大反派之一
+  - 009.0s 特别喜欢吃猴子
+  - 010.0s 为此还有一句名台词
+  - 013.0s 最最最最好吃的
+  - 016.0s 猴头~
+  - 018.0s 但好端端的一个经典反派角色最近怎么成梗了呢？
+  - 024.0s 《达尔文事变》今年一月漫改新番有关
+  - 047.0s 最终显得很多东西都非常“反人类”
+  - 099.0s 也确实很容易让很多网友感到生理不适
+  - 104.0s 于是乎一些网友就把这段剧情和一些其他ip结合起来
+  - 112.0s 对这只猩猩精无情输出
+  - 114.0s 所以大家便直呼“小时候错怪了食猴鹰
+  draft_notes: '段落边界（D-14）：BV17kcFzmEqQ 整集只有一个梗（食猴鹰）。001-018s 讲食猴鹰与它的名台词，023-050s
+    讲《达尔文事变》与它的得奖背景，053-055s 是画面里的争议台词，061-102s 是解说对这部作品的评价，104-160s 讲网友把这段剧情和其他 IP
+    结合、食猴鹰二创爆发；109-172s 大部分是衍生作品画面（111s BV1snFczZE6k、124s BV1PtzXBpEDy、138s BV1ZrzCBDEhc、156s
+    BV1QE6bBPEZq）。定义取 001/006/009/010/013/016/018/024s，usage 取 112/114s。
+
+    usage_context 依据：114s「所以大家便直呼『小时候错怪了食猴鹰』」＋112s「对这只猩猩精无情输出」是用法与对象；118s「一大堆食猴鹰相关的二创便如雨后春笋般冒出」是传播，没有写进
+    usage。
+
+    引画面键的必要性（D-16）：争议台词「为什么只有人类不能杀了吃肉呢？」只出现在画面 055/085-090s（且有多种错读），解说里没有这一句，所以定义没有引用它，也没有加
+    ocr-screen 键——定义只用解说能支撑的部分。
+
+    OCR 可疑未改：013/016s 的名台词在解说里分成两行（最最最最好吃的／猴头~），我按解说原文合成引文；画面 085-090s 的同一句有多种错读（阅特么／盗特么／免么／因公），未改。
+
+    未写（D-4）：027s「漫画大赏2022」、031-047s 对作品的具体批评、108s「群星啊战锤」等未写进定义。
+
+    可疑关系：四条已解析衍生作品（BV1snFczZE6k 2026-02-05、BV1PtzXBpEDy 2026-01-29、BV1ZrzCBDEhc 2026-01-24、BV1QE6bBPEZq
+    2026-02-01）分别出现在画面 111/124/138/156s，与 events 的日期一致；画面 118s 还列了若干作者署名与日期，没有对应的已解析行，我没有补。
+
+    未发现只存在于画面、且定义必须依赖的含义，故未加 automation_hold。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - Two supported 食猴鹰 dated remixes retained; two contextual/uncertain references
+    only. No first creator/date asserted.
+  gpt_repair_notes: Narrator criticism of fiction paraphrased as documented viewer
+    reaction, not objective artistic verdict.111s cross-IP reference does not establish
+    食猴鹰 remix;124s uploader 邪神重工_Karasu differs from resolved 邪神_karasu_喵. Both reference
+    only with dated remix assertions removed.138/164s exact clip identities/dates
+    retained. Human query unchanged; no screen-only disputed quote added.
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: Full BV17kcFzmEqQ narration001-160s and all screen/citation materials
+        read.001/006/009-016s identifies 食猴鹰 and monkey-eating catchphrase;104-123s
+        connects viewer crossover response.
+      meaning: Definition supported by006/009/013/016/024/104/114/118s. Artistic criticism
+        and screen-only disputed dialogue omitted; viewer reaction attributed to viewers.
+      usage: 112/114s expressly describes directing jokes at fictional protagonist
+        and 小时候错怪了食猴鹰 response; wording paraphrases use without endorsing narrator
+        verdict.
+      origins: Unknown origin fields/empty relations retained. Fictional source is
+        narration-supported; no online first creator or premiere date invented.
+      events: Resolved CSV and111/124/138/164s frames checked.111s other-IP edit is
+        contextual reference;124s uploader conflict reference only.138s 蓝焰某人/date20260124
+        and164s 暴龙战士重开版/date20260201 match direct 食猴鹰 clips, two dated remixes retained.
+      queries: Human query 最好吃的猴头 retained exactly and maps to013/016s catchphrase.
+        No model description label or fabricated confirmation.
+    fingerprint: 9c38128ce0472ef2e4a62b41a65584b01d24cba9b7a2c02766628b775e7afcb4

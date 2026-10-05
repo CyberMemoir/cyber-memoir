@@ -1,0 +1,191 @@
+slug: xx-ead89066dfe809d9
+resolved: false
+canonical_name: 这XX有力气
+aliases: []
+definition: 以「这酒有力气」为基础，把这种修辞套到能带来震撼或很好的东西上，形成「这x有力气」的句式模板。
+usage_context: 用来夸那些能给人巨大震撼或者很好的东西。
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1gxmYBhEHa
+  role: derivative
+  note: 师傅掉头不去网吧了（BV12fqwB3EF1 画面中引用）
+- url: https://www.bilibili.com/video/BV1oEBeBQEfN
+  role: reference
+  note: 这歌有力气（BV12fqwB3EF1 画面中引用）
+- url: https://www.bilibili.com/video/BV11viKBJEju
+  role: derivative
+  note: 这枪有力气（BV12fqwB3EF1 画面中引用）
+- url: https://www.bilibili.com/video/BV1iUiVB9Ein
+  role: derivative
+  note: 这歌有力气（BV12fqwB3EF1 画面中引用）
+- url: https://www.bilibili.com/video/BV1WTiYBWERa
+  role: derivative
+  note: 这 歌 有 力 气 ！2.0（BV12fqwB3EF1 画面中引用）
+evidence_map:
+  ocr-narration-BV12fqwB3EF1: null
+  ocr-BV1gxmYBhEHa: null
+  ocr-BV1oEBeBQEfN: null
+  ocr-BV11viKBJEju: null
+  ocr-BV1iUiVB9Ein: null
+  ocr-BV1WTiYBWERa: null
+claims:
+- key: definition
+  statement: 以「这酒有力气」为基础，把这种修辞套到能带来震撼或很好的东西上，形成「这x有力气」的句式模板。
+  evidence:
+  - ocr-narration-BV12fqwB3EF1
+  stance: supports
+- key: usage_context
+  statement: 用来夸那些能给人巨大震撼或者很好的东西。
+  evidence:
+  - ocr-narration-BV12fqwB3EF1
+  stance: supports
+events:
+- event_type: remix
+  description: 这XX有力气 出现衍生作品《师傅掉头不去网吧了》
+  occurred_at_start: 2025-12-14 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV12fqwB3EF1 画面引用发现
+  evidence:
+  - ocr-BV1gxmYBhEHa
+- event_type: remix
+  description: 这XX有力气 出现衍生作品《这枪有力气》
+  occurred_at_start: 2025-12-31 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV12fqwB3EF1 画面引用发现
+  evidence:
+  - ocr-BV11viKBJEju
+- event_type: remix
+  description: 这XX有力气 出现衍生作品《这歌有力气》
+  occurred_at_start: 2026-01-01 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV12fqwB3EF1 画面引用发现
+  evidence:
+  - ocr-BV1iUiVB9Ein
+- event_type: remix
+  description: 这XX有力气 出现衍生作品《这 歌 有 力 气 ！2.0》
+  occurred_at_start: 2026-01-03 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV12fqwB3EF1 画面引用发现
+  evidence:
+  - ocr-BV1WTiYBWERa
+relations: []
+gold:
+  canonical:
+  - 这XX有力气
+  alias: []
+  origin_intent:
+  - 这XX有力气的出处
+  description:
+  - 水浒传里武松在景阳岗喝完酒、说这酒有力气的那段
+  - 把这种说法套到各种很猛的东西上
+  must_not_return: []
+  description_source: model
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis:
+  - 001.0s 这xx有力气
+  - 002.0s 来自于经典电视剧“水浒传”
+  - 005.0s 武松打虎之前
+  - 006.0s 是在“三碗不过岗”的景阳岗喝过酒的
+  - 009.0s 武松接过店家的酒
+  - 010.0s 给出了这样的评价：
+  - 017.0s 这酒有力气
+  - 019.0s 客官是懂酒的人哪
+  - 021.0s 这个说法确实足够生动形象
+  - 023.0s 但网友们也是故意整蛊
+  - 025.0s 说起了“酒怎么会有力气?
+  - 028.0s 之后更是延伸开来
+  - 029.0s 网友们将这种修辞
+  - 030.0s 套用到其他能带给人巨大震撼的事物上
+  - 033.0s 或者很好的东西上
+  - 034.0s 形成了“这x有力气”这个梗
+  - 036.0s 做出了各种二创
+  - 037.0s 除了这种用法之外
+  - 038.0s 还有网友将各种失败画面
+  - 040.0s 配上tobu的“higher”作为BGM
+  - 041.0s 标题定名为“这歌有力气”
+  - 043.0s 这首BGM也就成了“有力气的小曲”
+  - 045.0s 也成了一个梗99999
+  - 114.0s 我看这顶置评论也是很有力气啊！
+  draft_notes: '段落边界（D-14）：BV12fqwB3EF1 整集只有一个梗（这XX有力气），解说 001-045s 加 114s。002-021s
+    讲出处（水浒传里武松的「这酒有力气」），023-036s 讲网友故意整蛊与把这种修辞套到别的东西上，037-045s 讲「这歌有力气／有力气的小曲」这一支；046-113s
+    是二创画面，114s 有一句解说。定义取 002/006/009/017/029/030/033/034s，usage 取 029/030/033s。
+
+    usage_context 依据：029-033s「网友们将这种修辞 / 套用到其他能带给人巨大震撼的事物上 / 或者很好的东西上」说明拿它怎么用；037-043s
+    的「这歌有力气／有力气的小曲」是另一支用法与二创，写进 notes 但没有混进 usage。
+
+    OCR 可疑未改：025s 的引号残缺（说起了“酒怎么会有力气?）、045s 句尾粘着「99999」、001s 写「这xx有力气」而 034s 写「这x有力气」，都照抄在
+    basis 中，未改；定义用的是 034s 的「这x有力气」。
+
+    未写（D-4/D-6）：019s「客官是懂酒的人哪」、021s「这个说法确实足够生动形象」、023-027s 的整蛊说法、040s 的「tobu的“higher”」都属背景与来源材料，没有写进定义；「这x有力气」里的
+    x 是模板占位，定义没有替它填任何具体名词。
+
+    可疑关系（只报告，未改）：本条五条已解析衍生作品与 events 的日期一致；lineage 里另有三个未解析行（BV1gXmYBhEHa／BV1iUivB9Ein／BVIWTiYBWERa，都是大小写变体），本条
+    sources 未包含，我未改动。
+
+    未发现只存在于画面、且定义必须依赖的含义，故未加 automation_hold。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 衍生关系来自 BV12fqwB3EF1 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+  - 传播区间 2025-12-14 .. 2026-01-03（5 条）
+  description_query_provenance:
+    author: DeepSeek
+    source: model
+    proposed_at: '2026-09-30'
+    basis: Blind source-only proposals before definition drafting.
+    proposal_file: ai_context/model_queries_batches7_8.yaml
+    source_episode: BV12fqwB3EF1
+    source_spans:
+    - 002.0s 来自于经典电视剧“水浒传”
+    - 005.0s 武松打虎之前
+    - 006.0s 是在“三碗不过岗”的景阳岗喝过酒的
+    - 017.0s 这酒有力气
+    - 028.0s 之后更是延伸开来
+    - 030.0s 套用到其他能带给人巨大震撼的事物上
+    - 034.0s 形成了“这x有力气”这个梗
+    reviewer: gpt
+    reviewed_at: '2026-10-01'
+    semantic_review: Both previously blind proposals independently supported:002/005/006/009/017s
+      narrated television quotation context,028/030/033/034s generalized impressive-object
+      usage. First describes cited scene without claiming original uploader/earliest
+      date; second describes broader template. Exact source spans verified; MODEL
+      only.
+  gpt_repair_notes: 'Definition focuses quoted phrase/template instead of uncorroborated
+    primary origin; unknown origin preserved.63s uploader 格格巫Butu differs from resolved
+    伪装Smile: reference only, event removed.33/37/46/84s remaining clip titles and
+    author captions align with resolved facts (HL_Storia also exact48s). No inferred
+    music creator/origin or case normalization. Two existing blind queries applied
+    only to empty gold field as MODEL.'
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: Full BV12fqwB3EF1 narration001-114s,screen001-112s and all eight frames
+        read.017/029/030/033/034s identifies variable template;037-045s explicitly
+        presents music/failure-edit branch of it.
+      meaning: 017/029/030/033/034s directly supports quote and extension. Removed
+        definite television-origin assertion from definition;002/005/006/009s retained
+        as narrated background only, not earliest primary evidence.
+      usage: 029/030/033s explicitly states applying expression to impressive or good
+        things. Music branch037-045s recognized in notes, no unrelated new intended
+        purpose invented.
+      origins: Unknown origin fields and empty relations retained. Narrated TV context
+        without independently resolved primary clip/uploader cannot establish primary
+        origin; no music authorship inferred.
+      events: All resolved CSVs compared with33/37/46/63/84s frames.63s uploader conflict
+        reference only.33s 爱打战地的薯薯20251231,37s 麦希刘20251214,46/48s HL_Storia20260101,84s
+        b站南瓜酱20260103 support four dated variants; unresolved three case variants
+        excluded.
+      queries: Two historical blind DeepSeek proposals checked against unchanged002/005/006/017/028/030/034s
+        plus full context; assigned MODEL with provenance, not human benchmark. Existing
+        human queries elsewhere unchanged.
+    fingerprint: dbad739105d31ea432c76aa8e2580d84ae60d38ddb2f7b830127ebbc1040e600

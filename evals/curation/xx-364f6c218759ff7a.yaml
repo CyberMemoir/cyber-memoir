@@ -1,0 +1,127 @@
+slug: xx-364f6c218759ff7a
+resolved: false
+canonical_name: 如果XX是你的力量
+aliases: []
+definition: 一种AI穿越模板：主角带着不属于那个时代的超时空科技穿越回去，苏格拉底会固定出现，问|如果XXX是你的力量|、|那么没了它你又算什么|。
+usage_context: 网友模仿苏格拉底的杠精语录，用AI做各种小故事。
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1MfXUBQESU
+  role: derivative
+  note: 假如你和苏格拉底是T氏（BV157XrBqELk 画面中引用）
+evidence_map:
+  ocr-narration-BV157XrBqELk: null
+  ocr-BV1MfXUBQESU: null
+claims:
+- key: definition
+  statement: 一种AI穿越模板：主角带着不属于那个时代的超时空科技穿越回去，苏格拉底会固定出现，问|如果XXX是你的力量|、|那么没了它你又算什么|。
+  evidence:
+  - ocr-narration-BV157XrBqELk
+  stance: supports
+- key: usage_context
+  statement: 网友模仿苏格拉底的杠精语录，用AI做各种小故事。
+  evidence:
+  - ocr-narration-BV157XrBqELk
+  stance: supports
+events:
+- event_type: remix
+  description: 如果XX是你的力量 出现衍生作品《假如你和苏格拉底是T氏》
+  occurred_at_start: 2026-03-29 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV157XrBqELk 画面引用发现
+  evidence:
+  - ocr-BV1MfXUBQESU
+relations: []
+gold:
+  canonical:
+  - 如果XX是你的力量
+  alias: []
+  origin_intent:
+  - 如果XX是你的力量的出处
+  description:
+  - 苏格拉底给骷髅哥捣乱的吧
+  must_not_return: []
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis: '001.0s 如果x双x是你的力量
+
+    003.0s 最近呢一个苏格拉底
+
+    006.0s 简单点来说呢就是个模板视频
+
+    011.0s 不过是你带着一些
+
+    012.0s 不属于古罗马古希腊时代的东西
+
+    014.0s 穿越到那企时代会发生什么
+
+    022.0s 苏格拉底一定会作为固定npc刷新出来
+
+    024.0s 对着bro最开始说一些
+
+    026.0s 诸如“如果xXx是你的力量”
+
+    028.0s “那么没了它你又算什么”
+
+    044.0s 实际上这个模板最早兴起外网
+
+    055.0s 模仿苏格拉底的杠精语录的同时
+
+    057.0s 也用ai制作了更多的'
+  draft_notes: '段落边界：整集只有一个梗。003-042s 讲模板本身（穿越＋苏格拉底固定出现＋那句找茬的话＋几个例子），
+
+    044-059s 说外网起源与国内模仿，114-131s 是二创片段。
+
+    定义取 006/011/012/014/022/024/026/028s；usage 取 055-059s（模仿杠精语录、用AI做小故事）。
+
+    名称：canonical_name 来自分集标题「【梗百科】如果XX是你的力量是啥梗？骷髅VS苏格拉底！！？」；
+
+    而 001s 标题卡的 OCR 读成「如果x双x是你的力量」，未改动 identity（D-8）。
+
+    关于来源（我没有改动 sources/events/relations）：本记录只有一条 derivative（BV1MfXUBQESU），
+
+    没有 source 行、也没有 relations——与解说一致：044s 说模板「最早兴起外网」、046s 说很多账号
+
+    借此做「苏格拉底与」的故事，上游在站外、本集没有可指认的号。这是现状说明，不是我的判断。
+
+    可疑 OCR，未改：005s「和髓的ai梗」（骷髅？）、017s「bro髓哥」、042s「雅典刘华强」、
+
+    048s「苏格拉底与的爱恨情仇」缺字、050s「爱恨情很谈谐」。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 衍生关系来自 BV157XrBqELk 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+  - 传播区间 2026-03-29 .. 2026-03-29（1 条）
+  gpt_repair_notes: Exact BV/title identity checked. Frame uploader text is OCR-corrupted
+    compared with platform facts; no uploader attribution added.
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: Full unchanged BV157XrBqELk narration003-030s explicitly introduces
+        the Socrates AI template and its repeated question026s. Canonical title retained
+        despite001s OCR corruption; no new alias invented.
+      meaning: 011-019s describes time travel with anachronistic technology;022s Socrates
+        is a fixed NPC;026/028s exact quoted questions support the definition. Omitted
+        corrupted skeleton-name and048s incomplete relationship words.
+      usage: 055-059s explicitly describes imitating the argumentative sayings and
+        creating AI stories. Definition and usage do not assert events from fiction
+        as historical facts.
+      origins: 044-052s gives only broad overseas-to-domestic spread. No named first
+        account is identified, so unknown origin fields and empty relations remain.
+        The sole clip is classified as a derivative, not an origin.
+      events: 88s exact BV1MfXUBQESU frame title 假如你和苏格拉底是T氏 agrees with resolved
+        CSV20260329 and the AI-story segment055-059/114-131s. Uploader OCR 系笑川 vs
+        resolved 孫笑川 is recorded as uncertain and not asserted in prose or event.
+        One dated remix retained on exact BV/title identity.
+      queries: Existing human query 苏格拉底给骷髅哥捣乱的吧 preserved byte-for-byte. No model
+        query, invented curator confirmation, or description benchmark substitution.
+    fingerprint: df13f0cdd38bee579126ace4becd93b1ccacc09e847f7695206cffd705b40d55

@@ -40,6 +40,7 @@ BV = re.compile(r"BV[0-9A-Za-z]{10}")
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from materials_index import load_material_index, resolve_placeholder  # noqa: E402
+from automation_review import review_error  # noqa: E402
 
 
 def token() -> str:
@@ -264,6 +265,11 @@ def approval_reason(doc: dict, name: str) -> str:
     drafted = str(curation.get("drafted_by") or "").strip()
     if not drafted:
         return "人工策展：定义与用法出自讲解视频旁白，衍生时间来自平台元数据（%s）" % name
+    review = curation.get("automated_review")
+    if isinstance(review, dict):
+        if review.get("method") == "same_model_frozen_passes":
+            return "模型起草、同模型冻结后分阶段复核（用户授权自动发布）：%s 起草并复核；非人工或独立模型确认；证据与记录 SHA256 %s；讲解证据 C 级，非原始事实核验（%s）" % (drafted, review.get("fingerprint"), name)
+        return "模型起草、模型独立复核（用户授权自动发布）：%s 起草，%s 复核；证据与记录 SHA256 %s；讲解证据 C 级，非原始事实核验（%s）" % (drafted, review.get("reviewer"), review.get("fingerprint"), name)
     return (
         "模型起草、人工审定：定义与用法由 %s 依据讲解视频画面字幕 OCR 起草，%s 审定；"
         "衍生时间来自平台元数据（%s）" % (drafted, str(curation.get("confirmed_by")).strip(), name)
@@ -305,13 +311,30 @@ def main() -> int:
         doc = docs[path]
         name = doc["canonical_name"]
         print("\n=== %s  (%s) ===" % (name, path.name))
-        if unconfirmed_draft(doc):
+        if (doc.get("curation") or {}).get("automated_review") is not None:
+            error = review_error(doc, index)
+            if error:
+                print("  x 自动复核拒绝加载：%s" % error)
+                failures += 1
+                continue
+            from validate_curation import validate
+            checked = validate(path)
+            if checked.errors:
+                print("  x 校验失败：%s" % "；".join(checked.errors))
+                failures += 1
+                continue
+        elif unconfirmed_draft(doc):
             # Checked before anything is posted, so a refused record leaves no evidence behind.
             print("  x 模型起草的记录尚未人工审定（curation.confirmed_by 为空），跳过")
             failures += 1
             continue
 
         ids: dict[str, str] = {}
+        missing = [key for key in (doc.get("evidence_map") or {}) if not resolve_placeholder(key, index)]
+        if missing:
+            print("  x 无法定位证据，整条跳过：%s" % "、".join(missing))
+            failures += 1
+            continue
         for key in (doc.get("evidence_map") or {}):
             found = resolve_placeholder(key, index)
             if not found:
@@ -378,8 +401,9 @@ def main() -> int:
                   % (revision[:8], len(every_id), len(draft["events"])))
         except httpx.HTTPStatusError as exc:
             print("  x 发布失败 %s: %s" % (exc.response.status_code, exc.response.text[:200]))
-            failures += 1
-            continue
+            # An approval can fail after its draft was created. Stop here so a
+            # service failure cannot leave additional records partly published.
+            return 1
 
         if not args.dry_run and ids:
             for key, value in ids.items():

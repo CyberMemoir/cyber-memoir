@@ -1,0 +1,124 @@
+{
+  "frozen_at": "2026-10-05T03:39:14.991456+00:00",
+  "record": {
+    "slug": "meme-33b12eb5c15b91ec",
+    "resolved": false,
+    "canonical_name": "X的那边",
+    "aliases": [],
+    "definition": "用AI制作人物或角色置身海边的三宫格，配上询问X的那边、不需要别人告知和自己去看的文案的图片模板。",
+    "usage_context": "把自己或角色放进海边三宫格，替换其中的主体和「X」来玩梗。",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [
+      {
+        "url": "https://www.bilibili.com/video/BV1hRsNz7EUy",
+        "role": "derivative",
+        "note": "所以，桥的那边是什么呢（BV1zzsUz7EEP画面引用；不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1jQs8z4EqL",
+        "role": "derivative",
+        "note": "海的那边到底是什么？豆包的焚决？！（BV1zzsUz7EEP画面引用；不作首次出处断言）"
+      }
+    ],
+    "evidence_map": {
+      "ocr-narration-BV1zzsUz7EEP": "a281d2ec-e91e-4c01-bc09-4402f01daeb3",
+      "ocr-BV1hRsNz7EUy": "db2a2100-75ce-450d-86dc-549c4762db73",
+      "ocr-BV1jQs8z4EqL": "1a0e4df5-4d12-48b4-b8e9-a4593a68cd8a"
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "用AI制作人物或角色置身海边的三宫格，配上询问X的那边、不需要别人告知和自己去看的文案的图片模板。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1zzsUz7EEP"
+        ]
+      },
+      {
+        "key": "usage_context",
+        "statement": "把自己或角色放进海边三宫格，替换其中的主体和「X」来玩梗。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1zzsUz7EEP"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "event_type": "remix",
+        "description": "X的那边出现衍生作品《所以，桥的那边是什么呢》",
+        "occurred_at_start": "2025-10-19 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1hRsNz7EUy"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "X的那边出现衍生作品《海的那边到底是什么？豆包的焚决？！》",
+        "occurred_at_start": "2025-10-22 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1jQs8z4EqL"
+        ]
+      }
+    ],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "X的那边"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "X的那边的出处"
+      ],
+      "description": [
+        "AI生成的海边三张图，把自己或角色放进去，再问海的另一边有什么"
+      ],
+      "description_source": "model",
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV1zzsUz7EEP"
+      ],
+      "description_authored_by": "codex",
+      "description_basis": "Stored narration, before definition drafting; model-generated, not human benchmark",
+      "draft_basis": [
+        "014.0s 相信大家很可能刷到过",
+        "015.0s 这种海边三宫格图",
+        "017.0s 各种各样的博主或者角色处于其中",
+        "020.0s 配以“X的那边是什么”这样的文案",
+        "022.0s 让整个构图颇有一种王家卫的风格",
+        "041.0s 而最近或许是乘着AI浪潮",
+        "045.0s 就用首己的照片",
+        "046.0s 捏出了这种三宫格图片",
+        "048.0s 并配以了这段文案",
+        "062.0s 而可能因为这个风格实在过于带感",
+        "064.0s 以至于过了短短半个月",
+        "066.0s 这种三宫格便火爆了互联网",
+        "068.0s 吸引了各路网友前来玩梗",
+        "070.0s 而文案也随着梗的传播呢",
+        "072.0s 逐渐从“山”变成了“海”"
+      ],
+      "draft_notes": "014-095s triptych;opening AI/孔融 clip unrelated.\n15/20/49/62/69/72/83/89/95 frames show template variants.27/29 Walden reading is discussed attribution reference,not original source;omit unverified whole-book negative claim from definition. Opening11孔融/严肃脸 irrelevant. No creator,date,firstsource asserted;unresolved IDs not used.",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未证实，保留unknown；不把二创投稿日期当作首次出处",
+        "同一Codex模型分阶段复核，独立性有限；未声称人工确认",
+        "源帧可见文案未逐字出现在所引解说中，公共定义使用语义概述，不作直接引语；原证据及冻结草稿保留。"
+      ],
+      "draft_origin_sha256": "b8a8e19e9573afafbba177cea00056fd7b6ade79e05e312fab70d180fedfad4a"
+    }
+  }
+}

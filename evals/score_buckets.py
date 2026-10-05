@@ -47,9 +47,8 @@ NAMED = ("canonical", "alias", "origin_intent")
 
 def main(report_path: str, gold_path: str) -> int:
     report = json.loads(Path(report_path).read_text(encoding="utf-8"))
-    gold = [
-        json.loads(line) for line in Path(gold_path).read_text(encoding="utf-8").splitlines() if line.strip()
-    ]
+    gold = [json.loads(line) for line in
+            Path(gold_path).read_text(encoding="utf-8").splitlines() if line.strip()]
     bucket_of: dict[str, list[str]] = defaultdict(list)
     for row in gold:
         bucket_of[row["query"]].append(row["bucket"])
@@ -72,53 +71,38 @@ def main(report_path: str, gold_path: str) -> int:
         print("! %d 个用例在 gold.jsonl 里找不到，可能报告与金标准不是同一次生成的" % unmatched)
 
     print("\n%-14s %5s  %-16s %-16s" % ("bucket", "n", "recall@10", "MRR"))
-    for bucket in (
-        "canonical",
-        "alias",
-        "origin_intent",
-        "description",
-        "description_model",
-        "description_unattributed",
-        "negative",
-    ):
+    for bucket in ("canonical", "alias", "origin_intent", "description", "description_model", "negative"):
         cases = by_bucket.get(bucket) or []
         if not cases:
             continue
         if bucket == "negative":
             right = [c for c in cases if c.get("correct_abstention")]
             if len(cases) < MIN_NEGATIVES:
-                print("%-14s %5d  反例少于 %d 条，弃答率不单独报告" % (bucket, len(cases), MIN_NEGATIVES))
+                print("%-14s %5d  反例少于 %d 条，弃答率不单独报告"
+                      % (bucket, len(cases), MIN_NEGATIVES))
             else:
-                print(
-                    "%-14s %5d  正确弃答 %d（%.2f）"
-                    % (bucket, len(cases), len(right), len(right) / len(cases))
-                )
+                print("%-14s %5d  正确弃答 %d（%.2f）"
+                      % (bucket, len(cases), len(right), len(right) / len(cases)))
             continue
         scored = [c for c in cases if c.get("recall_at_10") is not None]
         if not scored:
             continue
-        print(
-            "%-14s %5d  %-16.3f %-16.3f"
-            % (
-                bucket,
-                len(scored),
-                mean(c["recall_at_10"] for c in scored),
-                mean(c["reciprocal_rank"] for c in scored),
-            )
-        )
+        print("%-14s %5d  %-16.3f %-16.3f"
+              % (bucket, len(scored),
+                 mean(c["recall_at_10"] for c in scored),
+                 mean(c["reciprocal_rank"] for c in scored)))
 
-    named = [c for b in NAMED for c in by_bucket.get(b) or [] if c.get("recall_at_10") is not None]
-    free = [c for c in by_bucket.get("description") or [] if c.get("recall_at_10") is not None]
+    named = [c for b in NAMED for c in by_bucket.get(b) or []
+             if c.get("recall_at_10") is not None]
+    free = [c for c in by_bucket.get("description") or []
+            if c.get("recall_at_10") is not None]
     if named:
-        print(
-            "\n查询里含梗名的 %d 条：recall %.3f（只能证明拼写对得上）"
-            % (len(named), mean(c["recall_at_10"] for c in named))
-        )
+        print("\n查询里含梗名的 %d 条：recall %.3f（只能证明拼写对得上）"
+              % (len(named), mean(c["recall_at_10"] for c in named)))
     if free:
-        print(
-            "人工描述的 %d 条：recall %.3f  MRR %.3f"
-            % (len(free), mean(c["recall_at_10"] for c in free), mean(c["reciprocal_rank"] for c in free))
-        )
+        print("不含梗名的 %d 条：recall %.3f  MRR %.3f" %
+              (len(free), mean(c["recall_at_10"] for c in free),
+               mean(c["reciprocal_rank"] for c in free)))
         missed = [c for c in free if c["recall_at_10"] < 1]
         if missed:
             print("\n没能召回的描述型查询（这才是有信息量的部分）：")

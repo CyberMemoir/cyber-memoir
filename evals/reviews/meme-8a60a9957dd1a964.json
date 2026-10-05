@@ -1,0 +1,107 @@
+{
+  "frozen_at": "2026-10-05T03:36:36.951110+00:00",
+  "record": {
+    "slug": "meme-8a60a9957dd1a964",
+    "resolved": false,
+    "canonical_name": "没建模没经济的我",
+    "aliases": [],
+    "definition": "把戴牛仔帽、拿着油炸食物和饮料的低画质猫图放在下方，上方放令人羡慕的事物，再配上「没建模没经济的我」一类自嘲文案的模板。",
+    "usage_context": "用上下图的反差自嘲自己的外貌或经济条件。",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [
+      {
+        "url": "https://www.bilibili.com/video/BV1JisUzJE1a",
+        "role": "derivative",
+        "note": "当你无意间见证了别人的幸福（BV1rkydBTEyG画面引用；不作首次出处断言）"
+      }
+    ],
+    "evidence_map": {
+      "ocr-narration-BV1rkydBTEyG": null,
+      "ocr-BV1JisUzJE1a": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "把戴牛仔帽、拿着油炸食物和饮料的低画质猫图放在下方，上方放令人羡慕的事物，再配上「没建模没经济的我」一类自嘲文案的模板。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1rkydBTEyG"
+        ]
+      },
+      {
+        "key": "usage_context",
+        "statement": "用上下图的反差自嘲自己的外貌或经济条件。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1rkydBTEyG"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "event_type": "remix",
+        "description": "没建模没经济的我出现衍生作品《当你无意间见证了别人的幸福》",
+        "occurred_at_start": "2025-10-27 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1JisUzJE1a"
+        ]
+      }
+    ],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "没建模没经济的我"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "没建模没经济的我的出处"
+      ],
+      "description": [
+        "上面放别人令人羡慕的生活，下面是低画质的猫拿着炸食物自嘲没钱没外貌"
+      ],
+      "description_source": "model",
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV1rkydBTEyG"
+      ],
+      "description_authored_by": "codex",
+      "description_basis": "Stored narration, before definition drafting; model-generated, not human benchmark",
+      "draft_basis": [
+        "003.0s 相信最近大家都经常刷到这张",
+        "005.0s 非常好用的猫梗表情包吧",
+        "012.0s 首先这张表情包真的是历经了很多次迭代",
+        "032.0s 而其中就有这张拿着油炸食物的猫",
+        "044.0s 被人刻意改成了低画质的猫",
+        "051.0s 它被p上了一顶牛仔帽而且点赞数颇高",
+        "055.0s 这个猫猫的脸被换成了另一只猫猫的大脸",
+        "058.0s 是这只梗名为“不安猫”的猫猫",
+        "062.0s 大家最近比较熟悉的",
+        "066.0s 总之就这么几轮选代下来",
+        "068.0s 这只猫猫终于在中文互联网落户",
+        "071.0s 并被套上了一个新的模板",
+        "072.0s 这类模板中通常上图都是一些“令人羡慕”的事物",
+        "076.0s 而下图则是这只猫猫的表情",
+        "078.0s 并附文“没建模没经济的我"
+      ],
+      "draft_notes": "003-143s cat-composite/template.\n0/21/51/78/98/120/121 sourceframes inspected;cat not hamster.98-121 single exact resolved citation matches ID,title;raw l/i/1 variants preserved and excluded. Omit original stock author/date and first repost assertion;unknown structured origin.",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未证实，保留unknown；不把二创投稿日期当作首次出处",
+        "同一Codex模型分阶段复核，独立性有限；未声称人工确认"
+      ],
+      "draft_origin_sha256": "b8a8e19e9573afafbba177cea00056fd7b6ade79e05e312fab70d180fedfad4a"
+    }
+  }
+}

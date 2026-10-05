@@ -173,10 +173,10 @@ def timeline(frames: list[dict]) -> list[str]:
     """A reading aid, not evidence: both streams interleaved by second and labelled, so a
     quote sits beside the sentence that explains it. Same filters as the two materials."""
     said, shown = narration_by_position(frames, "")
-    tagged = [(line[:6], "解说", line[7:]) for line in said["text"].splitlines()]
-    tagged += [(line[:6], "画面", line[7:]) for line in shown["text"].splitlines()]
+    tagged = [(line.split(" ", 1)[0], "解说", line.split(" ", 1)[1]) for line in said["text"].splitlines()]
+    tagged += [(line.split(" ", 1)[0], "画面", line.split(" ", 1)[1]) for line in shown["text"].splitlines()]
     order = {"解说": 0, "画面": 1}
-    return ["%s %s｜%s" % item for item in sorted(tagged, key=lambda t: (t[0], order[t[1]]))]
+    return ["%s %s｜%s" % item for item in sorted(tagged, key=lambda t: (float(t[0][:-1]), order[t[1]]))]
 
 
 def citation(frames: list[dict], episode: str, bv: str, at: float) -> dict | None:

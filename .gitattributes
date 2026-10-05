@@ -1,0 +1,3 @@
+
+# Hash-pinned vault evidence and review artifacts must retain exact bytes.
+evals/** -text

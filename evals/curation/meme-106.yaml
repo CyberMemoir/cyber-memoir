@@ -1,0 +1,132 @@
+slug: meme-106
+resolved: false
+canonical_name: 阿米嘎蒂朵喵喵
+aliases: []
+definition: 一段复古小猫配着「阿米嘎蒂朵喵喵」的洗脑音乐跳舞的视频模板；这句是西班牙语「哎呀我的小猫咪喵喵」的感叹。
+usage_context: 网友把这只小猫当表情包用，也有人把这段 bgm 配到自己宠物猫的视频上。
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV13xUzBUEAg
+  role: reference
+  note: 蟑螂：喂我花生！！！（BV1RumbBdEo1 画面中引用）
+- url: https://www.bilibili.com/video/BV1ynmwBYEbV
+  role: derivative
+  note: 阿米嘎蒂朵喵喵～（BV1RumbBdEo1 画面中引用）
+evidence_map:
+  ocr-narration-BV1RumbBdEo1: null
+  ocr-BV13xUzBUEAg: null
+  ocr-BV1ynmwBYEbV: null
+claims:
+- key: definition
+  statement: 一段复古小猫配着「阿米嘎蒂朵喵喵」的洗脑音乐跳舞的视频模板；这句是西班牙语「哎呀我的小猫咪喵喵」的感叹。
+  evidence:
+  - ocr-narration-BV1RumbBdEo1
+  stance: supports
+- key: usage_context
+  statement: 网友把这只小猫当表情包用，也有人把这段 bgm 配到自己宠物猫的视频上。
+  evidence:
+  - ocr-narration-BV1RumbBdEo1
+  stance: supports
+events:
+- event_type: remix
+  description: 阿米嘎蒂朵喵喵 出现衍生作品《阿米嘎蒂朵喵喵～》
+  occurred_at_start: 2025-12-07 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1RumbBdEo1 画面引用发现
+  evidence:
+  - ocr-BV1ynmwBYEbV
+relations: []
+gold:
+  canonical:
+  - 阿米嘎蒂朵喵喵
+  alias: []
+  origin_intent:
+  - 阿米嘎蒂朵喵喵的出处
+  description:
+  - 猫猫手势舞
+  must_not_return: []
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis:
+  - 114.0s Autor:D.R.阿米嘎蒂朵喵喵
+  - 116.0s Autor:D.R.刷到这个模板啊
+  - 117.0s 就是一个看起来很复古模型的小猫
+  - 119.0s 配上这个“阿米嘎蒂朵喵喵”
+  - 121.0s 的洗脑音乐跳舞的视频
+  - 141.0s 这些复古小猫的视频呢
+  - 142.0s 基本都来自博主“airdays"
+  - 148.0s 至于这“阿米嘎蒂朵喵喵”『的起源呢
+  - 150.0s 是来自于一位画风相似的博主
+  - 152.0s 'godxi_cat”之手
+  - 153.0s 今年10月之际他就发布了
+  - 155.0s 使用该音乐的小猫跳舞视频
+  - 156.0s 使用曲也就是funk音乐《Montagem Miau)
+  - 163.0s 是来自Princesita Kelly的《Ay Mi Gatito》
+  - 178.0s 事实上它的歌词呢是西班牙语
+  - 180.0s 大意是自己养的一只小猫因为太贪吃了
+  - 187.0s 则是“哎呀我的小猫咪喵喵”的感叹
+  - 193.0s 也是迅速传入国内
+  - 196.0s 和音乐的洗脑来用这个两件套模板
+  - 200.0s 而且这个小猫也被单独拿出来
+  - 201.0s 被诸多网友当做表情包用
+  - 203.0s 更有甚者会将这个bgm
+  - 204.0s 直接放在自已的宠物猫视频上
+  draft_notes: '段落边界（D-14）：BV1RumbBdEo1 一集讲两个梗。002-007s 开场说「今天带来两个外网梗」；009-047s 是第一个梗（破碎面具下的脸，画面
+    048-113s 是它的衍生展示）；114s 起是第二条「阿米嘎蒂朵喵喵」（解说 114-259s，画面 166-257s 是衍生展示）。本条只写第二个梗，第一段的任何内容都没有写进本条字段。定义取
+    117/119/121/178/187s，usage 取 196/200/201/203/204s。
+
+    usage_context 依据：200/201s「这个小猫也被单独拿出来、被诸多网友当做表情包用」与 203/204s「将这个 bgm 直接放在自己的宠物猫视频上」都是拿它怎么用；194-198s（用这个两件套模板创作更多类似视频）与
+    206-210s（亲自下场跳起喵喵舞）偏二创传播，只作为背景。
+
+    引画面键的必要性（D-16）：定义与 usage 里的每个引用片段都在解说流里，所以没有加 ocr-screen-BV1RumbBdEo1。
+
+    OCR 可疑未改：114/116/166s 的「Autor:D.R.」是画面署名被识别进解说带，定义没有用它；142s 的英文引号（“airdays"）、148s
+    的『、152s 的 ''godxi_cat”、156s《Montagem Miau) 缺右括号、163s《Ay Mi Gatito》都照抄在 basis 中，未改；「阿米嘎蒂朵喵喵」的引号在各行也不一致。
+
+    未写（D-4）：013-023s 的 DolaanaDavaa／jeauyce（第一个梗）、142-163s 的博主 airdays／godxi_cat、曲名《Montagem
+    Miau》《Ay Mi Gatito》与「采样十五年前就发行」、Princesita Kelly 都属来源与事件材料（GPT 的范畴），没有写进定义。
+
+    可疑关系（只报告，未改）：人类查询是「猫猫手势舞」，而解说只写「小猫跳舞的视频」（121s）与「喵喵舞」（206s），没有「手势舞」这个说法，画面里的动作我没有逐帧核对；查询指向的显然是第二个梗，与定义一致。lineage
+    里另有三个未解析变体行（BV1ynmwBYEbv／BV13xUZBUEAg／BVi3xUzBUEAg），本条 sources 未包含。两条已解析 sources（BV13xUzBUEAg
+    2025-11-27、BV1ynmwBYEbV 2025-12-07）与 events 一致。
+
+    未发现只存在于画面、且定义必须依赖的含义，故未加 automation_hold。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - One supported20251207 remix; one title-conflicting reference only. Human query
+    preserved verbatim.
+  gpt_repair_notes: 225s BV13xUzBUEAg title 阿米嘎蒂朵~喵！喵！ conflicts with resolved 蟑螂：喂我花生！！！
+    despite matching uploader; reference only, dated remix removed.213s exact Aleks_Kost/title/date
+    supports one remix. Mask-redraw first segment009-113s excluded; no inferred song/creator
+    origin. Human 猫猫手势舞 preserved without adding unproved gesture detail to definition.
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: Full BV1RumbBdEo1 narration001-259s/screens009-262s/citation211/213/222/225/232s
+        read.114+ is cat/music template;009-113 mask redraw belongs distinct identity
+        and is excluded.
+      meaning: 117/119/121/178/184/187s directly supports retro cat dance, named sound
+        and narrated Spanish gloss. No lyric completion, song date, original creator
+        or OCR character repair.
+      usage: 200/201 explicitly says cat used as reaction image;203/204 says soundtrack
+        placed over own pet-cat videos.197/198 spread not substituted for use.
+      origins: Unknown origins/empty relations retained. airdays/godxi_cat/Princesita
+        Kelly narration links not turned into verified primary source/date relationships;
+        relative153/161s dates omitted.
+      events: 213s Aleks_Kost exact title/CSV20251207 retained one remix.225s resolved
+        蟑螂 title conflicts with excerpt title, kept reference only and event removed;
+        case variants unresolved not added.
+      queries: Existing human 猫猫手势舞 preserved verbatim.117/121/206s supports dancing
+        cat scene but not specific gesture choreography; no invented gesture fact
+        added, no model label or human confirmation fabricated.
+    fingerprint: 9c7b000a25390c989baabe4780ffddbacf2a78844240c87a8d6f26b519f62216

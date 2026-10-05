@@ -1,0 +1,129 @@
+slug: meme-52
+resolved: false
+canonical_name: 我的身材很曼妙
+aliases: []
+definition: 「某宝」买家问答区里一句没头没尾的回答：「不知道，我的身材很曼妙」。博主「弗拉基米尔Shay」把截图分享到「豆瓣」，后被网友改造成万用句式。
+usage_context: ''
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1Dd6mBDEaW
+  role: derivative
+  note: 不知道，我的舞姿很曼妙（BV1XA6RBgE21 画面中引用）
+evidence_map:
+  ocr-narration-BV1XA6RBgE21: null
+  ocr-BV1Dd6mBDEaW: null
+claims:
+- key: definition
+  statement: 「某宝」买家问答区里一句没头没尾的回答：「不知道，我的身材很曼妙」。博主「弗拉基米尔Shay」把截图分享到「豆瓣」，后被网友改造成万用句式。
+  evidence:
+  - ocr-narration-BV1XA6RBgE21
+  stance: supports
+events:
+- event_type: remix
+  description: 我的身材很曼妙 出现衍生作品《不知道，我的舞姿很曼妙》
+  occurred_at_start: 2026-01-10 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1XA6RBgE21 画面引用发现
+  evidence:
+  - ocr-BV1Dd6mBDEaW
+relations: []
+gold:
+  canonical:
+  - 我的身材很曼妙
+  alias: []
+  origin_intent:
+  - 我的身材很曼妙的出处
+  description:
+  - 被网友改成万用句式的那个截图
+  must_not_return: []
+  description_source: model
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis:
+  - 005.0s 但是实际上它也是老出处翻新的梗
+  - 008.0s 其最早能追溯到的是21年一月
+  - 011.0s 一位叫作“弗拉基米尔Shay”的博主
+  - 013.0s 于豆瓣分享的一个某宝回答
+  - 019.0s 它就是在购买链接下面
+  - 020.0s 设立的一个问答区专门供买家之间
+  - 023.0s 互相问答的存在
+  - 030.0s 有人回答了一句没头没尾的
+  - 032.0s “不知道，我的身材很曼妙”
+  - 047.0s 而最近这个帖子被网友们挖了出来
+  - 053.0s 被网友改造成了一个万用梗句式
+  draft_notes: '段落边界（D-14）：BV1XA6RBgE21 整集只有一个梗。解说 002-056s 讲这条梗（豆瓣上的某宝问答截图、这句话的效果、最近被挖出来改成万用句式）；057-105s
+    是衍生画面（096s BV1Dd6mBDEaW）。定义取 011/013/019/023/030/032/047/053s。
+
+    usage_context 留空（D-10）：047s（被网友们挖了出来）、053s（被网友改造成了一个万用梗句式）与 056s（就有了下面这些名场面）都是传播与衍生，解说没有一句说人们在什么场合拿它来做什么；画面
+    047s 起那些「已读乱回」的例子只在画面里（D-16），没有拿来写 usage。若 GPT 认为 053s 的「万用梗句式」已足以支撑 usage，可由
+    GPT 补写。
+
+    未写（D-4）：008s 的「21年一月」与画面 008s 的 2021-01-21 时间、原回答者署名「灯**西」都只出现在截图里（含星号），未写进定义；002-003s「26年第一新梗」是网友看法，未写。
+
+    OCR 不一致，照抄未改：画面 008-013s 的截图写作「灯**西：不知道，我的身材很曼妙。」，解说 032s 写作「“不知道，我的身材很曼妙”」，两处引号与句读不同；claim
+    引的是解说流，标点按 032s 抄。
+
+    可疑关系：本条只有一条已解析的衍生作品 BV1Dd6mBDEaW（画面 096s，平台日期 2026-01-10），与 events 的日期一致，未发现跨段引用或缺失项。
+
+    未发现只存在于画面、且定义必须依赖的含义，故未加 automation_hold。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 衍生关系来自 BV1XA6RBgE21 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+  - 传播区间 2026-01-10 .. 2026-01-10（1 条）
+  gpt_repair_notes: Removed relative 最近. Rejected first blind query because 淘宝 is
+    not explicitly identified by narration 某宝 and 凡尔赛 explanation is hedged040s; retained
+    second supported screenshot/template query only. No primary-answerer identity
+    or exact original date inferred.
+  description_query_provenance:
+    author: DeepSeek
+    source: model
+    proposed_at: '2026-09-30'
+    basis: Blind source-only proposals before drafting definitions.
+    proposal_file: ai_context/model_queries_batches7_8.yaml
+    source_episode: BV1XA6RBgE21
+    source_spans:
+    - 011.0s 一位叫作“弗拉基米尔Shay”的博主
+    - 013.0s 于豆瓣分享的一个某宝回答
+    - 026.0s 是当有人问链接的裙子显不显膀宽的时候
+    - 032.0s “不知道，我的身材很曼妙”
+    - 043.0s 还能带出一种对身材的“凡尔赛”感
+    - 053.0s 被网友改造成了一个万用梗句式
+    reviewer: gpt
+    reviewed_at: '2026-10-01'
+    semantic_review: Blind proposal spans exact. First query rejected for unsupported
+      淘宝 expansion and hedged 凡尔赛; second query supported024/047/053 identifies screenshot/template
+      without canonical name. One MODEL query applied with author/basis, never human
+      confirmation.
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: Full BV1XA6RBgE21 narration002-056s,screen001-105s and96s citation
+        frame read.011/013/019-032 establish screenshot of buyer-question answer;
+        no identification of masked original answerer.
+      meaning: 019-032 directly supports irrelevant answer;011/013 screenshot sharer/site
+        and047/053 template adaptation support definition.Quote exact narration032,
+        no inference from hedged joke explanation040-043.
+      usage: Empty retained:053s describes universal template formation, but specific
+        school/family reply examples are screen-only and no narrator-stated situation
+        inferred.
+      origins: Screenshot sharer is not original answer author; earliest trace does
+        not prove creation. Unknown origins/empty relations retained, no exact first-publication
+        date or masked name filled.
+      events: 96s exact title 不知道，我的舞姿很曼妙 and uploader 查理蹦蹦 match resolved clip/date20260110.
+        One direct phrase-substitution derivative retained; no event invented from
+        source screenshot date.
+      queries: Blind proposal spans exact. First query rejected for unsupported 淘宝
+        expansion and hedged 凡尔赛; second query supported024/047/053 identifies screenshot/template
+        without canonical name. One MODEL query applied with author/basis, never human
+        confirmation.
+    fingerprint: 49cb5b668734395c19b1d81bd0905e0197af434e7200285beecadb8cf2f476ef

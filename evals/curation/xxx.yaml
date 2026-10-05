@@ -1,0 +1,132 @@
+slug: xxx
+resolved: false
+canonical_name: 主人不在家，我XXX
+aliases: []
+definition: AI 配音反复念「我嘎油嘎油」，配合扭动动作和诡异配乐形成洗脑感，网友让各种稀奇古怪的东西模仿，衍生「主人不在家」开头的二创。
+usage_context: ''
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1yh4y1T7BV
+  role: reference
+  note: 教你用3根筷子搭蒸笼架子，特别牢固，简单又实用，看一次就学会（BV1gA2vBwEkS 画面中引用）
+- url: https://www.bilibili.com/video/BV153UvBkE7v
+  role: reference
+  note: 已经发展到满屋溜达了，小鸡们太可爱啦！（BV1gA2vBwEkS 画面中引用）
+- url: https://www.bilibili.com/video/BV1UbSFBTEds
+  role: derivative
+  note: 主人不在家我下个嘎啦给木（BV1gA2vBwEkS 画面中引用）
+evidence_map:
+  ocr-narration-BV1gA2vBwEkS: null
+  ocr-BV1yh4y1T7BV: null
+  ocr-BV153UvBkE7v: null
+  ocr-BV1UbSFBTEds: null
+claims:
+- key: definition
+  statement: AI 配音反复念「我嘎油嘎油」，配合扭动动作和诡异配乐形成洗脑感，网友让各种稀奇古怪的东西模仿，衍生「主人不在家」开头的二创。
+  evidence:
+  - ocr-narration-BV1gA2vBwEkS
+  stance: supports
+events:
+- event_type: remix
+  description: 主人不在家，我XXX 出现衍生作品《主人不在家我下个嘎啦给木》
+  occurred_at_start: 2025-11-29 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1gA2vBwEkS 画面引用发现
+  evidence:
+  - ocr-BV1UbSFBTEds
+relations: []
+gold:
+  canonical:
+  - 主人不在家，我XXX
+  alias: []
+  origin_intent:
+  - 主人不在家，我XXX的出处
+  description:
+  - 很降智的东北恐怖故事小视频
+  must_not_return: []
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis:
+  - 003.0s 先跟大家解释一下
+  - 005.0s 这个“嘎油”呢其实就是东北话里偏“踊一点的为“溜达”说法
+  - 010.0s 这个梗呢其实是出自博主“李五娘”的视频
+  - 013.0s 这个博主的视频总是会拍一些所谓的“民间故事”
+  - 016.0s 啊说白了其实就是很聊斋感的“中式乡村恐怖故事”
+  - 021.0s 而在11月16号呢她发布了一期《锅叉子成精》的视频
+  - 044.0s 所谓的“锅叉子"『呢其实就是东北大铁锅里用来支撑蒸篦子的东西
+  - 056.0s 因为ai配音一直复读地“我嘎油嘎油”
+  - 059.0s 配合有点好笑的扭动动作有点粗制监造的分镜
+  - 063.0s 还有试图塑造恐怖氛围的诡异bgm
+  - 066.0s 就使得它达成了再另一个角度上的“诡异和洗脑感
+  - 071.0s 于是乎网友们也就纷纷出手
+  - 073.0s 开始让各种各样稀奇古怪的东西
+  - 076.0s 也开始一起“聊斋”来下地“嘎油嘎油”
+  - 093.0s 主人不在家
+  - 095.0s 我下个嘎啦给木
+  - 096.0s 主人不在家
+  - 098.0s 我下个嘎啦给木
+  - 104.0s 那不早把夜神月攻略了吗
+  draft_notes: '段落边界（D-14）：BV1gA2vBwEkS 一集里讲的就是这一条梗（主人不在家，我XXX）。解说 003-076s 讲来源（东北话「嘎油」＝溜达、博主「李五娘」的《锅叉子成精》、AI
+    复读与诡异 bgm 造成的洗脑感、网友跟风），093-104s 是解说读一段二创（「主人不在家／我下个嘎啦给木」）；画面 005-097s 是各条二创的署名与画面。定义取
+    005/010/021/056/093s，usage 留空。
+
+    usage_context 留空（D-10）：071-076s（网友们纷纷出手、让各种各样稀奇古怪的东西一起「聊斋」来下地「嘎油嘎油」）是跟风二创与传播，本集没有一句说人们在什么场合拿它来做什么、表达什么。
+
+    与记录名的关系：记录名「主人不在家，我XXX」的完整开头句在原视频里只以画面字幕出现（画面流 001s「主人不在家／我下地嘎悠嘎悠」），解说流里的「主人不在家」出现在
+    093/096s，是解说在读一条二创（095/098s「我下个嘎啦给木」）；定义只写解说能支撑的部分，把这个句式写成「网友套成『主人不在家』开头的一类二创」，没有替它补出完整的原文句子，也没有把画面字幕当成含义来源（D-16）。
+
+    OCR 可疑未改：005s「偏“踊一点的为“溜达”说法」、044s 的残缺引号、056s 的「复读地」、059s「粗制监造」与 066s 的残缺引号都照抄在
+    basis 中，未改，也没有把「嘎油」写成别的字。
+
+    未写（D-4/D-6）：013/016s 的「民间故事／中式乡村恐怖故事」、021s 的「11月16号」、044/049s 的锅叉子解释、059/066s
+    的分镜与洗脑感评价、104s 的「夜神月」都没有写进定义（091 之后那段解说属二创内容）。
+
+    可疑关系（只报告，未改）：本条三条已解析衍生作品（BV1yh4y1T7BV 2023-08-29、BV153UvBkE7v 2025-11-27、BV1UbSFBTEds
+    2025-11-29）与 events 一致，但第一条的日期（2023-08-29，标题是「教你用3根筷子搭蒸笼架子」）比这条梗本身（解说 021s 说 11月16号发布）早了两年多，请
+    GPT 复核这条「衍生作品」关系；lineage 里另有 BV15ZSVB7EPR 一条未解析行（画面 073s，主人不在家我下地嘎油嘎油），本条 sources
+    未包含，我未改动。
+
+    未发现只存在于画面、且定义必须依赖的含义（记录名的开头句一节已在上面单独说明），故未加 automation_hold。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 衍生关系来自 BV1gA2vBwEkS 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+  - 传播区间 2023-08-29 .. 2025-11-29（3 条）
+  gpt_repair_notes: Removed definite 李五娘 primary-origin attribution, date and dialect
+    spelling inference; narrowed056/059/063/066/071/073/076/093s narrated meme features.44s
+    cooking tutorial is object explanation, reference only.5s generic chicken title
+    and dialect explanation do not independently establish a remix relationship, reference
+    only.93s exact 主人不在家我下个嘎啦给木/title/byd小绫/date supports one variant. Screen caption
+    remains unchanged, narrated093/096s independently supports opening phrase. Unknown
+    origins and empty usage preserved.
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: Full BV1gA2vBwEkS narration003-104s,screen001-097s and5/44/73/93s
+        frames read.056/059/063/066/071/073/076s establishes repeat-audio/objects
+        meme;093/096s independently supplies opening phrase.
+      meaning: 056/059/063/066s directly supports repeated AI line, moving objects,
+        eerie music and hypnotic effect.071/073/076 plus093s supports template extension.
+        Definite creator attribution and unanchored11月16号 omitted, no raw OCR repair.
+      usage: Empty retained:071-076s explains follow-on creation/spread; no independent
+        explicit posting occasion/intended expression.093-104s quoted derivative dialogue
+        not treated as commentary purpose.
+      origins: Unknown origin fields/empty relations retained. Narrator010/021s attributes
+        a video but lacks resolved primary URL/date; no creator relation or absolute11月16号
+        established.
+      events: 44s cooking tutorial is explanatory reference, not dated remix.5s chicken
+        clip relationship unsupported beyond generic title/dialect context, reference
+        only.93s BV1UbSFBTEds/title/byd小绫 agrees with resolved20251129, one dated
+        template variant.73s NotFound excluded.
+      queries: Human 很降智的东北恐怖故事小视频 preserved verbatim;005/013/016/059/063s supports
+        broad descriptive query. No model replacement or claim of human confirmation.
+    fingerprint: cc7b282a0756a0ca3976eb4662908263005306f3f00fd16a5c88ff18908adb40

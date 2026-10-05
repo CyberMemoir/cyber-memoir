@@ -1,0 +1,102 @@
+{
+  "frozen_at": "2026-10-03T18:41:14.446282+00:00",
+  "record": {
+    "slug": "meme-b977858bcb3406a6",
+    "resolved": false,
+    "canonical_name": "外卖教练",
+    "aliases": [],
+    "definition": "电竞圈调侃「朱开」的称呼，也用来吐槽表现不尽如人意的教练。",
+    "usage_context": "用于调侃被认为主要给选手点外卖、灌鸡汤的教练。",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [
+      {
+        "url": "https://www.bilibili.com/video/BV1AM4m1S7DS",
+        "role": "reference",
+        "note": "焕烽和ZDZ：朱开，我的外卖到了没？Wei：朱开，又又又没饮料了怎么说。朱开：诶，您好，您的外卖饮料到了（BV1omyMBtEFS画面引用；不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1uC69YyECV",
+        "role": "reference",
+        "note": "pdd和笑笑评价朱开，从靠点外卖混到了冠军教练，其实根本不懂游戏（BV1omyMBtEFS画面引用；不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV19Ty7B2Enr",
+        "role": "reference",
+        "note": "朱开：如果明年LPL拿S冠，我给俱乐部免费送十年外卖（BV1omyMBtEFS画面引用；不作首次出处断言）"
+      }
+    ],
+    "evidence_map": {
+      "ocr-narration-BV1omyMBtEFS": null,
+      "ocr-BV1AM4m1S7DS": null,
+      "ocr-BV1uC69YyECV": null,
+      "ocr-BV19Ty7B2Enr": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "电竞圈调侃「朱开」的称呼，也用来吐槽表现不尽如人意的教练。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1omyMBtEFS"
+        ]
+      },
+      {
+        "key": "usage_context",
+        "statement": "用于调侃被认为主要给选手点外卖、灌鸡汤的教练。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1omyMBtEFS"
+        ]
+      }
+    ],
+    "events": [],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "外卖教练"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "外卖教练的出处"
+      ],
+      "description": [
+        "用给队员点饭来调侃电竞教练，说他只会安慰选手而不擅长比赛决策"
+      ],
+      "description_source": "model",
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV1omyMBtEFS"
+      ],
+      "description_authored_by": "codex",
+      "description_basis": "Stored narration, before definition drafting; model-generated, not human benchmark",
+      "draft_basis": [
+        "002.0s 这又是一个和电竞圈相关的梗啦",
+        "004.0s 吐槽的则是一些表现并不是很尽如人意的教练",
+        "029.0s 那时候“教练”的主要任务就是做文“给选手点外卖”",
+        "033.0s 和“调节选手心理活跃气氛“这种事情",
+        "038.0s 则是和LPL赛事的一位前教练“KenZhu\"朱开有关",
+        "052.0s 来源于一些战队纪录片中为选手们“灌鸡汤”的样子",
+        "065.0s 以至于观众们都开始质疑起了这位?“冠军教练”的真正职业水平",
+        "073.0s 一些网友发现朱开早期可能真的就是从所谓的“外卖教练”",
+        "079.0s 所以大家便开始用“外卖教练”来调侃他"
+      ],
+      "draft_notes": "002-117s explains joke and reactions; 120s transitions to delivery/game sponsorship, excluded\nTreat negative competence claims as the content of a joke/opinion, not established biography. Clip28s is players talking,70s is commentary,105s is a coach statement: reference/observed-use candidates, not proven first uploader or mass popularizer. Narration101s says this year, whereas citation title105s says next year: omit the promise's year and any dated spread claim.",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未证实，保留unknown；不把二创投稿日期当作首次出处",
+        "同一Codex模型分阶段复核，独立性有限；未声称人工确认"
+      ],
+      "draft_origin_sha256": "99c4b980245b233b665e7557b9ea286241a16c9826db2000c387852bccbab1b3"
+    }
+  }
+}

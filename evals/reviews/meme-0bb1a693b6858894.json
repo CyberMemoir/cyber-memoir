@@ -1,0 +1,111 @@
+{
+  "frozen_at": "2026-10-03T18:41:14.393812+00:00",
+  "record": {
+    "slug": "meme-0bb1a693b6858894",
+    "resolved": false,
+    "canonical_name": "Papa小孩",
+    "aliases": [],
+    "definition": "诡异的小孩素描配上婴儿喊「papa」的音效形成的表情包；也有与「秀才」结合、捂嘴笑的版本。",
+    "usage_context": "",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [
+      {
+        "url": "https://www.bilibili.com/video/BV1KrsiztEs3",
+        "role": "derivative",
+        "note": "papa小孩，但是雨宫莲（BV1HwUNBTE6r画面引用；不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV15AsAzLEZ6",
+        "role": "derivative",
+        "note": "papa～（BV1HwUNBTE6r画面引用；不作首次出处断言）"
+      }
+    ],
+    "evidence_map": {
+      "ocr-narration-BV1HwUNBTE6r": null,
+      "ocr-BV1KrsiztEs3": null,
+      "ocr-BV15AsAzLEZ6": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "诡异的小孩素描配上婴儿喊「papa」的音效形成的表情包；也有与「秀才」结合、捂嘴笑的版本。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1HwUNBTE6r"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "event_type": "remix",
+        "description": "Papa小孩出现衍生作品《papa小孩，但是雨宫莲》",
+        "occurred_at_start": "2025-10-23 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1KrsiztEs3"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "Papa小孩出现衍生作品《papa～》",
+        "occurred_at_start": "2025-10-19 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV15AsAzLEZ6"
+        ]
+      }
+    ],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "Papa小孩"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "Papa小孩的出处"
+      ],
+      "description": [
+        "一个看着很诡异的小孩素描，配上婴儿喊爸爸的声音，还被做成捂嘴笑的视频"
+      ],
+      "description_source": "model",
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV1HwUNBTE6r"
+      ],
+      "description_authored_by": "codex",
+      "description_basis": "Stored narration, before definition drafting; model-generated, not human benchmark",
+      "draft_basis": [
+        "003.0s 这个梗呢其实也是最近比较火的一个表情包",
+        "016.0s 他的作品呢都是这种看起来颇有一种抽象派味道的素描",
+        "020.0s 而这个实际上名为“Droool~的小孩图呢在三年前就已经发布了",
+        "024.0s 而最近呢一些网友将这个图翻了出来",
+        "026.0s 配上了这个音效做成梗meme",
+        "029.0s 我的上帝呀使得它看起来更加诡异了",
+        "035.0s 其实就是一个婴儿叫papa的音频",
+        "059.0s 也有网友单独把这个图掏出来",
+        "061.0s P上各种各样的字幕制成“别样的\"表情包",
+        "097.0s 而最近有人将这个小孩和秀才结合在一起",
+        "100.0s 利用ai生成了一个他捂嘴笑的视频"
+      ],
+      "draft_notes": "003-035s establishes child picture/audio; 037-056s discusses a different Squid Game composite used to explain audio spread; 059-112s returns to child image and variants\nImage, audio and later AI variant have distinct histories. No direct ArtStation or audio source URL is stored; no relative year converted into a date and no Bilibili derivative promoted to original. Frame20s visibly credits Dallas Rayburn/Droool; those credits remain source observations and are omitted from public draft pending origin review.",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未证实，保留unknown；不把二创投稿日期当作首次出处",
+        "同一Codex模型分阶段复核，独立性有限；未声称人工确认"
+      ],
+      "draft_origin_sha256": "99c4b980245b233b665e7557b9ea286241a16c9826db2000c387852bccbab1b3"
+    }
+  }
+}

@@ -1,0 +1,104 @@
+slug: meme-53
+resolved: false
+canonical_name: 我真求你了天猫
+aliases: []
+definition: 指用「我真求你了」等评论调侃「天猫」的抽象广告内容，直白意思是求作者别整得这么抽象
+usage_context: 看到「天猫」那种精神状态像把抽象文学列入KPI的广告内容时用
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1nHASzAETd
+  role: reference
+  note: “有种正面闻”（BV1JpLv6uEfj 画面中引用）
+- url: https://www.bilibili.com/video/BV1XadwBeEzP
+  role: reference
+  note: 海绵强强（BV1JpLv6uEfj 画面中引用）
+evidence_map:
+  ocr-BV1nHASzAETd: null
+  ocr-BV1XadwBeEzP: null
+  ocr-narration-BV1JpLv6uEfj: null
+claims:
+- key: definition
+  statement: 指用「我真求你了」等评论调侃「天猫」的抽象广告内容，直白意思是求作者别整得这么抽象
+  evidence:
+  - ocr-narration-BV1JpLv6uEfj
+  stance: supports
+- key: usage_context
+  statement: 看到「天猫」那种精神状态像把抽象文学列入KPI的广告内容时用
+  evidence:
+  - ocr-narration-BV1JpLv6uEfj
+  stance: supports
+events: []
+relations: []
+gold:
+  canonical:
+  - 我真求你了天猫
+  alias: []
+  origin_intent:
+  - 我真求你了天猫的出处
+  description:
+  - 把抽象文学当KPI
+  must_not_return: []
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis: '解说 0:03「这个梗呢是近些年的视频评论区中」；
+
+    解说 0:21「于是就可以看到评论区里说“我求求你了”“我真求你了”」；
+
+    解说 0:25「等词来调侃这种类型的视频」；
+
+    解说 0:27「直白的说就是：我求求你别发了我求求你不要整这么抽象了」；
+
+    解说 0:53「那精神状态感觉运营怕不是把“抽象文学”列入KPI写了吧？」；
+
+    解说 0:61「哎哟我求求你了天猫！怎么整的这么抽象啊！」'
+  draft_notes: '片段边界：0s-101s 全片讲本梗（0-25s 评论区用法与含义，49-101s 天猫家装广告那个案例）；
+
+    本梗的用法解说在 3s-27s，案例在 51s-101s。
+
+    usage_context 用的是解说 0:53 描述的那个情形（天猫那条广告），它说的是「什么时候会说」，
+
+    不是传播；「网友们的口味一天比一天刁钻」（0:34）等没有写进去。
+
+    疑似 OCR 误读：解说 0:61 与 0:63 的「天猫」，画面多处写成「天描」「天端」，照抄未改；
+
+    0:53 的「KPI」与画面「广告创意设计请勿模仿」都在画面材料里出现过。
+
+    未写：不写解说 0:18 提到的“雨姐”等其它梗，与本梗无关（D-5）。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 衍生关系来自 BV1JpLv6uEfj 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+  - 传播区间 2026-02-27 .. 2026-05-07（2 条）
+  gpt_repair_notes: Two cited videos occur at031/045s in general-video/marketing discussion
+    before the Tmall example at051s. Retained as references, removed unsupported Tmall-remix
+    events; canonical example made explicit in definition.
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: Full BV1JpLv6uEfj003-027s explains the general comment phrase and051-061s
+        explicitly applies it to Tmall's advertisement, matching the episode's named
+        example.
+      meaning: 021-027s explicitly defines the phrase as asking authors to stop making
+        abstract content.051-061s supplies the Tmall example; no inferred mental-health
+        diagnosis.
+      usage: 051-061s explicitly describes the unusual ad and narrator's pleading
+        reaction. Existing usage is an attributed humorous comparison, not a claim
+        about actual KPI policy.
+      origins: No first source/date asserted. Neither referenced generic clip is marked
+        original source or popularizer; origin remains unknown.
+      events: Removed both remix events:031s 海绵强强 and045s 有种正面闻 are generic reference
+        examples before051s Tmall segment. Exact IDs/titles/dates checked against
+        resolved CSV; matching dates do not prove derivative relationship. Zero events
+        retained.
+      queries: Existing human query 把抽象文学当KPI preserved; source053s independently
+        supports its search intent. No model description or fabricated human approval.
+    fingerprint: 1fd6687bf4516b98c044f23a803eb32800a9169bc9701f5abe9069c6d2ead7ab
