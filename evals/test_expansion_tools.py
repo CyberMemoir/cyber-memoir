@@ -95,7 +95,5 @@ class ExpansionToolsTests(unittest.TestCase):
         doc["curation"]["automated_review"]["reviewer"] = "gpt"
         self.assertIsNotNone(review_error(doc, {}))
 
-
-
 if __name__ == "__main__":
     unittest.main()
