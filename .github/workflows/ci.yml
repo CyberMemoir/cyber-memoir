@@ -1,5 +1,25 @@
 name: CI
-on: [push, pull_request]
+on:
+  push:
+    paths-ignore:
+      - 'evals/curation/**'
+      - 'evals/reviews/**'
+      - 'evals/feasibility/materials/**'
+      - 'evals/feasibility/*.json'
+      - 'evals/feasibility/*.csv'
+      - 'evals/feasibility/asr/**'
+      - 'evals/vault_manifest.json'
+      - 'evals/VAULT_WORKFLOW.md'
+  pull_request:
+    paths-ignore:
+      - 'evals/curation/**'
+      - 'evals/reviews/**'
+      - 'evals/feasibility/materials/**'
+      - 'evals/feasibility/*.json'
+      - 'evals/feasibility/*.csv'
+      - 'evals/feasibility/asr/**'
+      - 'evals/vault_manifest.json'
+      - 'evals/VAULT_WORKFLOW.md'
 permissions:
   contents: read
 jobs:
