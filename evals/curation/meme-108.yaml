@@ -1,0 +1,121 @@
+slug: meme-108
+resolved: false
+canonical_name: 顶富熊大快跑
+aliases: []
+definition: 指网友把《熊大快跑》手游的充值截图当作一种「新概念炫富」，调侃把钱花在离谱的地方。
+usage_context: 网友用《熊大快跑》的充值截图，调侃烧钱玩游戏是顶富才有的极致享受。
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV14G4y167wd
+  role: reference
+  note: 熊大快跑高端局（BV1YewXzoEjT 画面中引用）
+- url: https://www.bilibili.com/video/BV1mjPDzEESZ
+  role: reference
+  note: 熊大快跑之卡密月跑（BV1YewXzoEjT 画面中引用）
+- url: https://www.bilibili.com/video/BV1cHcUz4Enc
+  role: reference
+  note: 💪俺 变 的 更 强 壮 了💪（BV1YewXzoEjT 画面中引用）
+evidence_map:
+  ocr-BV14G4y167wd: null
+  ocr-BV1mjPDzEESZ: null
+  ocr-BV1cHcUz4Enc: null
+  ocr-narration-BV1YewXzoEjT: null
+claims:
+- key: definition
+  statement: 指网友把《熊大快跑》手游的充值截图当作一种「新概念炫富」，调侃把钱花在离谱的地方。
+  evidence:
+  - ocr-narration-BV1YewXzoEjT
+  stance: supports
+- key: usage_context
+  statement: 网友用《熊大快跑》的充值截图，调侃烧钱玩游戏是顶富才有的极致享受。
+  evidence:
+  - ocr-narration-BV1YewXzoEjT
+  stance: supports
+events: []
+relations: []
+gold:
+  canonical:
+  - 顶富熊大快跑
+  alias: []
+  origin_intent:
+  - 顶富熊大快跑的出处
+  description:
+  - 穷玩车，富玩表
+  must_not_return: []
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis: '002.0s 这个梗是出自熊出没官方授权的手游
+
+    005.0s 《熊大快跑》
+
+    016.0s 想办法让人花钱的方向发展了
+
+    023.0s 一些在这游戏里大量的截图
+
+    026.0s 在网上广为流传
+
+    027.0s 内容一般是为了搞笑
+
+    028.0s 体现把钱花在了离谱的地方
+
+    036.0s 但把那么多钱钱花在一个
+
+    039.0s 真的很难绷
+
+    042.0s 烧钱玩的感觉
+
+    045.0s 网友们便把熊大快跑充值的截图
+
+    048.0s 当成了一种新概念炫富
+
+    050.0s 只有顶富才能有的极致享受'
+  draft_notes: '片段边界：本梗解说占 001-053s；055-100s 只有画面（游戏界面、充值记录、股票图），没有解说；103-105s 的「运营这个游戏的是不是笑的合不拢嘴咯」是收尾调侃，未写入。
+
+    定义依据：002-005s 说出自官方授权手游《熊大快跑》；045-050s 说网友把充值截图当成「新概念炫富」、只有顶富才能有的极致享受。usage_context
+    也取 045-050s：这是全集唯一说清这个梗是拿来干什么的一句。
+
+    可疑 OCR：016s「想办法让人花钱的方向发展了」、020s「就是满个华而不实」、029s 解说行混入画面文字（「熊体现把钱花在了离谱的地方-648.00」），这些我都没有写进正文。
+
+    未写入：011-022s 讲这类游戏越来越骗氪、023-033s 举充值截图与支付方式的例子，属于来源解释而非梗义。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 衍生关系来自 BV1YewXzoEjT 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+  - 传播区间 2022-08-29 .. 2026-03-13（5 条）
+  gpt_repair_notes: Narration034s explicitly says screenshot truth unknown; definition/use
+    now frame wealth as mockery, not verified payments or wealth. Removed case-sensitive
+    BV1zxNTzjELz resolving to unrelated sketch and uppercase counterpart with conflicting
+    uploader. Other gameplay clips retained only as references; footage/title alone
+    does not establish dated remixes of this meme.
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: Full BV1YewXzoEjT narration001-005s names 顶富熊大快跑 and the game. No
+        unrelated sketch identified as part of the meme.
+      meaning: 027-030s explicitly states joking about spending in absurd places;034s
+        says screenshot truth unknown;040-050s gives the ironic wealth framing. Revised
+        prose avoids endorsing screenshots as real payment evidence or top wealth
+        as fact.
+      usage: 045-050s explicitly describes using recharge screenshots as new-concept
+        wealth display. Revised usage states this is mockery rather than literal financial
+        eligibility.
+      origins: No actual original poster/source established; unknown fields and empty
+        relations retained. Game-footage references do not prove creators or origin
+        dates.
+      events: No dated remix retained:001/007/014s game footage introduces mechanics,
+        while72s montage has no specific relationship narration. Case-sensitive lowercase
+        BV resolves to unrelated sketch; uppercase uploader HunterQiang conflicts
+        with frame 闪耀猎人强, so both excluded. Three remaining exact-title references
+        retain evidence without event/creator claims.
+      queries: Human query 穷玩车，富玩表 preserved. No model query, verified-payment assertion,
+        or human approval introduced.
+    fingerprint: ba598342fc85a87ba75d1c57f8502463f43179c280ab5c794e488ebfb573e2d3

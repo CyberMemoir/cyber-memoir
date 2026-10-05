@@ -1,0 +1,107 @@
+slug: meme-107
+resolved: false
+canonical_name: 青蛙教练
+aliases: []
+definition: 出自CS2「科隆Major」：「绿龙」两名教练无法到场，选手「donk」把一只青蛙玩偶摆上教练椅、戴上教练耳机，成了“青蛙教练”。
+usage_context: ''
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1LPE86oEJk
+  role: derivative
+  note: 【中字】CS史上首个呱语采访：Jab Jabich感人讲述绿龙晋级路（BV1BojA6UEB9 画面中引用）
+- url: https://www.bilibili.com/video/BV1rRJx6FECa
+  role: derivative
+  note: 草！拿下！😭玩机器看绿龙成功击败9z韧性拉满！荡气回肠！全员爆发！小驴不惯着你了（BV1BojA6UEB9 画面中引用）
+- url: https://www.bilibili.com/video/BV1ppJn62EuC
+  role: derivative
+  note: “躲在超市后门讨论战术的二人”（BV1BojA6UEB9 画面中引用）
+- url: https://www.bilibili.com/video/BV1Xkj36cEki
+  role: derivative
+  note: ⚡某不科学的青蛙教练⚡（BV1BojA6UEB9 画面中引用）
+evidence_map:
+  ocr-narration-BV1BojA6UEB9: null
+  ocr-BV1LPE86oEJk: null
+  ocr-BV1rRJx6FECa: null
+  ocr-BV1ppJn62EuC: null
+  ocr-BV1Xkj36cEki: null
+claims:
+- key: definition
+  statement: 出自CS2「科隆Major」：「绿龙」两名教练无法到场，选手「donk」把一只青蛙玩偶摆上教练椅、戴上教练耳机，成了“青蛙教练”。
+  evidence:
+  - ocr-narration-BV1BojA6UEB9
+  stance: supports
+events:
+- event_type: remix
+  description: 青蛙教练 出现衍生作品《【中字】CS史上首个呱语采访：Jab Jabich感人讲述绿》
+  occurred_at_start: 2026-06-07 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1BojA6UEB9 画面引用发现
+  evidence:
+  - ocr-BV1LPE86oEJk
+- event_type: remix
+  description: 青蛙教练 出现衍生作品《草！拿下！😭玩机器看绿龙成功击败9z韧性拉满！荡气回肠！全员》
+  occurred_at_start: 2026-06-13 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1BojA6UEB9 画面引用发现
+  evidence:
+  - ocr-BV1rRJx6FECa
+- event_type: remix
+  description: 青蛙教练 出现衍生作品《“躲在超市后门讨论战术的二人”》
+  occurred_at_start: 2026-06-13 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1BojA6UEB9 画面引用发现
+  evidence:
+  - ocr-BV1ppJn62EuC
+- event_type: remix
+  description: 青蛙教练 出现衍生作品《⚡某不科学的青蛙教练⚡》
+  occurred_at_start: 2026-06-16 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1BojA6UEB9 画面引用发现
+  evidence:
+  - ocr-BV1Xkj36cEki
+relations: []
+gold:
+  canonical:
+  - 青蛙教练
+  alias: []
+  origin_intent:
+  - 青蛙教练的出处
+  description:
+  - 为什么瓦洛兰特比赛后采访一只青蛙
+  must_not_return: []
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: Vincent
+  draft_basis: '003.0s 这个梗呢来源于最近参加CS2IEM科隆Major的Team Spirit战队
+
+    007.0s 也就是大家俗称的绿龙
+
+    019.0s 所以绿龙的两个教练都无法前往科隆线下指挥
+
+    027.0s 结果在瑞士轮开赛时绿龙的传奇选手donk抱着一只青蛙玩偶上场
+
+    031.0s 并把他摆在战队身后的椅子上
+
+    033.0s 不仅塞了瓶水还戴上教练耳机
+
+    048.0s 在这位青蛙教练的执教绿龙往瑞士轮居然3-0（x2）全胜出线了！
+
+    083.0s 战队官方和粉丝们也是疯狂玩梗
+
+    085.0s 为这位青蛙教练制作了无数的传奇二创'
+  draft_notes: '段落：整集一个梗。003-085s 是解说；088s 之后是二创歌曲的歌词，OCR 落在解说流里，我没有用。
+
+    用法留空（D-10）：083s 疯狂玩梗、085s 无数二创都是传播；035s「稳定军心」的「军中大将」是描述，不是用法。
+
+    可疑 OCR：014s「HALLY」、017s「SOtF1k」是两个教练 ID，大小写像误读；048s「3-0（x2）」里的 x2 我没写进正文（D-3 拿不准就不写）。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 衍生关系来自 BV1BojA6UEB9 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+  - 传播区间 2026-06-07 .. 2026-06-16（4 条）

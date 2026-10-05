@@ -1,0 +1,118 @@
+slug: meme-19
+resolved: false
+canonical_name: 低音炮丹尼尔
+aliases: []
+definition: 「低音炮丹尼尔」讲的是乌克兰网络歌手丹尼尔，这次翻红是因为他演唱《simpa》时的笑场时刻。
+usage_context: ''
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1xy6qBJESW
+  role: derivative
+  note: 《晴天》（BV17mAUzxEFu 画面中引用）
+- url: https://www.bilibili.com/video/BV1rkc4zaE5t
+  role: derivative
+  note: 丹尼尔《大东北我的家乡》（BV17mAUzxEFu 画面中引用）
+- url: https://www.bilibili.com/video/BV1b3cEzQEHb
+  role: derivative
+  note: 《说谎的辛巴巴》（完整版）（BV17mAUzxEFu 画面中引用）
+evidence_map:
+  ocr-BV1xy6qBJESW: null
+  ocr-BV1rkc4zaE5t: null
+  ocr-BV1b3cEzQEHb: null
+  ocr-narration-BV17mAUzxEFu: null
+claims:
+- key: definition
+  statement: 「低音炮丹尼尔」讲的是乌克兰网络歌手丹尼尔，这次翻红是因为他演唱《simpa》时的笑场时刻。
+  evidence:
+  - ocr-narration-BV17mAUzxEFu
+  stance: supports
+events:
+- event_type: remix
+  description: 低音炮丹尼尔 出现衍生作品《《晴天》》
+  occurred_at_start: 2026-01-30 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV17mAUzxEFu 画面引用发现
+  evidence:
+  - ocr-BV1xy6qBJESW
+- event_type: remix
+  description: 低音炮丹尼尔 出现衍生作品《丹尼尔《大东北我的家乡》》
+  occurred_at_start: 2026-02-11 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV17mAUzxEFu 画面引用发现
+  evidence:
+  - ocr-BV1rkc4zaE5t
+- event_type: remix
+  description: 低音炮丹尼尔 出现衍生作品《《说谎的辛巴巴》（完整版）》
+  occurred_at_start: 2026-02-13 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV17mAUzxEFu 画面引用发现
+  evidence:
+  - ocr-BV1b3cEzQEHb
+relations: []
+gold:
+  canonical:
+  - 低音炮丹尼尔
+  alias: []
+  origin_intent:
+  - 低音炮丹尼尔的出处
+  description:
+  - 唐笑，辛巴巴巴鲁比拉
+  must_not_return: []
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis: '002.0s 这个梗讲的是乌克兰网络歌手丹尼尔
+
+    005.0s 在2017年就在国内视频平台走红
+
+    007.0s 当年因其独特的演唱风格和低沉的嗓音
+
+    010.0s 而被网友们称为“行走的低音炮”
+
+    012.0s 而最近呢又翻红了
+
+    014.0s 这次网友们的关注点集中在了他演唱《simpa》时的笑场时刻'
+  draft_notes: '片段边界：本梗解说占 002-076s；019-036s 与 094-128s 落在解说流里的是引用视频的歌词与字幕，不是解说，未采用。全集只讲这一个梗。
+
+    定义依据：002s 说梗讲的是乌克兰网络歌手丹尼尔，014s 说这次翻红的关注点集中在他演唱《simpa》时的笑场时刻。
+
+    可疑 OCR：014s 的歌名写作《simpa》，而画面（056s）与后续二创标题写的是「辛巴巴巴鲁比啦」「辛巴巴」，疑为同一首歌的不同写法，正文照抄解说的《simpa》，未改；051s「网上流传着干奇百怪的原因」疑为「千奇百怪」，未写入正文；060s「正原因为何」疑为「真正原因为何」，未写入。
+
+    usage_context 留空（D-10）：063-076s 说的是网友出于调侃或整活刻意把失误写成失禁、进而称他「失禁低音炮」，以及出现了整活视频，都是传播与二创；全集没有一句说这个梗在什么场合被怎样使用。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 衍生关系来自 BV17mAUzxEFu 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+  - 传播区间 2026-01-30 .. 2026-02-13（5 条）
+  gpt_repair_notes: Removed both duplicated source/event entries for BV1Hj6tB2EBH:56s
+    citation frame title/480水冷 differs from resolved title/55甲斗. No raw evidence changed;
+    uncertain clip not used.
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: Full BV17mAUzxEFu narration002-014s identifies Daniel, the low voice
+        nickname and renewed attention to the simpa laughter segment.002s nationality/name
+        are explainer testimony; no extra biography added.
+      meaning: 014/038s supports the laughter moment.051-060s lists competing explanations
+        and explicitly says true reason unknown; none promoted into the definition.063-073s
+        attributes the incontinence wording to deliberate wordplay, not a medical
+        fact.
+      usage: Left empty rather than inventing a reaction setting from076s remix spread.
+        No medical insinuation introduced as factual use.
+      origins: Unknown origin fields/empty relations retained; no repost uploader
+        asserted as performer or original recording creator.
+      events: Removed duplicate/conflicting BV1Hj6tB2EBH entries. Remaining frames78s
+        DAW晴天/91s丹尼尔大东北/108s说谎的辛巴巴 appear in the related-edit segment after076s; exact
+        BV/titles agree with resolved dates20260130/20260211/20260213. No uploader-name
+        normalization invented.
+      queries: Human query 唐笑，辛巴巴巴鲁比拉 unchanged. No generated query or human confirmation
+        added.
+    fingerprint: 8e999d6515c46b6345894de0a6f0f1cb4df7b4fec995ceb0df435cb3b2b32f15

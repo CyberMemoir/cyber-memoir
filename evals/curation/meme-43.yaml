@@ -1,0 +1,134 @@
+slug: meme-43
+resolved: false
+canonical_name: 尴尬狗
+aliases: []
+definition: 外网博主「Ole4ka」、账号「@zaxa557」发布的小狗视频：一只「杰克罗素」像人一样坐在椅子上，一直看向镜头，显得尴尬局促。
+usage_context: 用来传递一种生活中尴尬时刻的情绪。
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV16r8m6yEAV
+  role: derivative
+  note: 那我开学遇到神人同桌（BV1ubh26ZEsb 画面中引用）
+- url: https://www.bilibili.com/video/BV1Xbtu6HE8m
+  role: derivative
+  note: 社恐去漫展belike（BV1ubh26ZEsb 画面中引用）
+- url: https://www.bilibili.com/video/BV1aze86oEx5
+  role: derivative
+  note: 【绘画教程】表情包系列“尴尬端坐狗”画法（BV1ubh26ZEsb 画面中引用）
+evidence_map:
+  ocr-narration-BV1ubh26ZEsb: null
+  ocr-BV16r8m6yEAV: null
+  ocr-BV1Xbtu6HE8m: null
+  ocr-BV1aze86oEx5: null
+claims:
+- key: definition
+  statement: 外网博主「Ole4ka」、账号「@zaxa557」发布的小狗视频：一只「杰克罗素」像人一样坐在椅子上，一直看向镜头，显得尴尬局促。
+  evidence:
+  - ocr-narration-BV1ubh26ZEsb
+  stance: supports
+- key: usage_context
+  statement: 用来传递一种生活中尴尬时刻的情绪。
+  evidence:
+  - ocr-narration-BV1ubh26ZEsb
+  stance: supports
+events:
+- event_type: remix
+  description: 尴尬狗 出现衍生作品《那我开学遇到神人同桌》
+  occurred_at_start: 2026-08-22 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1ubh26ZEsb 画面引用发现
+  evidence:
+  - ocr-BV16r8m6yEAV
+- event_type: remix
+  description: 尴尬狗 出现衍生作品《社恐去漫展belike》
+  occurred_at_start: 2026-09-01 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1ubh26ZEsb 画面引用发现
+  evidence:
+  - ocr-BV1Xbtu6HE8m
+- event_type: remix
+  description: 尴尬狗 出现衍生作品《【绘画教程】表情包系列“尴尬端坐狗”画法》
+  occurred_at_start: 2026-09-19 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1ubh26ZEsb 画面引用发现
+  evidence:
+  - ocr-BV1aze86oEx5
+relations: []
+gold:
+  canonical:
+  - 尴尬狗
+  alias: []
+  origin_intent:
+  - 尴尬狗的出处
+  description:
+  - 宠物用眼神瞟镜头
+  must_not_return: []
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis:
+  - 002.0s 这个梗呢和外网博主
+  - 003.0s "Ole4ka"(@zaxa557)有关
+  - 005.0s 有一只可爱的杰克罗素小狗
+  - 007.0s 在25年6月28号呢
+  - 008.0s 这个博主发布了一期有关于小狗的视频
+  - 011.0s 视频中的小狗像人一样坐在椅子上
+  - 013.0s 然后一直用眼神嘌镜头
+  - 016.0s 局促的感觉
+  - 026.0s 这个视频在外网先是火了起来
+  - 030.0s 等到后续其传入国内后
+  - 035.0s 也被网友们塞进
+  - 036.0s 各种各样的小剧场meme二创
+  - 038.0s 由此来传递一种生活中尴尬时刻的情绪
+  draft_notes: '段落边界（D-14）：BV1ubh26ZEsb 整集只有一个梗，解说 002-038s 全在讲尴尬狗。002-016s 讲外网博主与小狗视频本身，025-038s
+    讲外网先火、传入国内后的梗图与小剧场二创；041-094s 是衍生作品画面（050s BV16r8m6yEAV、064s BV1Xbtu6HE8m、011s
+    BV1aze86oEx5）。定义取 002/003/005/011/016s，usage 取 038s。
+
+    usage_context 依据：038s「由此来传递一种生活中尴尬时刻的情绪」是说明用法与含义的句子；035-036s「被网友们塞进各种各样的小剧场 meme
+    二创」属传播与二创，没有写进 usage。
+
+    OCR 可疑未改（D-2）：013s 解说读作「然后一直用眼神嘌镜头」，其中「嘌」应是「瞟」的错读（人类查询写的就是「宠物用眼神瞟镜头」）；我没有把这句当引文照抄，以免把错字带进定义，定义里改用自己的话「一直斜眼看镜头」。015s「仿佛给火完种尴尬」也残缺，未引用，定义只用
+    016s「局促的感觉」。画面 011s 的派生作品标题把这只狗叫「尴尬端坐狗」，与本条名字「尴尬狗」不同，未改。
+
+    未写（D-4）：007s「在25年6月28号呢」是该视频的发布时间，属事件与来源判断（GPT 的范畴），没有写进定义。
+
+    可疑关系：本条三条已解析衍生作品（BV16r8m6yEAV 画面 050s、BV1Xbtu6HE8m 画面 064s、BV1aze86oEx5 画面 011s）与
+    events 的日期一致；画面 030s 起还有 @仕海公考雯雯老师、@10、@磐雅复材乌鸡总 等署名，没有对应的已解析行，我没有补。我未改动 sources/events。
+
+    未发现只存在于画面、且定义必须依赖的含义，故未加 automation_hold。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 衍生关系来自 BV1ubh26ZEsb 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+  - 传播区间 2026-08-22 .. 2026-09-19（3 条）
+  gpt_repair_notes: Use 发布 instead of inferred filming authorship; glancing narration013
+    paraphrased without repairing quote 嘌 or extra directional claim. Human query
+    preserved; three directly identified tutorial/sketch events retained.
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: Full BV1ubh26ZEsb narration002-038s and screen002-094s read.003/005/008/011/013
+        identifies blogger/account, dog breed and chair/glance scene; tutorial11s
+        is depiction derivative, not original footage.
+      meaning: 003/005/008/011/013/015/016 supports published seated-dog video and
+        awkward affect.013 garbled verb paraphrased as looking at camera without repairing
+        an exact quote or claiming original filming authorship.
+      usage: 038s explicitly states conveying everyday awkward moments, supporting
+        usage rather than inferring it from repost volume or sketch dialogue.
+      origins: Original context described by narrator but primary video URL absent;
+        unknown fields/empty relations retained.007s source date does not establish
+        first meme creation or exclusive uploader.
+      events: Full11/50/64s frames match CSV titles/uploaders 阿文美术AWENART/陌上人如玉owO/别斯特best
+        and dates20260919/20260822/20260901; direct dog tutorial/sketch contexts support
+        three derivative events.
+      queries: Human 宠物用眼神瞟镜头 unchanged and separate from model operational queries.
+        No claim of human review, no generated query or fabricated confirmed_by added.
+    fingerprint: 26a04aec6fcbb8df3fd7c536121199a4a29edee1e9379c32222eb650a773daba

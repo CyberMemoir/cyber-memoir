@@ -1,0 +1,169 @@
+slug: meme-80
+resolved: false
+canonical_name: 疯狂的鸽子
+aliases: []
+definition: 手机游戏结算时的鸽子跳舞动画：无论输赢都会伴着动感的bgm跳舞，被网友重新发现并另配音乐。
+usage_context: ''
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV12SroB6ET1
+  role: derivative
+  note: 🎶疯狂的鸽子の小曲，但是MC鹦鹉🎶（BV1Twk7BPEdP 画面中引用）
+- url: https://www.bilibili.com/video/BV1xqrDBsE22
+  role: derivative
+  note: 雷霆舞姿 ？疯狂的鸽子！（BV1Twk7BPEdP 画面中引用）
+- url: https://www.bilibili.com/video/BV1bhksB4EbS
+  role: derivative
+  note: 疯狂的盾构（BV1Twk7BPEdP 画面中引用）
+evidence_map:
+  ocr-narration-BV1Twk7BPEdP: null
+  ocr-BV12SroB6ET1: null
+  ocr-BV1xqrDBsE22: null
+  ocr-BV1bhksB4EbS: null
+claims:
+- key: definition
+  statement: 手机游戏结算时的鸽子跳舞动画：无论输赢都会伴着动感的bgm跳舞，被网友重新发现并另配音乐。
+  evidence:
+  - ocr-narration-BV1Twk7BPEdP
+  stance: supports
+events:
+- event_type: remix
+  description: 疯狂的鸽子 出现衍生作品《🎶疯狂的鸽子の小曲，但是MC鹦鹉🎶》
+  occurred_at_start: 2026-01-15 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1Twk7BPEdP 画面引用发现
+  evidence:
+  - ocr-BV12SroB6ET1
+- event_type: remix
+  description: 疯狂的鸽子 出现衍生作品《雷霆舞姿 ？疯狂的鸽子！》
+  occurred_at_start: 2026-01-17 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1Twk7BPEdP 画面引用发现
+  evidence:
+  - ocr-BV1xqrDBsE22
+- event_type: remix
+  description: 疯狂的鸽子 出现衍生作品《疯狂的盾构》
+  occurred_at_start: 2026-01-18 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1Twk7BPEdP 画面引用发现
+  evidence:
+  - ocr-BV1bhksB4EbS
+relations: []
+gold:
+  canonical:
+  - 疯狂的鸽子
+  alias: []
+  origin_intent:
+  - 疯狂的鸽子的出处
+  description:
+  - 鸽子跳舞配动感音乐的那个手机游戏结算动画
+  - 被网友赛博考古挖出来、后来又换了首新音乐的那段鸽子舞
+  must_not_return: []
+  description_source: model
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis: '002.0s 最近这个非常魔性的鸽子跳舞动画
+
+    008.0s 叫作的手机游戏
+
+    009.0s 玩法呢就是类以见缝插针
+
+    011.0s 让走路比李浦西大夫还器张的鸽子去吃食物
+
+    014.0s 而游戏结算时，无论输赢
+
+    015.0s 这个鸽子都会伴随着游戏动感的bgm
+
+    018.0s 跳上一段贼洗脑的舞
+
+    019.0s 因为这段舞实在是太过魔性
+
+    021.0s 所以最近就被一些网友们赛博考古挖了出来
+
+    023.0s 还后期配上了一个新的音乐《UwU Funk
+
+    025.0s 显得更洗脑了
+
+    039.0s 同时也有了不少P头、鬼畜、重绘之类的二创'
+  draft_notes: '段落边界：整集只有一个梗。002-025s 讲这个鸽子跳舞动画与它的游戏来历，039-041s 是二创，
+
+    055s 是画面计数残留，080-101s 是两件「黑色幽默」的事。定义取 002/008/014/015/018/019/021/023s。
+
+    usage_context 留空（D-10）：039s「也有了不少P头、鬼畜、重绘之类的二创」与 023-025s
+
+    「后期配上新的音乐…显得更洗脑了」都是传播与二创类型，没有一句说明人们拿它怎么用。
+
+    没有写游戏名（D-4 与当前 D-16）：解说 008s 只读成「叫作的手机游戏」，名字缺失；画面 008s 有
+
+    「Pigeon Pop」「Fortafy Games」「#3BIRDGAMES」，属画面独有信息，我不用它写身份，
+
+    定义里写「一款手机游戏」。若 GPT 认为可以连同 ocr-screen 一起引用，再补名字即可。
+
+    可疑 OCR，未改：008s 游戏名缺失；011s「让走路比李浦西大夫还器张的鸽子」字形与音译皆可疑；
+
+    023s 的曲名在解说里只有左书名号「《UwU Funk」、没有右书名号，定义里照抄不补（不添加画面／
+
+    原文里没有的符号）；039-055s 之间只有画面计数（055s「+10」），没有解说行。
+
+    未写：080-101s 的两件黑色幽默（画师 "Kekeflipnote" 的抄袭指控、游戏在19年开始陆续下架、
+
+    开发公司很久没有新动静）是这个梗之外的事件，未进定义；events 里也没有它们，
+
+    是否补进 events 由 GPT 判断，我没有改动 events。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 衍生关系来自 BV1Twk7BPEdP 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+  - 传播区间 2026-01-15 .. 2026-01-18（3 条）
+  gpt_repair_notes: Removed relative 最近 and incomplete song-name quote through supported
+    paraphrase; no repaired song title. Game name remains omitted because narration
+    drops it.080-101s allegation/delisting/company speculation not asserted as facts.
+  description_query_provenance:
+    author: DeepSeek
+    source: model
+    proposed_at: '2026-09-30'
+    basis: Blind source-only proposal before this definition was drafted.
+    proposal_file: ai_context/model_queries_batches7_8.yaml
+    source_episode: BV1Twk7BPEdP
+    source_spans:
+    - 002.0s 最近这个非常魔性的鸽子跳舞动画
+    - 014.0s 而游戏结算时，无论输赢
+    - 015.0s 这个鸽子都会伴随着游戏动感的bgm
+    - 018.0s 跳上一段贼洗脑的舞
+    - 021.0s 所以最近就被一些网友们赛博考古挖了出来
+    - 023.0s 还后期配上了一个新的音乐《UwU Funk
+    reviewer: gpt
+    reviewed_at: '2026-10-01'
+    semantic_review: Narration002/014-025 supports dancing pigeon game-results animation,
+      rediscovery and replacement music; neither query claims developer status or
+      misconduct from080+ background.
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: Read full BV1Twk7BPEdP narration/screen and citation frames:002/008/014-019s
+        establish game-results pigeon dance; game-name OCR not used to supply missing
+        narration identity.
+      meaning: 014-019s states dance after both win/loss;021/023s rediscovery/replacement
+        music. Definition paraphrases these directly, removes relative 最近/incomplete
+        title without repairing evidence.
+      usage: Empty retained:023-025/039-041s describes remixes, not a distinct usage
+        meaning. No implied win/loss reaction beyond the demonstrated animation.
+      origins: Narration supports a mobile game but does not name it; no exclusive
+        first meme uploader established. Unknown origins/empty relations retained;080-101s
+        allegations/company speculation excluded.
+      events: Full42/57/65s frames match resolved uploaders 井熊同学请和我交往/小较宇界/酸子阿 and
+        same-meme titles with dates20260118/15/17. Three direct remix events retained,
+        no invented exact date for background delisting.
+      queries: Two blind model queries supported by002/014-025s; exact source spans
+        verified. Empty human description field filled only with labeled model queries
+        and recorded author/basis; no current benchmark or human-confirmation claim.
+    fingerprint: 97bbd2b1efc78245a4f6bf7ec051002ee35bd1d1e83a282b8615ee0e84d09259

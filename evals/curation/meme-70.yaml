@@ -1,0 +1,144 @@
+slug: meme-70
+resolved: false
+canonical_name: 火爆全网的蕾塞舞
+aliases: []
+definition: 指「米津玄师」在自己的账号上公布的、一段「蕾塞」跟着歌曲《Iris Out》舞蹈的动画，动作顺滑自然。
+usage_context: ''
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1USmRBWEzN
+  role: derivative
+  note: 《IRIS OUT》翻跳！！蕾塞，其实我是211…（BV1eMiRBAEwd 画面中引用）
+- url: https://www.bilibili.com/video/BV1b1mrBSEe6
+  role: derivative
+  note: 🫵😘「Chibi IRIS OUT」（BV1eMiRBAEwd 画面中引用）
+- url: https://www.bilibili.com/video/BV1Xpq5BWEkb
+  role: derivative
+  note: 【鱼肉肉】尽量还原啦~IRIS OUT（BV1eMiRBAEwd 画面中引用）
+evidence_map:
+  ocr-narration-BV1eMiRBAEwd: null
+  ocr-BV1USmRBWEzN: null
+  ocr-BV1b1mrBSEe6: null
+  ocr-BV1Xpq5BWEkb: null
+claims:
+- key: definition
+  statement: 指「米津玄师」在自己的账号上公布的、一段「蕾塞」跟着歌曲《Iris Out》舞蹈的动画，动作顺滑自然。
+  evidence:
+  - ocr-narration-BV1eMiRBAEwd
+  stance: supports
+events:
+- event_type: remix
+  description: 火爆全网的蕾塞舞 出现衍生作品《《IRIS OUT》翻跳！！蕾塞，其实我是211…》
+  occurred_at_start: 2025-12-13 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1eMiRBAEwd 画面引用发现
+  evidence:
+  - ocr-BV1USmRBWEzN
+- event_type: remix
+  description: 火爆全网的蕾塞舞 出现衍生作品《🫵😘「Chibi IRIS OUT」》
+  occurred_at_start: 2025-12-15 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1eMiRBAEwd 画面引用发现
+  evidence:
+  - ocr-BV1b1mrBSEe6
+- event_type: remix
+  description: 火爆全网的蕾塞舞 出现衍生作品《【鱼肉肉】尽量还原啦~IRIS OUT》
+  occurred_at_start: 2025-12-17 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1eMiRBAEwd 画面引用发现
+  evidence:
+  - ocr-BV1Xpq5BWEkb
+relations: []
+gold:
+  canonical:
+  - 火爆全网的蕾塞舞
+  alias: []
+  origin_intent:
+  - 火爆全网的蕾塞舞的出处
+  description:
+  - 跟着剧场版主题曲跳舞的那段动画，动作特别顺滑
+  - 米津玄师发的那段角色跳舞动画，后来被很多人翻跳
+  must_not_return: []
+  description_source: model
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis:
+  - 070.0s 这个梗同样源于歌曲《Iris Out》
+  - 072.0s 去年12月12日的时候
+  - 073.0s 米津玄师在自己的账号上公布了一段
+  - 075.0s 蕾塞跟着该歌曲舞蹈的动画
+  - 078.0s 十分之顺滑自然与细腻
+  - 080.0s 瞬间就吸引了一大波注意
+  draft_notes: '段落边界（D-14）：BV1eMiRBAEwd 一集三个梗。本条的蕾塞舞段为 069-103s（画面 069s 打出「蕾塞舞」，解说
+    070-084s，085-102s 是它的衍生作品画面）；001-068s 是第一个梗（该剧场版主题曲与米津玄师骑鲨鱼车），104-119s 是第三个梗「泳池蕾塞」（画面
+    103s 已打出该名，解说 104-119s）。定义只取本段 070/072/073/075/078s。
+
+    usage_context 留空（D-10）：080s「瞬间就吸引了一大波注意」与 082s「翻跳啊动画手书啊什么的接郵而至」都是传播与二创，本段没有一句说明人们拿它怎么用。
+
+    OCR 可疑未改：082s「接郵而至」（疑为接踵而至）照抄在 basis 中；解说 070s 写《Iris Out》而 009s 写《lris Out》（首字母为小写
+    l），定义引的是 070s 的写法。
+
+    未写（D-16）：画面 072s 有「25年12月12日，14:48·5487万查看」与 #RezeDance，年份只出现在画面里，所以定义照解说写「去年「12月12日」」，不补年份。
+
+    可疑关系（只报告，未改）：sources 第一条 BV1QwJCzzEVp（《你不知道的事 我全都教给你》，2025-09-23）在画面 113s 出现，落在第三个梗「泳池蕾塞」的
+    104-119s 段内（解说 113s「在去年剧场版刚放出时就有人翻拍」），却被记为本条的第一个 remix event，日期也早于解说 072s 所述该动画公布的「12月12日」。我没有改动
+    sources/events，请 GPT 复核这条衍生关系是否应挂到泳池蕾塞名下。另外 lineage.csv 里 BV1eMiRBAEwd 的所有行 meme_name
+    都是「火爆全网的蕾塞舞」，本集三个梗在 lineage 里未拆分；我未改动。
+
+    未发现只存在于画面、且定义必须依赖的含义，故未加 automation_hold。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 衍生关系来自 BV1eMiRBAEwd 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+  - 传播区间 2025-09-23 .. 2025-12-17（4 条）
+  gpt_repair_notes: Removed relative 去年12月12日 from definition without inventing a
+    year.113s pool scene belongs to separate segment103s+; removed source/event/evidence
+    key. Dance clips82/87/95s retained.
+  description_query_provenance:
+    author: DeepSeek
+    source: model
+    proposed_at: '2026-09-30'
+    basis: Blind source-only proposals before definitions were drafted.
+    proposal_file: ai_context/model_queries_batches7_8.yaml
+    source_episode: BV1eMiRBAEwd
+    source_spans:
+    - 070.0s 这个梗同样源于歌曲《Iris Out》
+    - 073.0s 米津玄师在自己的账号上公布了一段
+    - 075.0s 蕾塞跟着该歌曲舞蹈的动画
+    - 078.0s 十分之顺滑自然与细腻
+    - 082.0s 翻跳啊动画手书啊什么的接郵而至
+    reviewer: gpt
+    reviewed_at: '2026-10-01'
+    semantic_review: Two blind queries supported by dance segment070/073/075/078/082s,
+      exact spans verified, no pool/shark-scene blend. Empty description filled with
+      model provenance and not counted as human recall.
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: Full three-meme BV1eMiRBAEwd narration and screen read; dance title069s,
+        narration070-084s, screen pool boundary103s.113s pool scene excluded; shark-car001-068s
+        excluded.
+      meaning: 070/073/075/078s directly support singer-published character animation
+        with song and smooth movements. Relative publication date removed; no screen-only
+        fact introduced into meaning.
+      usage: Empty retained:080/082s describe attention and covers/hand-drawn works
+        rather than posting situations. No invented romantic or celebratory use.
+      origins: Narration073s account release retained as description without invented
+        original URL or exclusive first meme creator; unknown origin fields/empty
+        relations. Screen072 date read but no unverified year conversion added.
+      events: 113s BV1QwJCzzEVp matches pool segment and was removed entirely.82 BlueSechi,87
+        -三三三元 and95 鱼肉肉pabo exactly match resolved clips/titles/date20251215/13/17.
+        Three dance remixes retained.
+      queries: Two blind queries supported by dance segment070/073/075/078/082s, exact
+        spans verified, no pool/shark-scene blend. Empty description filled with model
+        provenance and not counted as human recall.
+    fingerprint: 5c1619d84c62bf12ea676b06f3464e4a49846eaf683df7aa3ea05a3feb36a90c

@@ -1,0 +1,87 @@
+slug: meme-e0a743010f0af288
+resolved: false
+canonical_name: 狮子朝着苹果吼
+aliases: []
+definition: 狮子对着长有人脸的苹果大吼的合成梗图，用来表达钓鱼激怒他人的场景。
+usage_context: 用狮子的怒吼和苹果的表情表现钓鱼、激怒他人的场景。
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1viWmzqELq
+  role: reference
+  note: 呵异味（BV1YzxAzCEKE画面引用；不作首次出处断言）
+evidence_map:
+  ocr-narration-BV1YzxAzCEKE: null
+  ocr-BV1viWmzqELq: null
+claims:
+- key: definition
+  statement: 狮子对着长有人脸的苹果大吼的合成梗图，用来表达钓鱼激怒他人的场景。
+  stance: supports
+  evidence:
+  - ocr-narration-BV1YzxAzCEKE
+- key: usage_context
+  statement: 用狮子的怒吼和苹果的表情表现钓鱼、激怒他人的场景。
+  stance: supports
+  evidence:
+  - ocr-narration-BV1YzxAzCEKE
+events: []
+relations: []
+gold:
+  canonical:
+  - 狮子朝着苹果吼
+  alias: []
+  origin_intent:
+  - 狮子朝着苹果吼的出处
+  description:
+  - 有个人脸苹果的表情包，有时吐舌头，有时被狮子大吼，是哪一个梗？
+  description_source: model
+  must_not_return: []
+curation:
+  curator: ''
+  confirmed_by: ''
+  drafted_by: codex
+  source_episodes:
+  - BV1YzxAzCEKE
+  description_authored_by: codex
+  description_basis: Stored narration, before definition drafting; model-generated,
+    not human benchmark
+  draft_basis:
+  - 005.0s 内容就是一个人脸苹果
+  - 007.0s 要么是吐舌，享要么是被一只狮子大吼
+  - 038.0s 特别是这个苹果的表情由为奇异
+  - 053.0s 其中传播较广的这张狮子对着苹果大吼的梗图
+  - 057.0s 其原图来自于一张狮子对着猴子大吼的图片
+  - 061.0s 这张图片是由两张照片合成而来的
+  - 064.0s 用法呢也是十分易懂
+  - 065.0s 就是用来表达那些钓鱼激怒他人的场景啦
+  draft_notes: '053-070s狮子苹果图；002-049s苹果表情背景
+
+    98s引用作为示例，不当首发或二创事件。15/21s水果系列和作者只有解说归属，缺直接首帖，不写asmrai创始或传播年份。吐舌苹果是背景版本。'
+  ingestion_ok: true
+  findings:
+  - 出处未证实，保留unknown；不把二创投稿日期当作首次出处
+  - 同一Codex模型分阶段复核，独立性有限；未声称人工确认
+  draft_origin_sha256: 77795137ab485004e5d7e89ebfa0d1b6ce54bb6ac60eba40e551a72ff80c4438
+  automated_review:
+    reviewer: codex
+    decision: accept
+    reviewed_at: '2026-10-05'
+    review_started_at: '2026-10-05T04:37:19.311835+00:00'
+    method: same_model_frozen_passes
+    limitations: Same model; separate frozen passes, not human or independent-model
+      review.
+    frozen_draft:
+      path: evals/reviews/meme-e0a743010f0af288.json
+      sha256: 4dec15bbc22c27f49e4ccaf4cff5c21de1ae8e10190a224310b6f781fca233ad
+    checks:
+      identity: 5/7/38/53s人脸苹果狮子图，53-65s为本条主段；吐舌苹果是背景。
+      meaning: 53/57/61/64/65s支持合成图及钓鱼激怒他人用法。
+      usage: 用法限于解说明确说明或源帧直接呈现的调侃/改编，未添加观众心理动机。
+      origins: 无直接首发作品或原帖确认，unknown；参考/二创日期不当起源。
+      events: 98sBV1viWmzqELq标题日期与冻结材料一致，只reference无事件，不宣称苹果系列创始者。
+      queries: 定义前冻结model/codex查询按query_index和episode绑定；两个广志分开，人工YAML不改；非独立模型或人工确认。
+    fingerprint: f113bbfe2184a3a48d72b1884b2c6f6619f2b636ea1749c5600c1d45196a13be

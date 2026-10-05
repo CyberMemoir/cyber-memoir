@@ -11,8 +11,8 @@ because that would score a correct answer as a failed abstention.
 
 from __future__ import annotations
 
-import argparse
 import json
+import argparse
 import sys
 import unicodedata
 from collections import Counter
@@ -40,14 +40,7 @@ def normalize(text) -> str:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--out", type=Path, default=TARGET)
-    parser.add_argument(
-        "--descriptions-only",
-        action="store_true",
-        help="Published human descriptions from _descriptions.yaml only",
-    )
     args = parser.parse_args()
-    human_path = CURATION / "_descriptions.yaml"
-    human = (yaml.safe_load(human_path.read_text(encoding="utf-8")) or {}) if human_path.exists() else {}
     rows, surfaces, kinds = [], {}, Counter()
     skipped = []
     for path in sorted(CURATION.glob("*.yaml")):
@@ -63,42 +56,15 @@ def main() -> int:
             continue
         for value in [name, *(doc.get("aliases") or [])]:
             surfaces[normalize(value)] = name
-        for query in human.get(name) or []:
-            rows.append(
-                {
-                    "query": str(query),
-                    "expected_names": [name],
-                    "answerable": True,
-                    "bucket": "description",
-                    "query_source": "human",
-                }
-            )
-            kinds["description"] += 1
-        if args.descriptions_only:
-            continue
         for bucket in POSITIVE_BUCKETS:
             for query in (doc.get("gold") or {}).get(bucket) or []:
-                if bucket == "description" and query in (human.get(name) or []):
-                    continue
-                source = (
-                    (doc.get("gold") or {}).get("description_source", "unattributed")
-                    if bucket == "description"
-                    else "name"
-                )
-                label = f"description_{source}" if bucket == "description" and source != "human" else bucket
-                rows.append(
-                    {
-                        "query": str(query),
-                        "expected_names": [name],
-                        "answerable": True,
-                        "bucket": label,
-                        "query_source": source,
-                    }
-                )
+                provenance = (doc.get("gold") or {}).get("description_source", "human") if bucket == "description" else "name"
+                label = "description_model" if bucket == "description" and provenance != "human" else bucket
+                rows.append({"query": str(query), "expected_names": [name], "answerable": True, "bucket": label, "query_source": provenance})
                 kinds[label] += 1
 
     negatives = yaml.safe_load((CURATION / "_negatives.yaml").read_text(encoding="utf-8")) or {}
-    for item in [] if args.descriptions_only else negatives.get("negatives") or []:
+    for item in negatives.get("negatives") or []:
         query = str(item.get("query", "")).strip()
         hit = surfaces.get(normalize(query))
         if hit:
@@ -121,14 +87,10 @@ def main() -> int:
         "".join(json.dumps(row, ensure_ascii=False) + "\n" for row in unique), encoding="utf-8"
     )
     if skipped:
-        print(
-            "  ! 跳过 %d 条尚无 definition 的草稿（不在库中，计入只会拉低召回）：%s"
-            % (len(skipped), "、".join(skipped))
-        )
+        print("  ! 跳过 %d 条未发布或尚无 definition 的草稿（不在库中，计入只会拉低召回）：%s"
+              % (len(skipped), "、".join(skipped)))
     positives = sum(1 for r in unique if r["answerable"])
-    print(
-        "-> %s   %d 条（正例 %d，反例 %d）" % (args.out.name, len(unique), positives, len(unique) - positives)
-    )
+    print("-> %s   %d 条（正例 %d，反例 %d）" % (args.out.name, len(unique), positives, len(unique) - positives))
     print("   构成：%s" % dict(kinds))
     if len(unique) - positives < 8:
         print("   ! 反例少于 ADR 0002 要求的 8 条，弃答率不可单独报告")

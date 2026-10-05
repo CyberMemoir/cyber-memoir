@@ -1,0 +1,127 @@
+slug: meme-95
+resolved: false
+canonical_name: 节奏挑战
+aliases: []
+definition: 外网的一种卡点读词挑战视频：参与者跟着音频按节奏读词，二创会替换展示的图片、加入更难的词汇或图片。
+usage_context: ''
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1HiisBaEzn
+  role: reference
+  note: 🔪节奏挑战之迈克尔杰克逊🔪（BV1h8rDBFELA 画面中引用）
+- url: https://www.bilibili.com/video/BV18qiHBPEh5
+  role: derivative
+  note: 以为我不敢做这个吗…！？拟声词！（BV1h8rDBFELA 画面中引用）
+evidence_map:
+  ocr-narration-BV1h8rDBFELA: null
+  ocr-BV1HiisBaEzn: null
+  ocr-BV18qiHBPEh5: null
+claims:
+- key: definition
+  statement: 外网的一种卡点读词挑战视频：参与者跟着音频按节奏读词，二创会替换展示的图片、加入更难的词汇或图片。
+  evidence:
+  - ocr-narration-BV1h8rDBFELA
+  stance: supports
+events:
+- event_type: remix
+  description: 节奏挑战 出现衍生作品《以为我不敢做这个吗…！？拟声词！》
+  occurred_at_start: 2026-01-05 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1h8rDBFELA 画面引用发现
+  evidence:
+  - ocr-BV18qiHBPEh5
+relations: []
+gold:
+  canonical:
+  - 节奏挑战
+  alias: []
+  origin_intent:
+  - 节奏挑战的出处
+  description:
+  - 外网那种跟着卡点读单词的挑战视频
+  - 朋友们聚会玩的那种卡点读词小游戏
+  must_not_return: []
+  description_source: model
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis:
+  - 009.0s 这个系列的梗呢在外网实际上是一种挑战性质的视频
+  - 013.0s 而最初呢起源于tiktok的账号@robgongfriend
+  - 021.0s 在去年9月13日的时候他们就开创了这样一个卡点读词的玩法
+  - 039.0s 经常能听到的那几句话其实也就是泰语加上英语组成的
+  - 045.0s 前面四个词呢分别指的是泰语的猪、狗、乌鸦、鸡
+  - 049.0s 也就是他们第一次开创这个游戏时使用的四个单词
+  draft_notes: '段落边界（D-14）：BV1h8rDBFELA 一集三个梗。本条的节奏挑战段为 008-120s（画面 008s 打出「卡点读词挑战」，解说
+    009-076s，077-120s 是它的衍生作品画面）；121s 起画面「被上司教训后／回家的样子」进入第二个梗（123s 解说），185s 起是第三个梗「禅院直哉拨刘海」（186s
+    解说）。定义只取本段 009/013/021/039s。
+
+    usage_context 留空（D-10）：052-055s（音频被其他人沿用、替换了展示的图片、才有了各种新的卡点读词挑战）与 058-074s（夹带私货、把单词组成难堪或说不出口的句子、加入更进阶的词汇或图片）都是二创与变体，本段没有一句说明人们拿它怎么用。
+
+    未写（D-4）：043s 的读音串「MOO-MA-GA-GAl one two three go!」与 045/049s 的猪、狗、乌鸦、鸡是音频细节，已足以支撑「读的词由泰语和英语组成」，未写进定义。
+
+    OCR 可疑未改：043s 的「GAl」（大小写混杂，疑为 GAL）照抄在 basis 中；013s 的「tiktok」为解说原文写法，定义照抄。
+
+    可疑关系：本条两条 sources（BV1HiisBaEzn 画面 077-086s、BV18qiHBPEh5 画面 090-102s）都落在本条 008-120s
+    段内，与 events 的日期一致，未发现跨段引用。未发现需要 automation_hold 的画面独有含义。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 衍生关系来自 BV1h8rDBFELA 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+  - 传播区间 2026-01-05 .. 2026-01-05（2 条）
+  gpt_repair_notes: 'Removed relative first-origin date and universal Thai/English
+    claim: narration039/049 refers to original sound,052-074 explicitly shows later
+    variants. Origin remains unknown rather than asserting exclusive first upload
+    without primary evidence.77s 德华华蛋 versus resolved 德滑滑蛋 is reference-only;90s matching
+    clip retained.'
+  description_query_provenance:
+    author: DeepSeek
+    source: model
+    proposed_at: '2026-09-30'
+    basis: Blind source-only proposals before definitions were drafted.
+    proposal_file: ai_context/model_queries_batches7_8.yaml
+    source_episode: BV1h8rDBFELA
+    source_spans:
+    - 009.0s 这个系列的梗呢在外网实际上是一种挑战性质的视频
+    - 013.0s 而最初呢起源于tiktok的账号@robgongfriend
+    - 019.0s 玩各种自己发明的聚会小游戏
+    - 021.0s 在去年9月13日的时候他们就开创了这样一个卡点读词的玩法
+    - 054.0s 替换了其中展示的图片
+    - 055.0s 才有了各种各样新的"卡点读词挑战”
+    reviewer: gpt
+    reviewed_at: '2026-10-01'
+    semantic_review: Both source-only model queries supported009/019/021/054/055s;
+      exact spans verified and query identities limited to rhythm-reading challenge.
+      Empty description filled as model with author/basis, no human benchmark or confirmation
+      claim.
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: 'Read full BV1h8rDBFELA narration/screen with three segments: title008
+        to120s for challenge,121+ workplace,185+ anime. Only009-076s narration and77/90s
+        challenge clips used.'
+      meaning: 009/021s establishes challenge/card-beat reading;052/054/055/070s supports
+        audio reuse and picture/word variants. Removed original-sound language as
+        a universal constraint and relative date/first-creator assertion.
+      usage: Empty retained:017-021s describes original party-game context,052-074s
+        variants/pranks; no extra emotional posting meaning inferred. Definition describes
+        play pattern only.
+      origins: Narrator013/021s attribution read but exact primary upload unavailable;
+        account screenshot does not prove exclusive earliest origin/date. Unknown
+        fields/empty relations retained; unsupported absolute year not inferred.
+      events: Exact77/90s frames and CSV read;77s 德华华蛋 differs from resolved 德滑滑蛋,
+        reference-only.90s title/尼奈nine_Official matches same challenge clip20260105;
+        one remix retained. Other episode segments excluded.
+      queries: Both source-only model queries supported009/019/021/054/055s; exact
+        spans verified and query identities limited to rhythm-reading challenge. Empty
+        description filled as model with author/basis, no human benchmark or confirmation
+        claim.
+    fingerprint: 1abdec95c35e2eb293cd9d655fd34f6d1bbf8ea10665d56fdcb7ec4f3da78cb2

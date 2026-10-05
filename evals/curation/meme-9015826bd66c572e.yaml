@@ -1,0 +1,186 @@
+slug: meme-9015826bd66c572e
+resolved: false
+canonical_name: 他是我们这里最没天赋的人
+aliases: []
+definition: 「伍六七」中「陈教练」评价「大春」的台词，被用作替换角色的铅笔画和视频二创模板。
+usage_context: ''
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1m91MB7EV7
+  role: derivative
+  note: “没有天赋 那就反复”（BV1tgywB8EeA画面引用；不作首次出处断言）
+- url: https://www.bilibili.com/video/BV1bKyoBQEsW
+  role: derivative
+  note: 他是我们这里最没天赋的（BV1tgywB8EeA画面引用；不作首次出处断言）
+- url: https://www.bilibili.com/video/BV1AnCtBREFT
+  role: derivative
+  note: 她是我们这里最没天赋的人（BV1tgywB8EeA画面引用；不作首次出处断言）
+- url: https://www.bilibili.com/video/BV1CbyQB8ECa
+  role: derivative
+  note: 他是我们这里最没天赋的（BV1tgywB8EeA画面引用；不作首次出处断言）
+- url: https://www.bilibili.com/video/BV1pakDBQEcU
+  role: derivative
+  note: 家人的支持是我最大的天赋（BV1tgywB8EeA画面引用；不作首次出处断言）
+- url: https://www.bilibili.com/video/BV1Vf1zBLEPb
+  role: derivative
+  note: “他是我们这里最没天赋的人”（BV1tgywB8EeA画面引用；不作首次出处断言）
+- url: https://www.bilibili.com/video/BV1FjkQBQECU
+  role: derivative
+  note: 她是我们这里最没天赋的人（BV1tgywB8EeA画面引用；不作首次出处断言）
+- url: https://www.bilibili.com/video/BV1LAC3BAExX
+  role: derivative
+  note: 他是我们这里最没天赋的人（BV1tgywB8EeA画面引用；不作首次出处断言）
+- url: https://www.bilibili.com/video/BV1WS1LBPESh
+  role: derivative
+  note: 【融合版】“他是我们这里最没有天赋的人”（BV1tgywB8EeA画面引用；不作首次出处断言）
+evidence_map:
+  ocr-narration-BV1tgywB8EeA: null
+  ocr-BV1m91MB7EV7: null
+  ocr-BV1bKyoBQEsW: null
+  ocr-BV1AnCtBREFT: null
+  ocr-BV1CbyQB8ECa: null
+  ocr-BV1pakDBQEcU: null
+  ocr-BV1Vf1zBLEPb: null
+  ocr-BV1FjkQBQECU: null
+  ocr-BV1LAC3BAExX: null
+  ocr-BV1WS1LBPESh: null
+claims:
+- key: definition
+  statement: 「伍六七」中「陈教练」评价「大春」的台词，被用作替换角色的铅笔画和视频二创模板。
+  stance: supports
+  evidence:
+  - ocr-narration-BV1tgywB8EeA
+events:
+- event_type: remix
+  description: 他是我们这里最没天赋的人出现衍生作品《“没有天赋 那就反复”》
+  occurred_at_start: 2025-10-31 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示投稿时间；不是首次出处或传播爆发时间
+  evidence:
+  - ocr-BV1m91MB7EV7
+- event_type: remix
+  description: 他是我们这里最没天赋的人出现衍生作品《他是我们这里最没天赋的》
+  occurred_at_start: 2025-11-02 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示投稿时间；不是首次出处或传播爆发时间
+  evidence:
+  - ocr-BV1bKyoBQEsW
+- event_type: remix
+  description: 他是我们这里最没天赋的人出现衍生作品《她是我们这里最没天赋的人》
+  occurred_at_start: 2025-11-13 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示投稿时间；不是首次出处或传播爆发时间
+  evidence:
+  - ocr-BV1AnCtBREFT
+- event_type: remix
+  description: 他是我们这里最没天赋的人出现衍生作品《他是我们这里最没天赋的》
+  occurred_at_start: 2025-11-01 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示投稿时间；不是首次出处或传播爆发时间
+  evidence:
+  - ocr-BV1CbyQB8ECa
+- event_type: remix
+  description: 他是我们这里最没天赋的人出现衍生作品《家人的支持是我最大的天赋》
+  occurred_at_start: 2025-11-09 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示投稿时间；不是首次出处或传播爆发时间
+  evidence:
+  - ocr-BV1pakDBQEcU
+- event_type: remix
+  description: 他是我们这里最没天赋的人出现衍生作品《“他是我们这里最没天赋的人”》
+  occurred_at_start: 2025-11-04 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示投稿时间；不是首次出处或传播爆发时间
+  evidence:
+  - ocr-BV1Vf1zBLEPb
+- event_type: remix
+  description: 他是我们这里最没天赋的人出现衍生作品《她是我们这里最没天赋的人》
+  occurred_at_start: 2025-11-09 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示投稿时间；不是首次出处或传播爆发时间
+  evidence:
+  - ocr-BV1FjkQBQECU
+- event_type: remix
+  description: 他是我们这里最没天赋的人出现衍生作品《他是我们这里最没天赋的人》
+  occurred_at_start: 2025-11-15 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示投稿时间；不是首次出处或传播爆发时间
+  evidence:
+  - ocr-BV1LAC3BAExX
+- event_type: remix
+  description: 他是我们这里最没天赋的人出现衍生作品《【融合版】“他是我们这里最没有天赋的人”》
+  occurred_at_start: 2025-11-01 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示投稿时间；不是首次出处或传播爆发时间
+  evidence:
+  - ocr-BV1WS1LBPESh
+relations: []
+gold:
+  canonical:
+  - 他是我们这里最没天赋的人
+  alias: []
+  origin_intent:
+  - 他是我们这里最没天赋的人的出处
+  description:
+  - 师父说学生天赋最差，但他靠长期努力练强了，后来大家换成别的角色重画这一幕
+  description_source: model
+  must_not_return: []
+curation:
+  curator: ''
+  confirmed_by: ''
+  drafted_by: codex
+  source_episodes:
+  - BV1tgywB8EeA
+  description_authored_by: codex
+  description_basis: Stored narration, before definition drafting; model-generated,
+    not human benchmark
+  draft_basis:
+  - 004.0s 上次我们讲伍六七
+  - 009.0s 具体是在第三季玄武国篇中
+  - 010.0s 石更国的陈教练和和伍六七对擂台
+  - 012.0s 其间聊到了小鸡岛保镖大春的昔日过往
+  - 015.0s 毕竟大春曾在陈教练门下的
+  - 017.0s 而陈教练是这么评价的
+  - 054.0s 于是陈教练这句评价
+  - 055.0s 他是我们这里最没天赋的人
+  - 057.0s 就成了一个梗
+  - 058.0s 网友们先是用铅笔画画风复刻这一分镜
+  - 061.0s 将角色换成其他作品的以此二创
+  - 063.0s 进而演变成视频形式的二创
+  draft_notes: '002-093s primary quote/template; at094s narration explicitly changes
+    topic to another-world self series; do not merge those events or examples
+
+    Animation scene established by narration and viewed frame, but no direct original
+    animation source link; leave structured origin unknown. Do not turn narrator''s
+    maybe at047s into a verified viewer motivation. BV1WS1LBPESh at094s needs frame/boundary
+    review. OCR lookalike IDs with missing platform metadata are not interchangeable;
+    do not fabricate events for unresolved variants.'
+  ingestion_ok: true
+  findings:
+  - 出处未证实，保留unknown；不把二创投稿日期当作首次出处
+  - 同一Codex模型分阶段复核，独立性有限；未声称人工确认
+  draft_origin_sha256: 99c4b980245b233b665e7557b9ea286241a16c9826db2000c387852bccbab1b3
+  automated_review:
+    reviewer: codex
+    decision: accept
+    reviewed_at: '2026-10-03'
+    review_started_at: '2026-10-03T18:41:15.931138+00:00'
+    method: same_model_frozen_passes
+    limitations: Same model; separate frozen passes, not human or independent-model
+      review.
+    frozen_draft:
+      path: evals/reviews/meme-9015826bd66c572e.json
+      sha256: 6326b4cb9bee51cee238a4eb2b8dc9fd2d249106898b5d2e2496545723471b0c
+    checks:
+      identity: 009-017/054-055s解说明确伍六七、陈教练、大春、台词；055s原动画帧与台词匹配。
+      meaning: 058-063s铅笔画、换角色、视频二创支持模板定义；047s也许的观众动机没有转成确定断言。
+      usage: 使用场景留空；剧情中努力成长及换角色制作是内容与二创，不凭猜测写励志用途。
+      origins: 动画场景由解说及图像说明，但没有直接原片链接，结构化出处仍unknown；二创BV不被视为动画原始出处。
+      events: 已查看全部引用帧；061-091s八件二创匹配名称/模板。094s仍显示该台词融合模板，纳入第九件；095/104/107/116s已是另外世界系列，排除。三种未解析大小写误读ID不生成事件，仅确切解析BV1LAC3BAExX与091s绑定。九个日期仅取冻结解析元数据。
+      queries: 预先保存的模型查询未含完整台词；只用于模型覆盖，不算人工基线；查询中努力成长有039-046s解说支持。
+    fingerprint: 17b7f6ead0a2d5924c978fe6b6db3ad79de1b5fa94916bb02df568f0405c93a4

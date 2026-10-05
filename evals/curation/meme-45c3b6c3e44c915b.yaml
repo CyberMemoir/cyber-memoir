@@ -1,0 +1,113 @@
+slug: meme-45c3b6c3e44c915b
+resolved: false
+canonical_name: 平移饿狼
+aliases: []
+definition: 《一拳超人》第三季中饿狼从草坡下来的画面，因人物像静止贴图一样平移而被网友吐槽和恶搞。
+usage_context: 复现或改编饿狼滑步下坡的画面，调侃动画的平移动作效果。
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV14W421P77p
+  role: reference
+  note: 【一拳超人第三季】动画VS漫画 分镜对比！（BV1qksqz1EzT画面引用；不作首次出处断言）
+- url: https://www.bilibili.com/video/BV1UUWmztEEx
+  role: derivative
+  note: 30秒教你做饿狼同款滑步下坡效果（BV1qksqz1EzT画面引用；不作首次出处断言）
+- url: https://www.bilibili.com/video/BV17DW2zMEWR
+  role: derivative
+  note: Sora2大战平移饿狼！！AI能拯救一拳第三季吗！？（BV1qksqz1EzT画面引用；不作首次出处断言）
+evidence_map:
+  ocr-narration-BV1qksqz1EzT: null
+  ocr-BV14W421P77p: null
+  ocr-BV1UUWmztEEx: null
+  ocr-BV17DW2zMEWR: null
+claims:
+- key: definition
+  statement: 《一拳超人》第三季中饿狼从草坡下来的画面，因人物像静止贴图一样平移而被网友吐槽和恶搞。
+  stance: supports
+  evidence:
+  - ocr-narration-BV1qksqz1EzT
+- key: usage_context
+  statement: 复现或改编饿狼滑步下坡的画面，调侃动画的平移动作效果。
+  stance: supports
+  evidence:
+  - ocr-narration-BV1qksqz1EzT
+events:
+- event_type: remix
+  description: 平移饿狼出现衍生作品《30秒教你做饿狼同款滑步下坡效果》
+  occurred_at_start: 2025-10-20 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示投稿时间；不是首次出处或传播爆发时间
+  evidence:
+  - ocr-BV1UUWmztEEx
+- event_type: remix
+  description: 平移饿狼出现衍生作品《Sora2大战平移饿狼！！AI能拯救一拳第三季吗！？》
+  occurred_at_start: 2025-10-21 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示投稿时间；不是首次出处或传播爆发时间
+  evidence:
+  - ocr-BV17DW2zMEWR
+relations: []
+gold:
+  canonical:
+  - 平移饿狼
+  alias: []
+  origin_intent:
+  - 平移饿狼的出处
+  description:
+  - 一个动漫人物从草坡上下来时全身像静止贴图一样滑过去，大家拿来恶搞，这是哪段名场面？
+  description_source: model
+  must_not_return: []
+curation:
+  curator: ''
+  confirmed_by: ''
+  drafted_by: codex
+  source_episodes:
+  - BV1qksqz1EzT
+  description_authored_by: codex
+  description_basis: Stored narration, before definition drafting; model-generated,
+    not human benchmark
+  draft_basis:
+  - 001.0s 平移饿狼
+  - 016.0s 这第三季动画从分镜到节奏安排
+  - 027.0s 而第二话的一个场面直接印证了
+  - 032.0s 剧情里饿狼站在堤岸边
+  - 037.0s 饿狼大声喝止
+  - 041.0s 而饿狼则.
+  - 044.0s 他直接从草坡上平移下来了！！！
+  - 046.0s 这也太便宜动画了吧！
+  - 049.0s 很多看动画看得多的人内心不由得深深吐槽
+  - 052.0s 起码得给一两张中割表示诚意吧！
+  - 057.0s 一时间大家纷纷传播这段令人绝望的画面
+  - 062.0s “平移饿狼”这个名场面就被各种恶搞
+  draft_notes: '027-062s原片段；065s后教程/AI及其他二创
+
+    23s2024预告分镜比较只是背景reference，不是平移片段原帖；65/71s教程和86/90sAI改编与精确解析BV匹配。115/159s未解析引用及大小写lookalikes不纳入。不把预算猜测写成确定制作原因，不断言首发时间。'
+  ingestion_ok: true
+  findings:
+  - 出处未证实，保留unknown；不把二创投稿日期当作首次出处
+  - 同一Codex模型分阶段复核，独立性有限；未声称人工确认
+  draft_origin_sha256: 77795137ab485004e5d7e89ebfa0d1b6ce54bb6ac60eba40e551a72ff80c4438
+  automated_review:
+    reviewer: codex
+    decision: accept
+    reviewed_at: '2026-10-05'
+    review_started_at: '2026-10-05T04:37:19.568468+00:00'
+    method: same_model_frozen_passes
+    limitations: Same model; separate frozen passes, not human or independent-model
+      review.
+    frozen_draft:
+      path: evals/reviews/meme-45c3b6c3e44c915b.json
+      sha256: 2e707990cb2a10d394b65f7861f412b8f85d125b9227cbf1c1f64c71bce592bc
+    checks:
+      identity: 1/32/37/44s饿狼及平移场景对应；第三季由16/27s说明。
+      meaning: 44/46/49/52/57/62s支持静止般平移和吐槽；不把缺预算推成事实。
+      usage: 用法限于解说明确说明或源帧直接呈现的调侃/改编，未添加观众心理动机。
+      origins: 无直接首发作品或原帖确认，unknown；参考/二创日期不当起源。
+      events: 23s2024预告只reference，65/71s重建教程和86/90sAI版本为remix，日期与元数据对应；115/159s未解析引用排除。
+      queries: 定义前冻结model/codex查询按query_index和episode绑定；两个广志分开，人工YAML不改；非独立模型或人工确认。
+    fingerprint: 5d3ecd2aba9beef8a5ff2891e284792f5e126ada1c1f60468486fe907642f088

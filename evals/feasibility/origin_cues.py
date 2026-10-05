@@ -60,6 +60,7 @@ HERE = Path(__file__).resolve().parent
 CUES = [
     "出处", "出自", "最早", "最初", "原版", "原视频", "原画面", "追溯", "源于",
     "源头", "来源", "来自", "火起来", "火了", "爆火", "走红", "带火", "红了", "兴起",
+    "原曲", "曲师", "演唱", "作曲", "配乐", "改编", "起源",
 ]
 BACK, FORWARD = 20.0, 45.0  # seconds either side of the sentence
 CONTEXT = 8.0  # narration either side of the sentence, for reading

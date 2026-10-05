@@ -1,0 +1,130 @@
+slug: meme-a8dcd9ddc358dc67
+resolved: false
+canonical_name: Galgame里面不是这样的
+aliases: []
+definition: 把恋爱游戏的聊天、提升好感、送礼物和特殊互动流程套进现实表白情境的表演梗。
+usage_context: 用恋爱游戏流程与现实表白的差异作夸张吐槽。
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1XH4WzzE9m
+  role: reference
+  note: 【sora2】这下头上真的弹选项了（BV1UGCEBuEuj画面引用；不作首次出处断言）
+- url: https://www.bilibili.com/video/BV1dgy9BnEc7
+  role: derivative
+  note: 嘎啦给木里根本不是这样😡（BV1UGCEBuEuj画面引用；不作首次出处断言）
+- url: https://www.bilibili.com/video/BV1pb1cBHEBD
+  role: derivative
+  note: “又”教版《嘎拉game里不是这样》（BV1UGCEBuEuj画面引用；不作首次出处断言）
+- url: https://www.bilibili.com/video/BV1Tz2MBQEWm
+  role: derivative
+  note: 嘎啦game里根本不是这样（BV1UGCEBuEuj画面引用；不作首次出处断言）
+evidence_map:
+  ocr-narration-BV1UGCEBuEuj: null
+  ocr-BV1XH4WzzE9m: null
+  ocr-BV1dgy9BnEc7: null
+  ocr-BV1pb1cBHEBD: null
+  ocr-BV1Tz2MBQEWm: null
+claims:
+- key: definition
+  statement: 把恋爱游戏的聊天、提升好感、送礼物和特殊互动流程套进现实表白情境的表演梗。
+  stance: supports
+  evidence:
+  - ocr-narration-BV1UGCEBuEuj
+- key: usage_context
+  statement: 用恋爱游戏流程与现实表白的差异作夸张吐槽。
+  stance: supports
+  evidence:
+  - ocr-narration-BV1UGCEBuEuj
+events:
+- event_type: remix
+  description: Galgame里面不是这样的出现衍生作品《嘎啦给木里根本不是这样😡》
+  occurred_at_start: 2025-11-02 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示投稿时间；不是首次出处或传播爆发时间
+  evidence:
+  - ocr-BV1dgy9BnEc7
+- event_type: remix
+  description: Galgame里面不是这样的出现衍生作品《“又”教版《嘎拉game里不是这样》》
+  occurred_at_start: 2025-11-03 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示投稿时间；不是首次出处或传播爆发时间
+  evidence:
+  - ocr-BV1pb1cBHEBD
+- event_type: remix
+  description: Galgame里面不是这样的出现衍生作品《嘎啦game里根本不是这样》
+  occurred_at_start: 2025-11-07 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示投稿时间；不是首次出处或传播爆发时间
+  evidence:
+  - ocr-BV1Tz2MBQEWm
+relations: []
+gold:
+  canonical:
+  - Galgame里面不是这样的
+  alias: []
+  origin_intent:
+  - Galgame里面不是这样的的出处
+  description:
+  - 有人被直接表白，却说应该先聊天送礼物提高好感，再在特定节日互动，最后才能在一起
+  description_source: model
+  must_not_return: []
+curation:
+  curator: ''
+  confirmed_by: ''
+  drafted_by: codex
+  source_episodes:
+  - BV1UGCEBuEuj
+  description_authored_by: codex
+  description_basis: Stored narration, before definition drafting; model-generated,
+    not human benchmark
+  draft_basis:
+  - 063.0s 而最近呢叉一个和嘎啦给木相关的梗横空出世了
+  - 066.0s 这次则是来源于博主“鳄鱼花椒”
+  - 074.0s “怎么和游戏不一样”这样的一个“主题连环剧”
+  - 076.0s 把gal带入现实中搞一些抽象
+  - 079.0s 而其中10月29号这期视频的热度最为火爆
+  - 084.0s 你为啥跟我直接表白啊
+  - 087.0s 嘎啦game你不是这样
+  - 089.0s 你应该多跟我聊天
+  - 090.0s 然后提升我的好感度
+  - 092.0s 偶尔给我送送礼物
+  - 094.0s 然后在那个特殊节日时候
+  - 100.0s 向我表白
+  - 101.0s 我同意跟你在一起
+  - 110.0s 于是乎这个视频的文案呢便迅速爆火起来
+  - 113.0s 给被一些网友亲自模仿！
+  draft_notes: '063s onward new scene;003-060s pronunciation/install-package meme
+    excluded.
+
+    Frames84/87 show original creator but no direct original BV. Earlier game-options
+    example is reference; later ambiguous flirting and攻略 variants omitted to keep
+    specific direct-confession scope. No date inferred from relative narration.'
+  ingestion_ok: true
+  findings:
+  - 出处未证实，保留unknown；不把二创投稿日期当作首次出处
+  - 同一Codex模型分阶段复核，独立性有限；未声称人工确认
+  draft_origin_sha256: d9bf103ce2d3978a1043a0707a193ecf375fe092392c3d00b3795e866414061f
+  automated_review:
+    reviewer: codex
+    decision: accept
+    reviewed_at: '2026-10-03'
+    review_started_at: '2026-10-03T19:42:31.653240+00:00'
+    method: same_model_frozen_passes
+    limitations: Same model; separate frozen passes, not human or independent-model
+      review.
+    frozen_draft:
+      path: evals/reviews/meme-a8dcd9ddc358dc67.json
+      sha256: c5afa46735ac863181705cabc9b06b0019b4ba6f0b1f218fe616f4eda3985508
+    checks:
+      identity: 063s新梗与084/087s原表演相符；003-060s安装包与音译旧梗排除。
+      meaning: 089-101s逐项说明聊天/好感/礼物/特殊互动/表白流程；定义没有额外恋爱事实。
+      usage: 074/076s主题与现实对比直接支持夸张吐槽。
+      origins: 066s与84/87s帧指向作者但缺直接原帖BV，unknown；不把10月29补成年份。
+      events: 115/155/215s三件同表白文案二创与冻结BV/日期吻合；65s更早游戏选项reference，无event；后来攻略/暧昧文案排除。
+      queries: 定义前冻结的模型查询与该记录所属段落一致，不含完整名称；model/codex，不是人工基线。两条企鹅查询按各自记录分配，人工YAML不改。
+    fingerprint: 1f07261175109fe19dccd5bf753711f2feaddcb77f0742f1dc39f47e921198eb

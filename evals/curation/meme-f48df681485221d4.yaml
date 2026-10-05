@@ -1,0 +1,99 @@
+slug: meme-f48df681485221d4
+resolved: false
+canonical_name: 锻刀大赛
+aliases: []
+definition: CS2玩家把用红色品质枪皮合成刀或手套的活动戏称为锻刀大赛，并围绕合成结果和饰品行情制作段子与梗图。
+usage_context: 调侃合成刀具的结果，以及饰品行情变化带来的欢喜或悲剧。
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV17vsGz5Ey3
+  role: reference
+  note: 莱昂凯也来参加锻刀大赛！竟合出把蝴蝶刀？弹幕直呼血赚！（BV1tUsJzUER9画面引用；不作首次出处断言）
+- url: https://www.bilibili.com/video/BV1v1sqzCEBC
+  role: reference
+  note: 玩机器看傻冬瓜强炼出崭新蝴蝶虎牙！直呼卧槽蝴蝶！（BV1tUsJzUER9画面引用；不作首次出处断言）
+- url: https://www.bilibili.com/video/BV15psVzGErB
+  role: reference
+  note: 玩机器连麦冬瓜强YJJ哭诉：红宝石一天跌5w啊😭BUFF库存怎么一片绿啊😭用了十年的刀说崩就崩了😭不行不卖了😡宝石刀市场给我反攻😡（BV1tUsJzUER9画面引用；不作首次出处断言）
+evidence_map:
+  ocr-narration-BV1tUsJzUER9: null
+  ocr-BV17vsGz5Ey3: null
+  ocr-BV1v1sqzCEBC: null
+  ocr-BV15psVzGErB: null
+claims:
+- key: definition
+  statement: CS2玩家把用红色品质枪皮合成刀或手套的活动戏称为锻刀大赛，并围绕合成结果和饰品行情制作段子与梗图。
+  stance: supports
+  evidence:
+  - ocr-narration-BV1tUsJzUER9
+- key: usage_context
+  statement: 调侃合成刀具的结果，以及饰品行情变化带来的欢喜或悲剧。
+  stance: supports
+  evidence:
+  - ocr-narration-BV1tUsJzUER9
+events: []
+relations: []
+gold:
+  canonical:
+  - 锻刀大赛
+  alias: []
+  origin_intent:
+  - 锻刀大赛的出处
+  description:
+  - 有个射击游戏改成拿五个红皮合刀和手套，玩家晒合成和亏损，被起了什么外号？
+  description_source: model
+  must_not_return: []
+curation:
+  curator: ''
+  confirmed_by: ''
+  drafted_by: codex
+  source_episodes:
+  - BV1tUsJzUER9
+  description_authored_by: codex
+  description_basis: Stored narration, before definition drafting; model-generated,
+    not human benchmark
+  draft_basis:
+  - 054.0s 官方居然突然允许玩家用5个隐秘品质皮肤(红色)
+  - 058.0s 来换取小刀和手套的皮肤
+  - 063.0s 而现在简简单单五把红皮枪合成就能出货了
+  - 080.0s 但对于有些库存甚至刚买了新货的玩家以及倒爷来说
+  - 084.0s 简直是天塌了呀
+  - 091.0s 而此时此刻呢红色隐秘品质皮肤的价格也是水涨船高
+  - 095.0s 大家都迫不及待的想炼出属于自己的宝刀了
+  - 098.0s 因此此事亦被戏称为“锻刀大赛”
+  - 101.0s 事情发生之后自然是有人欢喜有人悲
+  - 103.0s 不少人晒出自己的悲剧
+  - 105.0s 也有不少人以此造梗造段子
+  - 108.0s 总之还是有不少苦中作乐的梗图就此诞生了
+  draft_notes: '054-108s合成活动及锻刀大赛调侃
+
+    98s标题/梗图直接命名。lineage的爆不能作为本梗名称。历史合成和主播反应是reference，不当remix或更新首发事件。2017BV1qx411b7fz解析王者荣耀，与画面CS不同；精确大写Z虽对应旧炼金但属于前史也排除。价格、磨损公式、交易期限和当前更新规格不写入定义。'
+  ingestion_ok: true
+  findings:
+  - 出处未证实，保留unknown；不把二创投稿日期当作首次出处
+  - 同一Codex模型分阶段复核，独立性有限；未声称人工确认
+  draft_origin_sha256: 77795137ab485004e5d7e89ebfa0d1b6ce54bb6ac60eba40e551a72ff80c4438
+  automated_review:
+    reviewer: codex
+    decision: accept
+    reviewed_at: '2026-10-05'
+    review_started_at: '2026-10-05T04:37:19.517072+00:00'
+    method: same_model_frozen_passes
+    limitations: Same model; separate frozen passes, not human or independent-model
+      review.
+    frozen_draft:
+      path: evals/reviews/meme-f48df681485221d4.json
+      sha256: 62bcaf37251dc127eb088b557ac1fd9636fb4ffcf6366fdf407d86f09332bb79
+    checks:
+      identity: 98s文字锻刀大赛准确；lineage爆与本梗不符，不沿用。
+      meaning: 54/58/63/95/98/103/105/108s支持红皮合刀手套及结果行情调侃；不包含价格、更新日期或交易规则建议。
+      usage: 用法限于解说明确说明或源帧直接呈现的调侃/改编，未添加观众心理动机。
+      origins: 无直接首发作品或原帖确认，unknown；参考/二创日期不当起源。
+      events: 63/95/101s三引用精确BV/title/date/locator已独立比对；合成与主播反应均reference零remix。2017大小写z/Z引用不同，全部前史排除。
+      queries: 定义前冻结model/codex查询按query_index和episode绑定；两个广志分开，人工YAML不改；非独立模型或人工确认。
+    fingerprint: 757f0112cea92c8c4e82f997fbacfce533880b20f0b83ec6dbac827de2361e73

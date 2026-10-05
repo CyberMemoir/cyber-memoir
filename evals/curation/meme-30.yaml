@@ -1,0 +1,108 @@
+slug: meme-30
+resolved: false
+canonical_name: 唐嘉琦是咋回事
+aliases: []
+definition: 「唐嘉琦是咋回事」出自博主唐嘉琦：配「唐嘉琦的小曲」、一脸雷霆表情开局，演正能量小短剧再配上雷霆舞步。
+usage_context: ''
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV14dAMzZELY
+  role: reference
+  note: 日推循环 |《MONTAGEM ALQUIMIA》- h6itam、n7san7（BV1oUDLBaE8n 画面中引用）
+- url: https://www.bilibili.com/video/BV1Ci9VBCEKr
+  role: derivative
+  note: 格  调  【嘉琦舞/澪纱】（BV1oUDLBaE8n 画面中引用）
+- url: https://www.bilibili.com/video/BV1uTDTBbEq1
+  role: reference
+  note: 【定格动画】-顺手的事（非AI）（BV1oUDLBaE8n 画面中引用）
+evidence_map:
+  ocr-BV14dAMzZELY: null
+  ocr-BV1Ci9VBCEKr: null
+  ocr-BV1uTDTBbEq1: null
+  ocr-narration-BV1oUDLBaE8n: null
+claims:
+- key: definition
+  statement: 「唐嘉琦是咋回事」出自博主唐嘉琦：配「唐嘉琦的小曲」、一脸雷霆表情开局，演正能量小短剧再配上雷霆舞步。
+  evidence:
+  - ocr-narration-BV1oUDLBaE8n
+  stance: supports
+events:
+- event_type: remix
+  description: 唐嘉琦是咋回事 出现衍生作品《格  调  【嘉琦舞/澪纱】》
+  occurred_at_start: 2026-04-01 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1oUDLBaE8n 画面引用发现
+  evidence:
+  - ocr-BV1Ci9VBCEKr
+relations: []
+gold:
+  canonical:
+  - 唐嘉琦是咋回事
+  alias: []
+  origin_intent:
+  - 唐嘉琦是咋回事的出处
+  description:
+  - 依旧双闪，依旧专属表情，依旧热舞
+  must_not_return: []
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis: '003.0s 这个梗呢其实就是出自博主“唐嘉琦”
+
+    005.0s 他的视频风格呢非常直截了当啊
+
+    050.0s 现在他的视频基本上都是配着
+
+    053.0s 唐嘉琦的小曲”《MONTAGEM ALQUIMIA》
+
+    055.0s 然后带着耳机穿着牛仔服
+
+    058.0s 一脸雷霆表情开局
+
+    062.0s 演一出正能量小短剧最后配上他的雷霆舞步双闪屁股灯'
+  draft_notes: '片段边界：本梗解说占 003-076s；079s 之后画面是三个二创视频（含 BV1Ci9VBCEKr、BV1uTDTBbEq1），解说只有
+    076s 一句「使得和他有关的梗和二创迅速传播开来」，属于传播。整集只讲这一个梗。
+
+    定义依据：003s 说出自博主唐嘉琦，053s 说配着「唐嘉琦的小曲」，058s「一脸雷霆表情开局」，062s 说演一出正能量小短剧再配上他的雷霆舞步。
+
+    可疑 OCR：053s 的解说是「唐嘉琦的小曲”《MONTAGEM ALQUIMIA》」，引号左右不配对（该行只出现右引号），正文照抄这半句未补左引号；同一个名字在本集解说与画面（002s）都作「唐嘉琦」，而本批其它记录的来源标题里出现过「唐嘉琪」，本记录以所引
+    OCR 的「唐嘉琦」为准；062s 的「双闪屁股灯」照抄。
+
+    usage_context 留空（D-10）：076s「使得和他有关的梗和二创迅速传播开来」是传播；005-067s 讲的是他自己的视频风格与剪辑，不是别人在什么场合怎么用这个梗。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 衍生关系来自 BV1oUDLBaE8n 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+  - 传播区间 2026-03-22 .. 2026-04-04（3 条）
+  gpt_repair_notes: 53s music upload supplies the BGM rather than proving a remix;100s
+    generic stop-motion title/uncertain uploader text does not establish a meme remix
+    independently. Removed their event claims, retained references;79s explicit 嘉琦舞
+    remix retained.
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: Full BV1oUDLBaE8n narration003s explicitly names 唐嘉琦;050-067s describes
+        his current presentation. No alternate 嘉琪 spelling or dates inferred from
+        relative 去年/今年.
+      meaning: 050/053/058/062s directly supports song accompaniment, exaggerated
+        expression, positive short skit and dance. Definition keeps these supplied
+        features, no fictional biography or unverified initial video date.
+      usage: Empty retained:076s is related-meme spread;005-067s describes his own
+        videos, not how another person uses the meme in a situation.
+      origins: 003s attributes the subject to the blogger but no original upload is
+        resolved. Unknown origin fields/empty relations retained.53s BGM reference
+        does not prove meme creator.
+      events: 79s exact frame BV1Ci9VBCEKr/title嘉琦舞/uploader我叫之星条 agrees with CSV20260401,
+        following explicit related edits076s. Music53s and generic animation100s events
+        removed for unsupported derivative roles. Raw cited frames unchanged.
+      queries: Existing human query 依旧双闪，依旧专属表情，依旧热舞 retained. No model query or fabricated
+        human review.
+    fingerprint: 9157e5e8c19688bbb401a4fee134dce65c1b310b99dae2de941558a81983d53d

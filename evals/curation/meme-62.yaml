@@ -1,0 +1,127 @@
+slug: meme-62
+resolved: false
+canonical_name: 星光坏事做尽
+aliases: []
+definition: 指《黑袍纠察队》最终季剧情里的一个梗：正派英雄「星光」被造谣攻击，祖国人的罪行都扔给她背锅
+usage_context: 有人正在说火车头死的太惨了之类的话时，就会有人在下面批判星光
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV19Z9BBvEnb
+  role: derivative
+  note: 星光残忍杀害火车头全过程！！！（BV1iXVG6aEHq 画面中引用）
+- url: https://www.bilibili.com/video/BV1Dh9QBhEwF
+  role: derivative
+  note: 我就知道！孩子们这才是星光！（BV1iXVG6aEHq 画面中引用）
+- url: https://www.bilibili.com/video/BV13oRQBBETX
+  role: derivative
+  note: ⚡ 星 光 坏 事 做 尽 ⚡（BV1iXVG6aEHq 画面中引用）
+- url: https://www.bilibili.com/video/BV1XJ5E6GEuu
+  role: derivative
+  note: 星光注射了《初代五号》，这下不知道祖国人该怎么赢？（BV1iXVG6aEHq 画面中引用）
+- url: https://www.bilibili.com/video/BV13Q5v6xEdv
+  role: derivative
+  note: 星光坏事做尽！（BV1iXVG6aEHq 画面中引用）
+evidence_map:
+  ocr-narration-BV1iXVG6aEHq: null
+  ocr-BV19Z9BBvEnb: null
+  ocr-BV1Dh9QBhEwF: null
+  ocr-BV13oRQBBETX: null
+  ocr-BV1XJ5E6GEuu: null
+  ocr-BV13Q5v6xEdv: null
+claims:
+- key: definition
+  statement: 指《黑袍纠察队》最终季剧情里的一个梗：正派英雄「星光」被造谣攻击，祖国人的罪行都扔给她背锅
+  evidence:
+  - ocr-narration-BV1iXVG6aEHq
+  stance: supports
+- key: usage_context
+  statement: 有人正在说火车头死的太惨了之类的话时，就会有人在下面批判星光
+  evidence:
+  - ocr-narration-BV1iXVG6aEHq
+  stance: supports
+events:
+- event_type: remix
+  description: 星光坏事做尽 出现衍生作品《星光残忍杀害火车头全过程！！！》
+  occurred_at_start: 2026-04-28 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1iXVG6aEHq 画面引用发现
+  evidence:
+  - ocr-BV19Z9BBvEnb
+- event_type: remix
+  description: 星光坏事做尽 出现衍生作品《我就知道！孩子们这才是星光！》
+  occurred_at_start: 2026-04-29 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1iXVG6aEHq 画面引用发现
+  evidence:
+  - ocr-BV1Dh9QBhEwF
+- event_type: remix
+  description: 星光坏事做尽 出现衍生作品《⚡ 星 光 坏 事 做 尽 ⚡》
+  occurred_at_start: 2026-05-09 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1iXVG6aEHq 画面引用发现
+  evidence:
+  - ocr-BV13oRQBBETX
+- event_type: remix
+  description: 星光坏事做尽 出现衍生作品《星光注射了《初代五号》，这下不知道祖国人该怎么赢？》
+  occurred_at_start: 2026-05-10 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1iXVG6aEHq 画面引用发现
+  evidence:
+  - ocr-BV1XJ5E6GEuu
+- event_type: remix
+  description: 星光坏事做尽 出现衍生作品《星光坏事做尽！》
+  occurred_at_start: 2026-05-15 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1iXVG6aEHq 画面引用发现
+  evidence:
+  - ocr-BV13Q5v6xEdv
+relations: []
+gold:
+  canonical:
+  - 星光坏事做尽
+  alias: []
+  origin_intent:
+  - 星光坏事做尽的出处
+  description:
+  - 星光是主角，但是有网友串说星光怎么这么坏
+  must_not_return: []
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  draft_basis: 003.0s 《黑袍纠察队》；012.0s 而这次的这个星光坏事做尽呢就是来自于最终季中的剧情里；015.0s 正派英雄“星光”在舆论场上节节败退被敌方不断的造谣攻击；019.0s
+    许多是由祖国人犯下的罪行都扔给了她背锅；052.0s 网友们居然也开始玩起来啦；054.0s 像是有人正在说火车头死的太惨了之类的；057.0s 就会有人在下面批判星光啊这个星光怎么这么坏！？。定义合成
+    012s+015s+019s；usage_context 取 052s+054s+057s。
+  draft_notes: 片段边界：本梗的解释分成两处——012-019s 讲剧情由来，052-061s 讲网友怎样玩；026-046s 是剧集原片、065-100s
+    是「各种大恶人星光」的二创画面，都不属于解说。疑似 OCR 误读：057s 的解说把评论念成「这个星光怎么这么坏」，画面评论（057s）作「星光怎么这么坏」、另有「据说火车头撞死休一的前女友是被星光逼的」，本记录只引解说行，未补画面评论；「火车头」是剧中原片字幕与解说共用的叫法。略去未写：026-050s
+    的原片字幕（布道词、火车的悼词等）与 065-124s 的二创画面都不写入；058s「成功莫名其妙的打出了人气」、065s「通过AI或者段子来让星光罪行确凿」与
+    068s「各种大恶人星光就诞生了」讲的是传播与二创，D-10 不写进 usage_context；061s「这种剧里的虚假宣传和现实同步的感觉实在有些搞笑」是解说的感慨，不算用法。usage_context
+    非空：054s+057s 明确说了在什么场合下会有怎样的回应。本记录引用的话语与名字只取自解说的字幕行。
+  confirmed_by: ''
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 衍生关系来自 BV1iXVG6aEHq 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+  - 传播区间 2026-04-28 .. 2026-05-25（6 条）
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-09-30'
+    checks:
+      identity: BV1iXVG6aEHq 003,012-019s names the show and blame-shifting meme.
+      meaning: 015-019s explicitly says the protagonist is falsely blamed for the
+        antagonist's acts.
+      usage: 052-068s explicitly describes viewers blaming Starlight in comments and
+        AI/parody works.
+      origins: No inferred primary source or popularizer relation added; origin remains
+        unknown.
+      events: 'Five Starlight parody citation frames match. Removed BV11kGd6NE4f:
+        100-104s moves to a separate finale meme, and the frame says 阿祖声音换成小马. Marked
+        this lineage row irrelevant for this meme.'
+      queries: Existing human query describes viewers accusing Starlight and contains
+        no canonical name.
+    fingerprint: 49ba4b7d93c42e064345c0f8721b3ae683d3e75f3f84e300a42511c44921b4df

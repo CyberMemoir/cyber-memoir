@@ -1,0 +1,184 @@
+{
+  "frozen_at": "2026-10-05T03:36:36.978206+00:00",
+  "record": {
+    "slug": "meme-330c9a71e5ca4f70",
+    "resolved": false,
+    "canonical_name": "苦命鸳鸯",
+    "aliases": [],
+    "definition": "网友把董卓与吕布的虚构漫画关系调侃为「苦命鸳鸯」，再把这种悲情关系和漫画场面移植到其他角色配对中的梗。",
+    "usage_context": "将漫画中的悲情关系和场面套到其他角色配对上。",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [
+      {
+        "url": "https://www.bilibili.com/video/BV1dj4AzpEe1",
+        "role": "derivative",
+        "note": "【魔圆/董卓】我们本是一对苦命鸳鸯（BV1AGyrBaE5q画面引用；不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1phxFzpE54",
+        "role": "derivative",
+        "note": "明日方舟的苦命鸳鸯（BV1AGyrBaE5q画面引用；不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1epspzAEtg",
+        "role": "derivative",
+        "note": "💔“雨宫莲，往日种种······你当真不记得了？”💔【P5|苦命鸳鸯】（BV1AGyrBaE5q画面引用；不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV17ss6zREnR",
+        "role": "derivative",
+        "note": "Ilya....往日种种...可还记得？（BV1AGyrBaE5q画面引用；不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1FCsrzaEVT",
+        "role": "derivative",
+        "note": "(补档) 阿姆罗...往日种种...你可还记得？（BV1AGyrBaE5q画面引用；不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1iixNzWEK5",
+        "role": "derivative",
+        "note": "【士剑】不过是一对苦命鸳鸯……（BV1AGyrBaE5q画面引用；不作首次出处断言）"
+      }
+    ],
+    "evidence_map": {
+      "ocr-narration-BV1AGyrBaE5q": null,
+      "ocr-BV1dj4AzpEe1": null,
+      "ocr-BV1phxFzpE54": null,
+      "ocr-BV1epspzAEtg": null,
+      "ocr-BV17ss6zREnR": null,
+      "ocr-BV1FCsrzaEVT": null,
+      "ocr-BV1iixNzWEK5": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "网友把董卓与吕布的虚构漫画关系调侃为「苦命鸳鸯」，再把这种悲情关系和漫画场面移植到其他角色配对中的梗。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1AGyrBaE5q"
+        ]
+      },
+      {
+        "key": "usage_context",
+        "statement": "将漫画中的悲情关系和场面套到其他角色配对上。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1AGyrBaE5q"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "event_type": "remix",
+        "description": "苦命鸳鸯出现衍生作品《【魔圆/董卓】我们本是一对苦命鸳鸯》",
+        "occurred_at_start": "2025-10-11 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1dj4AzpEe1"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "苦命鸳鸯出现衍生作品《明日方舟的苦命鸳鸯》",
+        "occurred_at_start": "2025-10-25 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1phxFzpE54"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "苦命鸳鸯出现衍生作品《💔“雨宫莲，往日种种······你当真不记得了？”💔【P5|苦命鸳鸯】》",
+        "occurred_at_start": "2025-10-25 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1epspzAEtg"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "苦命鸳鸯出现衍生作品《Ilya....往日种种...可还记得？》",
+        "occurred_at_start": "2025-10-26 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV17ss6zREnR"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "苦命鸳鸯出现衍生作品《(补档) 阿姆罗...往日种种...你可还记得？》",
+        "occurred_at_start": "2025-10-26 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1FCsrzaEVT"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "苦命鸳鸯出现衍生作品《【士剑】不过是一对苦命鸳鸯……》",
+        "occurred_at_start": "2025-10-26 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1iixNzWEK5"
+        ]
+      }
+    ],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "苦命鸳鸯"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "苦命鸳鸯的出处"
+      ],
+      "description": [
+        "网友把董卓吕布漫画里离谱又悲情的关系套在别的角色配对上"
+      ],
+      "description_source": "model",
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV1AGyrBaE5q"
+      ],
+      "description_authored_by": "codex",
+      "description_basis": "Stored narration, before definition drafting; model-generated, not human benchmark",
+      "draft_basis": [
+        "002.0s 这个梗呢出自一部同人创作的南铜漫画",
+        "006.0s 叫“中国野史之董卓",
+        "008.0s 讲的是董卓和吕布超脱一般情感的爱恨情优",
+        "018.0s 在董卓被诛杀时吕布遥想当年二人同榻而眠",
+        "021.0s 因此泪流两行颇有氛围感",
+        "024.0s 而因为漫画在让人大呼离谱之外",
+        "028.0s 于是大家半调倪半认真（也许）",
+        "032.0s 感概这两个人真的是一对苦命驾鸯",
+        "035.0s 于是就诞生了这个梗",
+        "037.0s 一边咂摸原作",
+        "038.0s 一边将这种关系性用在其他可以嗑cP的地方",
+        "042.0s 网友们也是做出了系列三创"
+      ],
+      "draft_notes": "002-125s fictional comic and CP derivatives.\n6 cover says中国古代野史之董卓 while narration abbreviated中国野史之董卓;avoid silently normalizing quoted title,use fictional董卓/吕布 comic.18 source panel;50/64/77/92/106/120/125 frames support listed derivatives,not original creators or historical facts. Unresolved references omitted. Final士剑 scene is a proposed relationship edit;separate review must evaluate role.",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未证实，保留unknown；不把二创投稿日期当作首次出处",
+        "同一Codex模型分阶段复核，独立性有限；未声称人工确认"
+      ],
+      "draft_origin_sha256": "b8a8e19e9573afafbba177cea00056fd7b6ade79e05e312fab70d180fedfad4a"
+    }
+  }
+}

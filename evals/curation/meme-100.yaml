@@ -1,0 +1,154 @@
+slug: meme-100
+resolved: false
+canonical_name: 超级变色龙
+aliases: []
+definition: 一款躲猫猫游戏《MECCHA CHAMELEON》的中文名：玩家不能变身，只能摆出姿势、往自己身上上色，尽量融进环境。
+usage_context: ''
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1Ds411U74d
+  role: derivative
+  note: 【手残联萌】《GMOD》欢乐捉迷藏-这个模式能看出人有多贱（BV1LvjR6dEVk 画面中引用）
+- url: https://www.bilibili.com/video/BV1gN411R7g4
+  role: derivative
+  note: 20210207 农商行面试结束（系统回忆了下流程），明天重新计划公务员备考（BV1LvjR6dEVk 画面中引用）
+- url: https://www.bilibili.com/video/BV146421Z7Dp
+  role: derivative
+  note: 【MrBeast官方】500000美元百人捉迷藏（BV1LvjR6dEVk 画面中引用）
+- url: https://www.bilibili.com/video/BV1ZoZYBvER6
+  role: derivative
+  note: CS2躲猫猫:墙模型（BV1LvjR6dEVk 画面中引用）
+- url: https://www.bilibili.com/video/BV1KNjz6cE82
+  role: derivative
+  note: 小汽车总动员（BV1LvjR6dEVk 画面中引用）
+- url: https://www.bilibili.com/video/BV1sTjt6FE76
+  role: derivative
+  note: notday（BV1LvjR6dEVk 画面中引用）
+- url: https://www.bilibili.com/video/BV1yu7w6dEf9
+  role: derivative
+  note: 堵 复 活 点？ 豪 到 我 了（BV1LvjR6dEVk 画面中引用）
+- url: https://www.bilibili.com/video/BV1DG7g6dEAZ
+  role: derivative
+  note: 真正的艺术！（BV1LvjR6dEVk 画面中引用）
+evidence_map:
+  ocr-narration-BV1LvjR6dEVk: null
+  ocr-BV1Ds411U74d: null
+  ocr-BV1gN411R7g4: null
+  ocr-BV146421Z7Dp: null
+  ocr-BV1ZoZYBvER6: null
+  ocr-BV1KNjz6cE82: null
+  ocr-BV1sTjt6FE76: null
+  ocr-BV1yu7w6dEf9: null
+  ocr-BV1DG7g6dEAZ: null
+claims:
+- key: definition
+  statement: 一款躲猫猫游戏《MECCHA CHAMELEON》的中文名：玩家不能变身，只能摆出姿势、往自己身上上色，尽量融进环境。
+  evidence:
+  - ocr-narration-BV1LvjR6dEVk
+  stance: supports
+events:
+- event_type: remix
+  description: 超级变色龙 出现衍生作品《【手残联萌】《GMOD》欢乐捉迷藏-这个模式能看出人有多贱》
+  occurred_at_start: 2015-06-19 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1LvjR6dEVk 画面引用发现
+  evidence:
+  - ocr-BV1Ds411U74d
+- event_type: remix
+  description: 超级变色龙 出现衍生作品《20210207 农商行面试结束（系统回忆了下流程），明天重》
+  occurred_at_start: 2021-02-07 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1LvjR6dEVk 画面引用发现
+  evidence:
+  - ocr-BV1gN411R7g4
+- event_type: remix
+  description: 超级变色龙 出现衍生作品《【MrBeast官方】500000美元百人捉迷藏》
+  occurred_at_start: 2024-06-28 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1LvjR6dEVk 画面引用发现
+  evidence:
+  - ocr-BV146421Z7Dp
+- event_type: remix
+  description: 超级变色龙 出现衍生作品《CS2躲猫猫:墙模型》
+  occurred_at_start: 2026-02-19 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1LvjR6dEVk 画面引用发现
+  evidence:
+  - ocr-BV1ZoZYBvER6
+- event_type: remix
+  description: 超级变色龙 出现衍生作品《小汽车总动员》
+  occurred_at_start: 2026-06-19 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1LvjR6dEVk 画面引用发现
+  evidence:
+  - ocr-BV1KNjz6cE82
+- event_type: remix
+  description: 超级变色龙 出现衍生作品《notday》
+  occurred_at_start: 2026-06-21 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1LvjR6dEVk 画面引用发现
+  evidence:
+  - ocr-BV1sTjt6FE76
+- event_type: remix
+  description: 超级变色龙 出现衍生作品《堵 复 活 点？ 豪 到 我 了》
+  occurred_at_start: 2026-06-22 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1LvjR6dEVk 画面引用发现
+  evidence:
+  - ocr-BV1yu7w6dEf9
+- event_type: remix
+  description: 超级变色龙 出现衍生作品《真正的艺术！》
+  occurred_at_start: 2026-06-23 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1LvjR6dEVk 画面引用发现
+  evidence:
+  - ocr-BV1DG7g6dEAZ
+relations: []
+gold:
+  canonical:
+  - 超级变色龙
+  alias: []
+  origin_intent:
+  - 超级变色龙的出处
+  description:
+  - 日本很火的躲猫猫游戏
+  must_not_return: []
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: Vincent
+  draft_basis: '003.0s 躲猫猫可以说是最经典的一种游戏形式之一
+
+    015.0s 玩法呢是玩家可以变形成各种物件融入地图之中
+
+    021.0s 《MECCHA CHAMELEON》（超级变色龙）的游戏风靡一时
+
+    024.0s 由两位日本作者独立开发
+
+    031.0s 这个躲猫猫游戏呢和前面的prophunt差不多
+
+    034.0s 最大的区别在于玩家不能变身为其他物体而是能摆出一些姿势
+
+    038.0s 然后在自己的身体上上色
+
+    040.0s 尽可能的让自已融入环境
+
+    044.0s 没过一段时间这游戏便被大家玩出了花
+
+    047.0s 各种好活烂活都能见着就像下面这些'
+  draft_notes: '段落：整集一个梗。003-018s 是躲猫猫通史（gmod／cod 的 prophunt），021s 起才讲本梗；定义只取 021s
+    之后。
+
+    用法留空（D-10）：044s 玩出了花、047s 各种好活烂活是现象和传播，整集没有陈述用法的句子。
+
+    可疑 OCR：025s「分别是毛才(LEMORION)(HAGANEIRO)」两位日本作者的名字读得可疑，我没有把名字写进正文；018s「博奔」（博弈？）；069s「这是什么」读不通。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 衍生关系来自 BV1LvjR6dEVk 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+  - 传播区间 2015-06-19 .. 2026-06-23（8 条）

@@ -1,0 +1,173 @@
+slug: meme-26
+resolved: false
+canonical_name: 关羽之歌
+aliases: []
+definition: 电视剧《新三国》中以关羽命名、却被反复用于不同角色和剧情的配乐，被网友剪进其他作品的名场面玩梗。
+usage_context: 网友把它剪进其他作品的名场面，用来制造一种「气笑了」的效果。
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1uBqbYcE6G
+  role: reference
+  note: 【盘新三国01】你是否好奇过，这首《关羽之歌》究竟在新三国里面用了多少次？（BV1PUmqBwEr3 画面中引用）
+- url: https://www.bilibili.com/video/BV1d2cceWERc
+  role: derivative
+  note: 如果用新三国《关羽之歌》替换《希望之花》名场面会发生什么（BV1PUmqBwEr3 画面中引用）
+- url: https://www.bilibili.com/video/BV16mfBYhEkC
+  role: reference
+  note: 当拿破仑遇到关羽之歌（BV1PUmqBwEr3 画面中引用）
+- url: https://www.bilibili.com/video/BV142K5e8EUz
+  role: reference
+  note: 安倍被打透明窟窿配上关羽之歌（BV1PUmqBwEr3 画面中引用）
+- url: https://www.bilibili.com/video/BV1vxgPz7EQy
+  role: derivative
+  note: L之死但是关羽之歌（BV1PUmqBwEr3 画面中引用）
+- url: https://www.bilibili.com/video/BV1DynbzqEWp
+  role: derivative
+  note: 和三月七重逢，但是关羽之歌（BV1PUmqBwEr3 画面中引用）
+- url: https://www.bilibili.com/video/BV1YvSMBNETB
+  role: derivative
+  note: 老大，我把曹操放跑了喵（BV1PUmqBwEr3 画面中引用）
+- url: https://www.bilibili.com/video/BV1CDmjBuEkF
+  role: derivative
+  note: 用关羽之歌更换33号远征队的获奖BGM（BV1PUmqBwEr3 画面中引用）
+evidence_map:
+  ocr-narration-BV1PUmqBwEr3: null
+  ocr-BV1uBqbYcE6G: null
+  ocr-BV1d2cceWERc: null
+  ocr-BV16mfBYhEkC: null
+  ocr-BV142K5e8EUz: null
+  ocr-BV1vxgPz7EQy: null
+  ocr-BV1DynbzqEWp: null
+  ocr-BV1YvSMBNETB: null
+  ocr-BV1CDmjBuEkF: null
+claims:
+- key: definition
+  statement: 电视剧《新三国》中以关羽命名、却被反复用于不同角色和剧情的配乐，被网友剪进其他作品的名场面玩梗。
+  evidence:
+  - ocr-narration-BV1PUmqBwEr3
+  stance: supports
+- key: usage_context
+  statement: 网友把它剪进其他作品的名场面，用来制造一种「气笑了」的效果。
+  evidence:
+  - ocr-narration-BV1PUmqBwEr3
+  stance: supports
+events:
+- event_type: remix
+  description: 关羽之歌 出现衍生作品《如果用新三国《关羽之歌》替换《希望之花》名场面会发生什么》
+  occurred_at_start: 2025-01-11 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1PUmqBwEr3 画面引用发现
+  evidence:
+  - ocr-BV1d2cceWERc
+- event_type: remix
+  description: 关羽之歌 出现衍生作品《L之死但是关羽之歌》
+  occurred_at_start: 2025-07-17 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1PUmqBwEr3 画面引用发现
+  evidence:
+  - ocr-BV1vxgPz7EQy
+- event_type: remix
+  description: 关羽之歌 出现衍生作品《和三月七重逢，但是关羽之歌》
+  occurred_at_start: 2025-09-25 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1PUmqBwEr3 画面引用发现
+  evidence:
+  - ocr-BV1DynbzqEWp
+- event_type: remix
+  description: 关羽之歌 出现衍生作品《老大，我把曹操放跑了喵》
+  occurred_at_start: 2025-11-27 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1PUmqBwEr3 画面引用发现
+  evidence:
+  - ocr-BV1YvSMBNETB
+- event_type: remix
+  description: 关羽之歌 出现衍生作品《用关羽之歌更换33号远征队的获奖BGM》
+  occurred_at_start: 2025-12-12 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1PUmqBwEr3 画面引用发现
+  evidence:
+  - ocr-BV1CDmjBuEkF
+relations: []
+gold:
+  canonical:
+  - 关羽之歌
+  alias: []
+  origin_intent:
+  - 关羽之歌的出处
+  description:
+  - 听了就释怀的一首被乱用的歌
+  must_not_return: []
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis:
+  - 003.0s 观众姥爷们还记得我们讲过的“曹操盖饭”吗？
+  - 005.0s ！它和这个梗都是同属于电视剧《新三国》的名场面
+  - 009.0s 作为一部在2010年开播的电视剧
+  - 039.0s 这个《关羽之歌》呢其实是新三国电视剧的配乐之一
+  - 045.0s 这个bgm理论上应该是作为关羽这个角色的主要旋律
+  - 049.0s 但实际上纵观全剧95集
+  - 051.0s 这首bgm出现了大概六十多次
+  - 053.0s 却只有四次是真的用在了关羽身上
+  - 056.0s 这首bgm都会“随机”刷新在任何剧情片段的任何角色身上
+  - 062.0s 也不管它的情绪和剧情桥段搭不搭
+  - 064.0s 这种bgm随意滥用的行为加上其配乐的有些剧情桥段过于抽象
+  - 069.0s 所以就让这首《关羽之歌》成为了一个梗
+  - 071.0s 一些网友会把它剪辑在各种各样其他作品的名场面中
+  - 074.0s 来达成一种“气笑了”的灰谐感
+  - 076.0s 也有网友甚至用各种各样的手段演奏或者对其重新编曲
+  - 163.0s 事实上在新三国原声带中《关羽之歌》是有四个变奏的
+  - 167.0s 除了比较温婉能直接听出区别的《小乔之歌》外
+  - 178.0s 或许这也是bgm听起来多“滥用”的原因之一吧
+  draft_notes: '段落边界（D-14）：BV1PUmqBwEr3 整集只有一个梗（关羽之歌），解说 003-087s 加 163-178s。003-036s
+    讲新三国这个来源与最近吐槽带来的热度，039-069s 讲《关羽之歌》被滥用成梗，071-087s 讲网友的二创（083/087s 是对《33号远征队》的一句引用）；163-178s
+    讲原声带里四个变奏的解释。定义取 039/045/049/051/053/056/064/069s，usage 取 071/074s。
+
+    usage_context 依据：071s「一些网友会把它剪辑在各种各样其他作品的名场面中」＋074s「来达成一种『气笑了』的灰谐感」是用法与意图；076/080s（用各种各样的手段演奏或者重新编曲、传播度越来越广）是二创与传播，没有写进
+    usage。
+
+    OCR 可疑未改：074s 的「灰谐感」（应是「诙谐感」）、029s「幽而复明」、060s「零顿起手」都照抄在 basis 中，没有替它改字；定义里写的「谐感」是自己的话，而「气笑了」是照抄
+    074s 的引文。
+
+    未写（D-4/D-6）：009s 的「2010年开播」、022-027s 的博主「吃蛋挞的折棒」、083/087s 的《33号远征队》、163-178s 的四个变奏都是背景与来源材料，没有写进定义。
+
+    可疑关系：本条八条已解析衍生作品与 events 的日期一致；lineage 里另有三个未解析行（BV1uBqbYeE6G／BV1YVSMBNETB／BV1vXgPz7EQy），本条
+    sources 未包含，我未改动。
+
+    未发现只存在于画面、且定义必须依赖的含义，故未加 automation_hold。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - Five supported dated remixes; commentary and two uploader conflicts reference
+    only.
+  gpt_repair_notes: Omitted exact reuse counts unnecessary to identity; no OCR repair.51s
+    commentary reference only, not remix.178s 阁参 versus resolved 佚阁叁 and99s 橘子橙子青柠子
+    versus resolved 游纪菌 are uploader conflicts; reference only, events removed. Five
+    exact dated remix identities retained.
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: Full BV1PUmqBwEr3 narration/screens/citation frames read;039/045/056/069/071s
+        identify the same named soundtrack and its reuse. Cao Cao context003s is background.
+      meaning: 039/045/056/064/069s supports soundtrack used across characters/scenes.
+        Exact counts049/051/053s omitted rather than generalized as independently
+        measured facts; no source-text correction.
+      usage: 071/074s explicitly supports inserting music into other works for a 气笑了
+        effect;076s performance and rearrangement are propagation, not substituted
+        for purpose.
+      origins: Unknown origin and empty relations retained.2010 broadcast and 吃蛋挞的折棒
+        popularization narration do not establish independently resolved primary uploader/date.
+      events: Full resolved CSV checked.51s counting commentary not remix;178s and99s
+        uploader conflicts reference only.71/83/115/128/145s exact frame/title/uploader
+        support five remaining dates20250111/20251212/20251127/20250925/20250717.
+      queries: Existing human 听了就释怀的一首被乱用的歌 retained verbatim. No model query or invented
+        human approval; query broadness does not justify adding unsupported usage.
+    fingerprint: c8bef4885dc6765f95b56bf44feb0ddd7816a6da195a556bfa30ea8f956a9074

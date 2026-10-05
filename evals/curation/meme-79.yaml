@@ -1,0 +1,120 @@
+slug: meme-79
+resolved: false
+canonical_name: 琵琶曲
+aliases: []
+definition: 指一首古风歌曲《琵琶曲》的dj版本，最近在网上火起来的基本都是这种版本，节奏感很强十分洗脑
+usage_context: 它搭配什么舞蹈都极其契合，于是乎就把它放进各种各样的舞蹈中
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1zGtz61EHa
+  role: reference
+  note: “人间琴悠扬 姑娘把谁记心上.”|《琵琶曲dj》1.15x（BV1mtY164EUu 画面中引用）
+- url: https://www.bilibili.com/video/BV14P4y1V7rj
+  role: reference
+  note: 职业鱿鱼玩家【锁音PROJECT】（BV1mtY164EUu 画面中引用）
+- url: https://www.bilibili.com/video/BV1yaYR61Eho
+  role: derivative
+  note: 琵琶曲｜无名&H1000（BV1mtY164EUu 画面中引用）
+- url: https://www.bilibili.com/video/BV1KWYX6VExh
+  role: derivative
+  note: 琵琶曲丨管理员VS阿达希尔（攻防转换）（BV1mtY164EUu 画面中引用）
+- url: https://www.bilibili.com/video/BV1rzYe6JE29
+  role: derivative
+  note: ⚡琵琶曲|闹吃VS古振兴⚡😍（BV1mtY164EUu 画面中引用）
+evidence_map:
+  ocr-narration-BV1mtY164EUu: null
+  ocr-BV1zGtz61EHa: null
+  ocr-BV14P4y1V7rj: null
+  ocr-BV1yaYR61Eho: null
+  ocr-BV1KWYX6VExh: null
+  ocr-BV1rzYe6JE29: null
+claims:
+- key: definition
+  statement: 指一首古风歌曲《琵琶曲》的dj版本，最近在网上火起来的基本都是这种版本，节奏感很强十分洗脑
+  evidence:
+  - ocr-narration-BV1mtY164EUu
+  stance: supports
+- key: usage_context
+  statement: 它搭配什么舞蹈都极其契合，于是乎就把它放进各种各样的舞蹈中
+  evidence:
+  - ocr-narration-BV1mtY164EUu
+  stance: supports
+events:
+- event_type: remix
+  description: 琵琶曲 出现衍生作品《琵琶曲｜无名&H1000》
+  occurred_at_start: 2026-09-12 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1mtY164EUu 画面引用发现
+  evidence:
+  - ocr-BV1yaYR61Eho
+- event_type: remix
+  description: 琵琶曲 出现衍生作品《琵琶曲丨管理员VS阿达希尔（攻防转换）》
+  occurred_at_start: 2026-09-12 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1mtY164EUu 画面引用发现
+  evidence:
+  - ocr-BV1KWYX6VExh
+- event_type: remix
+  description: 琵琶曲 出现衍生作品《⚡琵琶曲|闹吃VS古振兴⚡😍》
+  occurred_at_start: 2026-09-13 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1mtY164EUu 画面引用发现
+  evidence:
+  - ocr-BV1rzYe6JE29
+relations: []
+gold:
+  canonical:
+  - 琵琶曲
+  alias: []
+  origin_intent:
+  - 琵琶曲的出处
+  description:
+  - 人间琴悠扬
+  must_not_return: []
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  draft_basis: 002.0s 这个梗和我们高中学过的《琵琶行》没啥关系；006.0s 而是和一首古风歌曲《琵琶曲》有关；008.0s 最近在网上火起来的呢基本上都是它的di版本；015.0s
+    他们的节奏感很强十分洗脑；039.0s 大家发现它搭配什么舞蹈都极其契合；042.0s 于是乎就把它放进各种各样的舞蹈中。定义合成 006s+008s+015s；usage_context
+    取 039s+042s。
+  draft_notes: 片段边界：本梗解释占 002-042s；049s 之后讲两个具体舞蹈的出处（外网博主「Kotte Animation」等），属于来源与传播。疑似
+    OCR 误读：解说 008s 把 DJ 写作「di版本」，画面标题也出现过「《琵琶曲di」；本记录按解说行照抄「dj」，并在此注明原文有「di」这一种写法（画面
+    006s 与 025s 均作「《琵琶曲dj》」）。另 017s 的解说把「土到极致就是潮」OCR 成了「王到极致就是潮」，因无法确认原字，本记录没有引用这句话。略去未写：003s
+    的《琵琶行》对照、012-015s 的洗脑评价之外的部分、022-032s 的画面歌词、049-090s 的舞蹈出处与「强强组合」、090s 用 ai 或亲自上场翻跳，都没写进
+    usage_context；033s「就火了起来」是传播（D-10），不写入。usage_context 非空：039s 与 042s 两句说的是人们拿它配舞蹈这一用法。
+  confirmed_by: ''
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 衍生关系来自 BV1mtY164EUu 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+  - 传播区间 2021-12-04 .. 2026-09-13（4 条）
+  gpt_repair_notes: '2026-09-30: restored existing human query from _descriptions.yaml;
+    prior scalar parsing split it into characters.'
+  gpt_role_review: Earlier LOVEMATSU dance (060-071s) and DJ-song upload (006s) kept
+    as references. Removed the unsupported 2021 song-remix event and popularized_by
+    assertion. Raw evidence and metadata unchanged; sources are not deleted.
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-09-30'
+    checks:
+      identity: BV1mtY164EUu 006-015s identifies the song and DJ version; di OCR is
+        independently disambiguated by dj in narration 082s and resolved upload title.
+      meaning: 006-015s explicitly describes the DJ version's strong rhythm; no inferred
+        creator or historical origin added.
+      usage: 039-042s explicitly says people put the music into various dances; 077-090s
+        describes reuse of older dance animations and new AI or live performances.
+      origins: 006s song upload is reference only, not proved popularizer. 060-071s
+        discusses the earlier dance provenance, so that 2021 clip is reference only.
+        Removed unsupported popularized_by relation; origin stays unknown.
+      events: Three remaining citation frames at 94/112/130s match song remix titles
+        and exact IDs BV1rzYe6JE29/BV1yaYR61Eho/BV1KWYX6VExh. Dates September 13/12/12
+        match resolved CSV. Removed the earlier dance's false song-remix event.
+      queries: Human query 人间琴悠扬 restored from _descriptions.yaml after scalar-to-character
+        corruption. Existing provenance and wording preserved, no model query added.
+    fingerprint: 2fbf2a0d2855a6dd12d59a972859d8e9593a066168631d818b2815cdfb5cba37

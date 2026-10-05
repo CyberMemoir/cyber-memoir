@@ -1,0 +1,167 @@
+slug: meme-28
+resolved: false
+canonical_name: 区
+aliases: []
+definition: 游戏圈中用来调侃实力不济、处境无力又无助的玩家、主播或选手的同音代称，早先也用于四人集中趴地的打法。
+usage_context: 游戏圈子里某些主播或选手实力不济、风评不佳时，会被玩家们称作「区」。
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1Fx41157EU
+  role: reference
+  note: 【弱爆了素材】过去上下床的方式弱爆了原版（BV1wVXLB5Exm 画面中引用）
+- url: https://www.bilibili.com/video/BV1kHUKBGEbS
+  role: derivative
+  note: 【明日方舟】我见过很多区，但他们都叫我们四区兄弟（BV1wVXLB5Exm 画面中引用）
+- url: https://www.bilibili.com/video/BV1t4Psz1E1N
+  role: derivative
+  note: 不就是天罚吗😡看我用电球推回去😋（BV1wVXLB5Exm 画面中引用）
+- url: https://www.bilibili.com/video/BV1pbNPzmERv
+  role: derivative
+  note: 尖塔笑传 《四区兄弟》（BV1wVXLB5Exm 画面中引用）
+- url: https://www.bilibili.com/video/BV1RkcXztEkY
+  role: reference
+  note: 【杀戮尖塔2】因为启动太快而忧郁的两人（BV1wVXLB5Exm 画面中引用）
+- url: https://www.bilibili.com/video/BV1eJwZzkE2D
+  role: reference
+  note: CS发牌员第一人称视角（BV1wVXLB5Exm 画面中引用）
+- url: https://www.bilibili.com/video/BV1ubQZBgE3i
+  role: derivative
+  note: 【明日方舟】卫 戍 协 议.exe（BV1wVXLB5Exm 画面中引用）
+evidence_map:
+  ocr-BV1Fx41157EU: null
+  ocr-BV1kHUKBGEbS: null
+  ocr-BV1t4Psz1E1N: null
+  ocr-BV1pbNPzmERv: null
+  ocr-BV1RkcXztEkY: null
+  ocr-BV1eJwZzkE2D: null
+  ocr-BV1ubQZBgE3i: null
+  ocr-narration-BV1wVXLB5Exm: null
+claims:
+- key: definition
+  statement: 游戏圈中用来调侃实力不济、处境无力又无助的玩家、主播或选手的同音代称，早先也用于四人集中趴地的打法。
+  evidence:
+  - ocr-narration-BV1wVXLB5Exm
+  stance: supports
+- key: usage_context
+  statement: 游戏圈子里某些主播或选手实力不济、风评不佳时，会被玩家们称作「区」。
+  evidence:
+  - ocr-narration-BV1wVXLB5Exm
+  stance: supports
+events:
+- event_type: remix
+  description: 区 出现衍生作品《【明日方舟】我见过很多区，但他们都叫我们四区兄弟》
+  occurred_at_start: 2025-11-23 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1wVXLB5Exm 画面引用发现
+  evidence:
+  - ocr-BV1kHUKBGEbS
+- event_type: remix
+  description: 区 出现衍生作品《不就是天罚吗😡看我用电球推回去😋》
+  occurred_at_start: 2026-03-06 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1wVXLB5Exm 画面引用发现
+  evidence:
+  - ocr-BV1t4Psz1E1N
+- event_type: remix
+  description: 区 出现衍生作品《尖塔笑传 《四区兄弟》》
+  occurred_at_start: 2026-03-07 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1wVXLB5Exm 画面引用发现
+  evidence:
+  - ocr-BV1pbNPzmERv
+- event_type: remix
+  description: 区 出现衍生作品《【明日方舟】卫 戍 协 议.exe》
+  occurred_at_start: 2026-03-23 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1wVXLB5Exm 画面引用发现
+  evidence:
+  - ocr-BV1ubQZBgE3i
+relations: []
+gold:
+  canonical:
+  - 区
+  alias: []
+  origin_intent:
+  - 区的出处
+  description:
+  - 凶兆拿歪了
+  must_not_return: []
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis: '002.0s 区这个词呢
+
+    003.0s 最近通常代指其同音字“"
+
+    009.0s 像是早在当年吃鸡大火的时候
+
+    011.0s 就有了类似的说法
+
+    012.0s 不过当时是指玩家四人开黑时
+
+    015.0s 常常使用集中趴地尊点的战术
+
+    017.0s 角色趴在地上挪动的样子
+
+    019.0s 很像在蛹
+
+    021.0s 也被玩家们戏称为区
+
+    027.0s 这个梗开始代指
+
+    028.0s 像条一样无力又无助
+
+    030.0s 在各种游戏圈子里
+
+    031.0s 某些主播或选手
+
+    032.0s 实力不济风评不佳时
+
+    034.0s 会被玩家们称作“区'
+  draft_notes: '片段边界：本梗解说占 002-067s；088-104s 讲《杀戮尖塔2》四人联机又凑成「四区兄弟」并入各圈子，是后续，未写进定义；107-108s
+    是画面里鬼畜视频的台词。整集只讲这一个梗。
+
+    定义依据：003s 说「最近通常代指其同音字」（后面那个同音字 OCR 没认出来，见下）；012-021s 说早先指吃鸡里四人开黑集中趴地的打法；027-028s
+    说最近这个梗开始代指「像条一样无力又无助」。usage_context 取 030-034s，这是全集唯一一句说清它在什么场合被用。
+
+    可疑 OCR：003s 的引号里是空的——解说在这一句要说的那个同音字，OCR 没有认出来（画面材料里唯一一次出现「蛆」是在被引视频的字幕里）；034s「会被玩家们称作“区」、037s「就会被调侃为“区」也都缺右引号，是花字与解说行合并所致。正文按所引解说行照抄「区」，没有替
+    OCR 补字。
+
+    可疑 OCR：015s「集中趴地尊点」疑为「蹲点」；019s「很像在蛹」；035s「在《明日方舟》》的卫成协议联机时」多了一个书名号且「卫成」疑为「卫戍」；042s「四区兄第」、093s「四区兄弟」与
+    024s 的「四驱兄弟」在解说里写法不一致；045s「《杀尖塔山》」、089s「杀戮尖塔2」同样不一致。以上都未写进正文。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 衍生关系来自 BV1wVXLB5Exm 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+  - 传播区间 2017-11-25 .. 2026-03-23（7 条）
+  gpt_repair_notes: Replaced incomplete 像条一样 quote with a supported paraphrase, without
+    filling the missing homophone. Removed2017上下床 background,73s game selection,101s
+    genericCS footage remix claims; retained references.
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: Full BV1wVXLB5Exm narration002-003/021/034s calls the term 区; intended
+        homophone is missing in OCR. Canonical title preserved, no guessed replacement
+        or alias supplied.
+      meaning: 012-021s describes four-player prone tactics;027-034s describes helplessness/weak
+        players. Revised prose uses an intact paraphrase rather than publishing028s
+        incomplete 像条一样 quotation.
+      usage: 030-037s explicitly supplies weak/poorly-regarded players or streamers
+        and being beaten by enemies; usage directly supported, not inferred from circulation.
+      origins: 005-008s explicitly says exact earliest origin hard to trace. Unknown
+        origin fields/empty relations retained; no2017background clip used as origin.
+      events: Four retained scenes39s卫戍多人窘境/44s四区兄弟/88s尖塔四区兄弟/107s鸡煲不是区 align with
+        surrounding narration and resolved titles/dates20260323/20251123/20260307/20260306.
+        Generic background25/73/101s events removed; not every game clip treated as
+        a remix.
+      queries: Existing human query 凶兆拿歪了 retained. No generated descriptions or invented
+        missing OCR term supplied.
+    fingerprint: 39671117363be8ab2a216a66be171686a529c960c9b9fd7c1581416e4f6dfb31

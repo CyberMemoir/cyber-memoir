@@ -1,0 +1,127 @@
+slug: meme-94
+resolved: false
+canonical_name: 至少穿的像个人
+aliases: []
+definition: 各类有服饰系统的游戏里的一句吐槽：下副本、过场动画时至少穿得像个人
+usage_context: 用来吐槽玩家在过场动画或下副本时的独特穿搭
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1et4y187kU
+  role: derivative
+  note: 【DNF】打团请至少穿的像个人（BV1bdDCBaEhK 画面中引用）
+- url: https://www.bilibili.com/video/BV1Zd4y1M7kB
+  role: derivative
+  note: 请玩家务必在过场动画时穿的像个人......（BV1bdDCBaEhK 画面中引用）
+- url: https://www.bilibili.com/video/BV1JJUVBZE68
+  role: derivative
+  note: 现在才明白为什么大家说过剧情的时候要穿得像个人（BV1bdDCBaEhK 画面中引用）
+evidence_map:
+  ocr-BV1et4y187kU: null
+  ocr-BV1Zd4y1M7kB: null
+  ocr-BV1JJUVBZE68: null
+  ocr-narration-BV1bdDCBaEhK: null
+claims:
+- key: definition
+  statement: 各类有服饰系统的游戏里的一句吐槽：下副本、过场动画时至少穿得像个人
+  evidence:
+  - ocr-narration-BV1bdDCBaEhK
+  stance: supports
+- key: usage_context
+  statement: 用来吐槽玩家在过场动画或下副本时的独特穿搭
+  evidence:
+  - ocr-narration-BV1bdDCBaEhK
+  stance: supports
+events:
+- event_type: remix
+  description: 至少穿的像个人 出现衍生作品《【DNF】打团请至少穿的像个人》
+  occurred_at_start: 2022-06-29 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1bdDCBaEhK 画面引用发现
+  evidence:
+  - ocr-BV1et4y187kU
+- event_type: remix
+  description: 至少穿的像个人 出现衍生作品《请玩家务必在过场动画时穿的像个人......》
+  occurred_at_start: 2022-09-26 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1bdDCBaEhK 画面引用发现
+  evidence:
+  - ocr-BV1Zd4y1M7kB
+- event_type: remix
+  description: 至少穿的像个人 出现衍生作品《现在才明白为什么大家说过剧情的时候要穿得像个人》
+  occurred_at_start: 2025-11-24 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1bdDCBaEhK 画面引用发现
+  evidence:
+  - ocr-BV1JJUVBZE68
+relations: []
+gold:
+  canonical:
+  - 至少穿的像个人
+  alias: []
+  origin_intent:
+  - 至少穿的像个人的出处
+  description:
+  - 衣服搭配不一定好看，但得能看吧
+  must_not_return: []
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis: '解说 0:03「至少穿得像个人这个梗主要出现在各类有服饰系统的游戏里」；
+
+    解说 0:06「常以“请玩家在过场动画时」；
+
+    解说 0:09「“下副本时至少穿得像个人＂的吐槽句式出现」；
+
+    解说 0:30「因此很多玩家会把这种独特的穿搭直接带进过场动画里」；
+
+    解说 0:53「拜托各位见女王时至少穿的像个人呀」'
+  draft_notes: '片段边界：0s-107s 全片讲本梗（3-12s 句式与出现范围，12-30s 玩家审美，30-107s 逆战未来
+
+    猪猪侠联动实例）。本梗的核心解说在 3s-12s。
+
+    usage_context 用的是解说 0:30 与 0:53 直接说的用法（把穿搭带进过场动画、旁人的那句吐槽），
+
+    没有写「被广泛传播」之类（D-10）。
+
+    疑似 OCR 误读：解说 0:03「至少穿得像个人」与画面 0:001「至少穿得像个人」用字一致（穿/穿得），
+
+    但解说 0:09 写作「至少穿得像个人＂（末尾是全角引号与半角引号混用），照抄未改；
+
+    解说 0:44「还有第二关」、0:61「唯真是没想到啊」等照抄未改。
+
+    未写：不写逆战未来猪猪侠联动的具体道具清单（D-5），那些是本梗的实例不是定义。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 衍生关系来自 BV1bdDCBaEhK 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+  - 传播区间 2022-06-29 .. 2026-03-31（5 条）
+  gpt_repair_notes: Removed generic005s clip with differing frame/resolved uploader
+    and unrelated083s selfie-weapon promotional segment. Narrowed usage to supported
+    paraphrase, avoiding quote with 的/得 mismatch.
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: Full BV1bdDCBaEhK003-030s explains outfit-system game joke; after075s
+        shifts to selfie weapon/other promotional items. Excluded that unrelated citation.
+      meaning: 003-012s explicitly names outfit system and cutscene/dungeon taunt.
+        Existing definition paraphrases, not a claim about real people's appearance.
+      usage: 006-009s states when the taunt is used,030s explains unusual outfits
+        brought into cutscenes. Replaced mismatching quoted 的/得 wording with supported
+        paraphrase.
+      origins: No first-source claim added. Three dated examples remain derivatives;
+        removed ambiguous generic005s example rather than relying on mismatched uploader
+        metadata.
+      events: 13/17/26s frames explicitly title cutscene/dungeon clothing jokes. Exact
+        BV1et4y187kU/BV1JJUVBZE68/BV1Zd4y1M7kB match resolved CSV titles/dates20220629/20251124/20220926.
+        Removed generic005s and separate selfie083s events.
+      queries: Existing human query 衣服搭配不一定好看，但得能看吧 retained unchanged; no model descriptions
+        or human approval added.
+    fingerprint: 064eaf5f9302844a32e59a64daacb63cda561e2fe443f45e11feac5e332fe625

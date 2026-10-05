@@ -1,0 +1,103 @@
+slug: meme-92
+resolved: false
+canonical_name: 肉肉肉
+aliases: []
+definition: 指外网频道「Lisova Tvaryna」的森林动物音乐视频，歌里愤怒时的嚎叫被空耳成「肉肉肉」
+usage_context: ''
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV14hooBmE7G
+  role: derivative
+  note: 《肉😡肉😡肉😡》（BV14oEq6eEvS 画面中引用）
+- url: https://www.bilibili.com/video/BV1ou9mBFEdq
+  role: derivative
+  note: 肉，肉，肉，全网首发（BV14oEq6eEvS 画面中引用）
+- url: https://www.bilibili.com/video/BV1eW9hB1E8B
+  role: derivative
+  note: 肉😡克😡王😡国😡（BV14oEq6eEvS 画面中引用）
+evidence_map:
+  ocr-narration-BV14oEq6eEvS: null
+  ocr-BV14hooBmE7G: null
+  ocr-BV1ou9mBFEdq: null
+  ocr-BV1eW9hB1E8B: null
+claims:
+- key: definition
+  statement: 指外网频道「Lisova Tvaryna」的森林动物音乐视频，歌里愤怒时的嚎叫被空耳成「肉肉肉」
+  evidence:
+  - ocr-narration-BV14oEq6eEvS
+  stance: supports
+events:
+- event_type: remix
+  description: 肉肉肉 出现衍生作品《《肉😡肉😡肉😡》》
+  occurred_at_start: 2026-04-26 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV14oEq6eEvS 画面引用发现
+  evidence:
+  - ocr-BV14hooBmE7G
+- event_type: remix
+  description: 肉肉肉 出现衍生作品《肉，肉，肉，全网首发》
+  occurred_at_start: 2026-04-29 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV14oEq6eEvS 画面引用发现
+  evidence:
+  - ocr-BV1ou9mBFEdq
+- event_type: remix
+  description: 肉肉肉 出现衍生作品《肉😡克😡王😡国😡》
+  occurred_at_start: 2026-04-30 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV14oEq6eEvS 画面引用发现
+  evidence:
+  - ocr-BV1eW9hB1E8B
+relations: []
+gold:
+  canonical:
+  - 肉肉肉
+  alias: []
+  origin_intent:
+  - 肉肉肉的出处
+  description:
+  - 动物复仇人类愤怒时wow，wow，wow
+  must_not_return: []
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  draft_basis: 002.0s 这个梗出自youtube频道Lisova Tvaryna；010.0s 发布的就是一系列关于森林动物的音乐视频；013.0s
+    音乐和动画都是自己创作的；045.0s 其中他们愤怒时发出的豪叫“Bow-wow-wow；049.0s 便被空耳成“肉肉肉。定义合成 002s+010s+045s+049s。
+  draft_notes: 片段边界：本梗解释占 002-050s；051s 之后是「各种各样的二创」的具体视频画面（053s、076s、096s 三条引用），属于传播证据，未写入解说文字。疑似
+    OCR 误读：频道名「Lisova Tvaryna」按 002s 的解说行照抄，画面 004-009s 另有「LisovaTtaryna」「Lisovatvaryna」等写法，同屏的乌克兰语原文
+    OCR 成「icoBa TBapWHa」「JlicoBa TBapWHa」这类乱码，本记录不引用；045s 解说把「嚎叫」写成「豪叫」，本记录不引用该半句，只引用其中的「Bow-wow-wow」（画面
+    047s 作大写的「BOW-WOW-WOW!」）。略去未写：008s 说频道名在乌克兰语里是「森林动物」的意思、014-029s 最出名那期《Bow-wow-wow》的剧情（两只宠物狗受虐、拜师习武、复仇）、032-043s
+    说作者酷爱金属音乐所以很带劲、050s 的「广为流传」与 051s 的「有了各种各样的二创」，都属于来源背景与传播（D-10/D-12），未写进 definition
+    或 usage_context。usage_context 留空：全集没有一句说这个梗在什么场合被怎样使用；049-050s 的「广为流传」只是传播，按 D-10
+    不写成用法。
+  confirmed_by: ''
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 衍生关系来自 BV14oEq6eEvS 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+  - 传播区间 2026-04-26 .. 2026-04-30（3 条）
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-09-30'
+    checks:
+      identity: BV14oEq6eEvS 002-013s identifies Lisova Tvaryna and its self-created
+        forest-animal music videos; no uncertain Cyrillic OCR used.
+      meaning: 045-049s explicitly describes the angry Bow-wow-wow call and Chinese
+        mondegreen. Definition follows those lines, without extending the fictional
+        plot into real events.
+      usage: Usage remains empty. Full narration ends with spread and remixes at 050-051s
+        and never states a specific usage situation.
+      origins: Channel attribution is explainer testimony only. No off-platform first-publication
+        date or Bilibili source relation inferred; unknown origin fields preserved.
+      events: 53s BV1ou9mBFEdq, 76s BV14hooBmE7G and 96s BV1eW9hB1E8B citation frames
+        match the meat/mondegreen remixes. All exact IDs, titles and April 26/29/30
+        dates match the resolved derivatives CSV.
+      queries: Existing human query 动物复仇人类愤怒时wow，wow，wow preserved; narration 014-024s
+        and 045s support its search intent. No model provenance misrepresented.
+    fingerprint: 60cdb1241188ccac88ad4c57ef8d74ee6a6e87a05659d0d989973f051f4b96b4

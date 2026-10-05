@@ -1,0 +1,167 @@
+slug: xx-19d9f6593b2d54d9
+resolved: false
+canonical_name: 眼睛瞎在XX上
+aliases: []
+definition: 出自一批配着节奏批判手机的视频，例如《手机害人不浅》；后来被配上「雪十郎」的歌曲《谁》。
+usage_context: 网友把手机换成别的让人沉迷的东西，做成新的版本。
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1mccgzxELY
+  role: source
+  note: 眼睛瞎在手机上原版（BV1a4AnzKEWy 画面中引用）
+- url: https://www.bilibili.com/video/BV1PRwuzsEA5
+  role: derivative
+  note: 眼睛瞎在小猫上，手也长在小猫上（BV1a4AnzKEWy 画面中引用）
+- url: https://www.bilibili.com/video/BV1McwTzXEb6
+  role: derivative
+  note: 震撼OW之歌《守望不是好东西》全网首发！每天一遍 脑子再见！原曲《手机不是好东西（BV1a4AnzKEWy 画面中引用）
+- url: https://www.bilibili.com/video/BV1BpwEzTEiu
+  role: derivative
+  note: 一招帮闺蜜戒掉手机瘾（BV1a4AnzKEWy 画面中引用）
+- url: https://www.bilibili.com/video/BV1TjwLzyEYr
+  role: derivative
+  note: ⚡️眼睛瞎在卫戍上⚡️（BV1a4AnzKEWy 画面中引用）
+evidence_map:
+  ocr-narration-BV1a4AnzKEWy: null
+  ocr-BV1mccgzxELY: null
+  ocr-BV1PRwuzsEA5: null
+  ocr-BV1McwTzXEb6: null
+  ocr-BV1BpwEzTEiu: null
+  ocr-BV1TjwLzyEYr: null
+claims:
+- key: definition
+  statement: 出自一批配着节奏批判手机的视频，例如《手机害人不浅》；后来被配上「雪十郎」的歌曲《谁》。
+  evidence:
+  - ocr-narration-BV1a4AnzKEWy
+  stance: supports
+- key: usage_context
+  statement: 网友把手机换成别的让人沉迷的东西，做成新的版本。
+  evidence:
+  - ocr-narration-BV1a4AnzKEWy
+  stance: supports
+events:
+- event_type: remix
+  description: 眼睛瞎在XX上 出现衍生作品《眼睛瞎在小猫上，手也长在小猫上》
+  occurred_at_start: 2026-03-15 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1a4AnzKEWy 画面引用发现
+  evidence:
+  - ocr-BV1PRwuzsEA5
+- event_type: remix
+  description: 眼睛瞎在XX上 出现衍生作品《震撼OW之歌《守望不是好东西》全网首发！每天一遍 脑子再见！》
+  occurred_at_start: 2026-03-15 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1a4AnzKEWy 画面引用发现
+  evidence:
+  - ocr-BV1McwTzXEb6
+- event_type: remix
+  description: 眼睛瞎在XX上 出现衍生作品《一招帮闺蜜戒掉手机瘾》
+  occurred_at_start: 2026-03-16 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1a4AnzKEWy 画面引用发现
+  evidence:
+  - ocr-BV1BpwEzTEiu
+- event_type: remix
+  description: 眼睛瞎在XX上 出现衍生作品《⚡️眼睛瞎在卫戍上⚡️》
+  occurred_at_start: 2026-03-16 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1a4AnzKEWy 画面引用发现
+  evidence:
+  - ocr-BV1TjwLzyEYr
+relations:
+- predicate: derived_from
+  target_type: source
+  target_bv: BV1mccgzxELY
+  assertion_status: supported
+  evidence:
+  - ocr-BV1mccgzxELY
+  - ocr-narration-BV1a4AnzKEWy
+gold:
+  canonical:
+  - 眼睛瞎在XX上
+  alias: []
+  origin_intent:
+  - 眼睛瞎在XX上的出处
+  description:
+  - 僵尸唱歌抵触手机
+  must_not_return: []
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis: '001.0s 眼睛瞎在XX上
+
+    003.0s 最早是出自一些配着节奏
+
+    005.0s 批判手机的视频
+
+    007.0s 像是这个《手机害人不浅》
+
+    026.0s 则被配以雪十郎演唱的歌曲《谁》
+
+    029.0s 就成了这个样子
+
+    044.0s 便吸引了诸多网友玩梗二创
+
+    077.0s 又推出了新的玩法
+
+    078.0s 就是把手机换成其他
+
+    081.0s 让人沉迷的事物上'
+  draft_notes: '段落边界：整集只有一个梗。003-029s 说清来历（配着节奏批判手机的视频《手机害人不浅》→
+
+    被配上雪十郎的《谁》），041-046s 是网友玩梗二创，077-082s 是换掉手机的玩法，
+
+    116-130s 是二创画面与评论。
+
+    定义取 003/005/007/026s；usage 取 077-081s：「把手机换成其他让人沉迷的事物上」说的是
+
+    模板怎么用（换成别的主题），不是二创数量（D-10）。
+
+    可疑 OCR，未改：001s 标题卡「眼睛瞎在XX上」；013-023s 是引用视频歌词串行
+
+    （「男又花在手机上／女玩在野拥上／孩孕费在手拥上／20最历害的目」），读不通，未引用。
+
+    角色提示（我没有改动 sources/events/relations）：BV1mccgzxELY 记为 source 且有
+
+    derived_from 关系，与 007s「像是这个《手机害人不浅》」和它的平台标题「眼睛瞎在手机上原版」
+
+    一致；但 003s 说的是「一些配着节奏批判手机的视频」（复数），而这一类里只有它解析成功
+
+    （BV1UsZ7BGEZZ 是 NotFound），上游可能不止一个号——供复核者判断，不是我的结论。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 衍生关系来自 BV1a4AnzKEWy 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+  - 传播区间 2026-03-15 .. 2026-03-16（4 条）
+  gpt_repair_notes: Added narration007s to source relation evidence. Source is an
+    explicitly described upstream example, not a proven exclusive original creator.
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: Full unchanged BV1a4AnzKEWy narration001s names 眼睛瞎在XX上;003-029s describes
+        the same phone-criticism song template. No adjacent meme segment merged.
+      meaning: 003/005/007s explicitly identifies rhythmic phone-criticism videos
+        and 手机害人不浅;026s explicitly names 雪十郎 and 谁. Definition states this transition,
+        without claiming the cited repost uploader created the template.
+      usage: 077-082s explicitly describes replacing 手机 with other addictive things.
+        This is the substitution play pattern;044s remix popularity alone was not
+        used to invent a usage.
+      origins: 007s names the cited source example; its exact frame BV1mccgzxELY/title/永远的蛋小黄
+        matches resolved CSV20260209. derived_from is supported as this upstream example,
+        without exclusive-first-uploader attribution. Narration added to relation
+        evidence; unknown origin fields remain.
+      events: Four exact frames identify 查理蹦蹦62s/多多和它的球球77s/薯饼小狗M85s/超勇の阿柴主110s; phone-criticism
+        and substituted-theme scenes occur within the same episode. Full resolved
+        titles and dates match four events20260315/16. Garbled title OCR not silently
+        rewritten.
+      queries: Existing human query 僵尸唱歌抵触手机 preserved byte-for-byte. No model query
+        or human confirmation added.
+    fingerprint: 262d19fe16adc4d83d2ad2af08f1bcdc738efeb0353a5b1213179bd62eef3553

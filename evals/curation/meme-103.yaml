@@ -1,0 +1,110 @@
+slug: meme-103
+resolved: false
+canonical_name: 选择大于努力
+aliases: []
+definition: 主播小豪靠版本强势的阴间阵容赢了比赛，之后说的一句嘲讽：「选择大于努力」
+usage_context: 用于嘲讽对手，强调阵容选择的优势
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1ayN3zSEmQ
+  role: reference
+  note: 小豪被鸣叶的双区兄弟 赛博鸣佐穿三，十带+马斑败北了 最有节目效果的一集，火神的（BV1Eh596QEgQ 画面中引用）
+- url: https://www.bilibili.com/video/BV1qJQDBAEKa
+  role: derivative
+  note: 我要讲一个选择大于努力的故事（BV1Eh596QEgQ 画面中引用）
+- url: https://www.bilibili.com/video/BV1JydqBVEWL
+  role: reference
+  note: 小豪：师徒杯 你要学的还有很多！（BV1Eh596QEgQ 画面中引用）
+evidence_map:
+  ocr-BV1ayN3zSEmQ: null
+  ocr-BV1qJQDBAEKa: null
+  ocr-BV1JydqBVEWL: null
+  ocr-narration-BV1Eh596QEgQ: null
+claims:
+- key: definition
+  statement: 主播小豪靠版本强势的阴间阵容赢了比赛，之后说的一句嘲讽：「选择大于努力」
+  evidence:
+  - ocr-narration-BV1Eh596QEgQ
+  stance: supports
+- key: usage_context
+  statement: 用于嘲讽对手，强调阵容选择的优势
+  evidence:
+  - ocr-narration-BV1Eh596QEgQ
+  stance: supports
+events:
+- event_type: remix
+  description: 选择大于努力 出现衍生作品《我要讲一个选择大于努力的故事》
+  occurred_at_start: 2026-03-22 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1Eh596QEgQ 画面引用发现
+  evidence:
+  - ocr-BV1qJQDBAEKa
+relations: []
+gold:
+  canonical:
+  - 选择大于努力
+  alias: []
+  origin_intent:
+  - 选择大于努力的出处
+  description:
+  - 小豪玩阴间忍者被穿了
+  must_not_return: []
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis: '解说 0:36「曾经说出"选择大于努力"的小豪在选择徒弟环节相中了茉茉大人」；
+
+    解说 0:42「这还得说回两个月前小豪的一场直播」；
+
+    解说 0:47「他用当时版本的阴间阵容击败了对面的赛博鸣佐绝活哥鸣叶」；
+
+    解说 0:51「于是手握版本答案的小豪就开始了"选择大于努力"-的嘲讽」；
+
+    解说 0:56「选择大于努力！」；解说 0:62「可谓是光速打脸」'
+  draft_notes: '片段边界：28s-84s 讲本梗（28-42s 师徒杯选人，42-62s 直播起因与嘲讽，62-84s 被翻盘打脸）；
+
+    84s 之后转到日本选手真红莉爱等师徒杯花絮，与本梗无关（D-5）。
+
+    usage_context 只写解说 0:51「开始了…的嘲讽」直接说的那一层（赢在阵容、不在手法）；
+
+    「被翻盘」「化敌为友」是后续事件，未写入。
+
+    疑似 OCR 误读：0:36 与 0:75 的引号成对不全（"选择大于努力"），照抄未改。
+
+    未写：小豪是哪个平台的主播、马斑与宇智波斑的关系等节目未在本段说明的内容（D-12）。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 衍生关系来自 BV1Eh596QEgQ 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+  - 传播区间 2022-02-03 .. 2026-05-12（8 条）
+  gpt_repair_notes: Removed five unrelated tournament/meme citations at108/152/168/240/265s.
+    Original live excerpt at45s and participant-selection clip at34s kept as references,
+    not remixes. Only42s explicitly named joke/story retained as remix. Narrowed usage
+    to stated taunt rather than inferring technical superiority.
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: Full BV1Eh596QEgQ narration036-082s is this meme; after090s moves
+        to Japanese contestant, head-patting, other contestants and tournament recap.
+        Removed their five citations.
+      meaning: 047-056s explicitly states 小豪 won with a version-favored lineup and
+        taunted with 选择大于努力. Kept the quote exact, not broader life advice.
+      usage: 051s explicitly calls the phrase a taunt while holding the version answer.
+        Narrowed usage to that supported sense; removed the unspoken comparison of
+        player technique.
+      origins: 45s live-match clip is background reference, not proved first publication.
+        34s selection clip is a reference; no primary-source relation asserted.
+      events: Only42s BV1qJQDBAEKa title 我要讲一个选择大于努力的故事 remains a remix. Resolved
+        CSV confirms exact ID/title/20260322 date. Removed unsupported generic-match
+        remix events and unrelated later segments.
+      queries: Human query 小豪玩阴间忍者被穿了 retained verbatim, separately supported by047-062s.
+        No model query added.
+    fingerprint: c6e3964ae4f1860c1314234f614b66d9b1072ec2e19f9ada5b2743eb32f4be3d

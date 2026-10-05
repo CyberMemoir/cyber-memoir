@@ -1,0 +1,84 @@
+slug: meme-b33fe88c66f0d676
+resolved: false
+canonical_name: 雷霆坐姿
+aliases: []
+definition: 看海靠坐在沙发上休息时，坐姿和镜头造成的脸部变形被截成素材，供网友移植到不同场景中二创。
+usage_context: 把这个坐姿或变形后的脸移植到其他人物和场景中。
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources: []
+evidence_map:
+  ocr-narration-BV1Av2FBpEc1: null
+claims:
+- key: definition
+  statement: 看海靠坐在沙发上休息时，坐姿和镜头造成的脸部变形被截成素材，供网友移植到不同场景中二创。
+  stance: supports
+  evidence:
+  - ocr-narration-BV1Av2FBpEc1
+- key: usage_context
+  statement: 把这个坐姿或变形后的脸移植到其他人物和场景中。
+  stance: supports
+  evidence:
+  - ocr-narration-BV1Av2FBpEc1
+events: []
+relations: []
+gold:
+  canonical:
+  - 雷霆坐姿
+  alias: []
+  origin_intent:
+  - 雷霆坐姿的出处
+  description:
+  - 主播躺在沙发上被镜头拍得脸和姿势都变形，网友照着做二创
+  description_source: model
+  must_not_return: []
+curation:
+  curator: ''
+  confirmed_by: ''
+  drafted_by: codex
+  source_episodes:
+  - BV1Av2FBpEc1
+  description_authored_by: codex
+  description_basis: Stored narration, before definition drafting; model-generated,
+    not human benchmark
+  draft_basis:
+  - 053.0s 当时他和水姐等一众主播合作拍视频
+  - 055.0s 看海把自己的戏份拍完就找个沙发休息了
+  - 058.0s 而因为他本身坐姿就比较葛优躺
+  - 060.0s 再加上摄像头也有特点
+  - 062.0s 直接把他的脸都弄变形了
+  - 063.0s 就更不用说姿势了，打眼一看
+  - 065.0s 颇具特色，因此被称为“雷霆坐姿”
+  - 068.0s 网友们就拿这个坐姿做出各种搞笑的二创
+  draft_notes: '051-115s sofa-posture only.
+
+    55/62/65/90s frames show source/composite variants. No resolved lineage citation;explicit
+    episode binding required,do not create fake rows. No first-source assertion.'
+  ingestion_ok: true
+  findings:
+  - 出处未证实，保留unknown；不把二创投稿日期当作首次出处
+  - 同一Codex模型分阶段复核，独立性有限；未声称人工确认
+  draft_origin_sha256: b8a8e19e9573afafbba177cea00056fd7b6ade79e05e312fab70d180fedfad4a
+  automated_review:
+    reviewer: codex
+    decision: accept
+    reviewed_at: '2026-10-04'
+    review_started_at: '2026-10-05T03:36:37.348253+00:00'
+    method: same_model_frozen_passes
+    limitations: Same model; separate frozen passes, not human or independent-model
+      review.
+    frozen_draft:
+      path: evals/reviews/meme-b33fe88c66f0d676.json
+      sha256: dae3219b24ca4268d71a1397fbb79bde494120e04bd6ac0f0437eec9ecb4a19a
+    checks:
+      identity: 051-115s沙发姿势，55/62/65/90s素材和换脸对应。
+      meaning: 55/58/60/62/65/68s支持休息姿势及镜头脸部变形二创。
+      usage: 逐条与完整解说及源帧核对，使用场景限于可见模板或明确解说。
+      origins: 无直接首发证据，unknown；二创投稿日期不作为起源。
+      events: 两个零lineage条目均无事件，显式源集绑定，不制造引用。 所选BV平台标题/日期与冻结材料一致，经转换器逐项断言。
+      queries: 定义前冻结的六条model/codex查询逐记录索引绑定；两条雷霆查询分配不同段落，人工YAML原字节保留。
+    fingerprint: 7407be14293bfbedc7ce35b92e372565f635dcd7190cd76ab5424cecbc59c5f2

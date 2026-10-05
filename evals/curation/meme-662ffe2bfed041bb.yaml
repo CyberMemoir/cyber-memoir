@@ -1,0 +1,81 @@
+slug: meme-662ffe2bfed041bb
+resolved: false
+canonical_name: 企鹅跳舞
+aliases: []
+definition: 让企鹅表情包中的形象动起来、配上不同舞步的视频模板。
+usage_context: ''
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources: []
+evidence_map:
+  ocr-narration-BV1zAC4B7ERC: null
+claims:
+- key: definition
+  statement: 让企鹅表情包中的形象动起来、配上不同舞步的视频模板。
+  stance: supports
+  evidence:
+  - ocr-narration-BV1zAC4B7ERC
+events: []
+relations: []
+gold:
+  canonical:
+  - 企鹅跳舞
+  alias: []
+  origin_intent:
+  - 企鹅跳舞的出处
+  description:
+  - 企鹅配上妖娆的舞步，静态表情包变成跳舞的视频，还有明月几时有的舞蹈
+  description_source: model
+  must_not_return: []
+curation:
+  curator: ''
+  confirmed_by: ''
+  drafted_by: codex
+  source_episodes:
+  - BV1zAC4B7ERC
+  description_authored_by: codex
+  description_basis: Stored narration, before definition drafting; model-generated,
+    not human benchmark
+  draft_basis:
+  - 010.0s gogogo
+  - 011.0s 企鹅跳舞
+  - 020.0s 从静止的表情包
+  - 022.0s 变成了可以动起来的形象
+  - 024.0s 企鹅配上各种
+  - 029.0s 最知名的当属“明月几时有”的舞姿了
+  - 043.0s 甚至网友想到了一个谐音说法
+  - 045.0s 半月挤石油
+  - 049.0s 引得大家纷纷效仿翻拍
+  - 070.0s 除了这个之外
+  draft_notes: '010-083s dancing penguin only;084s switches to another meme.
+
+    Frame29 shows dancing penguin. All resolved citation BV rows occur in the second
+    meme; do not assign them to this record despite lineage label.'
+  ingestion_ok: true
+  findings:
+  - 出处未证实，保留unknown；不把二创投稿日期当作首次出处
+  - 同一Codex模型分阶段复核，独立性有限；未声称人工确认
+  draft_origin_sha256: d9bf103ce2d3978a1043a0707a193ecf375fe092392c3d00b3795e866414061f
+  automated_review:
+    reviewer: codex
+    decision: accept
+    reviewed_at: '2026-10-03'
+    review_started_at: '2026-10-03T19:42:31.566724+00:00'
+    method: same_model_frozen_passes
+    limitations: Same model; separate frozen passes, not human or independent-model
+      review.
+    frozen_draft:
+      path: evals/reviews/meme-662ffe2bfed041bb.json
+      sha256: 024c47074ca91feb6be56f8e706d5632d670a719c80140e542890831714456f9
+    checks:
+      identity: 011/020/022/024s及29s跳舞企鹅画面一致；084s切换第二梗。
+      meaning: 静态形象变成动图，配不同舞步由020-029/070-075s直接说明。
+      usage: 留空；翻拍是制作行为，不能推出未说明的使用目的。
+      origins: 015s声称同以前来源但没直接链接，unknown；不借高松灯段的BV作出处。
+      events: 零作品事件：所有解析BV在084s后。保留源集绑定，不制造lineage。
+      queries: 定义前冻结的模型查询与该记录所属段落一致，不含完整名称；model/codex，不是人工基线。两条企鹅查询按各自记录分配，人工YAML不改。
+    fingerprint: c88f82c70363ca38a2b93f11e29753b7989c6da0364cb75b93e8d2a760183682

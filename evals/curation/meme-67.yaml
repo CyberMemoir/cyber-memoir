@@ -1,0 +1,119 @@
+slug: meme-67
+resolved: false
+canonical_name: 没想降维打击
+aliases: []
+definition: 康康在赛后采访冒出的一句话「都是同龄人我原本没想降维打击」，被当成拽话的梗
+usage_context: 粉丝会在康康面前故意这么喊来调戏他，也被网友们单纯当“嘉豪”梗玩
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV13ukmYhELC
+  role: reference
+  note: ZmjjKK到底有多强？康康震惊世界的二十大名场面！！！（BV1Wq9fB6EY6 画面中引用）
+- url: https://www.bilibili.com/video/BV1wpZEBYEs6
+  role: derivative
+  note: ⚡都是铜陵人我原本没想酱味大鸡⚡（BV1Wq9fB6EY6 画面中引用）
+- url: https://www.bilibili.com/video/BV1vifiB6EhJ
+  role: derivative
+  note: 都是同龄人 我原本没想降维打击（BV1Wq9fB6EY6 画面中引用）
+evidence_map:
+  ocr-BV13ukmYhELC: null
+  ocr-BV1wpZEBYEs6: null
+  ocr-BV1vifiB6EhJ: null
+  ocr-narration-BV1Wq9fB6EY6: null
+claims:
+- key: definition
+  statement: 康康在赛后采访冒出的一句话「都是同龄人我原本没想降维打击」，被当成拽话的梗
+  evidence:
+  - ocr-narration-BV1Wq9fB6EY6
+  stance: supports
+- key: usage_context
+  statement: 粉丝会在康康面前故意这么喊来调戏他，也被网友们单纯当“嘉豪”梗玩
+  evidence:
+  - ocr-narration-BV1Wq9fB6EY6
+  stance: supports
+events:
+- event_type: remix
+  description: 没想降维打击 出现衍生作品《⚡都是铜陵人我原本没想酱味大鸡⚡》
+  occurred_at_start: 2026-02-14 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1Wq9fB6EY6 画面引用发现
+  evidence:
+  - ocr-BV1wpZEBYEs6
+- event_type: remix
+  description: 没想降维打击 出现衍生作品《都是同龄人 我原本没想降维打击》
+  occurred_at_start: 2026-02-23 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示的投稿时间，经 BV1Wq9fB6EY6 画面引用发现
+  evidence:
+  - ocr-BV1vifiB6EhJ
+relations: []
+gold:
+  canonical:
+  - 没想降维打击
+  alias: []
+  origin_intent:
+  - 没想降维打击的出处
+  description:
+  - 嘉豪发言之一，都是同龄人
+  must_not_return: []
+curation:
+  curator: ''
+  drafted_by: deepseek-v4.1-flash
+  confirmed_by: ''
+  draft_basis: '解说 0:35「而在赛后的采访环节中」；解说 0:37「康康很突元的冒出来这一句」；
+
+    解说 0:46「都是同龄人我原本没想降维打击」；
+
+    解说 0:75「除了粉丝会在康康面前故意这么喊」；解说 0:77「来调戏他之外」；
+
+    解说 0:78「也被网友们单纯当“嘉豪”梗玩」'
+  draft_notes: '片段边界：0s-131s 全片讲本梗（0-35s 康康与 EDG，35-53s 采访名场面，53-78s 出处与“嘉豪”，
+
+    78-131s 出圈后的二创）。本梗的核心解说在 35s-78s。
+
+    usage_context 直接取解说 0:75-078 的两条用法（粉丝当面喊、网友当“嘉豪”梗玩）；
+
+    「随着传播出圈」（0:69）属传播，未写入（D-10）。
+
+    疑似 OCR 误读：解说 0:37「突元的」应为突兀的；解说 0:57「这种嘉豪行为」；解说 0:63「才被康康的黑子们
+
+    拎出来讽他」；解说 0:65「才逐传播开来」等照抄未改。解说 0:05「ZMJJKK」与画面
+
+    「ZmjjKK」「ZmjKK」大小写不一，照抄未改。
+
+    未写：不写 Capper、赛事 FMVP 等铺垫细节（D-5），只保留与本梗名直接相关的部分。'
+  started_at: 2026-09-09
+  ingestion_ok: true
+  findings:
+  - 衍生关系来自 BV1Wq9fB6EY6 画面中的 BV 号 OCR，日期为平台元数据，非任何人的断言
+  - 传播区间 2024-12-20 .. 2026-02-23（3 条）
+  gpt_repair_notes: The2024 biography compilation at012s predates the described interview
+    and is background, not a remix. Removed its event, retained reference. No interview
+    date inferred from relative 去年.
+  automated_review:
+    reviewer: gpt
+    decision: accept
+    reviewed_at: '2026-10-01'
+    checks:
+      identity: Full BV1Wq9fB6EY6 narration028-046s identifies Kang Kang's interview
+        remark. Quoted sentence matches046s exactly; no uncertain transliterated athlete
+        name added.
+      meaning: 035-046s identifies the interview and quote;057-072s explicitly explains
+        boastful/gag character.054-055s attributes lyrics to another song but no unsupported
+        BV source link added.
+      usage: 075-078s explicitly states fans repeat it in front of him to tease and
+        others use it as a 嘉豪 joke.
+      origins: Removed biography compilation's false remix event. It is reference
+        only; primary interview/source remains unlinked and unknown. No absolute date
+        fabricated from relative去年一月.
+      events: 75s BV1vifiB6EhJ and103s BV1wpZEBYEs6 frames title the quote and parody
+        respectively. Exact resolved CSV dates20260223/20260214 match retained events.
+        Failed case-variant ID unused.
+      queries: Human query 嘉豪发言之一，都是同龄人 retained unchanged. No generated-query or
+        approval provenance substitution.
+    fingerprint: 9404db0d9321a41e84f68743e052b79511290abe1239ccd1219ca36b60bab2dc
