@@ -1,0 +1,98 @@
+{
+  "frozen_at": "2026-10-06T11:35:35.731416+00:00",
+  "record": {
+    "slug": "meme-11534647d2511ae8",
+    "resolved": false,
+    "canonical_name": "Jet2 Holiday",
+    "aliases": [],
+    "definition": "把Jet2度假广告中愉快的口播和配乐放到旅行出糗、意外或狼狈的画面上，以广告的轻松承诺和画面遭遇形成反差；也会模仿口播节奏，用不同语言或角色重演。",
+    "usage_context": "为旅行翻车或滑稽场面配上度假广告音频，或制作广告口播的语言与角色改编。",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [
+      {
+        "url": "https://www.bilibili.com/video/BV1Y181z5Eyc",
+        "role": "derivative",
+        "note": "Nothing beats a Jet2 holiday（源画面引用，不作首次出处断言）"
+      }
+    ],
+    "evidence_map": {
+      "ocr-narration-BV1fRtuzyEPo": null,
+      "ocr-BV1Y181z5Eyc": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "把Jet2度假广告中愉快的口播和配乐放到旅行出糗、意外或狼狈的画面上，以广告的轻松承诺和画面遭遇形成反差；也会模仿口播节奏，用不同语言或角色重演。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1fRtuzyEPo"
+        ]
+      },
+      {
+        "key": "usage_context",
+        "statement": "为旅行翻车或滑稽场面配上度假广告音频，或制作广告口播的语言与角色改编。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1fRtuzyEPo"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "event_type": "remix",
+        "description": "Jet2 Holiday出现衍生作品《Nothing beats a Jet2 holiday》",
+        "occurred_at_start": "2025-08-01 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1Y181z5Eyc"
+        ]
+      }
+    ],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "Jet2 Holiday"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "Jet2 Holiday的出处"
+      ],
+      "description": [],
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV1fRtuzyEPo"
+      ],
+      "draft_basis": [
+        "003.0s 这个梗来自于一句广告语",
+        "038.0s 虽然广告词里在开心地说着度假的事",
+        "040.0s 但是画面里展示的却是摄影师被骆驼袭击的场景",
+        "052.0s 这两种反差大的内容摄合在一起反而十分有笑点",
+        "074.0s 玩法和前文所说的视频如出一辙",
+        "076.0s 就是将该广告语",
+        "078.0s 放入各种出门游玩遭遇事故的视频中作为配乐",
+        "152.0s 因为最近这段时间",
+        "157.0s 纷纷开始学着用各种形式背诵",
+        "205.0s Darling hold my hand"
+      ],
+      "draft_notes": "001-214s；215s后官方和安全叙述不作事实\n205precise lowerc case and一根华仔 match.53吃个5毛西瓜 camel broll unrelated not lineage.215actualframeBV16ubfzpEiW vsOCRw unresolved excluded,noofficialidentity asserted. No firstcreator/date/likecounts/currentprices/travelrecommendation/safetyrecord claims. Ad price words are audio content,not current offers. Firstoriginunknown.\nExcluded references: {}",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未知，不把衍生投稿日期当作首次来源",
+        "同一Codex冻结草稿后另次证据复核，独立性有限",
+        "本批不生成评测描述查询；人工查询文件原字节保留"
+      ],
+      "draft_origin_sha256": "2abf3ce705c0e361419ddfc5f814711be360d5b26c8c015f14b9776a1c28e73d"
+    }
+  }
+}

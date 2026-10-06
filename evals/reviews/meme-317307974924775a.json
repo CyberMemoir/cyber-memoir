@@ -1,0 +1,108 @@
+{
+  "frozen_at": "2026-10-06T10:08:30.512151+00:00",
+  "record": {
+    "slug": "meme-317307974924775a",
+    "resolved": false,
+    "canonical_name": "水管冻我爸",
+    "aliases": [],
+    "definition": "把《觉醒当天，世上再无我》中杜金荣登场时护父的台词空耳成水管冻我爸，结合夸张的登场与耳光动作，通过角色替换、情节重演或把空耳含义画出来制造笑点。",
+    "usage_context": "戏仿短剧中的强势登场与护父台词，或将空耳文字改成水管、冰冻等画面。",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [
+      {
+        "url": "https://www.bilibili.com/video/BV12ft9zSEfv",
+        "role": "derivative",
+        "note": "水管冻我爸！（源画面引用，不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1r1bPzuEg1",
+        "role": "derivative",
+        "note": "ai生成的耳光侠杜老板（源画面引用，不作首次出处断言）"
+      }
+    ],
+    "evidence_map": {
+      "ocr-narration-BV1z2Y4zrEqt": null,
+      "ocr-BV12ft9zSEfv": null,
+      "ocr-BV1r1bPzuEg1": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "把《觉醒当天，世上再无我》中杜金荣登场时护父的台词空耳成水管冻我爸，结合夸张的登场与耳光动作，通过角色替换、情节重演或把空耳含义画出来制造笑点。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1z2Y4zrEqt"
+        ]
+      },
+      {
+        "key": "usage_context",
+        "statement": "戏仿短剧中的强势登场与护父台词，或将空耳文字改成水管、冰冻等画面。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1z2Y4zrEqt"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "event_type": "remix",
+        "description": "水管冻我爸出现衍生作品《水管冻我爸！》",
+        "occurred_at_start": "2025-08-12 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV12ft9zSEfv"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "水管冻我爸出现衍生作品《ai生成的耳光侠杜老板》",
+        "occurred_at_start": "2025-08-10 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1r1bPzuEg1"
+        ]
+      }
+    ],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "水管冻我爸"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "水管冻我爸的出处"
+      ],
+      "description": [],
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV1z2Y4zrEqt"
+      ],
+      "draft_basis": [
+        "092.0s 咱这里再介绍一个《觉醒当天世上再无我》",
+        "115.0s 却一脚踢到了钢板激怒了所谓的“江城地下皇”杜金荣",
+        "139.0s 吼这段杜金荣的登场可以说在演员的演绎下特别的有张力",
+        "152.0s 而杜金荣一登场大喊的】“谁敢动我爸”也被空耳成了“水管冻我爸”"
+      ],
+      "draft_notes": "092-结束\nFictionnot real biography/crime.152subtitle explicitly supportsphoneticmechanism;158JoJo remake and173frozenwater illustration authors matchmetadata. Earlierindoor-kick citations not borrowed. OriginalexactURL/firstdateunknown.\nExcluded references: {}",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未知，不把衍生投稿日期当作首次来源",
+        "同一Codex冻结草稿后另次证据复核，独立性有限",
+        "本批不生成评测描述查询；人工查询文件原字节保留"
+      ],
+      "draft_origin_sha256": "b92a6c53144b2ff7c046d1d6a3cefbafcdbb84e601248c5a8a11414f4b194f5c"
+    }
+  }
+}

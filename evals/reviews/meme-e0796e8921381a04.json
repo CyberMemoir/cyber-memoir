@@ -1,0 +1,98 @@
+{
+  "frozen_at": "2026-10-06T11:35:35.679885+00:00",
+  "record": {
+    "slug": "meme-e0796e8921381a04",
+    "resolved": false,
+    "canonical_name": "就被管家活活打断了双腿",
+    "aliases": [],
+    "definition": "借《抓娃娃之真假少爷》的虚构短剧片段，把男孩只是做了某件普通事情的解说接到被管家打断双腿的突兀结果上；二创会替换前置情节、交换角色，或把跳舞片段换成其他音乐。",
+    "usage_context": "模仿短视频解说的只是做了某事就遭遇夸张结果的转折，制作配音拼接、角色互换和换音乐改编。",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [
+      {
+        "url": "https://www.bilibili.com/video/BV1nbGFz2Ec5",
+        "role": "derivative",
+        "note": "看别人视频来的灵感（源画面引用，不作首次出处断言）"
+      }
+    ],
+    "evidence_map": {
+      "ocr-narration-BV1mYbwzzEwo": null,
+      "ocr-BV1nbGFz2Ec5": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "借《抓娃娃之真假少爷》的虚构短剧片段，把男孩只是做了某件普通事情的解说接到被管家打断双腿的突兀结果上；二创会替换前置情节、交换角色，或把跳舞片段换成其他音乐。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1mYbwzzEwo"
+        ]
+      },
+      {
+        "key": "usage_context",
+        "statement": "模仿短视频解说的只是做了某事就遭遇夸张结果的转折，制作配音拼接、角色互换和换音乐改编。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1mYbwzzEwo"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "event_type": "remix",
+        "description": "就被管家活活打断了双腿出现衍生作品《看别人视频来的灵感》",
+        "occurred_at_start": "2025-07-06 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1nbGFz2Ec5"
+        ]
+      }
+    ],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "就被管家活活打断了双腿"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "就被管家活活打断了双腿的出处"
+      ],
+      "description": [],
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV1mYbwzzEwo"
+      ],
+      "draft_basis": [
+        "008.0s 其出自于短剧《抓娃娃之真假少爷》",
+        "017.0s 结果在傅少爷学舞蹈的时候偷学",
+        "020.0s 管家不乐意了就把主角腿砸了",
+        "036.0s 且不说这种网文感十足的剧本槽点有多少",
+        "038.0s 单讲这个片段里角色的表现",
+        "046.0s 比如模其他营销号",
+        "047.0s 用ai配音配以各种各样的抽象前置",
+        "050.0s 导致主角打断腿",
+        "110.0s 又或者把视频bgm",
+        "111.0s 切换成别的音乐来疯狂跳舞等等"
+      ],
+      "draft_notes": "008-结束；004s营销号示例不作本梗来源\n114exactID/title/author match.48unresolved omitted;85日硬叨哥割 vs metadata素世的硬刀,149-Tian某 vs布哎嘞义依啊 conflict omitted.69/81苍蝇精punctuation uncertain omit source/event conservatively.004 marketingexample unrelated,not lineage. Fiction not real injury/biography. Firstoriginunknown.\nExcluded references: {}",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未知，不把衍生投稿日期当作首次来源",
+        "同一Codex冻结草稿后另次证据复核，独立性有限",
+        "本批不生成评测描述查询；人工查询文件原字节保留"
+      ],
+      "draft_origin_sha256": "2abf3ce705c0e361419ddfc5f814711be360d5b26c8c015f14b9776a1c28e73d"
+    }
+  }
+}

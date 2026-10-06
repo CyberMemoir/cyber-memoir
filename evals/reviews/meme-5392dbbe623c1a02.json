@@ -1,0 +1,111 @@
+{
+  "frozen_at": "2026-10-06T10:08:30.490449+00:00",
+  "record": {
+    "slug": "meme-5392dbbe623c1a02",
+    "resolved": false,
+    "canonical_name": "屋内不许荡秋千",
+    "aliases": [],
+    "definition": "在《替君语落阶》的短剧片段中，把角色上吊的危急场景荒诞地说成屋内荡秋千，再配上飞踢打断的动作形成反差；二创会替换角色、重演片段或戏仿这句制止台词。",
+    "usage_context": "制作短剧角色换人和动作重演，或在虚构场景中套用荒诞的制止台词。",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [
+      {
+        "url": "https://www.bilibili.com/video/BV1o8h4zvEDZ",
+        "role": "derivative",
+        "note": "Meg屋内不许荡秋千 😡（源画面引用，不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1Ztb2zDEuA",
+        "role": "derivative",
+        "note": "牙琉雾人 屋内不许荡秋千！（源画面引用，不作首次出处断言）"
+      }
+    ],
+    "evidence_map": {
+      "ocr-narration-BV1z2Y4zrEqt": null,
+      "ocr-BV1o8h4zvEDZ": null,
+      "ocr-BV1Ztb2zDEuA": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "在《替君语落阶》的短剧片段中，把角色上吊的危急场景荒诞地说成屋内荡秋千，再配上飞踢打断的动作形成反差；二创会替换角色、重演片段或戏仿这句制止台词。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1z2Y4zrEqt"
+        ]
+      },
+      {
+        "key": "usage_context",
+        "statement": "制作短剧角色换人和动作重演，或在虚构场景中套用荒诞的制止台词。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1z2Y4zrEqt"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "event_type": "remix",
+        "description": "屋内不许荡秋千出现衍生作品《Meg屋内不许荡秋千 😡》",
+        "occurred_at_start": "2025-08-02 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1o8h4zvEDZ"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "屋内不许荡秋千出现衍生作品《牙琉雾人 屋内不许荡秋千！》",
+        "occurred_at_start": "2025-07-24 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1Ztb2zDEuA"
+        ]
+      }
+    ],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "屋内不许荡秋千"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "屋内不许荡秋千的出处"
+      ],
+      "description": [],
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV1z2Y4zrEqt"
+      ],
+      "draft_basis": [
+        "012.0s 来自于一个叫做文《替君语落阶》的这么一个穿越系统短剧",
+        "022.0s 大家也都不相信她她就想要上吊自杀",
+        "025.0s 结果这个时候正好前未婚夫冲了进来",
+        "027.0s 大喝一声“屋内不许荡秋干\"",
+        "029.0s 然后一个大飞脚把她端了下来",
+        "046.0s 同时也因为这个大飞脚的剧情太过逆天",
+        "051.0s 利用ai替换角色或者亲自演绎这段大飞脚荡秋干"
+      ],
+      "draft_notes": "002-089s\nFictional short-drama mechanism only, not real rescue/suicide instructions.55 exactlowercasev resolves correcttitle/author,uppercaseV/0nearIDs unresolved excluded.66 frame白给的吉煤 vs平台白吉zcz and80fleetearxx4 vsfleetearxx- differ,omitreferences/events.90+second drama separate. No firstoriginalURL/date. Firstoriginunknown.\nExcluded references: {}",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未知，不把衍生投稿日期当作首次来源",
+        "同一Codex冻结草稿后另次证据复核，独立性有限",
+        "本批不生成评测描述查询；人工查询文件原字节保留"
+      ],
+      "draft_origin_sha256": "b92a6c53144b2ff7c046d1d6a3cefbafcdbb84e601248c5a8a11414f4b194f5c"
+    }
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "frozen_at": "2026-10-06T10:08:30.444899+00:00",
+  "record": {
+    "slug": "meme-e42c21fa9de381df",
+    "resolved": false,
+    "canonical_name": "绿冲捡手柄",
+    "aliases": [],
+    "definition": "围绕《街霸6》比赛画面中Punk提前起身庆祝、发现对手尚未倒下后急忙回去拿手柄的动作，把他冲回座位的过程配上游戏绿冲特效，调侃提前庆祝又仓促补救的反差。",
+    "usage_context": "给提前庆祝、发现事情未结束后急忙返回的动作加上绿冲特效，或用捡手柄形容仓促补救。",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [
+      {
+        "url": "https://www.bilibili.com/video/BV1RAYRzyEuD",
+        "role": "derivative",
+        "note": "自制punk绿冲捡手柄特效（源画面引用，不作首次出处断言）"
+      }
+    ],
+    "evidence_map": {
+      "ocr-narration-BV1DBe8zBEPu": null,
+      "ocr-BV1RAYRzyEuD": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "围绕《街霸6》比赛画面中Punk提前起身庆祝、发现对手尚未倒下后急忙回去拿手柄的动作，把他冲回座位的过程配上游戏绿冲特效，调侃提前庆祝又仓促补救的反差。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1DBe8zBEPu"
+        ]
+      },
+      {
+        "key": "usage_context",
+        "statement": "给提前庆祝、发现事情未结束后急忙返回的动作加上绿冲特效，或用捡手柄形容仓促补救。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1DBe8zBEPu"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "event_type": "remix",
+        "description": "绿冲捡手柄出现衍生作品《自制punk绿冲捡手柄特效》",
+        "occurred_at_start": "2025-08-21 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1RAYRzyEuD"
+        ]
+      }
+    ],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "绿冲捡手柄"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "绿冲捡手柄的出处"
+      ],
+      "description": [],
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV1DBe8zBEPu"
+      ],
+      "draft_basis": [
+        "001.0s 绿冲捡手柄",
+        "007.0s 中国选手小孩对阵美国选手Punk",
+        "032.0s 最终比分是来到2：2",
+        "045.0s 此时PUNK也是早已站起了身开始庆祝起来",
+        "049.0s 不知火舞依然是丝血站着",
+        "051.0s PUNK此刻急忙冲回座位拾起手柄",
+        "054.0s 直接是跳起被小孩一个升龙拦截结束了比赛",
+        "061.0s PUNK这场半场开香槟的操作",
+        "076.0s punk一个绿冲冲回去捡手柄之类的"
+      ],
+      "draft_notes": "001-096s\nObserved match footage supports scene, not exact tournament date/history/players motives/22damage mechanics.97-126 othermatch example and127+ nervous phrase are separate.61 reactionvideo title-only/noauthor/date omitted.79 exactcase matches小葱一叠;case variants unresolved excluded. Firstoriginunknown.\nExcluded references: {}",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未知，不把衍生投稿日期当作首次来源",
+        "同一Codex冻结草稿后另次证据复核，独立性有限",
+        "本批不生成评测描述查询；人工查询文件原字节保留"
+      ],
+      "draft_origin_sha256": "b92a6c53144b2ff7c046d1d6a3cefbafcdbb84e601248c5a8a11414f4b194f5c"
+    }
+  }
+}
