@@ -1,4 +1,4 @@
-"""Batch-scoped review packets and resumable publication for GPT + DeepSeek.
+"""Batch-scoped model review, human approval and resumable publication.
 
     python evals/vault_loop.py status --batch 4
     python evals/vault_loop.py bundle --batch 4 --out ai_context/batch4_review.json
@@ -17,6 +17,7 @@ from pathlib import Path
 
 import yaml
 from automation_review import fingerprint, review_error
+from human_review import approval_error, write_cards
 from materials_index import load_material_index, resolve_placeholder
 from validate_curation import check_relation_targets, cross_check, validate
 
@@ -42,7 +43,7 @@ def batch_paths(batch: int) -> list[Path]:
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("action", choices=["status", "bundle", "publish"])
+    parser.add_argument("action", choices=["status", "bundle", "human-review", "publish"])
     parser.add_argument("--batch", type=int, required=True)
     parser.add_argument("--out", type=Path)
     parser.add_argument("--dry-run", action="store_true")
@@ -57,13 +58,19 @@ def main():
         error = review_error(doc, index)
         hold = (doc.get("curation") or {}).get("automation_hold")
         state = "published" if doc.get("resolved") else "quarantined" if hold else "invalid" if result.errors else "needs_review" if error else "ready"
+        if state == "ready" and approval_error(doc, index, path):
+            state = "awaiting_human"
         print(f"{path.name}: {doc['canonical_name']} [{state}]")
         if state == "ready":
             accepted.append(path)
-        if args.action == "bundle" and state != "published":
+        if args.action in {"bundle", "human-review"} and state != "published":
             packets.append({"path": str(path), "record": doc, "errors": result.errors,
                             "fingerprint": fingerprint(doc, index),
                             "materials": {key: resolve_placeholder(key, index) for key in doc.get("evidence_map") or {}}})
+    if args.action == "human-review":
+        output = args.out or ROOT / f"ai_context/batch{args.batch}_human_review.md"
+        write_cards(packets, args.batch, output)
+        print(f"审核卡：{output}")
     if args.action == "bundle":
         if not args.out:
             parser.error("bundle requires --out")
@@ -71,8 +78,8 @@ def main():
         args.out.write_text(json.dumps(packets, ensure_ascii=False, indent=2, default=str) + "\n", encoding="utf-8")
     if args.action == "publish":
         if not accepted:
-            print("No independently reviewed records ready; nothing published.")
-            return 0
+            print("No human-approved records ready; nothing published.")
+            return 1 if any(not yaml.safe_load(path.read_text(encoding="utf-8")).get("resolved") for path in paths) else 0
         # Compare the candidate batch with the rest of the vault for identity collisions.
         all_records = [validate(p) for p in CURATION.glob("*.yaml") if not p.name.startswith("_")]
         problems = cross_check(all_records) + check_relation_targets(all_records)

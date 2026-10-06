@@ -41,6 +41,7 @@ BV = re.compile(r"BV[0-9A-Za-z]{10}")
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from materials_index import load_material_index, resolve_placeholder  # noqa: E402
 from automation_review import review_error  # noqa: E402
+from human_review import approval_error  # noqa: E402
 
 
 def token() -> str:
@@ -268,8 +269,8 @@ def approval_reason(doc: dict, name: str) -> str:
     review = curation.get("automated_review")
     if isinstance(review, dict):
         if review.get("method") == "same_model_frozen_passes":
-            return "模型起草、同模型冻结后分阶段复核（用户授权自动发布）：%s 起草并复核；非人工或独立模型确认；证据与记录 SHA256 %s；讲解证据 C 级，非原始事实核验（%s）" % (drafted, review.get("fingerprint"), name)
-        return "模型起草、模型独立复核（用户授权自动发布）：%s 起草，%s 复核；证据与记录 SHA256 %s；讲解证据 C 级，非原始事实核验（%s）" % (drafted, review.get("reviewer"), review.get("fingerprint"), name)
+            return "模型起草、同模型冻结后分阶段复核，Vincent 明确审核通过；模型复核非独立模型确认；%s 起草并复核；证据与记录 SHA256 %s；讲解证据 C 级，人工通过不等于原始事实核验（%s）" % (drafted, review.get("fingerprint"), name)
+        return "模型起草、模型复核，Vincent 明确审核通过；%s 起草，%s 复核；证据与记录 SHA256 %s；人工通过不等于原始事实核验（%s）" % (drafted, review.get("reviewer"), review.get("fingerprint"), name)
     return (
         "模型起草、人工审定：定义与用法由 %s 依据讲解视频画面字幕 OCR 起草，%s 审定；"
         "衍生时间来自平台元数据（%s）" % (drafted, str(curation.get("confirmed_by")).strip(), name)
@@ -296,7 +297,6 @@ def main() -> int:
 
     index = load_material_index()
     platform = load_platform_index()
-    loader = Loader(args.api, args.dry_run, args.pace)
     episodes: set[str] = set()
     tiered: set[str] = set()
     failures = 0
@@ -305,6 +305,16 @@ def main() -> int:
         p for p in sorted(CURATION.glob("*.yaml")) if not p.name.startswith("_")
     ]
     docs = {path: yaml.safe_load(path.read_text(encoding="utf-8")) for path in paths}
+
+    # Refuse the entire requested load before creating any API client or posting
+    # evidence. The direct loader must not bypass the batch publication gate.
+    for path, doc in docs.items():
+        if (doc.get("curation") or {}).get("automated_review") is not None:
+            error = approval_error(doc, index, path)
+            if error:
+                print(f"{path.name}: {error}；未入库")
+                return 1
+    loader = Loader(args.api, args.dry_run, args.pace)
 
     for path in order_by_dependency(paths, docs):
         raw = path.read_text(encoding="utf-8")
