@@ -39,6 +39,58 @@ for _stream in (sys.stdout, sys.stderr):
         _stream.reconfigure(encoding="utf-8", errors="replace")
 
 HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE.parents[1] / "apps/backend/src"))
+from cyber_memoir.domain.observations import append_observation, build_observation, page_url  # noqa: E402
+
+
+def observe_probe(out: Path, token: str, probe: subprocess.CompletedProcess, entrypoint: str):
+    """Persist just the safe observation, not yt-dlp's session/media payload."""
+    try:
+        data = json.loads(probe.stdout) if probe.returncode == 0 else None
+    except ValueError:
+        data = None
+    if not isinstance(data, dict):
+        status = "rate_limited" if "412" in (probe.stderr or "") else "fetch_failed"
+        data = None
+    else:
+        status = "observed"
+    return append_observation(
+        out / "observations",
+        build_observation(as_url(token), data, status=status, entrypoint=entrypoint),
+    )
+
+
+def retain_download_observation(out: Path, url: str, info_file: Path) -> dict:
+    info = json.loads(info_file.read_text(encoding="utf-8"))
+    append_observation(out / "observations", build_observation(url, info, entrypoint="prep_download"))
+    # Saving must succeed before the session/media payload can be discarded.
+    info_file.unlink()
+    return info
+
+
+def observe_sources(tokens: list[str], out: Path, sleep: float = 20.0) -> int:
+    """Explicit, bounded metadata-only revisit. Does not alter curation or CSVs."""
+    tokens = list(dict.fromkeys(tokens))
+    if not 1 <= len(tokens) <= 10 or sleep < 20:
+        raise ValueError("Observe accepts 1-10 URLs/IDs with at least 20 seconds between requests")
+    for token in tokens:
+        page_url(as_url(token))  # Reject credential-bearing URLs before any request.
+    for number, token in enumerate(tokens):
+        if number:
+            time.sleep(sleep)
+        try:
+            probe = run(["--dump-single-json", "--skip-download", "--no-playlist",
+                         "--no-warnings", "--retries", "0", "--extractor-retries", "0", "--", as_url(token)])
+        except subprocess.TimeoutExpired:
+            probe = subprocess.CompletedProcess([], 1, "", "metadata request timed out")
+        path = observe_probe(out, token, probe, "prep_observe")
+        result = json.loads(path.read_text(encoding="utf-8"))
+        print(f"{result['source_url']}: {result['status']} -> {path}")
+        if result["status"] != "observed":
+            return 3  # Preserve the failed observation and stop; no blind retries.
+    return 0
+
+
 CLAIM_TYPES = ("origin", "version", "fork", "mutation", "spread", "definition", "usage")
 # Written down before the test so the result cannot be rationalised afterwards.
 THRESHOLDS = {
@@ -106,6 +158,7 @@ def fetch_videos(tokens: list[str], out: Path, sleep: float = 4.0) -> int:
         url, vid = as_url(token), video_id(token)
         print("\n=== %s ===" % vid)
         probe = run(["--dump-single-json", "--skip-download", "--no-warnings", "--", url])
+        observe_probe(out, url, probe, "prep_videos")
         if probe.returncode != 0:
             tail = (probe.stderr.strip().splitlines() or ["?"])[-1][:200]
             print("  metadata failed: %s" % tail)
@@ -343,14 +396,10 @@ def extract_derivatives(
                 continue
             existing = [p for p in out.glob("%s.video.*" % vid) if p.suffix != ".json"]
             if info_file.exists():
-                try:
-                    info = json.loads(info_file.read_text(encoding="utf-8"))
-                    text = str(info.get("title") or info.get("fulltitle") or "").strip()
-                    if text and text != "NA":
-                        save_titles(out, {vid: text})
-                except ValueError:
-                    pass
-                info_file.unlink()
+                info = retain_download_observation(out, url, info_file)
+                text = str(info.get("title") or info.get("fulltitle") or "").strip()
+                if text and text != "NA":
+                    save_titles(out, {vid: text})
         frame_text, frame_boxes = ocr_video(existing[0], every, ocr, cv2)
         hits: dict[str, float] = {}
         for item in frame_text:
@@ -375,6 +424,7 @@ def extract_derivatives(
                 continue
             time.sleep(sleep)
             probe = run(["--dump-single-json", "--skip-download", "--no-warnings", "--", as_url(found)])
+            observe_probe(out, found, probe, "prep_derivative")
             if probe.returncode != 0:
                 rows.append({"bv_id": found, "seen_at": round(stamp, 1), "resolved": False})
                 print("    %s  %-6.1fs  UNRESOLVED" % (found, stamp))
@@ -445,6 +495,7 @@ def fetch_titles(out: Path, episodes: list[str], sleep: float) -> int:
         # JSON, not --print: --print writes through the Windows console encoding and
         # silently drops a CJK title, which returned 1 of 7 on the first try.
         probe = run(["--dump-single-json", "--skip-download", "--no-warnings", "--", as_url(episode)])
+        observe_probe(out, episode, probe, "prep_title")
         try:
             data = json.loads(probe.stdout)
             title = str(data.get("title") or data.get("fulltitle") or "").strip()
@@ -530,6 +581,7 @@ def resolve_ids(out: Path, sleep: float, retry_missing: bool = False) -> int:
         for row in pending:
             time.sleep(sleep)
             probe = run(["--dump-single-json", "--skip-download", "--no-warnings", "--", as_url(row["bv_id"])])
+            observe_probe(out, row["bv_id"], probe, "prep_resolve")
             if probe.returncode != 0 or not probe.stdout.strip().startswith("{"):
                 tail = (probe.stderr.strip().splitlines() or ["?"])[-1]
                 if "412" in tail:
@@ -1100,6 +1152,11 @@ def summarize(path: Path) -> int:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="mode", required=True)
+    observe = sub.add_parser("observe", help="append current metadata/counter snapshots; no media or OCR")
+    observe.add_argument("tokens", nargs="+", metavar="BV_OR_URL")
+    observe.add_argument("--out", type=Path, default=HERE)
+    observe.add_argument("--sleep", type=float, default=20.0)
+    observe.add_argument("--cookies", metavar="FILE")
     videos = sub.add_parser("videos", help="probe subtitles and dump timestamped transcripts")
     videos.add_argument("tokens", nargs="+", metavar="BV_OR_URL")
     videos.add_argument("--out", type=Path, default=HERE)
@@ -1169,6 +1226,10 @@ def main() -> int:
     summary = sub.add_parser("summarize", help="compute decision metrics from annotations.csv")
     summary.add_argument("csv_path", type=Path)
     args = parser.parse_args()
+    if args.mode == "observe":
+        if args.cookies:
+            EXTRA.extend(["--cookies", args.cookies])
+        return observe_sources(args.tokens, args.out, args.sleep)
     if args.mode == "videos":
         EXTRA.extend([
             "--add-header", "Referer:https://www.bilibili.com/",

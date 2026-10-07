@@ -1,3 +1,4 @@
 
 # Hash-pinned vault evidence and review artifacts must retain exact bytes.
 evals/** -text
+apps/backend/src/cyber_memoir/domain/observations.py -text

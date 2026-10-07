@@ -2435,7 +2435,7 @@
     },
     {
       "path": "evals/feasibility/prep.py",
-      "sha256": "f702681b36291da034ad4d68676051779126906a23cc7c4296c5b33b26258452"
+      "sha256": "45c53cee1a2228436e85f874699dd7fe93350e96cd9494fe9bbfb60245a3342e"
     },
     {
       "path": "evals/reviews/meme-0629188c2a2fd803.json",
@@ -3228,6 +3228,10 @@
     {
       "path": "evals/VAULT_WORKFLOW.md",
       "sha256": "fae1a22189e72332e5f79543dff6df1b289bb289753f39eb630d9dd495ccc464"
+    },
+    {
+      "path": "apps/backend/src/cyber_memoir/domain/observations.py",
+      "sha256": "5b197ea5efee13db604e781b2fa93b07f0c411a102f6359220af349cec772076"
     }
   ]
 }

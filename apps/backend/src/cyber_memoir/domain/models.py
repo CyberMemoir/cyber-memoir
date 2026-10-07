@@ -8,6 +8,7 @@ from sqlalchemy import (
     CheckConstraint,
     DateTime,
     ForeignKey,
+    Index,
     Integer,
     String,
     Text,
@@ -63,6 +64,22 @@ class Source(Identity, Base):
     # Set when a reviewer supplied title/date by hand because the platform can no longer
     # serve them - a deleted video keeps whatever was observed while it still existed.
     metadata_note: Mapped[str | None] = mapped_column(Text)
+
+
+class SourceObservation(Identity, Base):
+    """Append-only application records of what a fetch actually observed."""
+
+    __tablename__ = "source_observations"
+    __table_args__ = (
+        Index("ix_source_observations_source_time", "source_id", "observed_at"),
+        CheckConstraint("status IN ('observed','fetch_failed','rate_limited')", name="observation_status"),
+    )
+    source_id: Mapped[str] = mapped_column(ForeignKey("sources.id"))
+    observed_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    status: Mapped[str] = mapped_column(String(24))
+    payload: Mapped[dict] = mapped_column(JSON)
+    artifact_key: Mapped[str] = mapped_column(Text)
+    artifact_hash: Mapped[str] = mapped_column(String(64))
 
 
 class Meme(Identity, Base):
