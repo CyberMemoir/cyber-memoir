@@ -4,7 +4,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from cyber_memoir.adapters import storage
-from cyber_memoir.domain.models import Evidence, Job, Revision, Source, now
+from cyber_memoir.domain.models import Evidence, Job, Revision, Source, SourceObservation, now
 from cyber_memoir.ingestion import pipeline
 from cyber_memoir.ingestion.subtitles import parse_subtitles
 from cyber_memoir.workers.main import run_once
@@ -53,6 +53,9 @@ def test_platform_failure_requests_human_material(client, env, monkeypatch):
     assert run_once()
     with Session(env) as db:
         assert db.get(Source, data["source"]["id"]).availability == "needs_material"
+        observation = db.scalar(select(SourceObservation))
+        assert observation.status == "fetch_failed"
+        assert all(value is None for value in observation.payload["metrics"].values())
 
 
 def test_expired_job_lease_can_be_reclaimed(client, env, monkeypatch):

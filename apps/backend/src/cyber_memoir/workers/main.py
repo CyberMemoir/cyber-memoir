@@ -13,6 +13,7 @@ from cyber_memoir.config import settings
 from cyber_memoir.db import engine
 from cyber_memoir.domain.models import Job, Source, now
 from cyber_memoir.ingestion.media import PlatformRateLimited
+from cyber_memoir.ingestion.observations import record_observation
 from cyber_memoir.ingestion.pipeline import extract, ingest, process_media
 from cyber_memoir.search.indexing import index_meme
 
@@ -112,6 +113,8 @@ def run_once() -> bool:
             job = db.get(Job, jid)
             job.error = f"{type(exc).__name__}: 任务失败，详情见服务端日志"
             if isinstance(exc, PlatformRateLimited):
+                if kind == "ingest":
+                    record_observation(db, db.get(Source, payload["source_id"]), status="rate_limited")
                 # A block is transient. Waiting it out is the only useful response, so this
                 # gets its own budget and does not spend the ordinary attempt allowance.
                 job.status = "failed" if job.attempts >= cfg.platform_block_max_attempts else "pending"

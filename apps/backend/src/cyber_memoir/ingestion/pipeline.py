@@ -11,6 +11,7 @@ from cyber_memoir.config import settings
 from cyber_memoir.domain.models import Entity, Evidence, Revision, Source
 from cyber_memoir.domain.schemas import Material, MemeDraft
 from cyber_memoir.ingestion.media import PlatformRateLimited, analyze_bytes, analyze_url, metadata
+from cyber_memoir.ingestion.observations import record_observation
 from cyber_memoir.ingestion.subtitles import parse_subtitles
 from cyber_memoir.ingestion.urls import safe_get
 
@@ -26,26 +27,20 @@ def ingest(db: Session, source_id: str):
         # availability is left alone; the worker will ask again later.
         raise
     except Exception as exc:
+        record_observation(db, source, status="fetch_failed")
         source.availability, source.last_error = (
             "needs_material",
             f"{type(exc).__name__}: 平台材料不可获取，请人工补充",
         )
         log.info("metadata unavailable source=%s error=%s", source_id, type(exc).__name__)
         return
-    # Do not persist signed CDN addresses, cookies or platform session material.
-    snapshot = {
-        key: data.get(key)
-        for key in (
-            "id",
-            "title",
-            "description",
-            "uploader",
-            "uploader_id",
-            "timestamp",
-            "duration",
-            "webpage_url",
-        )
-    }
+    observation = record_observation(db, source, data)
+    # A fetch is an observed fact even when subsequent extraction fails. Persist
+    # this checkpoint before mutating source metadata or posting materials.
+    db.commit()
+    # Keep the existing latest-metadata pointer; historical observations have their
+    # own immutable artifacts and rows, independent of this pointer.
+    snapshot = observation.payload["metadata"]
     source.title = str(data.get("title") or source.title)
     source.metadata_key, _ = storage.put(json.dumps(snapshot, ensure_ascii=False).encode())
     if data.get("timestamp"):

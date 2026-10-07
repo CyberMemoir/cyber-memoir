@@ -12,7 +12,7 @@ import pytest
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from cyber_memoir.domain.models import Job, Source, now
+from cyber_memoir.domain.models import Job, Source, SourceObservation, now
 from cyber_memoir.ingestion import media
 from cyber_memoir.workers import main
 from cyber_memoir.workers.main import _claim_fetch_slot, run_once
@@ -63,6 +63,9 @@ def test_a_block_leaves_the_source_alone_and_keeps_the_job(client, env, monkeypa
         assert source.availability != "needs_material"
         assert source.last_error is None
         assert job.status == "pending"
+        observation = db.scalar(select(SourceObservation).where(SourceObservation.source_id == source_id))
+        assert observation.status == "rate_limited"
+        assert all(value is None for value in observation.payload["metrics"].values())
         # SQLite hands back a naive datetime where PostgreSQL keeps the zone; compare the
         # instant rather than the representation.
         retry_at = job.available_at
