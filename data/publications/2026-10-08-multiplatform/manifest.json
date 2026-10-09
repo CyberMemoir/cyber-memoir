@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "published_date": "2026-10-08",
+  "groups": 15,
+  "new_groups": 8,
+  "existing_groups": 7,
+  "meme_source_associations": 83,
+  "entries_sha256": "dd1ee3aa17eb8b9473d6f0977deebda4bb33b0f93c7a8c96025b75c0b588e186",
+  "approved_plan_sha256": "ecfcc8fe965d3db676f54ef643062ed903e9101ebfb0c8ac21273ae935d8e2cf",
+  "held_names": [
+    "咕咕嘎嘎",
+    "抓马",
+    "鼠鼠"
+  ],
+  "automatic_import": false
+}
