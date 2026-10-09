@@ -1,0 +1,116 @@
+slug: meme-483436f85e06ed9d
+resolved: false
+canonical_name: 无敌战争剪辑
+aliases: []
+definition: 围绕无敌少侠中不同版本马克等漫画角色制作的卡点剪辑，把漫画画面配上强节奏音乐和带弹性的动作动画，突出角色的力量感；这种剪辑形式也被套用到无关的人物或作品中，形成常被调侃为果冻人质感的改编。
+usage_context: 把人物或角色剪成夸张的战力展示，或用同一种弹性动画风格恶搞不同对象。
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV15VgNzLE6s
+  role: derivative
+  note: 良子无敌战争这一块（源画面引用，不作首次出处断言）
+- url: https://www.bilibili.com/video/BV1xUbHzcEGk
+  role: derivative
+  note: 现在的网红vs以前的“网红”（源画面引用，不作首次出处断言）
+- url: https://www.bilibili.com/video/BV1VuhYz5ERv
+  role: derivative
+  note: 科技黑锅VS无敌少熊（源画面引用，不作首次出处断言）
+evidence_map:
+  ocr-narration-BV1jtW3zTE9M: null
+  ocr-BV15VgNzLE6s: null
+  ocr-BV1xUbHzcEGk: null
+  ocr-BV1VuhYz5ERv: null
+claims:
+- key: definition
+  statement: 围绕无敌少侠中不同版本马克等漫画角色制作的卡点剪辑，把漫画画面配上强节奏音乐和带弹性的动作动画，突出角色的力量感；这种剪辑形式也被套用到无关的人物或作品中，形成常被调侃为果冻人质感的改编。
+  stance: supports
+  evidence:
+  - ocr-narration-BV1jtW3zTE9M
+- key: usage_context
+  statement: 把人物或角色剪成夸张的战力展示，或用同一种弹性动画风格恶搞不同对象。
+  stance: supports
+  evidence:
+  - ocr-narration-BV1jtW3zTE9M
+events:
+- event_type: remix
+  description: 无敌战争剪辑出现衍生作品《良子无敌战争这一块》
+  occurred_at_start: 2025-07-17 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示投稿时间；不是首次出处或传播爆发时间
+  evidence:
+  - ocr-BV15VgNzLE6s
+- event_type: remix
+  description: 无敌战争剪辑出现衍生作品《现在的网红vs以前的“网红”》
+  occurred_at_start: 2025-08-15 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示投稿时间；不是首次出处或传播爆发时间
+  evidence:
+  - ocr-BV1xUbHzcEGk
+- event_type: remix
+  description: 无敌战争剪辑出现衍生作品《科技黑锅VS无敌少熊》
+  occurred_at_start: 2025-08-30 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示投稿时间；不是首次出处或传播爆发时间
+  evidence:
+  - ocr-BV1VuhYz5ERv
+relations: []
+gold:
+  canonical:
+  - 无敌战争剪辑
+  alias: []
+  origin_intent:
+  - 无敌战争剪辑的出处
+  description: []
+  must_not_return: []
+curation:
+  curator: ''
+  confirmed_by: ''
+  drafted_by: codex
+  source_episodes:
+  - BV1jtW3zTE9M
+  draft_basis:
+  - 011.0s ?无敌战争
+  - 039.0s 通常呢都是使用漫画中的素材
+  - 055.0s 常见的弹力动画质感
+  - 134.0s 而《无敌少侠》同作者
+  - 152.0s 关于《《科技夹克》的各种三创剪辑呢
+  draft_notes: '011-187s
+
+    Mechanism differs from drawingInvincibleOC;TechJacket excerpts sameeditingformat
+    included in this record,not duplicate mechanismrecord. Frame62exactlowercases
+    matches良子/阿涛;uppercaseS resolvesunrelated丁程鑫 song,exclude. Frame155/168lowercasev
+    matches科技黑锅;uppercaseV resolves食堂五元面 unrelated,exclude.152actualBV1ADHQzdEGZ differs
+    OCRuppercaseZ/unresolved;omit. No mangaauthor/history/canonicalplotclaims beyond
+    citedscenecontext. Firstoriginunknown.
+
+    Excluded references: {}'
+  ingestion_ok: true
+  findings:
+  - 出处未知，不把衍生投稿日期当作首次来源
+  - 同一Codex冻结草稿后另次证据复核，独立性有限
+  - 本批不生成评测描述查询；人工查询文件原字节保留
+  draft_origin_sha256: 1e1b16959e23bc88ecf66befa1a8e4da2cd0c066a017e5e412fba2b6cc7b6358
+  automated_review:
+    reviewer: codex
+    decision: accept
+    reviewed_at: '2026-10-05'
+    review_started_at: '2026-10-05T23:04:52.982423+00:00'
+    method: same_model_frozen_passes
+    limitations: Same model; separate frozen passes, not human or independent-model
+      review.
+    frozen_draft:
+      path: evals/reviews/meme-483436f85e06ed9d.json
+      sha256: eab81c903720c564f5b2b4561a16a7cc5828486467aabe3a00cd86b4d8a66082
+    checks:
+      identity: 良子末尾小写s与阿涛、科技末尾小写v与猫猫猫猫帝及平台标题匹配；大写近似ID为无关歌曲/食堂视频，排除。
+      meaning: 11-187s漫画卡点、弹性动作与真人替换帧支持剪辑形式，区别于仅绘制马克OC；科技夹克同一形式不重复建梗。
+      usage: 使用场景逐条与解说和源帧核对，仅限该模板或片段机制。
+      origins: 无可验证首次出处，保留unknown；不把原作者标签或最早可见二创日期当首发。
+      events: 三篇衍生精确ID和平台日期可用；152s未解析原始引用省去，不把角色剧情或漫画作者信息设为事实来源。
+      queries: 本批未生成描述评测查询；description为空，不把canonical/origin意图查询当人工描述。人工_descriptions.yaml字节保留。
+    fingerprint: 0326e9577080146480a17ac39db06f77bd68cf54f223769cec4bf058c9907040

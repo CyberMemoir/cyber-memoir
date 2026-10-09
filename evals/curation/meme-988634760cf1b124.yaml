@@ -1,0 +1,116 @@
+slug: meme-988634760cf1b124
+resolved: false
+canonical_name: bro无处不在
+aliases: []
+definition: 剪辑先播放其他作品的场景，再让《嗜血法医》的道克斯以意想不到的方式出现或接入画面，制造他无处不在的效果；也有把赛文变身片段接成道克斯的版本。
+usage_context: 在角色怀疑、变身或其他适合转场的瞬间接入道克斯，制造突然换人的反差。
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1yHngz6EZE
+  role: derivative
+  note: bro无处不在（源画面引用，不作首次出处断言）
+- url: https://www.bilibili.com/video/BV1PiHpzCEBW
+  role: derivative
+  note: 我知道是他放的图钉但我没有证据（源画面引用，不作首次出处断言）
+- url: https://www.bilibili.com/video/BV17CnGzNETM
+  role: derivative
+  note: m超人？（源画面引用，不作首次出处断言）
+evidence_map:
+  ocr-narration-BV1eUxCzfEex: null
+  ocr-BV1yHngz6EZE: null
+  ocr-BV1PiHpzCEBW: null
+  ocr-BV17CnGzNETM: null
+claims:
+- key: definition
+  statement: 剪辑先播放其他作品的场景，再让《嗜血法医》的道克斯以意想不到的方式出现或接入画面，制造他无处不在的效果；也有把赛文变身片段接成道克斯的版本。
+  stance: supports
+  evidence:
+  - ocr-narration-BV1eUxCzfEex
+- key: usage_context
+  statement: 在角色怀疑、变身或其他适合转场的瞬间接入道克斯，制造突然换人的反差。
+  stance: supports
+  evidence:
+  - ocr-narration-BV1eUxCzfEex
+events:
+- event_type: remix
+  description: bro无处不在出现衍生作品《bro无处不在》
+  occurred_at_start: 2025-09-26 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示投稿时间；不是首次出处或传播爆发时间
+  evidence:
+  - ocr-BV1yHngz6EZE
+- event_type: remix
+  description: bro无处不在出现衍生作品《我知道是他放的图钉但我没有证据》
+  occurred_at_start: 2025-10-01 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示投稿时间；不是首次出处或传播爆发时间
+  evidence:
+  - ocr-BV1PiHpzCEBW
+- event_type: remix
+  description: bro无处不在出现衍生作品《m超人？》
+  occurred_at_start: 2025-09-26 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示投稿时间；不是首次出处或传播爆发时间
+  evidence:
+  - ocr-BV17CnGzNETM
+relations: []
+gold:
+  canonical:
+  - bro无处不在
+  alias: []
+  origin_intent:
+  - bro无处不在的出处
+  description: []
+  must_not_return: []
+curation:
+  curator: ''
+  confirmed_by: ''
+  drafted_by: codex
+  source_episodes:
+  - BV1eUxCzfEex
+  draft_basis:
+  - 345.0s 则是源自于doakes的一些短视频剪辑
+  - 351.0s 然而在曲子《poster boy》进入主歌后
+  - 358.0s 或“无处不在的doakes
+  - 366.0s 是在赛文变身的时候切入的
+  draft_notes: '344-464s
+
+    Frame366 exactizze-To case metadata matches;375 exactlowercasez BV1PiHpzCEBW.
+    CC clip visible417/422 readsBV1crngzkEdC, noneexactresolved;lookalikeBV1crnqzkEdc
+    resolves unrelated title/uploader: omit entireCCsource/event without changing
+    evidence. Some source metadata lacksuploader/date,do not invent. PosterBoy discussed
+    backing not independently attributed recording;omitauthors/originalmusic/firstChinaedit
+    chronology. Alias赛文转场 subject to review.
+
+    Excluded references: {"BV1xDHgzyEtr": "Incomplete resolved metadata lacks uploader/date;
+    omit event and source"}'
+  ingestion_ok: true
+  findings:
+  - 出处未知，不把衍生投稿日期当作首次来源
+  - 同一Codex冻结草稿后另次证据复核，独立性有限
+  - 本批不生成评测描述查询；人工查询文件原字节保留
+  draft_origin_sha256: 1080d30b2a766a6a85d2d828c8dc7b906a25168e4fd48a78ce435e1c74e98474
+  automated_review:
+    reviewer: codex
+    decision: accept
+    reviewed_at: '2026-10-05'
+    review_started_at: '2026-10-05T15:02:23.985217+00:00'
+    method: same_model_frozen_passes
+    limitations: Same model; separate frozen passes, not human or independent-model
+      review.
+    frozen_draft:
+      path: evals/reviews/meme-988634760cf1b124.json
+      sha256: 98303cf913dc9686fa973b02c2bd7655eec982e0d2e26b9969e1e4dbb93cf841
+    checks:
+      identity: 344-464s让道克斯接入其他场景，包含赛文变身转场；与静态图不同。
+      meaning: 366/375/430/443s原画面支持突然换人机制；CC片段实际BV与OCR解析近似ID不符，整项排除。
+      usage: 使用场景逐条与解说和源帧核对，仅限该模板或片段机制。
+      origins: 无可验证首次出处，保留unknown；不把原作者标签或最早可见二创日期当首发。
+      events: 366/375/430s精确BV与平台标题日期相符，仅为衍生投稿；443s元数据缺作者/日期省去source/event；无原音乐作者和首次中国转场断言。
+      queries: 本批未生成描述评测查询；description为空，不把canonical/origin意图查询当人工描述。人工_descriptions.yaml字节保留。
+    fingerprint: 9e2b9b7613032b8ef2dfe0a35da9a7b4bbeef7c01f7d6d1ff73bbf0e115eca07

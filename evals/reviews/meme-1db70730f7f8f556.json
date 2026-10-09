@@ -1,0 +1,76 @@
+{
+  "frozen_at": "2026-10-06T10:08:30.561321+00:00",
+  "record": {
+    "slug": "meme-1db70730f7f8f556",
+    "resolved": false,
+    "canonical_name": "读大牌",
+    "aliases": [],
+    "definition": "模仿广告片里逐个展示商品、配合醒目的发音字幕朗读品牌名字的表演，把这种读名方式改成方言、歌曲、音效或其他人物的演绎，以严肃展示和夸张读法的反差制造笑点。",
+    "usage_context": "模仿广告的品牌读名节奏和字幕形式，制作配音、方言或音乐改编。",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [],
+    "evidence_map": {
+      "ocr-narration-BV1eMYezDEmV": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "模仿广告片里逐个展示商品、配合醒目的发音字幕朗读品牌名字的表演，把这种读名方式改成方言、歌曲、音效或其他人物的演绎，以严肃展示和夸张读法的反差制造笑点。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1eMYezDEmV"
+        ]
+      },
+      {
+        "key": "usage_context",
+        "statement": "模仿广告的品牌读名节奏和字幕形式，制作配音、方言或音乐改编。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1eMYezDEmV"
+        ]
+      }
+    ],
+    "events": [],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "读大牌"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "读大牌的出处"
+      ],
+      "description": [],
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV1eMYezDEmV"
+      ],
+      "draft_basis": [
+        "018.0s 就是教大家读那些大牌的名字",
+        "022.0s 具体感兴趣的话可以搜一下原片",
+        "050.0s 设计了一个特别特别大的联锁装置",
+        "059.0s 并被读出名字",
+        "063.0s 一起开始读大牌了起来",
+        "076.0s 我问你"
+      ],
+      "draft_notes": "018-125s\n11profile/18-59 adcontext observed, no exact primaryadURL hencefirstoriginunknown.63/76/96/103/114 derivativehandles lackexactURLs noauthors/events invented.126-131 salesavailability pitch excluded; no productrecommendation,brandpronunciationauthority/currentendorsementdate or allgoodsavailable assertion. Zero lineage explicitepisodebinding.\nExcluded references: {}",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未知，不把衍生投稿日期当作首次来源",
+        "同一Codex冻结草稿后另次证据复核，独立性有限",
+        "本批不生成评测描述查询；人工查询文件原字节保留"
+      ],
+      "draft_origin_sha256": "b92a6c53144b2ff7c046d1d6a3cefbafcdbb84e601248c5a8a11414f4b194f5c"
+    }
+  }
+}

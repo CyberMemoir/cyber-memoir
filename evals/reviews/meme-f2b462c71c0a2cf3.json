@@ -1,0 +1,150 @@
+{
+  "frozen_at": "2026-10-05T19:02:02.692000+00:00",
+  "record": {
+    "slug": "meme-f2b462c71c0a2cf3",
+    "resolved": false,
+    "canonical_name": "颗秒邦邦邦邦",
+    "aliases": [],
+    "definition": "围绕无畏契约角色捷风的粗糙三维小剧场，把夸张喊出的颗秒与模仿击杀音效的邦邦邦邦配音、尖脑袋模型组合起来的梗；二创会模仿表演，或把片段穿插进游戏高光剪辑。",
+    "usage_context": "模仿捷风的喊话和表演，或用夸张配音调侃游戏对局中的击杀场景。",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [
+      {
+        "url": "https://www.bilibili.com/video/BV1S3adzNEwJ",
+        "role": "derivative",
+        "note": "我打瓦就这样（源画面引用，不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1xeJdzKE6R",
+        "role": "derivative",
+        "note": "🍬颗秒，哈哈哈哈哈哈🍬（源画面引用，不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1ZPnUziEBN",
+        "role": "derivative",
+        "note": "邦邦邦邦～ ~（无畏契约手游）（源画面引用，不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1DcnBzZERT",
+        "role": "derivative",
+        "note": "颗秒！（源画面引用，不作首次出处断言）"
+      }
+    ],
+    "evidence_map": {
+      "ocr-narration-BV1Nsxaz2EXT": null,
+      "ocr-BV1S3adzNEwJ": null,
+      "ocr-BV1xeJdzKE6R": null,
+      "ocr-BV1ZPnUziEBN": null,
+      "ocr-BV1DcnBzZERT": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "围绕无畏契约角色捷风的粗糙三维小剧场，把夸张喊出的颗秒与模仿击杀音效的邦邦邦邦配音、尖脑袋模型组合起来的梗；二创会模仿表演，或把片段穿插进游戏高光剪辑。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1Nsxaz2EXT"
+        ]
+      },
+      {
+        "key": "usage_context",
+        "statement": "模仿捷风的喊话和表演，或用夸张配音调侃游戏对局中的击杀场景。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1Nsxaz2EXT"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "event_type": "remix",
+        "description": "颗秒邦邦邦邦出现衍生作品《我打瓦就这样》",
+        "occurred_at_start": "2025-09-08 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1S3adzNEwJ"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "颗秒邦邦邦邦出现衍生作品《🍬颗秒，哈哈哈哈哈哈🍬》",
+        "occurred_at_start": "2025-09-21 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1xeJdzKE6R"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "颗秒邦邦邦邦出现衍生作品《邦邦邦邦～ ~（无畏契约手游）》",
+        "occurred_at_start": "2025-09-30 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1ZPnUziEBN"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "颗秒邦邦邦邦出现衍生作品《颗秒！》",
+        "occurred_at_start": "2025-10-02 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1DcnBzZERT"
+        ]
+      }
+    ],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "颗秒邦邦邦邦"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "颗秒邦邦邦邦的出处"
+      ],
+      "description": [],
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV1Nsxaz2EXT"
+      ],
+      "draft_basis": [
+        "001.0s 颗秒邦邦邦邦",
+        "013.0s 叫做“瓦瓦”的博主",
+        "017.0s 很粗糙的模型和沙雕配音",
+        "023.0s 来演绎小剧场",
+        "024.0s 就导致不仅视频中的角色脑袋尖尖的",
+        "032.0s 捷风的出场率都非常的高",
+        "038.0s 基本都会用特别沙雕的声音大喊“颗秒”",
+        "042.0s 和五杀时模仿音效的台词“邦邦邦邦”",
+        "045.0s 配合上脑袋尖尖的建模",
+        "080.0s 于是乎网友们便开始选择用各种各样的方式",
+        "083.0s 来重新演绎这段捷风大喊颗秒的场景",
+        "114.0s 一些天才网友甚至把这些片段",
+        "116.0s 夹杂参入了自已打残局的高光集锦中",
+        "119.0s 来达成一种“瓦特有的剪辑手法”"
+      ],
+      "draft_notes": "001-183s\n11s瓦瓦profile is narration attribution only,not exact primary source;omit firstcreator/account ownership/followercount claims. Frames confirm lowercasei119 and z166 exactIDs;unresolved125s ID excluded. Fictional skits not real game biographies;firstoriginunknown.\nExcluded references: {}",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未知，不把衍生投稿日期当作首次来源",
+        "同一Codex冻结草稿后另次证据复核，独立性有限",
+        "本批不生成评测描述查询；人工查询文件原字节保留"
+      ],
+      "draft_origin_sha256": "7deb36a67f168b7f753756392e9355466adb5ddbf09dd204dd8e657b0e8888c3"
+    }
+  }
+}

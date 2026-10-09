@@ -1,0 +1,107 @@
+slug: meme-6e5acef80b889480
+resolved: false
+canonical_name: XX基础，XX就不基础
+aliases: []
+definition: 把上身与下身的基础或不基础搭配说成一组相互对应的句式，用抽象穿搭制造反差；后来也把句式中的对象换成工作、生活等场景中的事物，调侃一部分普通而另一部分出人意料。
+usage_context: 用基础与不基础的对照介绍夸张穿搭，或给日常场景加上反差评价。
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1jyhdzUEYu
+  role: derivative
+  note: 健身房基础，保洁大妈就不基础（源画面引用，不作首次出处断言）
+- url: https://www.bilibili.com/video/BV1xRagzMEqv
+  role: derivative
+  note: 文案基础，内容就不基础～（源画面引用，不作首次出处断言）
+evidence_map:
+  ocr-narration-BV1BCHXzJEpY: null
+  ocr-BV1jyhdzUEYu: null
+  ocr-BV1xRagzMEqv: null
+claims:
+- key: definition
+  statement: 把上身与下身的基础或不基础搭配说成一组相互对应的句式，用抽象穿搭制造反差；后来也把句式中的对象换成工作、生活等场景中的事物，调侃一部分普通而另一部分出人意料。
+  stance: supports
+  evidence:
+  - ocr-narration-BV1BCHXzJEpY
+- key: usage_context
+  statement: 用基础与不基础的对照介绍夸张穿搭，或给日常场景加上反差评价。
+  stance: supports
+  evidence:
+  - ocr-narration-BV1BCHXzJEpY
+events:
+- event_type: remix
+  description: XX基础，XX就不基础出现衍生作品《健身房基础，保洁大妈就不基础》
+  occurred_at_start: 2025-08-29 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示投稿时间；不是首次出处或传播爆发时间
+  evidence:
+  - ocr-BV1jyhdzUEYu
+- event_type: remix
+  description: XX基础，XX就不基础出现衍生作品《文案基础，内容就不基础～》
+  occurred_at_start: 2025-09-06 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示投稿时间；不是首次出处或传播爆发时间
+  evidence:
+  - ocr-BV1xRagzMEqv
+relations: []
+gold:
+  canonical:
+  - XX基础，XX就不基础
+  alias: []
+  origin_intent:
+  - XX基础，XX就不基础的出处
+  description: []
+  must_not_return: []
+curation:
+  curator: ''
+  confirmed_by: ''
+  drafted_by: codex
+  source_episodes:
+  - BV1BCHXzJEpY
+  draft_basis:
+  - 003.0s 这个梗的玩法其实和
+  - 020.0s “基础款不搭基础款"
+  - 025.0s “上身基础，下身就不基础”
+  - 058.0s 反而有一种朗朗上口的洗脑感
+  - 062.0s 并开始用各种各样的抽象穿搭
+  - 064.0s 来演绎这个“基础不基础
+  - 095.0s 这样的演绎也不仅限于穿搭
+  - 098.0s 形成了“AA基础，BB就不基础"
+  - 101.0s 能套用在各种地方的梗
+  draft_notes: '003-结束
+
+    20/25/35/62frame and narration supporttemplate,not actualfashionadvice. 张琪JIEJI
+    narrator/profile attribution andMarch7not exactoriginalURL/date:omitfirstcreator/year.
+    144-154frame exactBV1xRagzMEqv lowerfinalv;uppercaseV resolvesunrelatedcat title,exclude;OCR1/l/y
+    variants not interchangeable. Firstoriginunknown.
+
+    Excluded references: {}'
+  ingestion_ok: true
+  findings:
+  - 出处未知，不把衍生投稿日期当作首次来源
+  - 同一Codex冻结草稿后另次证据复核，独立性有限
+  - 本批不生成评测描述查询；人工查询文件原字节保留
+  draft_origin_sha256: 3fe2348e4fd951ce0c26107127411e60609195d0b95e1ff98826cfd2420d0b4e
+  automated_review:
+    reviewer: codex
+    decision: accept
+    reviewed_at: '2026-10-06'
+    review_started_at: '2026-10-06T03:10:55.645888+00:00'
+    method: same_model_frozen_passes
+    limitations: Same model; separate frozen passes, not human or independent-model
+      review.
+    frozen_draft:
+      path: evals/reviews/meme-6e5acef80b889480.json
+      sha256: 9fe251594c224a2cde102a68ed2d5574fab5da1f01ac71ff24c9f46a037a89df
+    checks:
+      identity: 复读源帧62/98/128/144-154与精确引用元数据；小写v引用与大写V猫视频分开，不替换原OCR。
+      meaning: 穿搭及工作场景的基础/不基础反差成立；人物首创和年份不成立，保留unknown。
+      usage: 使用场景逐条与解说和源帧核对，仅限该模板或片段机制。
+      origins: 无可验证首次出处，保留unknown；不把原作者标签或最早可见二创日期当首发。
+      events: 两条衍生仅绑定本集原引用与平台投稿日，不认定首发。
+      queries: 本批未生成描述评测查询；description为空，不把canonical/origin意图查询当人工描述。人工_descriptions.yaml字节保留。
+    fingerprint: c92506fdcd0cd16bfd6a26321efd8626c7536765e20d32bc2ecb77b46a94f8c1

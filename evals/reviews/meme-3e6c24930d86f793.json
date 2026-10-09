@@ -1,0 +1,168 @@
+{
+  "frozen_at": "2026-10-05T19:02:02.800745+00:00",
+  "record": {
+    "slug": "meme-3e6c24930d86f793",
+    "resolved": false,
+    "canonical_name": "王扁",
+    "aliases": [],
+    "definition": "围绕以王扁为称呼的王源模仿表演，模仿眨眼、跳舞等动作并以夸张方式重新演绎的梗；二创会由真人或其他角色复刻这些动作。",
+    "usage_context": "模仿夸张的眨眼和舞蹈动作，或把熟悉角色放进同类表演中制造反差。",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [
+      {
+        "url": "https://www.bilibili.com/video/BV1cJpNzsEXH",
+        "role": "reference",
+        "note": "你是芙蓉 我不是王！（源画面引用，不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1RZHmzeEdM",
+        "role": "derivative",
+        "note": "来了欢快的舞~#青春修炼手册#王源 比❤️（源画面引用，不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1JxadzREyh",
+        "role": "derivative",
+        "note": "传统派丰川祥子应援王扁（源画面引用，不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1CMH6zREcg",
+        "role": "derivative",
+        "note": "得肺结核前的亚瑟摩根（源画面引用，不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1hnYPzcEwm",
+        "role": "derivative",
+        "note": "源飞 阿斯玛（源画面引用，不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1oiaZzdE3N",
+        "role": "derivative",
+        "note": "出师了也是，直接硬控扁哥（源画面引用，不作首次出处断言）"
+      }
+    ],
+    "evidence_map": {
+      "ocr-narration-BV132nbzTEYr": null,
+      "ocr-BV1cJpNzsEXH": null,
+      "ocr-BV1RZHmzeEdM": null,
+      "ocr-BV1JxadzREyh": null,
+      "ocr-BV1CMH6zREcg": null,
+      "ocr-BV1hnYPzcEwm": null,
+      "ocr-BV1oiaZzdE3N": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "围绕以王扁为称呼的王源模仿表演，模仿眨眼、跳舞等动作并以夸张方式重新演绎的梗；二创会由真人或其他角色复刻这些动作。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV132nbzTEYr"
+        ]
+      },
+      {
+        "key": "usage_context",
+        "statement": "模仿夸张的眨眼和舞蹈动作，或把熟悉角色放进同类表演中制造反差。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV132nbzTEYr"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "event_type": "remix",
+        "description": "王扁出现衍生作品《来了欢快的舞~#青春修炼手册#王源 比❤️》",
+        "occurred_at_start": "2025-09-10 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1RZHmzeEdM"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "王扁出现衍生作品《传统派丰川祥子应援王扁》",
+        "occurred_at_start": "2025-09-08 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1JxadzREyh"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "王扁出现衍生作品《得肺结核前的亚瑟摩根》",
+        "occurred_at_start": "2025-09-12 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1CMH6zREcg"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "王扁出现衍生作品《源飞 阿斯玛》",
+        "occurred_at_start": "2025-09-09 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1hnYPzcEwm"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "王扁出现衍生作品《出师了也是，直接硬控扁哥》",
+        "occurred_at_start": "2025-09-08 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1oiaZzdE3N"
+        ]
+      }
+    ],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "王扁"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "王扁的出处"
+      ],
+      "description": [],
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV132nbzTEYr"
+      ],
+      "draft_basis": [
+        "001.0s 王扁",
+        "006.0s 他其实是王源的模仿者",
+        "035.0s 随后他就发布了一期",
+        "036.0s 模仿王源wink的视频",
+        "038.0s 因为模仿的太过有灵魂",
+        "043.0s 更多的模仿视频",
+        "044.0s 也被他接二连三的发布出来",
+        "046.0s 其中就包括这个青春修炼手册跳舞",
+        "053.0s 很多网友便慢慢开始模仿起来",
+        "055.0s 他的这些舞蹈搞起了二创"
+      ],
+      "draft_notes": "001-125s;147-151s reference only\nFrame36split-screen,46dance,57/65/76/88recreationssupporttemplate. 130没座 clip unrelatedotherimpersonator/background,exclude;147/151outsideconcert provenance not firstorigin,not neededsource. Omit age/education/namehistory/popularity/legalinfringement/accountseparationmotive/retirement/currentcareer assertions. NoexactfirstwinkURL;firstoriginunknown. FictionalArthurhealthtitle not realdiagnosis.\nExcluded references: {}",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未知，不把衍生投稿日期当作首次来源",
+        "同一Codex冻结草稿后另次证据复核，独立性有限",
+        "本批不生成评测描述查询；人工查询文件原字节保留"
+      ],
+      "draft_origin_sha256": "7deb36a67f168b7f753756392e9355466adb5ddbf09dd204dd8e657b0e8888c3"
+    }
+  }
+}

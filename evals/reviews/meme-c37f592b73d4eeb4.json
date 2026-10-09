@@ -1,0 +1,73 @@
+{
+  "frozen_at": "2026-10-05T15:00:50.791220+00:00",
+  "record": {
+    "slug": "meme-c37f592b73d4eeb4",
+    "resolved": false,
+    "canonical_name": "你知道XX但你没法证明",
+    "aliases": [],
+    "definition": "使用《嗜血法医》中道克斯怀疑他人的表情或剧照，配上“你知道XX但你没法证明”一类文案，表达有所怀疑或确信却拿不出证据的情境。",
+    "usage_context": "用反应图调侃有直觉或猜测却缺少证据，也可用于无厘头的怀疑段子。",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [],
+    "evidence_map": {
+      "ocr-narration-BV1eUxCzfEex": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "使用《嗜血法医》中道克斯怀疑他人的表情或剧照，配上“你知道XX但你没法证明”一类文案，表达有所怀疑或确信却拿不出证据的情境。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1eUxCzfEex"
+        ]
+      },
+      {
+        "key": "usage_context",
+        "statement": "用反应图调侃有直觉或猜测却缺少证据，也可用于无厘头的怀疑段子。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1eUxCzfEex"
+        ]
+      }
+    ],
+    "events": [],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "你知道XX但你没法证明"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "你知道XX但你没法证明的出处"
+      ],
+      "description": [],
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV1eUxCzfEex"
+      ],
+      "draft_basis": [
+        "220.0s 你知道xx但你没法证明+bro无处不在",
+        "280.0s doakes就坐在车里视奸主角",
+        "289.0s 同时也有另一张doakes"
+      ],
+      "draft_notes": "220-343s\nStaticreaction template distinct fromDoakes transition below. Frame280/289 and narration support fictional character/sourcework, not actor/episode/date. Omit diagnosisPTSD and elaborate plot assertions unnecessary to meme. All375s+BVrefs are transition derivatives, not sources of static image. Explicit episode binding, unknownfirstorigin.\nExcluded references: {}",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未知，不把衍生投稿日期当作首次来源",
+        "同一Codex冻结草稿后另次证据复核，独立性有限",
+        "本批不生成评测描述查询；人工查询文件原字节保留"
+      ],
+      "draft_origin_sha256": "1080d30b2a766a6a85d2d828c8dc7b906a25168e4fd48a78ce435e1c74e98474"
+    }
+  }
+}

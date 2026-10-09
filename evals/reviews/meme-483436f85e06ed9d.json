@@ -1,0 +1,125 @@
+{
+  "frozen_at": "2026-10-05T23:04:52.540199+00:00",
+  "record": {
+    "slug": "meme-483436f85e06ed9d",
+    "resolved": false,
+    "canonical_name": "无敌战争剪辑",
+    "aliases": [],
+    "definition": "围绕无敌少侠中不同版本马克等漫画角色制作的卡点剪辑，把漫画画面配上强节奏音乐和带弹性的动作动画，突出角色的力量感；这种剪辑形式也被套用到无关的人物或作品中，形成常被调侃为果冻人质感的改编。",
+    "usage_context": "把人物或角色剪成夸张的战力展示，或用同一种弹性动画风格恶搞不同对象。",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [
+      {
+        "url": "https://www.bilibili.com/video/BV15VgNzLE6s",
+        "role": "derivative",
+        "note": "良子无敌战争这一块（源画面引用，不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1xUbHzcEGk",
+        "role": "derivative",
+        "note": "现在的网红vs以前的“网红”（源画面引用，不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1VuhYz5ERv",
+        "role": "derivative",
+        "note": "科技黑锅VS无敌少熊（源画面引用，不作首次出处断言）"
+      }
+    ],
+    "evidence_map": {
+      "ocr-narration-BV1jtW3zTE9M": null,
+      "ocr-BV15VgNzLE6s": null,
+      "ocr-BV1xUbHzcEGk": null,
+      "ocr-BV1VuhYz5ERv": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "围绕无敌少侠中不同版本马克等漫画角色制作的卡点剪辑，把漫画画面配上强节奏音乐和带弹性的动作动画，突出角色的力量感；这种剪辑形式也被套用到无关的人物或作品中，形成常被调侃为果冻人质感的改编。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1jtW3zTE9M"
+        ]
+      },
+      {
+        "key": "usage_context",
+        "statement": "把人物或角色剪成夸张的战力展示，或用同一种弹性动画风格恶搞不同对象。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1jtW3zTE9M"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "event_type": "remix",
+        "description": "无敌战争剪辑出现衍生作品《良子无敌战争这一块》",
+        "occurred_at_start": "2025-07-17 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV15VgNzLE6s"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "无敌战争剪辑出现衍生作品《现在的网红vs以前的“网红”》",
+        "occurred_at_start": "2025-08-15 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1xUbHzcEGk"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "无敌战争剪辑出现衍生作品《科技黑锅VS无敌少熊》",
+        "occurred_at_start": "2025-08-30 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1VuhYz5ERv"
+        ]
+      }
+    ],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "无敌战争剪辑"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "无敌战争剪辑的出处"
+      ],
+      "description": [],
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV1jtW3zTE9M"
+      ],
+      "draft_basis": [
+        "011.0s ?无敌战争",
+        "039.0s 通常呢都是使用漫画中的素材",
+        "055.0s 常见的弹力动画质感",
+        "134.0s 而《无敌少侠》同作者",
+        "152.0s 关于《《科技夹克》的各种三创剪辑呢"
+      ],
+      "draft_notes": "011-187s\nMechanism differs from drawingInvincibleOC;TechJacket excerpts sameeditingformat included in this record,not duplicate mechanismrecord. Frame62exactlowercases matches良子/阿涛;uppercaseS resolvesunrelated丁程鑫 song,exclude. Frame155/168lowercasev matches科技黑锅;uppercaseV resolves食堂五元面 unrelated,exclude.152actualBV1ADHQzdEGZ differs OCRuppercaseZ/unresolved;omit. No mangaauthor/history/canonicalplotclaims beyond citedscenecontext. Firstoriginunknown.\nExcluded references: {}",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未知，不把衍生投稿日期当作首次来源",
+        "同一Codex冻结草稿后另次证据复核，独立性有限",
+        "本批不生成评测描述查询；人工查询文件原字节保留"
+      ],
+      "draft_origin_sha256": "1e1b16959e23bc88ecf66befa1a8e4da2cd0c066a017e5e412fba2b6cc7b6358"
+    }
+  }
+}

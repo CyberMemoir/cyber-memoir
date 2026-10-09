@@ -1,0 +1,88 @@
+slug: meme-221840f5890c67fa
+resolved: false
+canonical_name: 村田嵌字
+aliases: []
+definition: 在本来通过画面就能传达情绪的漫画场景中，加上直白、重复或破坏气氛的文字，用多余解释制造反差的改图梗；解说以一拳超人的留白页面与加字页面对比来介绍这种玩法。
+usage_context: 给漫画名场面补上显得多余的旁白或对白，调侃过度解释和破坏留白。
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources: []
+evidence_map:
+  ocr-narration-BV18VHNzvEji: null
+claims:
+- key: definition
+  statement: 在本来通过画面就能传达情绪的漫画场景中，加上直白、重复或破坏气氛的文字，用多余解释制造反差的改图梗；解说以一拳超人的留白页面与加字页面对比来介绍这种玩法。
+  stance: supports
+  evidence:
+  - ocr-narration-BV18VHNzvEji
+- key: usage_context
+  statement: 给漫画名场面补上显得多余的旁白或对白，调侃过度解释和破坏留白。
+  stance: supports
+  evidence:
+  - ocr-narration-BV18VHNzvEji
+events: []
+relations: []
+gold:
+  canonical:
+  - 村田嵌字
+  alias: []
+  origin_intent:
+  - 村田嵌字的出处
+  description: []
+  must_not_return: []
+curation:
+  curator: ''
+  confirmed_by: ''
+  drafted_by: codex
+  source_episodes:
+  - BV18VHNzvEji
+  draft_basis:
+  - 006.0s 重制并连载的同名漫画《一拳超人》
+  - 009.0s 或者叫一拳超人重制版也可以
+  - 034.0s 在倒数第三页
+  - 038.0s 并在最后一页当众进行了变身
+  - 043.0s 整页除了两个人以外空无一物
+  - 045.0s 颇有一种一切不需要语言表达的感觉
+  - 056.0s 官方便进行了页面更新
+  - 059.0s 原来只是村田忘了嵌字
+  - 067.0s 于是大家纷纷用漫画顶面
+  - 069.0s 您通过嵌字的方式进行玩梗讽刺
+  - 071.0s 把很多通过画面
+  - 072.0s 就很能传递情绪的名画面
+  - 075.0s 加上多余的配字
+  draft_notes: '004-138s
+
+    Frames43/59 page comparison and75/90/110/130 parody captions directly read. Narration
+    blame忘嵌字/update not independently verified officialpublicationhistory;omit faultassertion,chapter260/latest/release
+    chronology. No sourceURL;explicit episodebinding;unknownfirstorigin,not authorbehaviorverified.
+
+    Excluded references: {}'
+  ingestion_ok: true
+  findings:
+  - 出处未知，不把衍生投稿日期当作首次来源
+  - 同一Codex冻结草稿后另次证据复核，独立性有限
+  - 本批不生成评测描述查询；人工查询文件原字节保留
+  draft_origin_sha256: 7deb36a67f168b7f753756392e9355466adb5ddbf09dd204dd8e657b0e8888c3
+  automated_review:
+    reviewer: codex
+    decision: accept
+    reviewed_at: '2026-10-05'
+    review_started_at: '2026-10-05T19:02:03.214788+00:00'
+    method: same_model_frozen_passes
+    limitations: Same model; separate frozen passes, not human or independent-model
+      review.
+    frozen_draft:
+      path: evals/reviews/meme-221840f5890c67fa.json
+      sha256: 8a406ee0d5cce3b74e3b01ce9ce5b313bf752be73e5fc6ff22d8a1ae10ebb549
+    checks:
+      identity: 43/59s留白与加字页面对比，75/90/110/130s多余配字漫画改图，非对作者行为的鉴定。
+      meaning: 67/69/71/72/75s解说与漫画例子支持过度解释反差；不确认忘嵌字、更新日期、260话或最新状态。
+      usage: 使用场景逐条与解说和源帧核对，仅限该模板或片段机制。
+      origins: 无可验证首次出处，保留unknown；不把原作者标签或最早可见二创日期当首发。
+      events: 无结构引用，明确原集证据绑定；原始解说保留，作者失误与首次传播不可验证故不生成事件。
+      queries: 本批未生成描述评测查询；description为空，不把canonical/origin意图查询当人工描述。人工_descriptions.yaml字节保留。
+    fingerprint: 1bc40176d8e928dd08852dab56a60bd4a7ed735cc5fed4e757e048ff7772b731

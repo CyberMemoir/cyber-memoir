@@ -1,0 +1,78 @@
+{
+  "frozen_at": "2026-10-05T15:00:50.722379+00:00",
+  "record": {
+    "slug": "meme-767e6f2b9d3c4e69",
+    "resolved": false,
+    "canonical_name": "三维威廉泰尔企鹅",
+    "aliases": [],
+    "definition": "以戴眼镜、露出狡黠表情的三维企鹅图片为底图，配上抽象文案制作的表情包；企鹅会以厨师、毕业生、侦探等不同装扮出现。",
+    "usage_context": "用企鹅的表情和装扮配合文案，表达调侃、观察或自夸等情绪。",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [],
+    "evidence_map": {
+      "ocr-narration-BV1964FzuEP5": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "以戴眼镜、露出狡黠表情的三维企鹅图片为底图，配上抽象文案制作的表情包；企鹅会以厨师、毕业生、侦探等不同装扮出现。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1964FzuEP5"
+        ]
+      },
+      {
+        "key": "usage_context",
+        "statement": "用企鹅的表情和装扮配合文案，表达调侃、观察或自夸等情绪。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1964FzuEP5"
+        ]
+      }
+    ],
+    "events": [],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "三维威廉泰尔企鹅"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "三维威廉泰尔企鹅的出处"
+      ],
+      "description": [],
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV1964FzuEP5"
+      ],
+      "draft_basis": [
+        "001.0s 企表情包",
+        "009.0s 而是这位",
+        "013.0s 一位名叫“3Dalia” 的作者",
+        "028.0s 现在在国内素材库里呢多以",
+        "039.0s 这些企鹅基本上都会戴个眼镜露出一副",
+        "045.0s 而或许正因为这份戏的感觉",
+        "052.0s 制成表情包来进行传播",
+        "063.0s 受到了更多网友的喜爱"
+      ],
+      "draft_notes": "001-093s\nSource frames show Shutterstock/3Dalia and penguin academic stock-image attribution, not first meme publication. Keep unknown firstorigin; no stockasset URL/license assertion or resourcecounts/date. Distinct from existing高松灯企鹅(head swap) and企鹅跳舞(animation). No resolved BV derivatives;explicit episode binding required.\nExcluded references: {}",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未知，不把衍生投稿日期当作首次来源",
+        "同一Codex冻结草稿后另次证据复核，独立性有限",
+        "本批不生成评测描述查询；人工查询文件原字节保留"
+      ],
+      "draft_origin_sha256": "1080d30b2a766a6a85d2d828c8dc7b906a25168e4fd48a78ce435e1c74e98474"
+    }
+  }
+}

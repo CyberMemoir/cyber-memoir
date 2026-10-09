@@ -1,0 +1,77 @@
+{
+  "frozen_at": "2026-10-06T10:08:30.464746+00:00",
+  "record": {
+    "slug": "meme-d07baac78e72952f",
+    "resolved": false,
+    "canonical_name": "你紧张了吗",
+    "aliases": [],
+    "definition": "借街霸选手小孩与Punk相关解说片段中的赛前问话，把询问对方是否紧张变成带有调侃或挑衅意味的比赛对话梗，也与紧张哥这一称呼联系在一起。",
+    "usage_context": "在比赛或对局语境中戏仿询问对手是否紧张的问话，制造赛前互动的反差。",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [],
+    "evidence_map": {
+      "ocr-narration-BV1DBe8zBEPu": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "借街霸选手小孩与Punk相关解说片段中的赛前问话，把询问对方是否紧张变成带有调侃或挑衅意味的比赛对话梗，也与紧张哥这一称呼联系在一起。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1DBe8zBEPu"
+        ]
+      },
+      {
+        "key": "usage_context",
+        "statement": "在比赛或对局语境中戏仿询问对手是否紧张的问话，制造赛前互动的反差。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1DBe8zBEPu"
+        ]
+      }
+    ],
+    "events": [],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "你紧张了吗"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "你紧张了吗的出处"
+      ],
+      "description": [],
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV1DBe8zBEPu"
+      ],
+      "draft_basis": [
+        "127.0s 之前也说PUNK和小孩之间曾有过恩怨",
+        "131.0s 那就是（你紧张了吗？",
+        "137.0s 小孩自认为这样说是问候寒喧",
+        "139.0s 而PUNK则觉得受到冒犯",
+        "145.0s 小孩又是拿这句话他",
+        "148.0s 这一句你紧张了吗",
+        "149.0s 当时也是给PUNK留了个名号“紧张哥”"
+      ],
+      "draft_notes": "127-结束\n131 sourceframe Are you nervous/Chinese subtitle and148-149 narration supportphrase/nickname, no exact primaryURL. No 2023 firstdate/2024reconciliation or privateintent assertion. Zero lineage explicitepisodebinding; don'tborrow79 greensprint citation. Firstoriginunknown.\nExcluded references: {}",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未知，不把衍生投稿日期当作首次来源",
+        "同一Codex冻结草稿后另次证据复核，独立性有限",
+        "本批不生成评测描述查询；人工查询文件原字节保留"
+      ],
+      "draft_origin_sha256": "b92a6c53144b2ff7c046d1d6a3cefbafcdbb84e601248c5a8a11414f4b194f5c"
+    }
+  }
+}

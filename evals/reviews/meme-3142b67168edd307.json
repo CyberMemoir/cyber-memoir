@@ -1,0 +1,89 @@
+{
+  "frozen_at": "2026-10-05T19:02:02.748380+00:00",
+  "record": {
+    "slug": "meme-3142b67168edd307",
+    "resolved": false,
+    "canonical_name": "鸡排主理人",
+    "aliases": [],
+    "definition": "以被称为鸡排哥的炸鸡排摊主工作片段和语录为素材的称呼梗，用主理人这一称谓调侃普通小摊经营者；围绕他一边忙碌操作、一边与顾客交流的画面进行传播和二创。",
+    "usage_context": "调侃日常工作中的经营者身份，或分享摊主忙碌工作和与顾客交流的片段。",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [
+      {
+        "url": "https://www.bilibili.com/video/BV1PanAzDE9Z",
+        "role": "reference",
+        "note": "鸡排哥又说土味情话了，你听过哪几句？（源画面引用，不作首次出处断言）"
+      }
+    ],
+    "evidence_map": {
+      "ocr-narration-BV1fnnozZEGL": null,
+      "ocr-BV1PanAzDE9Z": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "以被称为鸡排哥的炸鸡排摊主工作片段和语录为素材的称呼梗，用主理人这一称谓调侃普通小摊经营者；围绕他一边忙碌操作、一边与顾客交流的画面进行传播和二创。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1fnnozZEGL"
+        ]
+      },
+      {
+        "key": "usage_context",
+        "statement": "调侃日常工作中的经营者身份，或分享摊主忙碌工作和与顾客交流的片段。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1fnnozZEGL"
+        ]
+      }
+    ],
+    "events": [],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "鸡排主理人"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "鸡排主理人的出处"
+      ],
+      "description": [],
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV1fnnozZEGL"
+      ],
+      "draft_basis": [
+        "001.0s 鸡排主理人",
+        "018.0s 他被网友们戏称鸡排主理人”",
+        "022.0s 所谓主理人呢一开始指代的是",
+        "024.0s 对某个品牌或者项目进行创意主导运营的核心人物",
+        "048.0s 加之他炸鸡排手脚麻利有条不紊",
+        "053.0s 同时还总能金句频出",
+        "055.0s 给顾客提供情绪价值",
+        "057.0s 所以他工作时的各种语录很快就在网上火了起来",
+        "061.0s 其中就包括这一些",
+        "106.0s 光从这些片段大家也能感受到他的鸡排有多受欢迎",
+        "110.0s 他的工作能力又有多强了",
+        "111.0s 加之视频里面左右开弓工作的鸡排哥真的很辛苦"
+      ],
+      "draft_notes": "001-117s\n29拾荒主理人/36otherstore background not chickenidentity,exclude. 95/102frame小鱼快乐屋 differs platform小鱼资讯屋:omit BV1VUJSzaEDL source/event pendingidentity,rawunchanged. Omit personalname,actualfoodquality/customerreputation/rules/date/currentpopularity claims;not recommendingrestaurant or verifyingbiography. Firstoriginunknown.\nExcluded references: {}",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未知，不把衍生投稿日期当作首次来源",
+        "同一Codex冻结草稿后另次证据复核，独立性有限",
+        "本批不生成评测描述查询；人工查询文件原字节保留"
+      ],
+      "draft_origin_sha256": "7deb36a67f168b7f753756392e9355466adb5ddbf09dd204dd8e657b0e8888c3"
+    }
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "frozen_at": "2026-10-05T15:00:50.761946+00:00",
+  "record": {
+    "slug": "meme-a4b6fafc1fe5c267",
+    "resolved": false,
+    "canonical_name": "寻找伪人改图",
+    "aliases": [],
+    "definition": "以游戏《寻找伪人》中从门镜观察来客的场景为模板，把门外人物替换成其他作品角色或人物，并改写对话和选项的图片二创。",
+    "usage_context": "把熟悉的人物放进诡异的门外来客场景，制造角色与游戏氛围的反差。",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [],
+    "evidence_map": {
+      "ocr-narration-BV1eUxCzfEex": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "以游戏《寻找伪人》中从门镜观察来客的场景为模板，把门外人物替换成其他作品角色或人物，并改写对话和选项的图片二创。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1eUxCzfEex"
+        ]
+      },
+      {
+        "key": "usage_context",
+        "statement": "把熟悉的人物放进诡异的门外来客场景，制造角色与游戏氛围的反差。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1eUxCzfEex"
+        ]
+      }
+    ],
+    "events": [],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "寻找伪人改图"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "寻找伪人改图的出处"
+      ],
+      "description": [],
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV1eUxCzfEex"
+      ],
+      "draft_basis": [
+        "006.0s 寻找伪人改图",
+        "032.0s 而主角每晚必须透过门镜观察来客",
+        "040.0s 有了下面这些创作"
+      ],
+      "draft_notes": "006-096s\nThree direct source frames show interface edits; do not infer creators as firstorigin from unsourced handles or assert detailed game mechanics/lore. Subsequent67 andDoakes clips excluded;explicit episode binding.\nExcluded references: {}",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未知，不把衍生投稿日期当作首次来源",
+        "同一Codex冻结草稿后另次证据复核，独立性有限",
+        "本批不生成评测描述查询；人工查询文件原字节保留"
+      ],
+      "draft_origin_sha256": "1080d30b2a766a6a85d2d828c8dc7b906a25168e4fd48a78ce435e1c74e98474"
+    }
+  }
+}

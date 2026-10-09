@@ -1,0 +1,124 @@
+slug: meme-b8701411d939cef8
+resolved: false
+canonical_name: XX的消费态度
+aliases: []
+definition: 用黄色三维表情小人表示不同人物对同一商品或消费行为的反应，把人物标签、商品画面与笑脸、摊手、伤心等表情组合成对比小剧场；也会换成虚构角色或游戏情境。
+usage_context: 夸张对比家人或不同角色的消费反应，也可把同一套表情模板套到其他日常场景。
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1scbBzMEkj
+  role: derivative
+  note: 广东父母对我的消费态度be like（源画面引用，不作首次出处断言）
+- url: https://www.bilibili.com/video/BV1QxbizGE3Z
+  role: derivative
+  note: 山东人送饮料be like（源画面引用，不作首次出处断言）
+- url: https://www.bilibili.com/video/BV1VgbEz8E4U
+  role: derivative
+  note: 星露谷钓鱼没体力吃什么be like:（源画面引用，不作首次出处断言）
+evidence_map:
+  ocr-narration-BV1PmaPzSEnB: null
+  ocr-BV1scbBzMEkj: null
+  ocr-BV1QxbizGE3Z: null
+  ocr-BV1VgbEz8E4U: null
+claims:
+- key: definition
+  statement: 用黄色三维表情小人表示不同人物对同一商品或消费行为的反应，把人物标签、商品画面与笑脸、摊手、伤心等表情组合成对比小剧场；也会换成虚构角色或游戏情境。
+  stance: supports
+  evidence:
+  - ocr-narration-BV1PmaPzSEnB
+- key: usage_context
+  statement: 夸张对比家人或不同角色的消费反应，也可把同一套表情模板套到其他日常场景。
+  stance: supports
+  evidence:
+  - ocr-narration-BV1PmaPzSEnB
+events:
+- event_type: remix
+  description: XX的消费态度出现衍生作品《广东父母对我的消费态度be like》
+  occurred_at_start: 2025-08-14 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示投稿时间；不是首次出处或传播爆发时间
+  evidence:
+  - ocr-BV1scbBzMEkj
+- event_type: remix
+  description: XX的消费态度出现衍生作品《山东人送饮料be like》
+  occurred_at_start: 2025-08-14 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示投稿时间；不是首次出处或传播爆发时间
+  evidence:
+  - ocr-BV1QxbizGE3Z
+- event_type: remix
+  description: XX的消费态度出现衍生作品《星露谷钓鱼没体力吃什么be like:》
+  occurred_at_start: 2025-08-14 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示投稿时间；不是首次出处或传播爆发时间
+  evidence:
+  - ocr-BV1VgbEz8E4U
+relations: []
+gold:
+  canonical:
+  - XX的消费态度
+  alias: []
+  origin_intent:
+  - XX的消费态度的出处
+  description: []
+  must_not_return: []
+curation:
+  curator: ''
+  confirmed_by: ''
+  drafted_by: codex
+  source_episodes:
+  - BV1PmaPzSEnB
+  draft_basis:
+  - 017.0s 这个黄色emoji形象
+  - 023.0s 名为EmotiGuy
+  - 035.0s 才让这个角色有了许许多多的表情包
+  - 041.0s 有一个戴上墨镜点赞的表情
+  - 052.0s 有一个摊手表示“我根本就不在乎”的表情
+  - 058.0s 比较流行的伤心emoji
+  - 067.0s 然后呢也被一些网友
+  - 068.0s 拿来制作一些诸如“爸爸的消费观”
+  - 071.0s 这种小剧场的meme
+  - 073.0s 用来生动形象的表示
+  - 079.0s 后续网友们也是借鉴了这一模板
+  - 082.0s 创作出了一大堆的“消费态度”
+  - 085.0s 或是别的“当xxx时belike"小剧场
+  draft_notes: '064-结束;017-060s appearancecontext
+
+    67/70/73exactMEkj lowerj matches冰力达;nearMEki resolvesunrelatedadvertisement exclude.79frameKKKatZ
+    vs爱睡觉的KatZ identityconflict omitBV1aYbJzYEz9;90IDl variant notfound omit;122/126unresolved
+    variants omit.139小嗣四肆4 matchesmetadata. Daz/EmotiGuy source/nickname background
+    not provenlicensefacts:20/23overlay2005/soldcrypto/delisted contradictnarrationfreeusage,omitdates/free/licensing/currentavailability/rightsclaims
+    and2014countryhistory. Noactualregionalconsumerstereotypeassertion;fictionaltemplate.
+    Firstoriginunknown.
+
+    Excluded references: {}'
+  ingestion_ok: true
+  findings:
+  - 出处未知，不把衍生投稿日期当作首次来源
+  - 同一Codex冻结草稿后另次证据复核，独立性有限
+  - 本批不生成评测描述查询；人工查询文件原字节保留
+  draft_origin_sha256: 3fe2348e4fd951ce0c26107127411e60609195d0b95e1ff98826cfd2420d0b4e
+  automated_review:
+    reviewer: codex
+    decision: accept
+    reviewed_at: '2026-10-06'
+    review_started_at: '2026-10-06T03:10:57.113480+00:00'
+    method: same_model_frozen_passes
+    limitations: Same model; separate frozen passes, not human or independent-model
+      review.
+    frozen_draft:
+      path: evals/reviews/meme-b8701411d939cef8.json
+      sha256: bfd56555ff20616f8e0f4ab5721eb48d98511f974c3b4195611536244a5da341
+    checks:
+      identity: 67/70/73末位j与105/139引用核对；近似i广告及79作者身份冲突省去。
+      meaning: 黄色三维小人、商品与人物标签组成对比模板成立；模型年份许可可用性与国家历史断言省去。
+      usage: 使用场景逐条与解说和源帧核对，仅限该模板或片段机制。
+      origins: 无可验证首次出处，保留unknown；不把原作者标签或最早可见二创日期当首发。
+      events: 三条支持的衍生绑定本集，122/126未解析与90近似ID不补事件，firstorigin未知。
+      queries: 本批未生成描述评测查询；description为空，不把canonical/origin意图查询当人工描述。人工_descriptions.yaml字节保留。
+    fingerprint: d13c7150d8f25da585dd1d2a15487bb577b7b6e9bddf6689829467fb5509cd28

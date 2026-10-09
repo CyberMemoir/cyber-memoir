@@ -1,0 +1,138 @@
+slug: meme-89f7ed37f54ec282
+resolved: false
+canonical_name: 九流门
+aliases: []
+definition: 借《燕云十六声》中九流门戏耍他人的形象，调侃骗人、恶作剧和诱导他人上当的行为；遇到整蛊内容时说对方是九流门的，并衍生出歌曲、招生小剧场和角色模仿。
+usage_context: 评价整蛊留言、假奖励或恶作剧，也用于游戏相关的音乐和角色二创。
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1pAoUYsEiv
+  role: reference
+  note: 【真栗】玩燕云被天泉长老忽悠加入九流门，直呼你们这是电信诈骗，入门即巅峰晋升荣誉长老~（源画面引用，不作首次出处断言）
+- url: https://www.bilibili.com/video/BV1g37GzLE4a
+  role: derivative
+  note: 关灯后鼠鼠都在做什么（源画面引用，不作首次出处断言）
+- url: https://www.bilibili.com/video/BV1dGfBYsEXi
+  role: reference
+  note: 九流门我不会原谅你们！！！【燕云十六声】（源画面引用，不作首次出处断言）
+- url: https://www.bilibili.com/video/BV1bMNRzPEqH
+  role: derivative
+  note: ⚡️ 鼠 道 难 ⚡️（源画面引用，不作首次出处断言）
+- url: https://www.bilibili.com/video/BV1f7fkYqEBP
+  role: derivative
+  note: 【燕云十六声】九流门招生计划（源画面引用，不作首次出处断言）
+- url: https://www.bilibili.com/video/BV1C2jtzkEgu
+  role: derivative
+  note: 可恶的九流门！！！！！！！（源画面引用，不作首次出处断言）
+evidence_map:
+  ocr-narration-BV1F2anzsEEr: null
+  ocr-BV1pAoUYsEiv: null
+  ocr-BV1g37GzLE4a: null
+  ocr-BV1dGfBYsEXi: null
+  ocr-BV1bMNRzPEqH: null
+  ocr-BV1f7fkYqEBP: null
+  ocr-BV1C2jtzkEgu: null
+claims:
+- key: definition
+  statement: 借《燕云十六声》中九流门戏耍他人的形象，调侃骗人、恶作剧和诱导他人上当的行为；遇到整蛊内容时说对方是九流门的，并衍生出歌曲、招生小剧场和角色模仿。
+  stance: supports
+  evidence:
+  - ocr-narration-BV1F2anzsEEr
+- key: usage_context
+  statement: 评价整蛊留言、假奖励或恶作剧，也用于游戏相关的音乐和角色二创。
+  stance: supports
+  evidence:
+  - ocr-narration-BV1F2anzsEEr
+events:
+- event_type: remix
+  description: 九流门出现衍生作品《关灯后鼠鼠都在做什么》
+  occurred_at_start: 2025-05-29 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示投稿时间；不是首次出处或传播爆发时间
+  evidence:
+  - ocr-BV1g37GzLE4a
+- event_type: remix
+  description: 九流门出现衍生作品《⚡️ 鼠 道 难 ⚡️》
+  occurred_at_start: 2025-06-22 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示投稿时间；不是首次出处或传播爆发时间
+  evidence:
+  - ocr-BV1bMNRzPEqH
+- event_type: remix
+  description: 九流门出现衍生作品《【燕云十六声】九流门招生计划》
+  occurred_at_start: 2025-01-26 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示投稿时间；不是首次出处或传播爆发时间
+  evidence:
+  - ocr-BV1f7fkYqEBP
+- event_type: remix
+  description: 九流门出现衍生作品《可恶的九流门！！！！！！！》
+  occurred_at_start: 2025-05-24 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示投稿时间；不是首次出处或传播爆发时间
+  evidence:
+  - ocr-BV1C2jtzkEgu
+relations: []
+gold:
+  canonical:
+  - 九流门
+  alias: []
+  origin_intent:
+  - 九流门的出处
+  description: []
+  must_not_return: []
+curation:
+  curator: ''
+  confirmed_by: ''
+  drafted_by: codex
+  source_episodes:
+  - BV1F2anzsEEr
+  draft_basis:
+  - 008.0s 九流门的教义就是要到处戏耍别人逗你玩！
+  - 014.0s 很多玩家第一次了解九流门1其实是被九流门的NPC骗了第一次
+  - 026.0s 可以说是真正的北宋缅北诈骗了
+  - 033.0s 如果你每周达不到足够指标或者被人发现了还会扣你业绩！
+  - 037.0s 平时呢他们最爱干的事情就是在世界频道发假红包
+  - 049.0s 而最后到你手上的自然也是一些乱七八糟的东西
+  - 057.0s 所以九流门也成了一个燕云玩家无人不知的梗了
+  - 067.0s 并开发了更多有（不）创（当）意（人）百的做法
+  - 079.0s 电话：（xxx)535xXXXXX开封城南门大街666号
+  draft_notes: '008-结束
+
+    Game trick imagery and commentary supported; not a current gameplay guide or real
+    fraud allegation. Recruitment/contact jokes are fictional. Lowercase z at74 matches
+    exact reference; uppercase Z/invalid l lookalikes excluded.98 title-only citation
+    lacks author/date and omitted. Profiles/narrated chronology do not prove first
+    meme origin. Firstoriginunknown.
+
+    Excluded references: {}'
+  ingestion_ok: true
+  findings:
+  - 出处未知，不把衍生投稿日期当作首次来源
+  - 同一Codex冻结草稿后另次证据复核，独立性有限
+  - 本批不生成评测描述查询；人工查询文件原字节保留
+  draft_origin_sha256: 830f37d8604661d0990c1d4958f14134b1ec462b5a2d645ae06ff733fcfc8afe
+  automated_review:
+    reviewer: codex
+    decision: accept
+    reviewed_at: '2026-10-06'
+    review_started_at: '2026-10-06T08:03:20.479173+00:00'
+    method: same_model_frozen_passes
+    limitations: Same model; separate frozen passes, not human or independent-model
+      review.
+    frozen_draft:
+      path: evals/reviews/meme-89f7ed37f54ec282.json
+      sha256: a63bb0d1edb0761164bec6f1fb330714cd8a88f8c2058c6e61c86fdb52f13c63
+    checks:
+      identity: 另次读取14/26游戏片段、37/42假红包、49文字游戏及57/67/74/79/120二创源帧，精确ID/标题/作者与CSV核对；98缺元数据、73大小写近似项排除。
+      meaning: 定义仅限以门派形象调侃整蛊的机制，60s评论用法与解说一致；不把周指标、扣款数值或虚构招生联系方式作当前真实指引。
+      usage: 使用场景逐条与解说和源帧核对，仅限该模板或片段机制。
+      origins: 无可验证首次出处，保留unknown；不把原作者标签或最早可见二创日期当首发。
+      events: 两条gameplay引用为reference，四条动画/音乐/招生小剧场/cosplay为derivative；日期仅平台投稿日期，来源首次未知。
+      queries: 本批未生成描述评测查询；description为空，不把canonical/origin意图查询当人工描述。人工_descriptions.yaml字节保留。
+    fingerprint: 5b7de9d46eb44e30a2fc29e53f475fc9466aba25ce8d9b93000a9f6ebf5d949f

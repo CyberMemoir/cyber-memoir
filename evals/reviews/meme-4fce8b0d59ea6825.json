@@ -1,0 +1,94 @@
+{
+  "frozen_at": "2026-10-05T23:04:52.616288+00:00",
+  "record": {
+    "slug": "meme-4fce8b0d59ea6825",
+    "resolved": false,
+    "canonical_name": "挖掘机里腌萝卜",
+    "aliases": [],
+    "definition": "把恐怖游戏约翰的农场中农场人物唱歌的声音听成挖掘机里腌萝卜的空耳梗；夸张的歌声与游戏中的飞扑画面形成喜感，音频也被配到动画、游戏等其他画面中。",
+    "usage_context": "跟着空耳唱法模仿，或把音频配给反差明显的动画和游戏场景。",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [
+      {
+        "url": "https://www.bilibili.com/video/BV1FNHizGE9e",
+        "role": "derivative",
+        "note": "史蒂夫的农场（源画面引用，不作首次出处断言）"
+      }
+    ],
+    "evidence_map": {
+      "ocr-narration-BV1sRpjzFEKA": null,
+      "ocr-BV1FNHizGE9e": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "把恐怖游戏约翰的农场中农场人物唱歌的声音听成挖掘机里腌萝卜的空耳梗；夸张的歌声与游戏中的飞扑画面形成喜感，音频也被配到动画、游戏等其他画面中。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1sRpjzFEKA"
+        ]
+      },
+      {
+        "key": "usage_context",
+        "statement": "跟着空耳唱法模仿，或把音频配给反差明显的动画和游戏场景。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1sRpjzFEKA"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "event_type": "remix",
+        "description": "挖掘机里腌萝卜出现衍生作品《史蒂夫的农场》",
+        "occurred_at_start": "2025-09-11 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1FNHizGE9e"
+        ]
+      }
+    ],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "挖掘机里腌萝卜"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "挖掘机里腌萝卜的出处"
+      ],
+      "description": [],
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV1sRpjzFEKA"
+      ],
+      "draft_basis": [
+        "006.0s 来源于一个外国恐怖游戏《约翰的农场》",
+        "017.0s 主角就能看到农场上站着一个奇怪的人",
+        "025.0s 唱着经典儿歌《Old Macdonald Had a Farm 》的变调版",
+        "029.0s 而这个变调版的歌词听起来就好像“挖掘机里腌萝卜”",
+        "040.0s 于是乎最近网友就把这段音频单独扒出来",
+        "067.0s 挖掘机里腌萝卜咿呀咿呀哟"
+      ],
+      "draft_notes": "004-结束\n6titleframe JOHAN'S FARM,17model,29illustratedradishpun supportgamecontext/mechanism;25OldMacDonaldimage context only notoriginalrecordingprovenance.40BV1DFpEzyEmE resolvesTrue titleonly/no uploader/date:omit event/source until usablemetadata,raw unchanged.61exactminecraftclip uploader鬼影铠甲 matches,derivative. No originalaudioauthor/uploaddate;firstoriginunknown.\nExcluded references: {}",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未知，不把衍生投稿日期当作首次来源",
+        "同一Codex冻结草稿后另次证据复核，独立性有限",
+        "本批不生成评测描述查询；人工查询文件原字节保留"
+      ],
+      "draft_origin_sha256": "1e1b16959e23bc88ecf66befa1a8e4da2cd0c066a017e5e412fba2b6cc7b6358"
+    }
+  }
+}

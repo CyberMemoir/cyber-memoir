@@ -1,0 +1,86 @@
+slug: meme-23284ef736028fa9
+resolved: false
+canonical_name: 画我的奶奶
+aliases: []
+definition: 把请求画奶奶的投稿和一本正经的绘画解说配到人物小纸片、夸张翅膀及宠物组合上，利用请求的平常语气与画面造型的反差制造笑点；改编会换成不同人物或虚构角色。
+usage_context: 套用画奶奶的请求与逐步展示翅膀、人物、宠物的叙述结构，制作角色拼贴和配音改编。
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources: []
+evidence_map:
+  ocr-narration-BV14ZtJzpEL2: null
+claims:
+- key: definition
+  statement: 把请求画奶奶的投稿和一本正经的绘画解说配到人物小纸片、夸张翅膀及宠物组合上，利用请求的平常语气与画面造型的反差制造笑点；改编会换成不同人物或虚构角色。
+  stance: supports
+  evidence:
+  - ocr-narration-BV14ZtJzpEL2
+- key: usage_context
+  statement: 套用画奶奶的请求与逐步展示翅膀、人物、宠物的叙述结构，制作角色拼贴和配音改编。
+  stance: supports
+  evidence:
+  - ocr-narration-BV14ZtJzpEL2
+events: []
+relations: []
+gold:
+  canonical:
+  - 画我的奶奶
+  alias: []
+  origin_intent:
+  - 画我的奶奶的出处
+  description: []
+  must_not_return: []
+curation:
+  curator: ''
+  confirmed_by: ''
+  drafted_by: codex
+  source_episodes:
+  - BV14ZtJzpEL2
+  draft_basis:
+  - 013.0s 具体画的内容呢就是通过粉丝发的照片来画一个小纸片人
+  - 018.0s 并配上一个大蝴蝶翅膀
+  - 024.0s 视频的内容是一个粉丝希望让博主画她的奶奶
+  - 028.0s 却放了一张那艺娜的照片
+  - 034.0s 投稿
+  - 057.0s 这其中呢那艺娜的肖像和原图对比可以说是非常传神
+  - 062.0s 而用另一个网红少羽的脸组成的大翅膀
+  - 068.0s 在配合博主一贯以来的那种一本正经的解说语气
+  - 076.0s 于是乎网友们便把这段音频单独截出来
+  - 081.0s 配合各种各样其他的角色一起组合成各种各样的“画我的奶奶”
+  draft_notes: '001-结束
+
+    All zero URL citations explicit episodebinding. Portrait/wing composition observed,not
+    actual family relationship or character identity fact. Profile星彤/Jul18 narration
+    not exact firstpost, no creator/date/events asserted. Derivative handles without
+    exact URLs omitted. Firstoriginunknown.
+
+    Excluded references: {}'
+  ingestion_ok: true
+  findings:
+  - 出处未知，不把衍生投稿日期当作首次来源
+  - 同一Codex冻结草稿后另次证据复核，独立性有限
+  - 本批不生成评测描述查询；人工查询文件原字节保留
+  draft_origin_sha256: 2abf3ce705c0e361419ddfc5f814711be360d5b26c8c015f14b9776a1c28e73d
+  automated_review:
+    reviewer: codex
+    decision: accept
+    reviewed_at: '2026-10-06'
+    review_started_at: '2026-10-06T11:35:43.983633+00:00'
+    method: same_model_frozen_passes
+    limitations: Same model; separate frozen passes, not human or independent-model
+      review.
+    frozen_draft:
+      path: evals/reviews/meme-23284ef736028fa9.json
+      sha256: 1c526e841ca6834aaf09f5578487f77ac3aa1a926febb194d5bb5ada2ac5daac
+    checks:
+      identity: 冻稿后重读13/24/34/50/57/68/81/90s画面，纸片人物、脸形翅膀和人物替换可见。
+      meaning: 请求和一本正经解说的反差支持模板，不将奶奶投稿当真实亲属关系。
+      usage: 使用场景逐条与解说和源帧核对，仅限该模板或片段机制。
+      origins: 无可验证首次出处，保留unknown；不把原作者标签或最早可见二创日期当首发。
+      events: 无精确首发或二创URL，零lineage保留明确episode绑定，不造个人首创和事件日期。
+      queries: 本批未生成描述评测查询；description为空，不把canonical/origin意图查询当人工描述。人工_descriptions.yaml字节保留。
+    fingerprint: 55d8ee169799c98139e812bf3cb0e20fb2108a13302fd7ff32656ac7eb38eb86

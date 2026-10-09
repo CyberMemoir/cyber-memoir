@@ -1,0 +1,111 @@
+{
+  "frozen_at": "2026-10-05T23:04:52.515377+00:00",
+  "record": {
+    "slug": "meme-6d1df214862a537a",
+    "resolved": false,
+    "canonical_name": "钢塞超人",
+    "aliases": [],
+    "definition": "以超级大坏蛋中伪装成超人的角色登场、气浪扬起披风的场景为基础，在重新配音或剪辑中加入掉落的金属塞子等成人暗示，形成钢塞超人的恶搞设定；二创还会替换角色、台词或城市背景。",
+    "usage_context": "用夸张登场和重新配音制造反差，或把其他角色套进同一对话与动作模板。",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [
+      {
+        "url": "https://www.bilibili.com/video/BV1rwW5zDE23",
+        "role": "derivative",
+        "note": "在前文明你只能算是萝莉（源画面引用，不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV16SWNzoEWb",
+        "role": "derivative",
+        "note": "我说了，在审判庭上你只能算是萝莉（源画面引用，不作首次出处断言）"
+      }
+    ],
+    "evidence_map": {
+      "ocr-narration-BV1UMJCzvEHn": null,
+      "ocr-BV1rwW5zDE23": null,
+      "ocr-BV16SWNzoEWb": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "以超级大坏蛋中伪装成超人的角色登场、气浪扬起披风的场景为基础，在重新配音或剪辑中加入掉落的金属塞子等成人暗示，形成钢塞超人的恶搞设定；二创还会替换角色、台词或城市背景。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1UMJCzvEHn"
+        ]
+      },
+      {
+        "key": "usage_context",
+        "statement": "用夸张登场和重新配音制造反差，或把其他角色套进同一对话与动作模板。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1UMJCzvEHn"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "event_type": "remix",
+        "description": "钢塞超人出现衍生作品《在前文明你只能算是萝莉》",
+        "occurred_at_start": "2025-09-19 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1rwW5zDE23"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "钢塞超人出现衍生作品《我说了，在审判庭上你只能算是萝莉》",
+        "occurred_at_start": "2025-09-18 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV16SWNzoEWb"
+        ]
+      }
+    ],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "钢塞超人"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "钢塞超人的出处"
+      ],
+      "description": [],
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV1UMJCzvEHn"
+      ],
+      "draft_basis": [
+        "026.0s 正当这个危急关头这坏蛋化身成之前的超人驾临战场",
+        "029.0s 这个场景在2019年被作为切片上传之后",
+        "036.0s 大气震动丝带飘扬",
+        "039.0s 最早是有人做了个他崩出一个巨响的回音屁的视频",
+        "049.0s 或者是添个掉在地上的钢制塞子都是十分之浑然天成",
+        "057.0s 在最后一集该场景中他也是加上了个粉色钢制塞子",
+        "067.0s 这钢塞超人”就应运而生成了一个梗"
+      ],
+      "draft_notes": "003-139s\nMovieclip screenshot supports scene context,not exactfirstsourceURL/date. Reggles/profile and other foreigncreator labels not verified originaluploads;omit firstcreator/year claims. 77frame天宇月光不是日光 vs metadata天宇月光不是天宇 mismatch:omitBV1hmtQzJEPm event/source.99unresolved omitted. Frame111rw lowerw and131WNzo lowercaseo exactIDs;uppercasevariants unresolved,not interchangeable. Firstoriginunknown.\nExcluded references: {}",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未知，不把衍生投稿日期当作首次来源",
+        "同一Codex冻结草稿后另次证据复核，独立性有限",
+        "本批不生成评测描述查询；人工查询文件原字节保留"
+      ],
+      "draft_origin_sha256": "1e1b16959e23bc88ecf66befa1a8e4da2cd0c066a017e5e412fba2b6cc7b6358"
+    }
+  }
+}

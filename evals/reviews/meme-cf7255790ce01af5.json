@@ -1,0 +1,109 @@
+{
+  "frozen_at": "2026-10-05T15:02:23.628559+00:00",
+  "record": {
+    "slug": "meme-cf7255790ce01af5",
+    "resolved": false,
+    "canonical_name": "蛋马野郎",
+    "aliases": [],
+    "definition": "把JOJO第七部动画预告中的赛马等场景，配上菜市场抢鸡蛋的文案或台词，改成抢鸡蛋大赛的二创梗。",
+    "usage_context": "用抢鸡蛋的日常场景恶搞预告中的竞赛和动作画面，也可复刻成其他游戏画面。",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [
+      {
+        "url": "https://www.bilibili.com/video/BV1BCHnzFELg",
+        "role": "derivative",
+        "note": "蛋马野郎（源画面引用，不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV14bH3zUEPS",
+        "role": "derivative",
+        "note": "抢鸡蛋大赛正式开始！！（源画面引用，不作首次出处断言）"
+      }
+    ],
+    "evidence_map": {
+      "ocr-narration-BV1REx7zWEkt": null,
+      "ocr-BV1BCHnzFELg": null,
+      "ocr-BV14bH3zUEPS": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "把JOJO第七部动画预告中的赛马等场景，配上菜市场抢鸡蛋的文案或台词，改成抢鸡蛋大赛的二创梗。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1REx7zWEkt"
+        ]
+      },
+      {
+        "key": "usage_context",
+        "statement": "用抢鸡蛋的日常场景恶搞预告中的竞赛和动作画面，也可复刻成其他游戏画面。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1REx7zWEkt"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "event_type": "remix",
+        "description": "蛋马野郎出现衍生作品《蛋马野郎》",
+        "occurred_at_start": "2025-10-01 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1BCHnzFELg"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "蛋马野郎出现衍生作品《抢鸡蛋大赛正式开始！！》",
+        "occurred_at_start": "2025-10-03 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV14bH3zUEPS"
+        ]
+      }
+    ],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "蛋马野郎"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "蛋马野郎的出处"
+      ],
+      "description": [],
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV1REx7zWEkt"
+      ],
+      "draft_basis": [
+        "001.0s 蛋马野郎",
+        "026.0s 比如主角乔尼的轴对称胖脸",
+        "035.0s 比如众人赛马",
+        "042.0s “菜市场抢鸡蛋”",
+        "049.0s 把pV画面截出来"
+      ],
+      "draft_notes": "001-126s\nFans subjectivequality complaints not objectivequality facts;omitreleasechronology/currentstate/budget/voiceactor assertions. Exact1 inBV1BCHnzFELg57s;falsei56sOCR retainednotused. 127sBV14WJSzUE5W separate会说会动制作社 joke withnoeggtext,exclude derivative event. Noofficial endorsement orfirstcreator assertion.\nExcluded references: {}",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未知，不把衍生投稿日期当作首次来源",
+        "同一Codex冻结草稿后另次证据复核，独立性有限",
+        "本批不生成评测描述查询；人工查询文件原字节保留"
+      ],
+      "draft_origin_sha256": "1080d30b2a766a6a85d2d828c8dc7b906a25168e4fd48a78ce435e1c74e98474"
+    }
+  }
+}
