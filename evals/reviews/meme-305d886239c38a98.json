@@ -1,0 +1,121 @@
+{
+  "frozen_at": "2026-10-06T11:35:35.701250+00:00",
+  "record": {
+    "slug": "meme-305d886239c38a98",
+    "resolved": false,
+    "canonical_name": "鸽子神压力",
+    "aliases": [],
+    "definition": "围绕火影手游解说片段中反复喊压力和夸张碎念的声音，把兴奋的口头表达做成配音、调音和角色演唱素材；八连臭火之歌是其中将碎念与音乐结合的改编形式。",
+    "usage_context": "用夸张喊压力的音频表达对局中的兴奋或玩梗式压力，也可将碎念调音或换成其他角色演唱。",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [
+      {
+        "url": "https://www.bilibili.com/video/BV1zGJGzaEbX",
+        "role": "reference",
+        "note": "八连臭火完整版（源画面引用，不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1GyGCzxEjM",
+        "role": "derivative",
+        "note": "诗朗诵《八连臭火之歌》（源画面引用，不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1zZgpzMEVM",
+        "role": "derivative",
+        "note": "🐧八连の臭火🐧（源画面引用，不作首次出处断言）"
+      }
+    ],
+    "evidence_map": {
+      "ocr-narration-BV1AVtwzhEBM": null,
+      "ocr-BV1zGJGzaEbX": null,
+      "ocr-BV1GyGCzxEjM": null,
+      "ocr-BV1zZgpzMEVM": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "围绕火影手游解说片段中反复喊压力和夸张碎念的声音，把兴奋的口头表达做成配音、调音和角色演唱素材；八连臭火之歌是其中将碎念与音乐结合的改编形式。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1AVtwzhEBM"
+        ]
+      },
+      {
+        "key": "usage_context",
+        "statement": "用夸张喊压力的音频表达对局中的兴奋或玩梗式压力，也可将碎念调音或换成其他角色演唱。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1AVtwzhEBM"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "event_type": "remix",
+        "description": "鸽子神压力出现衍生作品《诗朗诵《八连臭火之歌》》",
+        "occurred_at_start": "2025-04-30 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1GyGCzxEjM"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "鸽子神压力出现衍生作品《🐧八连の臭火🐧》",
+        "occurred_at_start": "2025-07-23 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1zZgpzMEVM"
+        ]
+      }
+    ],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "鸽子神压力"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "鸽子神压力的出处"
+      ],
+      "description": [],
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV1AVtwzhEBM"
+      ],
+      "draft_basis": [
+        "046.4s 便算是他的一个即兴口头禅",
+        "048.4s 在对局中极度兴奋的时候就会开始叫唤",
+        "053.2s 打得上头的他配合着",
+        "056.1s 《Barricades》",
+        "058.1s 说出了一大堆不明觉厉的东西",
+        "078.4s 加上了他的八字真言后",
+        "080.3s 一转成为了“八连臭火之歌”",
+        "103.5s 被网友们各种玩梗",
+        "105.5s 甚至用ai让其他的角色也唱起了八连臭火",
+        "108.4s 而鸽子神自己的音频也是不断推陈出新",
+        "112.2s 出现了越来越多奇奇怪怪的小曲"
+      ],
+      "draft_notes": "045-结束；001-039s博主背景和火灾叙述不作事实\n78长星五灵王 reference rendition,not firstorigin;102爱吃又- and148防傻贴士 match.106一只co子 vs平台一只Co子 and108凉凉凉Offical vsOfficial conservative omit.155敖氵闰上 vs metadata敖氵闰l上 conflict omit.35fireclip unrelated;170citation appears later boundary not borrowed. HQ malformed IDs/unresolved exactcase variants omit. No illness claims/creatorbiography/viral chronology. Firstoriginunknown.\nExcluded references: {}",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未知，不把衍生投稿日期当作首次来源",
+        "同一Codex冻结草稿后另次证据复核，独立性有限",
+        "本批不生成评测描述查询；人工查询文件原字节保留"
+      ],
+      "draft_origin_sha256": "2abf3ce705c0e361419ddfc5f814711be360d5b26c8c015f14b9776a1c28e73d"
+    }
+  }
+}

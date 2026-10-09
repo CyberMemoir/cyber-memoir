@@ -1,0 +1,82 @@
+{
+  "frozen_at": "2026-10-06T03:10:40.416613+00:00",
+  "record": {
+    "slug": "meme-f7355ae41b50b6d4",
+    "resolved": false,
+    "canonical_name": "去火丝瓜汤",
+    "aliases": [],
+    "definition": "围绕家庭小剧场中长辈反复劝人喝丝瓜汤、把不同情绪和不适都归到需要去火的说法，把什么事都劝喝丝瓜汤变成笑点；二创会改成职场、动画等场景，重复催喝与拒绝的互动。",
+    "usage_context": "模仿长辈不断劝吃劝喝的对话，或用一碗丝瓜汤回应各种无关烦恼来制造反差。",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [],
+    "evidence_map": {
+      "ocr-narration-BV1TVYTzYEHt": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "围绕家庭小剧场中长辈反复劝人喝丝瓜汤、把不同情绪和不适都归到需要去火的说法，把什么事都劝喝丝瓜汤变成笑点；二创会改成职场、动画等场景，重复催喝与拒绝的互动。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1TVYTzYEHt"
+        ]
+      },
+      {
+        "key": "usage_context",
+        "statement": "模仿长辈不断劝吃劝喝的对话，或用一碗丝瓜汤回应各种无关烦恼来制造反差。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1TVYTzYEHt"
+        ]
+      }
+    ],
+    "events": [],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "去火丝瓜汤"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "去火丝瓜汤的出处"
+      ],
+      "description": [],
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV1TVYTzYEHt"
+      ],
+      "draft_basis": [
+        "005.0s 源头呢是这么一个小剧场视频",
+        "007.0s 模仿了家里很多长辈的经典行为模式",
+        "050.0s 其中一直围绕着丝瓜汤进行讨论",
+        "052.0s 并匹配了不同的角色",
+        "055.0s 跟你说什么什么去火",
+        "057.0s 也得一直催着你吃的家长呢？",
+        "059.0s 而就因为这个丝瓜汤去火",
+        "064.0s 什么事都要来口丝瓜汤",
+        "070.0s 甚至还有了不少",
+        "071.0s 因此产生的二创和翻拍",
+        "110.0s 哎丝瓜汤啊",
+        "120.0s 那你是肝火太旺了"
+      ],
+      "draft_notes": "003-结束\n3profile累渠_ attribution and7-50skit/64music/70office/90realremake/110animation visuallyread. Zero exactprimary/derivativeBV,zero refs doesn't mean no evidence;explicit episodebinding. Healthphrases are fictionalcomedy,not dietaryefficacy/diagnosis/advice. Omit authorpsychology/currentpopularity/year/firstorigin. Firstoriginunknown.\nExcluded references: {}",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未知，不把衍生投稿日期当作首次来源",
+        "同一Codex冻结草稿后另次证据复核，独立性有限",
+        "本批不生成评测描述查询；人工查询文件原字节保留"
+      ],
+      "draft_origin_sha256": "3fe2348e4fd951ce0c26107127411e60609195d0b95e1ff98826cfd2420d0b4e"
+    }
+  }
+}

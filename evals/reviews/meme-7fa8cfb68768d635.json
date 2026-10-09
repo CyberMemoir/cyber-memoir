@@ -1,0 +1,134 @@
+{
+  "frozen_at": "2026-10-06T03:10:40.540650+00:00",
+  "record": {
+    "slug": "meme-7fa8cfb68768d635",
+    "resolved": false,
+    "canonical_name": "东方邪修与西方恶魔",
+    "aliases": [],
+    "definition": "在虚构小剧场或改图中，把东方玄幻邪修与西方魔幻中的恶魔、反派放在一起比较，夸张表现前者手段离谱、后者反而显得规矩，借战力和行事方式的反差制造笑点。",
+    "usage_context": "把不同幻想作品里的反派设定放进夸张对比，创作互相惊讶或颠倒强弱的小剧场。",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [
+      {
+        "url": "https://www.bilibili.com/video/BV18BN4e8EsW",
+        "role": "derivative",
+        "note": "当东方邪修穿越西方世界（源画面引用，不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1MCPeejEC9",
+        "role": "derivative",
+        "note": "当西方邪修遇到东方邪修（源画面引用，不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1HaPMeZExT",
+        "role": "derivative",
+        "note": "当东方邪修遇上西方邪修（源画面引用，不作首次出处断言）"
+      }
+    ],
+    "evidence_map": {
+      "ocr-narration-BV1pGabzSEQZ": null,
+      "ocr-BV18BN4e8EsW": null,
+      "ocr-BV1MCPeejEC9": null,
+      "ocr-BV1HaPMeZExT": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "在虚构小剧场或改图中，把东方玄幻邪修与西方魔幻中的恶魔、反派放在一起比较，夸张表现前者手段离谱、后者反而显得规矩，借战力和行事方式的反差制造笑点。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1pGabzSEQZ"
+        ]
+      },
+      {
+        "key": "usage_context",
+        "statement": "把不同幻想作品里的反派设定放进夸张对比，创作互相惊讶或颠倒强弱的小剧场。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1pGabzSEQZ"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "event_type": "remix",
+        "description": "东方邪修与西方恶魔出现衍生作品《当东方邪修穿越西方世界》",
+        "occurred_at_start": "2025-02-07 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV18BN4e8EsW"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "东方邪修与西方恶魔出现衍生作品《当西方邪修遇到东方邪修》",
+        "occurred_at_start": "2025-02-25 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1MCPeejEC9"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "东方邪修与西方恶魔出现衍生作品《当东方邪修遇上西方邪修》",
+        "occurred_at_start": "2025-02-22 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1HaPMeZExT"
+        ]
+      }
+    ],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "东方邪修与西方恶魔"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "东方邪修与西方恶魔的出处"
+      ],
+      "description": [],
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV1pGabzSEQZ"
+      ],
+      "draft_basis": [
+        "086.0s 除了上面常见的玩梗方式以外呢",
+        "088.0s 还有第二种用法",
+        "089.0s 就是把东方玄幻小说的邪修",
+        "090.0s 与西方魔幻小说的恶魔",
+        "092.0s 或者反派对比起来",
+        "099.0s 但和国内的邪修著作中的邪修人士比",
+        "102.0s 那简直不在一个位面上",
+        "103.0s 东方邪修一个招魂幡",
+        "106.0s 反观西方恶魔",
+        "107.0s 还得满足愿望",
+        "108.0s 还得签订契约",
+        "112.0s 在东方邪修一比",
+        "115.0s 于是广天网友将这种对比",
+        "117.0s 效果也是非常拔群"
+      ],
+      "draft_notes": "086-结束\n89dogeditedscene/103actedskit/115dogart/119actedskit supportsfictionalcomparison;do notassert HarryPottercanon/moralranking/actualreligion/populationcausation.89BV1QpQfYXEFm unresolved omit. Genericlifehackpreceding85 belongsseparaterecord. Firstoriginunknown.\nExcluded references: {}",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未知，不把衍生投稿日期当作首次来源",
+        "同一Codex冻结草稿后另次证据复核，独立性有限",
+        "本批不生成评测描述查询；人工查询文件原字节保留"
+      ],
+      "draft_origin_sha256": "3fe2348e4fd951ce0c26107127411e60609195d0b95e1ff98826cfd2420d0b4e"
+    }
+  }
+}

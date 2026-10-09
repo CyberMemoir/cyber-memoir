@@ -1,0 +1,112 @@
+{
+  "frozen_at": "2026-10-06T10:08:30.534909+00:00",
+  "record": {
+    "slug": "meme-a1caa030834dca1d",
+    "resolved": false,
+    "canonical_name": "第一杯敬自己",
+    "aliases": [],
+    "definition": "用举杯面向镜头、按第一杯第二杯等顺序敬自己的结构，逐项讲述生活中的辛酸或倒霉经历；改编也会让动物或虚构角色套用同一格式，转向自嘲和剧情吐槽。",
+    "usage_context": "按杯数列举个人感慨，或替角色编写经历清单进行自嘲和剧情玩梗。",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [
+      {
+        "url": "https://www.bilibili.com/video/BV1FibnznEQy",
+        "role": "reference",
+        "note": "这一杯敬自己平凡普通的前半生。（源画面引用，不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1G9tczVE73",
+        "role": "reference",
+        "note": "敬自己一杯（源画面引用，不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1BQtuz2E6M",
+        "role": "reference",
+        "note": "敬过去痛苦的自己五杯（源画面引用，不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV17nYYz9EYV",
+        "role": "derivative",
+        "note": "小猫版「第一杯敬自己」（源画面引用，不作首次出处断言）"
+      }
+    ],
+    "evidence_map": {
+      "ocr-narration-BV1UwY2zVEDx": null,
+      "ocr-BV1FibnznEQy": null,
+      "ocr-BV1G9tczVE73": null,
+      "ocr-BV1BQtuz2E6M": null,
+      "ocr-BV17nYYz9EYV": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "用举杯面向镜头、按第一杯第二杯等顺序敬自己的结构，逐项讲述生活中的辛酸或倒霉经历；改编也会让动物或虚构角色套用同一格式，转向自嘲和剧情吐槽。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1UwY2zVEDx"
+        ]
+      },
+      {
+        "key": "usage_context",
+        "statement": "按杯数列举个人感慨，或替角色编写经历清单进行自嘲和剧情玩梗。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1UwY2zVEDx"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "event_type": "remix",
+        "description": "第一杯敬自己出现衍生作品《小猫版「第一杯敬自己」》",
+        "occurred_at_start": "2025-08-16 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV17nYYz9EYV"
+        ]
+      }
+    ],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "第一杯敬自己"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "第一杯敬自己的出处"
+      ],
+      "description": [],
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV1UwY2zVEDx"
+      ],
+      "draft_basis": [
+        "001.0s 第一杯敬自己",
+        "006.0s 大致内容呢就是主角拿着酒杯",
+        "010.0s 就会配合一句“第x杯敬自己”",
+        "089.0s 因为想必大家人生中",
+        "098.0s 很快也是一个接一个地模仿起来",
+        "109.0s 将其套用在各种各样的角色身上"
+      ],
+      "draft_notes": "001-134s\nVideoaccounts are narration/storytelling, not independentlyverified lifeevents or drinkingadvice.54 unresolvedID omitted;117小池0K1 vsmetadata小池OK1 ambiguous identity omitted.109 exactlowerz resolvescat template;uppercaseZnearID unresolved excluded. Referenceexamples notfirstorigin; no popularity/timeclaims. Firstoriginunknown.\nExcluded references: {}",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未知，不把衍生投稿日期当作首次来源",
+        "同一Codex冻结草稿后另次证据复核，独立性有限",
+        "本批不生成评测描述查询；人工查询文件原字节保留"
+      ],
+      "draft_origin_sha256": "b92a6c53144b2ff7c046d1d6a3cefbafcdbb84e601248c5a8a11414f4b194f5c"
+    }
+  }
+}

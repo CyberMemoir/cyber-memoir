@@ -1,0 +1,73 @@
+{
+  "frozen_at": "2026-10-06T08:03:11.232665+00:00",
+  "record": {
+    "slug": "meme-af76869a85eec2cd",
+    "resolved": false,
+    "canonical_name": "天使兄弟爆衣换头图",
+    "aliases": [],
+    "definition": "截取天使兄弟变身中左右对称、衣服敞开的同一帧，把两人的头替换成其他角色，或围绕中间照片排成拼图，用固定身体姿势与新人物头像的反差制造笑点。",
+    "usage_context": "给双人角色或好友照片制作换头表情图、对称拼图。",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [],
+    "evidence_map": {
+      "ocr-narration-BV1BXevzYEEQ": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "截取天使兄弟变身中左右对称、衣服敞开的同一帧，把两人的头替换成其他角色，或围绕中间照片排成拼图，用固定身体姿势与新人物头像的反差制造笑点。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1BXevzYEEQ"
+        ]
+      },
+      {
+        "key": "usage_context",
+        "statement": "给双人角色或好友照片制作换头表情图、对称拼图。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1BXevzYEEQ"
+        ]
+      }
+    ],
+    "events": [],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "天使兄弟爆衣换头图"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "天使兄弟爆衣换头图的出处"
+      ],
+      "description": [],
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV1BXevzYEEQ"
+      ],
+      "draft_basis": [
+        "008.0s 最近有一个梗图模板非常火啊",
+        "103.0s 还有网友单独将这一帧画面截图出来",
+        "106.0s 将头p成其他角色"
+      ],
+      "draft_notes": "008s introduction;103-107s static template\nStatic screenshot mechanism explicitly narrated and visually distinct from moving transformation at98/132+. Zero lineage with explicit episode evidence binding; do not borrow animation derivative citations as proof of static-image authorship. No exact original template URL, creator/date unknown. Firstoriginunknown.\nExcluded references: {}",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未知，不把衍生投稿日期当作首次来源",
+        "同一Codex冻结草稿后另次证据复核，独立性有限",
+        "本批不生成评测描述查询；人工查询文件原字节保留"
+      ],
+      "draft_origin_sha256": "830f37d8604661d0990c1d4958f14134b1ec462b5a2d645ae06ff733fcfc8afe"
+    }
+  }
+}

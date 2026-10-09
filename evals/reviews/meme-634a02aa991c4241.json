@@ -1,0 +1,125 @@
+{
+  "frozen_at": "2026-10-06T10:08:30.595014+00:00",
+  "record": {
+    "slug": "meme-634a02aa991c4241",
+    "resolved": false,
+    "canonical_name": "印度3A游戏撩头发",
+    "aliases": [],
+    "definition": "围绕《释放阿凡达》展示片段中角色闪避后撩头发的夸张动作，把其他游戏或动画人物替换进同一场景，或把动作放进改图中，调侃战斗中的耍帅表演。",
+    "usage_context": "让不同角色重演闪避后撩头发的动作，制作角色替换视频或夸张耍帅改图。",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [
+      {
+        "url": "https://www.bilibili.com/video/BV1csb5zeEBF",
+        "role": "derivative",
+        "note": "印度3a大作，但是雷电，十分甚至九分帅气（源画面引用，不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV18Xt9z9Et7",
+        "role": "derivative",
+        "note": "邦多利首款“3A大作”《释放MYGO》实机演示（源画面引用，不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV16GtozUEZE",
+        "role": "derivative",
+        "note": "【明日方舟】百！年！一！遇！的！大！帅！哥！（源画面引用，不作首次出处断言）"
+      }
+    ],
+    "evidence_map": {
+      "ocr-narration-BV1EEtozyEvi": null,
+      "ocr-BV1csb5zeEBF": null,
+      "ocr-BV18Xt9z9Et7": null,
+      "ocr-BV16GtozUEZE": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "围绕《释放阿凡达》展示片段中角色闪避后撩头发的夸张动作，把其他游戏或动画人物替换进同一场景，或把动作放进改图中，调侃战斗中的耍帅表演。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1EEtozyEvi"
+        ]
+      },
+      {
+        "key": "usage_context",
+        "statement": "让不同角色重演闪避后撩头发的动作，制作角色替换视频或夸张耍帅改图。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1EEtozyEvi"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "event_type": "remix",
+        "description": "印度3A游戏撩头发出现衍生作品《印度3a大作，但是雷电，十分甚至九分帅气》",
+        "occurred_at_start": "2025-08-11 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1csb5zeEBF"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "印度3A游戏撩头发出现衍生作品《邦多利首款“3A大作”《释放MYGO》实机演示》",
+        "occurred_at_start": "2025-08-12 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV18Xt9z9Et7"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "印度3A游戏撩头发出现衍生作品《【明日方舟】百！年！一！遇！的！大！帅！哥！》",
+        "occurred_at_start": "2025-08-12 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV16GtozUEZE"
+        ]
+      }
+    ],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "印度3A游戏撩头发"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "印度3A游戏撩头发的出处"
+      ],
+      "description": [],
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV1EEtozyEvi"
+      ],
+      "draft_basis": [
+        "019.0s 其中的这个完美闪避的片段更是让大伙都绷不住啦",
+        "025.0s 真怕下一秒就开始",
+        "030.0s 很快啊这一个撩头发的动作就已经被网友们反复整活",
+        "034.0s 目前大伙是利用ai将各种各样的其他角色替换到游戏主角上",
+        "081.0s 但相信很快啊其他的二创也会有了呀"
+      ],
+      "draft_notes": "019-087s\n3A is meme label not validatedquality/budget classification; omitnationalstereotype/government/game-releaseyear/availability/religiousetymology.15YouTube screenshot has noexactURL,notprovenoriginalupload.58游戏大排名 vsmetadata任地狱_ conflict excludesBV1Vwb5zJEUu.41/45 and81/82 unresolvedIDs excluded.34/48/70 exactIDs/authors matchmetadata; uppercaseZ70nearvariant excluded. Firstoriginunknown.\nExcluded references: {}",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未知，不把衍生投稿日期当作首次来源",
+        "同一Codex冻结草稿后另次证据复核，独立性有限",
+        "本批不生成评测描述查询；人工查询文件原字节保留"
+      ],
+      "draft_origin_sha256": "b92a6c53144b2ff7c046d1d6a3cefbafcdbb84e601248c5a8a11414f4b194f5c"
+    }
+  }
+}

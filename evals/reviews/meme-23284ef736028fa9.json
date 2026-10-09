@@ -1,0 +1,80 @@
+{
+  "frozen_at": "2026-10-06T11:35:35.713915+00:00",
+  "record": {
+    "slug": "meme-23284ef736028fa9",
+    "resolved": false,
+    "canonical_name": "画我的奶奶",
+    "aliases": [],
+    "definition": "把请求画奶奶的投稿和一本正经的绘画解说配到人物小纸片、夸张翅膀及宠物组合上，利用请求的平常语气与画面造型的反差制造笑点；改编会换成不同人物或虚构角色。",
+    "usage_context": "套用画奶奶的请求与逐步展示翅膀、人物、宠物的叙述结构，制作角色拼贴和配音改编。",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [],
+    "evidence_map": {
+      "ocr-narration-BV14ZtJzpEL2": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "把请求画奶奶的投稿和一本正经的绘画解说配到人物小纸片、夸张翅膀及宠物组合上，利用请求的平常语气与画面造型的反差制造笑点；改编会换成不同人物或虚构角色。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV14ZtJzpEL2"
+        ]
+      },
+      {
+        "key": "usage_context",
+        "statement": "套用画奶奶的请求与逐步展示翅膀、人物、宠物的叙述结构，制作角色拼贴和配音改编。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV14ZtJzpEL2"
+        ]
+      }
+    ],
+    "events": [],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "画我的奶奶"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "画我的奶奶的出处"
+      ],
+      "description": [],
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV14ZtJzpEL2"
+      ],
+      "draft_basis": [
+        "013.0s 具体画的内容呢就是通过粉丝发的照片来画一个小纸片人",
+        "018.0s 并配上一个大蝴蝶翅膀",
+        "024.0s 视频的内容是一个粉丝希望让博主画她的奶奶",
+        "028.0s 却放了一张那艺娜的照片",
+        "034.0s 投稿",
+        "057.0s 这其中呢那艺娜的肖像和原图对比可以说是非常传神",
+        "062.0s 而用另一个网红少羽的脸组成的大翅膀",
+        "068.0s 在配合博主一贯以来的那种一本正经的解说语气",
+        "076.0s 于是乎网友们便把这段音频单独截出来",
+        "081.0s 配合各种各样其他的角色一起组合成各种各样的“画我的奶奶”"
+      ],
+      "draft_notes": "001-结束\nAll zero URL citations explicit episodebinding. Portrait/wing composition observed,not actual family relationship or character identity fact. Profile星彤/Jul18 narration not exact firstpost, no creator/date/events asserted. Derivative handles without exact URLs omitted. Firstoriginunknown.\nExcluded references: {}",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未知，不把衍生投稿日期当作首次来源",
+        "同一Codex冻结草稿后另次证据复核，独立性有限",
+        "本批不生成评测描述查询；人工查询文件原字节保留"
+      ],
+      "draft_origin_sha256": "2abf3ce705c0e361419ddfc5f814711be360d5b26c8c015f14b9776a1c28e73d"
+    }
+  }
+}

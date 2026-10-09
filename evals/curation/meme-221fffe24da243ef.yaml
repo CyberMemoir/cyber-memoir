@@ -1,0 +1,115 @@
+slug: meme-221fffe24da243ef
+resolved: false
+canonical_name: 老奶奶打方向盘
+aliases: []
+definition: 以一位老奶奶转动方向盘时身体和手臂夸张扭动的画面为模板，把动作联想成武功起手式，并通过换头、动画重绘或添加武器等方式改编。
+usage_context: 用夸张的打方向盘姿势制作角色换头、动作模仿和动画二创。
+origin_status: unknown
+origin_type: unknown
+origin_ref: ''
+taxonomy: []
+platform_primary: bilibili
+material_path: ocr
+sources:
+- url: https://www.bilibili.com/video/BV1jth1zSEre
+  role: derivative
+  note: 薮猫酱打方向盘.mp4（源画面引用，不作首次出处断言）
+- url: https://www.bilibili.com/video/BV1L1e6zCEgM
+  role: derivative
+  note: 钩中了…（源画面引用，不作首次出处断言）
+- url: https://www.bilibili.com/video/BV1nnvKzdEXx
+  role: derivative
+  note: 🐧真的是…绕了好大一圈啊…🐧（源画面引用，不作首次出处断言）
+evidence_map:
+  ocr-narration-BV1bPh1zKEKB: null
+  ocr-BV1jth1zSEre: null
+  ocr-BV1L1e6zCEgM: null
+  ocr-BV1nnvKzdEXx: null
+claims:
+- key: definition
+  statement: 以一位老奶奶转动方向盘时身体和手臂夸张扭动的画面为模板，把动作联想成武功起手式，并通过换头、动画重绘或添加武器等方式改编。
+  stance: supports
+  evidence:
+  - ocr-narration-BV1bPh1zKEKB
+- key: usage_context
+  statement: 用夸张的打方向盘姿势制作角色换头、动作模仿和动画二创。
+  stance: supports
+  evidence:
+  - ocr-narration-BV1bPh1zKEKB
+events:
+- event_type: remix
+  description: 老奶奶打方向盘出现衍生作品《薮猫酱打方向盘.mp4》
+  occurred_at_start: 2025-08-28 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示投稿时间；不是首次出处或传播爆发时间
+  evidence:
+  - ocr-BV1jth1zSEre
+- event_type: remix
+  description: 老奶奶打方向盘出现衍生作品《钩中了…》
+  occurred_at_start: 2025-08-26 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示投稿时间；不是首次出处或传播爆发时间
+  evidence:
+  - ocr-BV1L1e6zCEgM
+- event_type: remix
+  description: 老奶奶打方向盘出现衍生作品《🐧真的是…绕了好大一圈啊…🐧》
+  occurred_at_start: 2025-08-26 00:00:00+08:00
+  time_precision: day
+  time_basis: 平台显示投稿时间；不是首次出处或传播爆发时间
+  evidence:
+  - ocr-BV1nnvKzdEXx
+relations: []
+gold:
+  canonical:
+  - 老奶奶打方向盘
+  alias: []
+  origin_intent:
+  - 老奶奶打方向盘的出处
+  description: []
+  must_not_return: []
+curation:
+  curator: ''
+  confirmed_by: ''
+  drafted_by: codex
+  source_episodes:
+  - BV1bPh1zKEKB
+  draft_basis:
+  - 026.0s 其中在7月20号这期视频里
+  - 028.0s 这位大娘在转弯的时候为了转方向盘
+  - 030.0s 把身体拧成了一个奇怪的姿势
+  - 042.0s 很多网友便将大娘这个打转盘的姿势截图下来
+  - 105.0s 乔尼
+  draft_notes: '001-结束
+
+    Driving scene not independently proven authentic; no exam outcome/safety instruction.
+    Coach profile has no exact primary URL; no creator/first-date assertion. Unresolved
+    BV1sA variants excluded; frame final spelling cannot be substituted by nearby
+    ID. BV1GfeyznEPJ conservatively omitted from proposed lineage pending unambiguous
+    author binding. Firstoriginunknown.
+
+    Excluded references: {}'
+  ingestion_ok: true
+  findings:
+  - 出处未知，不把衍生投稿日期当作首次来源
+  - 同一Codex冻结草稿后另次证据复核，独立性有限
+  - 本批不生成评测描述查询；人工查询文件原字节保留
+  draft_origin_sha256: 830f37d8604661d0990c1d4958f14134b1ec462b5a2d645ae06ff733fcfc8afe
+  automated_review:
+    reviewer: codex
+    decision: accept
+    reviewed_at: '2026-10-06'
+    review_started_at: '2026-10-06T08:03:20.624263+00:00'
+    method: same_model_frozen_passes
+    limitations: Same model; separate frozen passes, not human or independent-model
+      review.
+    frozen_draft:
+      path: evals/reviews/meme-221fffe24da243ef.json
+      sha256: a940483bd69782d290daf5e29dba193f0910eacdef81f19dca94e1fd59299c5c
+    checks:
+      identity: 26/28/30扭身转方向盘与42改图、46换头、68武器、98/105动画重绘复核；3教练profile缺首发URL，81-84引用大小写未解析排除。
+      meaning: 定义及用途由39动作似功夫、42截图、45角色换头支持；不确认驾考真实性/结果/日期或驾驶安全效果。
+      usage: 使用场景逐条与解说和源帧核对，仅限该模板或片段机制。
+      origins: 无可验证首次出处，保留unknown；不把原作者标签或最早可见二创日期当首发。
+      events: 仅46/68/98三条作者与精确ID匹配的衍生事件；50保守省略，不新增未冻引用。
+      queries: 本批未生成描述评测查询；description为空，不把canonical/origin意图查询当人工描述。人工_descriptions.yaml字节保留。
+    fingerprint: e94b0061977c1c735f96430468ddfda7b943599ed96fde343559972083eb9a2d

@@ -1,0 +1,164 @@
+{
+  "frozen_at": "2026-10-06T08:03:11.145001+00:00",
+  "record": {
+    "slug": "meme-a453a7933a9becf3",
+    "resolved": false,
+    "canonical_name": "哈基米山歌",
+    "aliases": [],
+    "definition": "把哈基米、南北绿豆等词串成夸张的山歌式翻唱，配上胖商人Morshu摆动身体、指手等动作；二创会换成其他角色、真人动作或不同歌词，保留歌曲与动作的组合。",
+    "usage_context": "制作角色舞蹈、真人动作模仿或换词翻唱，以重复歌词和夸张动作制造笑点。",
+    "origin_status": "unknown",
+    "origin_type": "unknown",
+    "origin_ref": "",
+    "taxonomy": [],
+    "platform_primary": "bilibili",
+    "material_path": "ocr",
+    "sources": [
+      {
+        "url": "https://www.bilibili.com/video/BV1urenz1Eaw",
+        "role": "derivative",
+        "note": "哈基米山歌（源画面引用，不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1QXTDzeEC2",
+        "role": "reference",
+        "note": "哈基米山歌这一块（源画面引用，不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1G3t2zzEUb",
+        "role": "derivative",
+        "note": "⚡哈基米哦南北绿豆⚡（源画面引用，不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1wjYvzNEut",
+        "role": "derivative",
+        "note": "“哈基米哦南北绿多”（源画面引用，不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1KueRzvEdo",
+        "role": "derivative",
+        "note": "吃了菌子做出来的🍄（源画面引用，不作首次出处断言）"
+      },
+      {
+        "url": "https://www.bilibili.com/video/BV1wUtnzEEUR",
+        "role": "derivative",
+        "note": "⚡️电子盐山歌⚡️（源画面引用，不作首次出处断言）"
+      }
+    ],
+    "evidence_map": {
+      "ocr-narration-BV1Gse2zpEeH": null,
+      "ocr-BV1urenz1Eaw": null,
+      "ocr-BV1QXTDzeEC2": null,
+      "ocr-BV1G3t2zzEUb": null,
+      "ocr-BV1wjYvzNEut": null,
+      "ocr-BV1KueRzvEdo": null,
+      "ocr-BV1wUtnzEEUR": null
+    },
+    "claims": [
+      {
+        "key": "definition",
+        "statement": "把哈基米、南北绿豆等词串成夸张的山歌式翻唱，配上胖商人Morshu摆动身体、指手等动作；二创会换成其他角色、真人动作或不同歌词，保留歌曲与动作的组合。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1Gse2zpEeH"
+        ]
+      },
+      {
+        "key": "usage_context",
+        "statement": "制作角色舞蹈、真人动作模仿或换词翻唱，以重复歌词和夸张动作制造笑点。",
+        "stance": "supports",
+        "evidence": [
+          "ocr-narration-BV1Gse2zpEeH"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "event_type": "remix",
+        "description": "哈基米山歌出现衍生作品《哈基米山歌》",
+        "occurred_at_start": "2025-08-25 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1urenz1Eaw"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "哈基米山歌出现衍生作品《⚡哈基米哦南北绿豆⚡》",
+        "occurred_at_start": "2025-08-08 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1G3t2zzEUb"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "哈基米山歌出现衍生作品《“哈基米哦南北绿多”》",
+        "occurred_at_start": "2025-08-16 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1wjYvzNEut"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "哈基米山歌出现衍生作品《吃了菌子做出来的🍄》",
+        "occurred_at_start": "2025-08-25 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1KueRzvEdo"
+        ]
+      },
+      {
+        "event_type": "remix",
+        "description": "哈基米山歌出现衍生作品《⚡️电子盐山歌⚡️》",
+        "occurred_at_start": "2025-08-05 00:00:00+08:00",
+        "time_precision": "day",
+        "time_basis": "平台显示投稿时间；不是首次出处或传播爆发时间",
+        "evidence": [
+          "ocr-BV1wUtnzEEUR"
+        ]
+      }
+    ],
+    "relations": [],
+    "gold": {
+      "canonical": [
+        "哈基米山歌"
+      ],
+      "alias": [],
+      "origin_intent": [
+        "哈基米山歌的出处"
+      ],
+      "description": [],
+      "must_not_return": []
+    },
+    "curation": {
+      "curator": "",
+      "confirmed_by": "",
+      "drafted_by": "codex",
+      "source_episodes": [
+        "BV1Gse2zpEeH"
+      ],
+      "draft_basis": [
+        "001.0s 哈基米莫南北绿豆",
+        "012.0s 哈基米山歌",
+        "036.0s Hi-Res他翻唱的版本呢",
+        "050.0s 而这段录音",
+        "058.0s 先说这段二者合一的洗脑视频",
+        "064.0s 有了ai换人"
+      ],
+      "draft_notes": "001-116s\nimJack cover is reference, not proven origin. Exclude generic Hachifilms intro and117+ unrelated Morshu history/YTP examples. QQ recording citation unresolved; no first uploader/date.64爱音official vs rul_kallos and66比鸡堡悍匪派大星 vs青酆-QingFeng identity conflicts omitted; uppercase Z citation not interchangeable. No long lyric quote or unproven history. Firstoriginunknown.\nExcluded references: {}",
+      "ingestion_ok": true,
+      "findings": [
+        "出处未知，不把衍生投稿日期当作首次来源",
+        "同一Codex冻结草稿后另次证据复核，独立性有限",
+        "本批不生成评测描述查询；人工查询文件原字节保留"
+      ],
+      "draft_origin_sha256": "830f37d8604661d0990c1d4958f14134b1ec462b5a2d645ae06ff733fcfc8afe"
+    }
+  }
+}
