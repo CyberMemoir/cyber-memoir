@@ -75,6 +75,10 @@ def test_demo_is_isolated_and_runs_real_search_review_and_worker(tmp_path):
                 assert "虚构" in detail["definition"]
                 assert detail["origin_status"] == "unknown"
                 assert detail["events"][0]["time_precision"] == "month"
+                atlas = client.get("/v1/universe").json()
+                assert len(atlas["galaxies"]) == 2
+                assert all(g["stars"] and g["emergence"]["date"] for g in atlas["galaxies"])
+                assert len(atlas["links"]) == 1
                 answer = client.post("/v1/answers", json={"query": "合成星灯"})
                 assert answer.status_code == 200, answer.text
                 assert answer.json()["citations"]

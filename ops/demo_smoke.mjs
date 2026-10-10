@@ -82,6 +82,7 @@ try {
   await expect(evidence.getByRole("status")).toHaveText("引用链接已复制。");
   const shared = await page.evaluate(() => navigator.clipboard.readText());
   expect(shared).toContain("?expected_revision=1#evidence-");
+  const publicId = new URL(shared).pathname.split("/").pop();
   await page.goto(shared);
   await expect(
     page.locator('.evidence-box[aria-current="true"]'),
@@ -91,6 +92,11 @@ try {
   await page.setViewportSize({ width: 390, height: 844 });
   await noOverflow();
   await capture("demo-detail-mobile.png");
+
+  await page.goto(`/universe?meme=${publicId}`);
+  await expect(page.locator(".milestone-rail")).toBeVisible();
+  await expect(page.locator('.star[data-kind="source"]').first()).toBeVisible();
+  await noOverflow();
 
   await page.goto("/review");
   await page.getByLabel("审核者令牌").fill("local-synthetic-demo-only");

@@ -39,7 +39,14 @@ def seed(db):
         evidence = add_material(
             db,
             source.id,
-            Material(text=f"{definition}\n{usage}", locator={"note": "合成演示摘录，非真实证据"}),
+            Material(
+                text=(
+                    f"{definition}\n{usage}\n"
+                    "本演示条目由这份虚构材料构建，关系仅为软件夹具。"
+                    + ("虚构的星灯续章由星灯亮起衍生，非真实文化事实。" if index == 1 else "")
+                ),
+                locator={"note": "合成演示摘录，非真实证据"},
+            ),
             {"method": "synthetic_demo", "not_real_cultural_evidence": True},
             enqueue_extract=False,
         )
@@ -69,13 +76,19 @@ def seed(db):
                     "target_type": "source",
                     "target_id": source.id,
                     "evidence_ids": [evidence.id],
-                }
+                },
+                {
+                    "predicate": "derived_from",
+                    "target_type": "source",
+                    "target_id": source.id,
+                    "evidence_ids": [evidence.id],
+                },
             ],
         }
         if index == 1:
             payload["relations"].append(
                 {
-                    "predicate": "variant_of",
+                    "predicate": "derived_from",
                     "target_type": "meme",
                     "target_id": published[0],
                     "evidence_ids": [evidence.id],
