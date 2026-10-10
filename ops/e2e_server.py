@@ -43,6 +43,14 @@ with tempfile.TemporaryDirectory(prefix="memoir-e2e-") as directory:
             and all(c in "abcdefghijklmnopqrstuvwxyz0123456789-" for c in identity)
         ):
             request.scope["client"] = (f"e2e-{identity}", 0)
+        # Synthetic fault through the actual API error handler/proxy, not a
+        # model-speed fixture. Production never reads this test-only header.
+        busy = request.headers.get("X-Memoir-E2E-Inference-Busy", "")
+        if request.method == "POST" and busy in {"search", "answers"} and request.url.path == f"/v1/{busy}":
+            from cyber_memoir.adapters.inference import InferenceBusy
+            from cyber_memoir.api.main import inference_busy
+
+            return await inference_busy(request, InferenceBusy("合成接口计算暂忙，请稍后重试。"))
         return await call_next(request)
 
     def synthetic_metadata(url):

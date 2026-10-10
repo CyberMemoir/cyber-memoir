@@ -70,10 +70,34 @@ export class ApiError extends Error {
   constructor(
     message: string,
     public readonly status: number,
+    public readonly code?: string,
+    public readonly retryAfterSeconds?: number,
   ) {
     super(message);
     this.name = "ApiError";
   }
+}
+
+export function retryDelay(
+  header: string | null,
+  fallback: unknown,
+  now = Date.now(),
+): number | undefined {
+  if (header && /^\d+$/.test(header.trim())) {
+    const seconds = Number(header.trim());
+    if (Number.isFinite(seconds)) return Math.min(60, seconds);
+  }
+  if (header && /^(Mon|Tue|Wed|Thu|Fri|Sat|Sun), /i.test(header)) {
+    const date = Date.parse(header);
+    if (Number.isFinite(date))
+      return Math.min(60, Math.max(0, Math.ceil((date - now) / 1000)));
+  }
+  if (
+    typeof fallback === "number" &&
+    Number.isFinite(fallback) &&
+    fallback >= 0
+  )
+    return Math.min(60, Math.ceil(fallback));
 }
 
 export async function api<T>(
@@ -96,11 +120,19 @@ export async function api<T>(
     const data = await response
       .json()
       .catch(() => ({ detail: `服务暂不可用 (${response.status})` }));
+    const error = data && typeof data === "object" ? data : {};
     throw new ApiError(
-      typeof data.detail === "string"
-        ? data.detail
-        : JSON.stringify(data.detail),
+      typeof error.detail === "string"
+        ? error.detail
+        : error.detail !== undefined
+          ? JSON.stringify(error.detail)
+          : `服务暂不可用 (${response.status})`,
       response.status,
+      typeof error.code === "string" ? error.code : undefined,
+      retryDelay(
+        response.headers.get("Retry-After"),
+        error.retry_after_seconds,
+      ),
     );
   }
   return response.json();

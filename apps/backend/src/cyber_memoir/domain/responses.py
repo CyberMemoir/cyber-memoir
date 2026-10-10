@@ -4,6 +4,12 @@ from typing import Any, Literal
 from pydantic import BaseModel, Field
 
 
+class InferenceBusyOut(BaseModel):
+    detail: str
+    code: Literal["inference_busy"] = "inference_busy"
+    retry_after_seconds: int = Field(ge=1, le=60)
+
+
 class SourceOut(BaseModel):
     id: str
     platform: str

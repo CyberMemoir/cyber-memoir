@@ -616,6 +616,25 @@
               }
             }
           },
+          "503": {
+            "description": "模型槽等待超时；没有以未评分或部分回答代替，建议稍后明确重试。",
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "maximum": 60.0,
+                  "minimum": 1.0
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InferenceBusyOut"
+                }
+              }
+            }
+          },
           "422": {
             "description": "Validation Error",
             "content": {
@@ -650,6 +669,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/AnswerOut"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "模型槽等待超时；没有以未评分或部分回答代替，建议稍后明确重试。",
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "maximum": 60.0,
+                  "minimum": 1.0
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InferenceBusyOut"
                 }
               }
             }
@@ -2709,6 +2747,32 @@
           "duplicate"
         ],
         "title": "ImportResultItem"
+      },
+      "InferenceBusyOut": {
+        "properties": {
+          "detail": {
+            "type": "string",
+            "title": "Detail"
+          },
+          "code": {
+            "type": "string",
+            "const": "inference_busy",
+            "title": "Code",
+            "default": "inference_busy"
+          },
+          "retry_after_seconds": {
+            "type": "integer",
+            "maximum": 60.0,
+            "minimum": 1.0,
+            "title": "Retry After Seconds"
+          }
+        },
+        "type": "object",
+        "required": [
+          "detail",
+          "retry_after_seconds"
+        ],
+        "title": "InferenceBusyOut"
       },
       "Material": {
         "properties": {

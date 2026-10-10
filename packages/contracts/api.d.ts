@@ -999,6 +999,19 @@ export interface components {
             /** Duplicate */
             duplicate: boolean;
         };
+        /** InferenceBusyOut */
+        InferenceBusyOut: {
+            /** Detail */
+            detail: string;
+            /**
+             * Code
+             * @default inference_busy
+             * @constant
+             */
+            code: "inference_busy";
+            /** Retry After Seconds */
+            retry_after_seconds: number;
+        };
         /** Material */
         Material: {
             /** Text */
@@ -2028,6 +2041,16 @@ export interface operations {
                     "application/json": components["schemas"]["HTTPValidationError"];
                 };
             };
+            /** @description 模型槽等待超时；没有以未评分或部分回答代替，建议稍后明确重试。 */
+            503: {
+                headers: {
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["InferenceBusyOut"];
+                };
+            };
         };
     };
     answers_api_v1_answers_post: {
@@ -2059,6 +2082,16 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+            /** @description 模型槽等待超时；没有以未评分或部分回答代替，建议稍后明确重试。 */
+            503: {
+                headers: {
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["InferenceBusyOut"];
                 };
             };
         };

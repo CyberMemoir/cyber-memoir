@@ -173,6 +173,9 @@ def configure(embedding, reranker, threads):
             "RERANKER_DEVICE": "cpu",
             "EMBEDDING_THREADS": str(threads),
             "RERANKER_THREADS": str(threads),
+            # Offline capacity probe intentionally observes six serial computes,
+            # unlike the production HTTP admission policy tested separately.
+            "INFERENCE_QUEUE_TIMEOUT_SECONDS": "60",
             "LLM_BASE_URL": "",
             "LLM_API_KEY": "",
             "LLM_MODEL": "",
@@ -306,6 +309,7 @@ def main():
             "machine": platform.machine(),
             "device": "cpu",
             "threads": args.threads,
+            "inference_queue_timeout_seconds": 60,
             "versions": {
                 package: importlib.metadata.version(package)
                 for package in ["FlagEmbedding", "torch", "transformers", "numpy"]

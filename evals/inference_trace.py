@@ -13,18 +13,26 @@ class TimedLock:
     def __init__(self, lock, emit, stage):
         self.lock, self.emit, self.stage = lock, emit, stage
 
-    def __enter__(self):
+    def acquire(self, *args, **kwargs):
         began = time.perf_counter()
-        self.lock.acquire()
+        acquired = self.lock.acquire(*args, **kwargs)
         try:
-            self.emit(self.stage, time.perf_counter() - began, True)
+            self.emit(self.stage, time.perf_counter() - began, acquired)
         except BaseException:
-            self.lock.release()
+            if acquired:
+                self.lock.release()
             raise
+        return acquired
+
+    def release(self):
+        self.lock.release()
+
+    def __enter__(self):
+        self.acquire()
         return self
 
     def __exit__(self, *args):
-        self.lock.release()
+        self.release()
 
 
 class InferenceTrace:
@@ -58,6 +66,8 @@ class InferenceTrace:
         @functools.wraps(function)
         def wrapped(*args, **kwargs):
             began = time.perf_counter()
+            if stage.endswith("_compute"):
+                self.emit(stage + "_start", 0.0, True)
             try:
                 value = function(*args, **kwargs)
             except BaseException as exc:

@@ -60,3 +60,5 @@ HF_HUB_DISABLE_IMPLICIT_TOKEN=1 HF_HUB_DISABLE_XET=1 "$MODEL_PY" evals/model_ass
 ## 下一项验收
 
 在隔离测试栈固定**实际已批准的公共语料快照**与证据 chunk，再用 [可恢复 API 评测](EVALUATION.md) 对照 exact/BM25/dense/重排、引用可解析和语义支持、无证据弃答、并发与撤回。需要更大、未参与内容起草的人工查询集；这一步不能用本文的离线定义指标替代。
+
+生产新增两秒模型槽等待准入后，本页的离线原始容量探针显式设置 60 秒等待预算并记录到报告，确保测六次串行计算；不把它用于两秒 HTTP 忙碌拒绝验收。见 [INFERENCE_BUSY.md](INFERENCE_BUSY.md)。

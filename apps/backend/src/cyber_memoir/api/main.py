@@ -1,5 +1,6 @@
 import contextlib
 import hashlib
+import math
 import time
 from collections import defaultdict, deque
 from typing import Annotated
@@ -14,6 +15,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from cyber_memoir.adapters import storage
+from cyber_memoir.adapters.inference import InferenceBusy
 from cyber_memoir.api.auth import reviewer, submitter
 from cyber_memoir.api.body_limit import BodyLimitMiddleware
 from cyber_memoir.application import content, publications, revisions, universe
@@ -24,6 +26,7 @@ from cyber_memoir.domain.publications import ImportPlan, ImportResult, Publicati
 from cyber_memoir.domain.responses import (
     AnswerOut,
     EvidenceOut,
+    InferenceBusyOut,
     MemeOut,
     MemeRef,
     ReviewComparisonOut,
@@ -65,6 +68,13 @@ REVIEW_PRECONDITIONS = {
         "412": {"description": "稿件或条目公开状态已改变；未提交此写入"},
     },
 }
+INFERENCE_RESPONSES = {
+    503: {
+        "model": InferenceBusyOut,
+        "description": "模型槽等待超时；没有以未评分或部分回答代替，建议稍后明确重试。",
+        "headers": {"Retry-After": {"schema": {"type": "integer", "minimum": 1, "maximum": 60}}},
+    }
+}
 
 
 @contextlib.asynccontextmanager
@@ -86,6 +96,7 @@ app.add_middleware(
     allow_origins=settings().cors_origins.split(","),
     allow_methods=["GET", "POST", "PUT"],
     allow_headers=["Authorization", "Content-Type"],
+    expose_headers=["Retry-After"],
 )
 app.add_middleware(BodyLimitMiddleware, max_bytes=settings().max_material_bytes + 100000)
 _limits = defaultdict(deque)
@@ -124,6 +135,17 @@ async def safeguards(request: Request, call_next):
 @app.exception_handler(ValueError)
 async def invalid_value(request, exc):
     return JSONResponse(status_code=422, content={"detail": str(exc)})
+
+
+@app.exception_handler(InferenceBusy)
+async def inference_busy(request, exc):
+    delay = math.ceil(min(60, max(1, settings().inference_queue_timeout_seconds)))
+    body = InferenceBusyOut(detail=str(exc), retry_after_seconds=delay)
+    return JSONResponse(
+        status_code=503,
+        content=body.model_dump(),
+        headers={"Retry-After": str(delay), "Cache-Control": "no-store"},
+    )
 
 
 @app.get("/health/live")
@@ -285,12 +307,12 @@ def relations(meme_id: str, db: DB):
     return {"relations": result["relations"], "evidence": result["evidence"]}
 
 
-@app.post("/v1/search", response_model=SearchOut)
+@app.post("/v1/search", response_model=SearchOut, responses=INFERENCE_RESPONSES)
 def search_api(body: SearchRequest, db: DB):
     return search(db, body)
 
 
-@app.post("/v1/answers", response_model=AnswerOut)
+@app.post("/v1/answers", response_model=AnswerOut, responses=INFERENCE_RESPONSES)
 def answers_api(body: SearchRequest, db: DB):
     if not body.query.strip():
         raise HTTPException(422, "请输入问题")

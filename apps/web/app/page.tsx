@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import {
   api,
+  ApiError,
   post,
   type SearchResult,
   type Answer,
@@ -24,6 +25,27 @@ type SearchRequest = {
   reveal: boolean;
 };
 
+function useRetryRemaining(deadline: number) {
+  const [, refresh] = useState(0);
+  useEffect(() => {
+    if (!deadline) return;
+    const timer = window.setInterval(() => {
+      refresh((n) => n + 1);
+      if (Date.now() >= deadline) window.clearInterval(timer);
+    }, 250);
+    return () => window.clearInterval(timer);
+  }, [deadline]);
+  return Math.max(0, Math.ceil((deadline - Date.now()) / 1000));
+}
+
+function busyDeadline(error: unknown) {
+  return error instanceof ApiError &&
+    error.status === 503 &&
+    error.code === "inference_busy"
+    ? Date.now() + (error.retryAfterSeconds ?? 2) * 1000
+    : 0;
+}
+
 export default function ArchivePage() {
   const [query, setQuery] = useState("");
   const [platform, setPlatform] = useState<string | null>(null);
@@ -39,6 +61,10 @@ export default function ArchivePage() {
   const [loading, setLoading] = useState(true);
   const [answerLoading, setAnswerLoading] = useState(false);
   const [answerError, setAnswerError] = useState("");
+  const [searchRetryAt, setSearchRetryAt] = useState(0);
+  const [answerRetryAt, setAnswerRetryAt] = useState(0);
+  const searchRetryRemaining = useRetryRemaining(searchRetryAt);
+  const answerRetryRemaining = useRetryRemaining(answerRetryAt);
   const activeRequest = useRef<AbortController | null>(null);
   const answerRequest = useRef<{
     query: string;
@@ -51,6 +77,8 @@ export default function ArchivePage() {
   const reduced = useReducedMotion();
 
   function cancel() {
+    setSearchRetryAt(0);
+    setAnswerRetryAt(0);
     ++serial.current;
     activeRequest.current?.abort();
     if (answerLoading) setAnswerError("已取消回答等待，检索结果已保留。");
@@ -68,6 +96,7 @@ export default function ArchivePage() {
     activeRequest.current = controller;
     setAnswerLoading(true);
     setAnswerError("");
+    setAnswerRetryAt(0);
     const timer = window.setTimeout(() => controller.abort(), 300000);
     try {
       const response = await api<Answer>("/v1/answers", {
@@ -76,12 +105,14 @@ export default function ArchivePage() {
       });
       if (serial.current === id) setAnswer(response);
     } catch (e) {
-      if (serial.current === id)
+      if (serial.current === id) {
+        setAnswerRetryAt(busyDeadline(e));
         setAnswerError(
           controller.signal.aborted
             ? "回答等待超时。检索结果已保留，可以重试回答。"
             : (e as Error).message,
         );
+      }
     } finally {
       window.clearTimeout(timer);
       if (serial.current === id) setAnswerLoading(false);
@@ -110,6 +141,8 @@ export default function ArchivePage() {
     activeRequest.current = controller;
     setAnswerLoading(false);
     setAnswerError("");
+    setSearchRetryAt(0);
+    setAnswerRetryAt(0);
     setError("");
     setLoading(true);
     setElapsed(0);
@@ -147,12 +180,14 @@ export default function ArchivePage() {
       if (!offset && request.answer && searchQuery.trim())
         await fetchAnswer(body, id);
     } catch (e) {
-      if (serial.current === id)
+      if (serial.current === id) {
+        setSearchRetryAt(busyDeadline(e));
         setError(
           controller.signal.aborted
             ? "检索等待超时，请重试或换一个更具体的描述。"
             : (e as Error).message,
         );
+      }
     } finally {
       window.clearTimeout(timer);
       if (serial.current === id) setLoading(false);
@@ -292,12 +327,15 @@ export default function ArchivePage() {
           {error}
           <button
             className="text-button"
+            disabled={loading || answerLoading || searchRetryRemaining > 0}
             onClick={() => {
               if (lastRequest.current)
                 void run(platform, 0, false, lastRequest.current);
             }}
           >
-            重试
+            {searchRetryRemaining > 0
+              ? `重试（${searchRetryRemaining}s）`
+              : "重试"}
           </button>
         </div>
       )}
@@ -316,13 +354,15 @@ export default function ArchivePage() {
               回答暂不可用：{answerError}
               <button
                 className="text-button"
-                disabled={answerLoading}
+                disabled={answerLoading || answerRetryRemaining > 0}
                 onClick={() => {
                   if (answerRequest.current)
                     void fetchAnswer(answerRequest.current, ++serial.current);
                 }}
               >
-                重试回答
+                {answerRetryRemaining > 0
+                  ? `重试回答（${answerRetryRemaining}s）`
+                  : "重试回答"}
               </button>
             </div>
           )}

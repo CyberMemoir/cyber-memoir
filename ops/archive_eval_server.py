@@ -221,6 +221,7 @@ def main():
             "device": "cpu",
             "threads": 4,
             "floor": settings().answer_score_floor,
+            "inference_queue_timeout_seconds": settings().inference_queue_timeout_seconds,
             "source": "restored approval records, no new approvals",
             "paired_cpu_profiling": args.compare_cpu_rerank,
             "reranker_implementation": "single-pass-cpu" if args.mode != "off" else "disabled",

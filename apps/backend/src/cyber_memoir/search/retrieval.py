@@ -5,7 +5,7 @@ from fastapi import HTTPException
 from sqlalchemy import func, or_, select
 from sqlalchemy.orm import Session
 
-from cyber_memoir.adapters.inference import embed_query, rerank
+from cyber_memoir.adapters.inference import InferenceBusy, embed_query, rerank
 from cyber_memoir.application.content import detail
 from cyber_memoir.config import settings
 from cyber_memoir.domain.models import Alias, Chunk, Evidence, EvidenceLink, Meme, Relation, Source
@@ -164,6 +164,8 @@ def search(db: Session, request: SearchRequest):
             ).all()
             rankings.append(([x.id for x in nearest], cfg.rrf_weight_vector))
             channels.append("vector")
+        except InferenceBusy:
+            raise
         except Exception as exc:
             warnings.append("vector_unavailable")
             log.info("vector failed: %s", type(exc).__name__)
@@ -236,6 +238,8 @@ def search(db: Session, request: SearchRequest):
         # flag, because it is what a reader trusts to tell them the run was sound.
         elif candidates:
             warnings.append("reranker_disabled")
+    except InferenceBusy:
+        raise
     except Exception as exc:
         warnings.append("reranker_unavailable")
         log.info("reranker failed: %s", type(exc).__name__)

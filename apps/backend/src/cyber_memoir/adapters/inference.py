@@ -4,6 +4,7 @@ import math
 import threading
 import time
 from collections import OrderedDict
+from contextlib import contextmanager
 from functools import lru_cache
 
 import httpx
@@ -33,6 +34,43 @@ _EMBED = threading.Lock()
 _QUERY_VECTORS: OrderedDict[tuple[object, str], tuple[float, tuple[float, ...]]] = OrderedDict()
 _QUERY_VECTOR_TTL = 300
 _QUERY_VECTOR_LIMIT = 64
+_CACHE = threading.Lock()
+
+
+class InferenceBusy(RuntimeError):
+    """Admission failed, not missing evidence or a usable unscored response."""
+
+
+def _cached(cache, key, ttl):
+    with _CACHE:
+        saved = cache.get(key)
+        if saved and time.monotonic() - saved[0] < ttl:
+            cache.move_to_end(key)
+            return list(saved[1])
+        if saved:
+            del cache[key]
+        return None
+
+
+def _save(cache, key, values, limit):
+    with _CACHE:
+        cache[key] = (time.monotonic(), tuple(values))
+        cache.move_to_end(key)
+        while len(cache) > limit:
+            cache.popitem(last=False)
+
+
+@contextmanager
+def _query_slot(lock, cfg):
+    seconds = getattr(cfg, "inference_queue_timeout_seconds", 2.0)
+    if not math.isfinite(seconds) or seconds < 0:
+        raise ValueError("Inference queue timeout must be finite and nonnegative")
+    if not lock.acquire(timeout=seconds):
+        raise InferenceBusy("计算服务暂忙，请稍后重试。")
+    try:
+        yield
+    finally:
+        lock.release()
 
 
 def _encode(provider, texts):
@@ -66,16 +104,15 @@ def embed_query(query: str) -> list[float] | None:
         ).encode()
     ).hexdigest()
     key = (provider, fingerprint)
-    with _EMBED:
-        cached = _QUERY_VECTORS.get(key)
-        if cached and time.monotonic() - cached[0] < _QUERY_VECTOR_TTL:
-            _QUERY_VECTORS.move_to_end(key)
-            return list(cached[1])
+    cached = _cached(_QUERY_VECTORS, key, _QUERY_VECTOR_TTL)
+    if cached is not None:
+        return cached
+    with _query_slot(_EMBED, cfg):
+        cached = _cached(_QUERY_VECTORS, key, _QUERY_VECTOR_TTL)
+        if cached is not None:
+            return cached
         vector = _encode(provider, [query])[0]
-        _QUERY_VECTORS[key] = (time.monotonic(), tuple(vector))
-        _QUERY_VECTORS.move_to_end(key)
-        while len(_QUERY_VECTORS) > _QUERY_VECTOR_LIMIT:
-            _QUERY_VECTORS.popitem(last=False)
+        _save(_QUERY_VECTORS, key, vector, _QUERY_VECTOR_LIMIT)
         return vector
 
 
@@ -139,19 +176,18 @@ def rerank(query: str, texts: list[str]) -> list[float] | None:
         ).encode()
     ).hexdigest()
     key = (provider, fingerprint)
-    with _RERANK:
-        cached = _SCORES.get(key)
-        if cached and time.monotonic() - cached[0] < _SCORE_TTL:
-            _SCORES.move_to_end(key)
-            return list(cached[1])
+    cached = _cached(_SCORES, key, _SCORE_TTL)
+    if cached is not None:
+        return cached
+    with _query_slot(_RERANK, cfg):
+        cached = _cached(_SCORES, key, _SCORE_TTL)
+        if cached is not None:
+            return cached
         scores = provider().compute_score([[query, text] for text in texts], normalize=True)
         values = [float(scores)] if isinstance(scores, (float, int)) else [float(x) for x in scores]
         if len(values) != len(texts) or not all(math.isfinite(x) and 0 <= x <= 1 for x in values):
             raise ValueError("Invalid reranker scores")
-        _SCORES[key] = (time.monotonic(), tuple(values))
-        _SCORES.move_to_end(key)
-        while len(_SCORES) > _SCORE_LIMIT:
-            _SCORES.popitem(last=False)
+        _save(_SCORES, key, values, _SCORE_LIMIT)
         return values
 
 
