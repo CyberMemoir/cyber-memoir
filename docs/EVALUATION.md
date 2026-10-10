@@ -61,3 +61,9 @@ python evals/score_buckets.py report.json full-gold.jsonl
 原金标准和策展 YAML 的字节未修改。临时生成人工描述集得到 17 条，仅验证构建流程；本轮没有真实模型/真实部署评测，不能据此声称语义召回或延迟改善。
 
 后续已完成默认 BGE-M3 / reranker 的**真实离线定义组件探针**，不是公共档案端到端评测；固定工件、结果、失败与范围见 [MODEL_PROBE.md](MODEL_PROBE.md)。保留上述历史记录，不把新的组件结果改写成当时的部署结果。
+
+## 多提供者与限流节奏
+
+新上下文可用 `models` 精确列出 embedding/reranker/llm 三个提供者；每项必须声明布尔 `enabled`。启用时填写真实 identifier 和工件 SHA；关闭时 identifier 必须为 `disabled`，不虚构权重哈希。旧单 `model` 上下文仍支持。
+
+`--request-interval 1.1` 为相邻 POST 起点保留至少 1.1 秒；等待量与实际两次 POST 耗时分开保存，配置绑定检查点，不修改服务限流。实际批准归档的只读捕获、公开身份选题、隔离恢复、模型对照和未评级语义队列见 [ARCHIVE_EVALUATION.md](ARCHIVE_EVALUATION.md)。

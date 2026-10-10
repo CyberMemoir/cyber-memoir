@@ -1,7 +1,7 @@
 COMPOSE = docker compose --env-file .env -f ops/compose/compose.yml
-EVAL_CHECK = ../../evals/run.py ../../evals/checkpoint.py ../../evals/build_gold.py ../../evals/score_buckets.py ../../evals/load_curation.py ../../evals/model_assets.py ../../evals/model_probe.py
+EVAL_CHECK = ../../evals/run.py ../../evals/checkpoint.py ../../evals/build_gold.py ../../evals/score_buckets.py ../../evals/load_curation.py ../../evals/model_assets.py ../../evals/model_probe.py ../../evals/capture_archive.py ../../evals/citation_audit.py ../../evals/archive_gold.py
 DEMO_CHECK = ../../ops/demo.py ../../ops/demo_server.py ../../ops/demo_fixtures.py
-E2E_CHECK = ../../ops/e2e_server.py
+E2E_CHECK = ../../ops/e2e_server.py ../../ops/archive_eval_server.py
 REVISION_CHECK = migrations/versions/f5a6b7c8d9e0_review_edit_versions.py
 .PHONY: configure up down infra logs test check migrate contracts backup demo
 configure:

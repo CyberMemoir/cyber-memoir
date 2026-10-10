@@ -20,6 +20,65 @@ ROOT = Path(__file__).resolve().parents[1]
 METRICS = ("recall_at_10", "mrr", "answer_identity_match_rate", "correct_abstention")
 
 
+def validate_context(context):
+    if (
+        not isinstance(context, dict)
+        or not isinstance(context.get("configuration"), dict)
+        or not context["configuration"]
+    ):
+        raise ValueError("Run context requires configuration")
+
+    def provider(model, legacy=False):
+        if (
+            not isinstance(model, dict)
+            or not isinstance(model.get("identifier"), str)
+            or not model["identifier"].strip()
+        ):
+            raise ValueError("Model provider requires identity")
+        enabled = model.get("enabled", True if legacy else None)
+        if type(enabled) is not bool:
+            raise ValueError("Model provider requires explicit enabled state")
+        if not enabled:
+            if model["identifier"] != "disabled" or model.get("sha256"):
+                raise ValueError("Disabled providers must not claim a weight artifact")
+        elif (
+            model["identifier"] == "disabled"
+            or len(str(model.get("sha256", ""))) != 64
+            or any(c not in "0123456789abcdefABCDEF" for c in str(model.get("sha256", "")))
+        ):
+            raise ValueError("Active model requires identifier/artifact sha256")
+
+    if "models" in context:
+        models = context["models"]
+        if not isinstance(models, dict) or set(models) != {"embedding", "reranker", "llm"}:
+            raise ValueError("Run context must identify all three model providers")
+        for model in models.values():
+            provider(model)
+    else:
+        provider(context.get("model"), legacy=True)
+
+
+class PacedClient:
+    def __init__(self, client, interval):
+        self.client, self.interval, self.last = client, interval, None
+        self.sleep_seconds, self.post_seconds = 0.0, 0.0
+
+    def __getattr__(self, name):
+        return getattr(self.client, name)
+
+    def post(self, path, **kwargs):
+        now = time.monotonic()
+        wait = max(0.0, self.interval - (now - self.last)) if self.last is not None else 0.0
+        if wait:
+            time.sleep(wait)
+            self.sleep_seconds += wait
+        began = self.last = time.monotonic()
+        try:
+            return self.client.post(path, **kwargs)
+        finally:
+            self.post_seconds += time.monotonic() - began
+
+
 def fold(name: str) -> str:
     return name.strip().casefold()
 
@@ -101,11 +160,14 @@ def main(argv=None):
     parser.add_argument("--timeout", type=float, default=600)
     parser.add_argument("--checkpoint", type=Path)
     parser.add_argument("--run-context", type=Path)
+    parser.add_argument("--request-interval", type=float, default=0.0)
     args = parser.parse_args(argv)
     if args.checkpoint and not args.run_context:
         parser.error("--checkpoint requires --run-context with pinned model/configuration identities")
     if args.timeout <= 0 or not math.isfinite(args.timeout):
         parser.error("--timeout must be finite and positive")
+    if args.request_interval < 0 or not math.isfinite(args.request_interval):
+        parser.error("--request-interval must be finite and nonnegative")
     api = urlparse(args.api)
     if (
         api.scheme not in {"http", "https"}
@@ -127,23 +189,13 @@ def main(argv=None):
         context_bytes = args.run_context.read_bytes() if args.run_context else None
         context = json.loads(context_bytes.decode("utf-8")) if context_bytes else None
         if args.run_context:
-            if not isinstance(context, dict):
-                raise ValueError("Run context must be a JSON object")
-            model = context.get("model")
-            if (
-                not isinstance(model, dict)
-                or not model.get("identifier")
-                or len(str(model.get("sha256", ""))) != 64
-                or any(c not in "0123456789abcdefABCDEF" for c in str(model.get("sha256", "")))
-                or not isinstance(context.get("configuration"), dict)
-                or not context["configuration"]
-            ):
-                raise ValueError("Run context requires model identifier/artifact sha256 and configuration")
+            validate_context(context)
 
         with ExitStack() as stack:
             client = stack.enter_context(
                 httpx.Client(base_url=args.api, timeout=args.timeout, trust_env=False, follow_redirects=False)
             )
+            client = PacedClient(client, args.request_interval)
             if context is not None:
                 collection = collect_public_snapshot(client)
                 snapshot = digest(collection)
@@ -165,6 +217,7 @@ def main(argv=None):
                                 "api": args.api,
                                 "gold": hashlib.sha256(gold_bytes).hexdigest(),
                                 "runner_and_backend": original_code,
+                                "request_interval": args.request_interval,
                             },
                         )
                     )
@@ -181,7 +234,10 @@ def main(argv=None):
                 began = time.monotonic()
                 print(f"[{index}/{len(rows)}] {row['query']}", file=sys.stderr, flush=True)
                 try:
+                    sleeping, posting = client.sleep_seconds, client.post_seconds
                     result = evaluate_case(client, row)
+                    result["pacing_seconds"] = client.sleep_seconds - sleeping
+                    result["post_http_seconds"] = client.post_seconds - posting
                 except (httpx.HTTPError, ValueError, KeyError, TypeError) as exc:
                     changed = str(exc) == "ContextChangedDuringCase"
                     failures.append(
