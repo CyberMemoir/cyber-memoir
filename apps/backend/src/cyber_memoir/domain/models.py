@@ -145,6 +145,8 @@ class EvidenceLink(Identity, Base):
 
 class Revision(Identity, Base):
     __tablename__ = "revisions"
+    __table_args__ = (CheckConstraint("edit_version >= 1", name="revision_edit_version_positive"),)
+    edit_version: Mapped[int] = mapped_column(Integer, default=1, server_default="1")
     meme_id: Mapped[str] = mapped_column(ForeignKey("memes.id"), index=True)
     based_on_revision: Mapped[int] = mapped_column(Integer, default=0)
     payload: Mapped[dict] = mapped_column(JSON)
@@ -152,6 +154,18 @@ class Revision(Identity, Base):
     review_reason: Mapped[str | None] = mapped_column(Text)
     reviewer: Mapped[str | None] = mapped_column(String(100))
     reviewed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+
+
+class ImportRecord(Base):
+    """Immutable import receipt. A duplicate never recreates or republishes a revision."""
+
+    __tablename__ = "import_records"
+    fingerprint: Mapped[str] = mapped_column(String(64), primary_key=True)
+    revision_id: Mapped[str] = mapped_column(ForeignKey("revisions.id"))
+    artifact_key: Mapped[str] = mapped_column(Text)
+    imported_by: Mapped[str] = mapped_column(String(100))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=now)
+    bindings: Mapped[dict] = mapped_column(JSON)
 
 
 class Chunk(Identity, Base):

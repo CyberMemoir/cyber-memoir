@@ -4,6 +4,12 @@ from typing import Any, Literal
 from pydantic import BaseModel, Field
 
 
+class InferenceBusyOut(BaseModel):
+    detail: str
+    code: Literal["inference_busy"] = "inference_busy"
+    retry_after_seconds: int = Field(ge=1, le=60)
+
+
 class SourceOut(BaseModel):
     id: str
     platform: str
@@ -120,14 +126,24 @@ class SearchOut(BaseModel):
     degraded: list[str]
     query: str
     total_is_candidate_count: bool = False
-    # False means no calibrated scorer ran, so the ADR 0004 floor could not be applied.
-    scores_calibrated: bool = False
+    # Legacy name: score availability/normalization, not statistical calibration.
+    scores_calibrated: bool = Field(
+        default=False,
+        description="兼容字段：已运行可使用评分下限的规范化重排器。不是经验概率校准，也不是事实置信度。",
+    )
 
 
 class AnswerClaim(ClaimOut):
     meme_id: str
     meme_name: str
+    meme_revision: int = Field(ge=1)
     origin_status: str
+
+
+class CitationMemeRef(BaseModel):
+    meme_id: str
+    meme_name: str
+    meme_revision: int = Field(ge=1)
 
 
 class CitationOut(BaseModel):
@@ -137,8 +153,19 @@ class CitationOut(BaseModel):
     text: str
     locator: dict[str, Any]
     content_hash: str
-    meme_revision: int
+    meme_revision: int = Field(
+        description="兼容字段：第一条所选断言所属条目的修订。共享证据的完整映射见 meme_references。"
+    )
+    meme_references: list[CitationMemeRef] = Field(default_factory=list)
     published_at: datetime | None
+
+
+class AnswerRelatedMeme(BaseModel):
+    """Published navigation candidate, not an answer claim or proof of relevance."""
+
+    id: str
+    canonical_name: str
+    published_revision: int = Field(ge=1)
 
 
 class AnswerOut(BaseModel):
@@ -150,6 +177,44 @@ class AnswerOut(BaseModel):
     retrieval_version: str
     channels: list[str]
     degraded: list[str]
+    abstention_reason: (
+        Literal[
+            "no_public_matches", "low_relevance", "no_approved_claims", "selection_empty", "corpus_changed"
+        ]
+        | None
+    ) = None
+    related_memories: list[AnswerRelatedMeme] = Field(default_factory=list)
+
+
+class ReviewRevisionOut(BaseModel):
+    id: str
+    meme_id: str
+    based_on_revision: int
+    payload: dict[str, Any]
+    status: str
+    created_at: datetime
+    edit_version: int = Field(ge=1)
+    etag: str
+    review_reason: str | None = None
+    reviewer: str | None = None
+    reviewed_at: datetime | None = None
+
+
+class ReviewComparisonOut(BaseModel):
+    draft: ReviewRevisionOut
+    base: ReviewRevisionOut | None
+    current: ReviewRevisionOut | None
+    current_published_revision: int
+    meme_status: str
+    base_changed: bool
+
+
+class ReviewQueueOut(BaseModel):
+    items: list[ReviewRevisionOut]
+    pending_jobs: int
+    running_jobs: int
+    failed_jobs: int
+    checked_at: datetime
 
 
 class UniverseBand(BaseModel):

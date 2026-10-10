@@ -27,7 +27,7 @@ test("人工提交 → 材料 → 审核 → 搜索/回答 → 详情 → 撤回
   await page
     .locator(".evidence-box")
     .filter({ hasText: definition })
-    .getByRole("checkbox")
+    .getByRole("checkbox", { name: "支持定义", exact: true })
     .check();
   await page
     .getByLabel("审核理由", { exact: true })

@@ -58,7 +58,7 @@ async function publish(
   const decided = await request.post(
     `${API}/v1/reviews/${revision.id}/decision`,
     {
-      headers: REVIEWER,
+      headers: { ...REVIEWER, "If-Match": revision.etag },
       data: {
         decision: "approve",
         reason: "合成星图夹具，仅用于浏览器验收。",

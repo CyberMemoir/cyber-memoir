@@ -1,5 +1,6 @@
 import pytest
 from fastapi.testclient import TestClient
+from review_requests import matching_revision
 from sqlalchemy import create_engine, event
 from sqlalchemy.orm import Session
 from sqlalchemy.pool import StaticPool
@@ -108,7 +109,7 @@ def prepared(client, auth):
                     "reason": "仅用于自动化测试的人工核对模拟",
                     "verified_evidence_ids": [evidence["id"]],
                 },
-                headers=auth,
+                headers=matching_revision(client, auth, f"/v1/reviews/{revision['id']}/decision"),
             )
             assert approved.status_code == 200, approved.text
         return {

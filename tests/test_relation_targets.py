@@ -6,6 +6,8 @@ axis took one request per edge. Every reader of a timeline needs the label, the 
 and the date, so the archive hands them over with the edge.
 """
 
+from review_requests import matching_revision
+
 AUTH = {"Authorization": "Bearer unit-test-reviewer"}
 
 
@@ -24,7 +26,7 @@ def revise(client, made, reason, **fields):
             "reason": reason,
             "verified_evidence_ids": [made["evidence"]["id"]],
         },
-        headers=AUTH,
+        headers=matching_revision(client, AUTH, f"/v1/reviews/{revision.json()['id']}/decision"),
     )
     assert approved.status_code == 200, approved.text
 

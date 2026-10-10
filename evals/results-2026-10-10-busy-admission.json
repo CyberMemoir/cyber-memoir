@@ -1,0 +1,131 @@
+{
+  "admitted": {
+    "http_seconds": 15.603946666989941,
+    "request_id": "9d51b7e471884615814ded5269f8c34d",
+    "retry_after_seconds": null,
+    "status": 200
+  },
+  "base_commit": "7e4e30b91132ac6dbdaeb00d92f26aee3ea39cc3",
+  "busy": [
+    {
+      "http_seconds": 3.258500083000399,
+      "request_id": "f8261212633e491c800d71cc00509abe",
+      "retry_after_seconds": 2,
+      "status": 503
+    },
+    {
+      "http_seconds": 3.5744113749969983,
+      "request_id": "14c6a6e749d7456d8c8fb3d27ce4ded5",
+      "retry_after_seconds": 2,
+      "status": 503
+    },
+    {
+      "http_seconds": 3.4013117080030497,
+      "request_id": "9031c8c5ee774202b489ea22eb9afdb1",
+      "retry_after_seconds": 2,
+      "status": 503
+    },
+    {
+      "http_seconds": 3.695018958009314,
+      "request_id": "5ffc0f7823d04042bcdbddf427ac24c7",
+      "retry_after_seconds": 2,
+      "status": 503
+    },
+    {
+      "http_seconds": 3.085924625003827,
+      "request_id": "1b9c4857cf0340a38f550b3b33452def",
+      "retry_after_seconds": 2,
+      "status": 503
+    }
+  ],
+  "busy_report_sha256": "04ee5a4c3d82d16178b7920f99a8960a8dfdbf326127e897cc6ec0e8ee72c268",
+  "cached_during_unrelated_inference": {
+    "http_seconds": 0.2839663750055479,
+    "request_id": "0d1630bc35ab4e5fb4a8c92c6925f349",
+    "retry_after_seconds": null,
+    "status": 200
+  },
+  "cached_reply_finished_before_unrelated_model": true,
+  "context": {
+    "configuration": {
+      "device": "cpu",
+      "floor": 0.35,
+      "images": {
+        "opensearch": "sha256:d96afaf6cbd2a6a3695aeb2f1d48c9a16ad5c8918eb849e5cbf43475f0f8e146",
+        "postgres": "sha256:a36250871de0833b8757561c72f2477ef1ddd1101afa4e617fb552e0de514c6b"
+      },
+      "inference_queue_timeout_seconds": 2.0,
+      "inference_trace_sha256": "997072d2536927f58f76ecc70dbdd5a3a52b1d337d50c4d7b9cc523929405eda",
+      "inference_tracing": true,
+      "mode": "hybrid",
+      "paired_cpu_profiling": false,
+      "reranker_implementation": "single-pass-cpu",
+      "retrieval": {
+        "retrieval_candidate_cap": 50,
+        "retrieval_channel_limit": 100,
+        "retrieval_per_source_cap": 4,
+        "rrf_k": 60,
+        "rrf_weight_bm25": 1.0,
+        "rrf_weight_exact_alias": 3.0,
+        "rrf_weight_vector": 1.0
+      },
+      "snapshot_dump_sha256": "6ad60adee9fd274f544212e3a5b56c763562b2542b35fd9309126a6d28eec67f",
+      "source": "restored approval records, no new approvals",
+      "threads": 4
+    },
+    "models": {
+      "embedding": {
+        "enabled": true,
+        "identifier": "BAAI/bge-m3",
+        "sha256": "b5e0ce3470abf5ef3831aa1bd5553b486803e83251590ab7ff35a117cf6aad38"
+      },
+      "llm": {
+        "enabled": false,
+        "identifier": "disabled"
+      },
+      "reranker": {
+        "enabled": true,
+        "identifier": "BAAI/bge-reranker-v2-m3",
+        "sha256": "d9e3e081faff1eefb84019509b2f5558fd74c1a05a2c7db22f74174fcedb5286"
+      }
+    }
+  },
+  "corpus_sha256": "b9fb6a2e475ee5ef467ba44a2ea513063afbf82cd83bc506b7378e2f0c56e268",
+  "date": "2026-10-10",
+  "gold_sha256": "9fea6609c70e7ec6202a479b9bacf3f2dfec3d6e285b53b75e3efa42902b36ba",
+  "interpretation": "Busy HTTP requests are explicit 503 rejections, not faster completed searches. They did embedding work before admission to the cross-encoder; no rejected request ran cross-encoder scoring. Cached reply completed while unrelated computation remained active. Shared development host, not SLA.",
+  "probe_sha256": "c851d9f0d580a13d066edaa0612f95c20723da1fcf0ece77736a884226ce3737",
+  "quality": {
+    "cases": 25,
+    "claims_and_citations_exactly_equal_previous": true,
+    "metrics": {
+      "answer_identity_match_rate": 0.5714285714285714,
+      "correct_abstention": 1,
+      "mrr": 0.8511904761904762,
+      "recall_at_10": 1.0
+    },
+    "report_sha256": "ed95dbe0a88f43855552ccabbd51594a5960eb531122d6eb841b34f16cc24ca8",
+    "runner_and_backend_sha256": "0d297e300fe5ac7f3f51c1400e03b4d0b3e6df558eb92c1a210c3b69eb5c67f2",
+    "semantic_review": "16 claims remain unassessed; six positive cases still abstain",
+    "status": "complete",
+    "trace_sha256": "fccddca4f59e1475a6454b701cd492e276f140e1fa45f1ac20647b6a734a1ee9"
+  },
+  "rejected_request_embedding_computes": 5,
+  "rejected_requests_ran_no_reranker_compute": true,
+  "retry_after_capacity": {
+    "http_seconds": 8.965553916001227,
+    "request_id": "b6945606ec394a97996a5931ed3abbea",
+    "retry_after_seconds": null,
+    "status": 200
+  },
+  "runner_and_backend_sha256": "0d297e300fe5ac7f3f51c1400e03b4d0b3e6df558eb92c1a210c3b69eb5c67f2",
+  "scope": "actual_owned_HTTP_admission_not_throughput_or_SLA",
+  "status": "complete",
+  "trace_sha256": "855fb5886560ebbdddaa3d036f6a1ddc31c1b8c6638a0313e3bddd3885068dfe",
+  "warmup": {
+    "http_seconds": 23.364182083998458,
+    "request_id": "ba5bb9da850045faadcbbf6d8c557904",
+    "retry_after_seconds": null,
+    "status": 200
+  }
+}

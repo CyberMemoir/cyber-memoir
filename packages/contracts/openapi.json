@@ -616,6 +616,25 @@
               }
             }
           },
+          "503": {
+            "description": "模型槽等待超时；没有以未评分或部分回答代替，建议稍后明确重试。",
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "maximum": 60.0,
+                  "minimum": 1.0
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InferenceBusyOut"
+                }
+              }
+            }
+          },
           "422": {
             "description": "Validation Error",
             "content": {
@@ -650,6 +669,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/AnswerOut"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "模型槽等待超时；没有以未评分或部分回答代替，建议稍后明确重试。",
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "maximum": 60.0,
+                  "minimum": 1.0
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InferenceBusyOut"
                 }
               }
             }
@@ -699,6 +737,210 @@
             "content": {
               "application/json": {
                 "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/reviews/queue": {
+      "get": {
+        "summary": "Review Queue",
+        "operationId": "review_queue_v1_reviews_queue_get",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewQueueOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/reviews/sources": {
+      "post": {
+        "summary": "Register Manual Source",
+        "operationId": "register_manual_source_v1_reviews_sources_post",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SourceRegistration"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/reviews/imports/validate": {
+      "post": {
+        "summary": "Validate Publication Import",
+        "operationId": "validate_publication_import_v1_reviews_imports_validate_post",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublicationPackage"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImportPlan"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/reviews/imports": {
+      "post": {
+        "summary": "Stage Publication Import",
+        "operationId": "stage_publication_import_v1_reviews_imports_post",
+        "parameters": [
+          {
+            "name": "expected_plan_hash",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Expected Plan Hash"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublicationPackage"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImportResult"
+                }
               }
             }
           },
@@ -1059,6 +1301,15 @@
               "default": "",
               "title": "Authorization"
             }
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "从稿件 GET/队列读取的单个具体强 ETag；缺失返回 428，过期返回 412，不接受通配或弱标签。"
           }
         ],
         "requestBody": {
@@ -1076,7 +1327,62 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewRevisionOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "需要具体稿件快照条件"
+          },
+          "412": {
+            "description": "稿件或条目公开状态已改变；未提交此写入"
+          }
+        }
+      },
+      "get": {
+        "summary": "Revision Snapshot",
+        "operationId": "revision_snapshot_v1_reviews__revision_id__get",
+        "parameters": [
+          {
+            "name": "revision_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Revision Id"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewRevisionOut"
+                }
               }
             }
           },
@@ -1116,6 +1422,15 @@
               "default": "",
               "title": "Authorization"
             }
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "从稿件 GET/队列读取的单个具体强 ETag；缺失返回 428，过期返回 412，不接受通配或弱标签。"
           }
         ],
         "requestBody": {
@@ -1133,7 +1448,64 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewRevisionOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "需要具体稿件快照条件"
+          },
+          "412": {
+            "description": "稿件或条目公开状态已改变；未提交此写入"
+          }
+        }
+      }
+    },
+    "/v1/reviews/{revision_id}/comparison": {
+      "get": {
+        "summary": "Revision Comparison",
+        "operationId": "revision_comparison_v1_reviews__revision_id__comparison_get",
+        "parameters": [
+          {
+            "name": "revision_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Revision Id"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewComparisonOut"
+                }
               }
             }
           },
@@ -1486,6 +1858,11 @@
             "type": "string",
             "title": "Meme Name"
           },
+          "meme_revision": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Meme Revision"
+          },
           "origin_status": {
             "type": "string",
             "title": "Origin Status"
@@ -1499,6 +1876,7 @@
           "evidence_ids",
           "meme_id",
           "meme_name",
+          "meme_revision",
           "origin_status"
         ],
         "title": "AnswerClaim"
@@ -1551,6 +1929,31 @@
             },
             "type": "array",
             "title": "Degraded"
+          },
+          "abstention_reason": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "no_public_matches",
+                  "low_relevance",
+                  "no_approved_claims",
+                  "selection_empty",
+                  "corpus_changed"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Abstention Reason"
+          },
+          "related_memories": {
+            "items": {
+              "$ref": "#/components/schemas/AnswerRelatedMeme"
+            },
+            "type": "array",
+            "title": "Related Memories"
           }
         },
         "type": "object",
@@ -1566,6 +1969,31 @@
         ],
         "title": "AnswerOut"
       },
+      "AnswerRelatedMeme": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "canonical_name": {
+            "type": "string",
+            "title": "Canonical Name"
+          },
+          "published_revision": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Published Revision"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "canonical_name",
+          "published_revision"
+        ],
+        "title": "AnswerRelatedMeme",
+        "description": "Published navigation candidate, not an answer claim or proof of relevance."
+      },
       "Body_media_v1_sources__source_id__media_post": {
         "properties": {
           "file": {
@@ -1579,6 +2007,30 @@
           "file"
         ],
         "title": "Body_media_v1_sources__source_id__media_post"
+      },
+      "CitationMemeRef": {
+        "properties": {
+          "meme_id": {
+            "type": "string",
+            "title": "Meme Id"
+          },
+          "meme_name": {
+            "type": "string",
+            "title": "Meme Name"
+          },
+          "meme_revision": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Meme Revision"
+          }
+        },
+        "type": "object",
+        "required": [
+          "meme_id",
+          "meme_name",
+          "meme_revision"
+        ],
+        "title": "CitationMemeRef"
       },
       "CitationOut": {
         "properties": {
@@ -1609,7 +2061,15 @@
           },
           "meme_revision": {
             "type": "integer",
-            "title": "Meme Revision"
+            "title": "Meme Revision",
+            "description": "兼容字段：第一条所选断言所属条目的修订。共享证据的完整映射见 meme_references。"
+          },
+          "meme_references": {
+            "items": {
+              "$ref": "#/components/schemas/CitationMemeRef"
+            },
+            "type": "array",
+            "title": "Meme References"
           },
           "published_at": {
             "anyOf": [
@@ -2130,6 +2590,240 @@
         "type": "object",
         "title": "HTTPValidationError"
       },
+      "ImportPlan": {
+        "properties": {
+          "entries_sha256": {
+            "type": "string",
+            "title": "Entries Sha256"
+          },
+          "groups": {
+            "type": "integer",
+            "title": "Groups"
+          },
+          "new_groups": {
+            "type": "integer",
+            "title": "New Groups"
+          },
+          "existing_groups": {
+            "type": "integer",
+            "title": "Existing Groups"
+          },
+          "meme_source_associations": {
+            "type": "integer",
+            "title": "Meme Source Associations"
+          },
+          "unique_sources": {
+            "type": "integer",
+            "title": "Unique Sources"
+          },
+          "can_import": {
+            "type": "boolean",
+            "title": "Can Import"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/ImportPlanItem"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "warnings": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Warnings"
+          },
+          "plan_hash": {
+            "type": "string",
+            "title": "Plan Hash",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "entries_sha256",
+          "groups",
+          "new_groups",
+          "existing_groups",
+          "meme_source_associations",
+          "unique_sources",
+          "can_import",
+          "items",
+          "warnings"
+        ],
+        "title": "ImportPlan"
+      },
+      "ImportPlanItem": {
+        "properties": {
+          "canonical_name": {
+            "type": "string",
+            "title": "Canonical Name"
+          },
+          "entry_hash": {
+            "type": "string",
+            "title": "Entry Hash"
+          },
+          "action": {
+            "type": "string",
+            "enum": [
+              "create_draft",
+              "append_draft",
+              "duplicate",
+              "blocked"
+            ],
+            "title": "Action"
+          },
+          "target_meme_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Target Meme Id"
+          },
+          "based_on_revision": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Based On Revision"
+          },
+          "revision_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Revision Id"
+          },
+          "message": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Message"
+          }
+        },
+        "type": "object",
+        "required": [
+          "canonical_name",
+          "entry_hash",
+          "action"
+        ],
+        "title": "ImportPlanItem"
+      },
+      "ImportResult": {
+        "properties": {
+          "entries_sha256": {
+            "type": "string",
+            "title": "Entries Sha256"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/ImportResultItem"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "published": {
+            "type": "boolean",
+            "const": false,
+            "title": "Published",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "entries_sha256",
+          "items"
+        ],
+        "title": "ImportResult"
+      },
+      "ImportResultItem": {
+        "properties": {
+          "canonical_name": {
+            "type": "string",
+            "title": "Canonical Name"
+          },
+          "meme_id": {
+            "type": "string",
+            "title": "Meme Id"
+          },
+          "revision_id": {
+            "type": "string",
+            "title": "Revision Id"
+          },
+          "evidence_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Evidence Ids"
+          },
+          "source_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Source Ids"
+          },
+          "duplicate": {
+            "type": "boolean",
+            "title": "Duplicate"
+          }
+        },
+        "type": "object",
+        "required": [
+          "canonical_name",
+          "meme_id",
+          "revision_id",
+          "evidence_ids",
+          "source_ids",
+          "duplicate"
+        ],
+        "title": "ImportResultItem"
+      },
+      "InferenceBusyOut": {
+        "properties": {
+          "detail": {
+            "type": "string",
+            "title": "Detail"
+          },
+          "code": {
+            "type": "string",
+            "const": "inference_busy",
+            "title": "Code",
+            "default": "inference_busy"
+          },
+          "retry_after_seconds": {
+            "type": "integer",
+            "maximum": 60.0,
+            "minimum": 1.0,
+            "title": "Retry After Seconds"
+          }
+        },
+        "type": "object",
+        "required": [
+          "detail",
+          "retry_after_seconds"
+        ],
+        "title": "InferenceBusyOut"
+      },
       "Material": {
         "properties": {
           "text": {
@@ -2394,6 +3088,81 @@
         ],
         "title": "MergeRequest"
       },
+      "PublicationManifest": {
+        "properties": {
+          "schema_version": {
+            "type": "integer",
+            "const": 1,
+            "title": "Schema Version"
+          },
+          "groups": {
+            "type": "integer",
+            "maximum": 100.0,
+            "minimum": 1.0,
+            "title": "Groups"
+          },
+          "new_groups": {
+            "type": "integer",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "New Groups"
+          },
+          "existing_groups": {
+            "type": "integer",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Existing Groups"
+          },
+          "meme_source_associations": {
+            "type": "integer",
+            "maximum": 10000.0,
+            "minimum": 1.0,
+            "title": "Meme Source Associations"
+          },
+          "entries_sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$",
+            "title": "Entries Sha256"
+          },
+          "automatic_import": {
+            "type": "boolean",
+            "const": false,
+            "title": "Automatic Import",
+            "default": false
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "required": [
+          "schema_version",
+          "groups",
+          "new_groups",
+          "existing_groups",
+          "meme_source_associations",
+          "entries_sha256"
+        ],
+        "title": "PublicationManifest"
+      },
+      "PublicationPackage": {
+        "properties": {
+          "manifest": {
+            "$ref": "#/components/schemas/PublicationManifest"
+          },
+          "entries_jsonl": {
+            "type": "string",
+            "maxLength": 8000000,
+            "minLength": 1,
+            "title": "Entries Jsonl"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "manifest",
+          "entries_jsonl"
+        ],
+        "title": "PublicationPackage"
+      },
       "Reason": {
         "properties": {
           "reason": {
@@ -2571,6 +3340,177 @@
         ],
         "title": "ReviewAction"
       },
+      "ReviewComparisonOut": {
+        "properties": {
+          "draft": {
+            "$ref": "#/components/schemas/ReviewRevisionOut"
+          },
+          "base": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ReviewRevisionOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "current": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ReviewRevisionOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "current_published_revision": {
+            "type": "integer",
+            "title": "Current Published Revision"
+          },
+          "meme_status": {
+            "type": "string",
+            "title": "Meme Status"
+          },
+          "base_changed": {
+            "type": "boolean",
+            "title": "Base Changed"
+          }
+        },
+        "type": "object",
+        "required": [
+          "draft",
+          "base",
+          "current",
+          "current_published_revision",
+          "meme_status",
+          "base_changed"
+        ],
+        "title": "ReviewComparisonOut"
+      },
+      "ReviewQueueOut": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/ReviewRevisionOut"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "pending_jobs": {
+            "type": "integer",
+            "title": "Pending Jobs"
+          },
+          "running_jobs": {
+            "type": "integer",
+            "title": "Running Jobs"
+          },
+          "failed_jobs": {
+            "type": "integer",
+            "title": "Failed Jobs"
+          },
+          "checked_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Checked At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "items",
+          "pending_jobs",
+          "running_jobs",
+          "failed_jobs",
+          "checked_at"
+        ],
+        "title": "ReviewQueueOut"
+      },
+      "ReviewRevisionOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "meme_id": {
+            "type": "string",
+            "title": "Meme Id"
+          },
+          "based_on_revision": {
+            "type": "integer",
+            "title": "Based On Revision"
+          },
+          "payload": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Payload"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "edit_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Edit Version"
+          },
+          "etag": {
+            "type": "string",
+            "title": "Etag"
+          },
+          "review_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Review Reason"
+          },
+          "reviewer": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reviewer"
+          },
+          "reviewed_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reviewed At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "meme_id",
+          "based_on_revision",
+          "payload",
+          "status",
+          "created_at",
+          "edit_version",
+          "etag"
+        ],
+        "title": "ReviewRevisionOut"
+      },
       "SearchOut": {
         "properties": {
           "items": {
@@ -2610,6 +3550,7 @@
           "scores_calibrated": {
             "type": "boolean",
             "title": "Scores Calibrated",
+            "description": "兼容字段：已运行可使用评分下限的规范化重排器。不是经验概率校准，也不是事实置信度。",
             "default": false
           }
         },
@@ -2637,7 +3578,9 @@
                 "type": "string",
                 "enum": [
                   "bilibili",
-                  "douyin"
+                  "douyin",
+                  "xiaohongshu",
+                  "web"
                 ]
               },
               {
@@ -2806,6 +3749,51 @@
           "created_at"
         ],
         "title": "SourceOut"
+      },
+      "SourceRegistration": {
+        "properties": {
+          "platform": {
+            "type": "string",
+            "enum": [
+              "bilibili",
+              "douyin",
+              "xiaohongshu",
+              "web"
+            ],
+            "title": "Platform"
+          },
+          "url": {
+            "type": "string",
+            "maxLength": 2000,
+            "minLength": 10,
+            "title": "Url"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 500,
+            "title": "Title",
+            "default": ""
+          },
+          "platform_published_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Platform Published At"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "platform",
+          "url"
+        ],
+        "title": "SourceRegistration"
       },
       "Star": {
         "properties": {

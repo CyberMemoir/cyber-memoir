@@ -1,3 +1,5 @@
+import { eventTimePoint } from "@/lib/event-time";
+
 /**
  * Evidence metadata in the reader's language. The API stores a kind and a locator
  * for machines; a reader should see "画面文字（OCR） · 第 74 秒 · ..." rather than
@@ -11,7 +13,13 @@ const KINDS: Record<string, string> = {
   subtitle: "平台字幕",
   manual: "人工摘录",
   text: "文本",
+  metadata: "平台元数据",
 };
+
+/** Do not turn a year/month precision into an apparently exact calendar day. */
+export function eventDate(value: string | null, precision: string): string {
+  return eventTimePoint(value, precision).label;
+}
 
 export function describeKind(kind: string | null | undefined): string {
   if (!kind) return "证据";

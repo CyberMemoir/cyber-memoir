@@ -41,7 +41,7 @@ def test_event_links_to_its_source(client, prepared):
             "reason": "合成测试：核对事件与来源的关联",
             "verified_evidence_ids": [made["evidence"]["id"]],
         },
-        headers={"Authorization": "Bearer unit-test-reviewer"},
+        headers={**{"Authorization": "Bearer unit-test-reviewer"}, "If-Match": revision.json()["etag"]},
     )
     assert approved.status_code == 200, approved.text
 
@@ -66,7 +66,7 @@ def test_event_source_must_exist(client, prepared):
             "reason": "合成测试：事件指向不存在的来源应被拒绝",
             "verified_evidence_ids": [made["evidence"]["id"]],
         },
-        headers={"Authorization": "Bearer unit-test-reviewer"},
+        headers={**{"Authorization": "Bearer unit-test-reviewer"}, "If-Match": revision.json()["etag"]},
     )
     assert approved.status_code == 404, approved.text
 
@@ -87,7 +87,7 @@ def test_event_without_source_still_allowed(client, prepared):
             "reason": "合成测试：无来源事件仍可发布",
             "verified_evidence_ids": [made["evidence"]["id"]],
         },
-        headers={"Authorization": "Bearer unit-test-reviewer"},
+        headers={**{"Authorization": "Bearer unit-test-reviewer"}, "If-Match": revision.json()["etag"]},
     )
     assert approved.status_code == 200, approved.text
     published = client.get(f"/v1/memes/{made['meme_id']}").json()

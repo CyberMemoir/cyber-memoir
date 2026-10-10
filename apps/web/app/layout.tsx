@@ -29,6 +29,15 @@ export default function RootLayout({
           跳至主内容
         </a>
         <Header />
+        {process.env.CYBER_MEMOIR_DEMO === "1" && (
+          <aside className="demo-notice" aria-label="本地合成演示说明">
+            <strong>本地演示</strong>
+            <span>
+              合成数据，非真实文化资料。可检索「合成星灯」，体验证据与引用。
+            </span>
+            <a href="/review">进入审核工作台</a>
+          </aside>
+        )}
         {children}
         <Footer />
       </body>

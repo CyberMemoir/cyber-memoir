@@ -1,0 +1,323 @@
+"use client";
+
+import { useMemo, useRef, useState } from "react";
+import { date, type Meme } from "@/lib/api";
+import { describeKind, describeLocator } from "@/lib/evidence";
+import { platformLabel } from "@/lib/platforms";
+import { referenceUrl, stanceLabel } from "@/lib/citations";
+import type { useReferenceNavigation } from "@/lib/use-reference-navigation";
+import { ReferenceLink } from "@/components/citation-links";
+import { Icon } from "@/components/icons";
+import { FindText } from "@/components/find-text";
+import { findText, MAX_FIND_MARKS } from "@/lib/text-find";
+
+export function EvidenceInspector({
+  meme,
+  navigation,
+}: {
+  meme: Meme;
+  navigation: ReturnType<typeof useReferenceNavigation>;
+}) {
+  const [copied, setCopied] = useState<Record<string, string>>({});
+  const inspector = useRef<HTMLElement>(null);
+  const [selectedMatch, setSelectedMatch] = useState({ key: "", index: 0 });
+  const finding = useMemo(() => {
+    let count = 0,
+      limited = false,
+      unavailable = false;
+    const entries = new Map(
+      navigation.visible.map(({ evidence }) => {
+        const fields = [
+          evidence.text,
+          evidence.source?.title ?? "",
+          evidence.source?.canonical_url ?? "",
+        ].map((text) => {
+          const result = findText(text, navigation.query);
+          const offset = count;
+          const ranges = result.ranges.slice(
+            0,
+            Math.max(0, MAX_FIND_MARKS - count),
+          );
+          count += ranges.length;
+          limited ||= result.limited || result.ranges.length > ranges.length;
+          unavailable ||= result.unavailable;
+          return { ranges, offset };
+        });
+        return [evidence.id, fields] as const;
+      }),
+    );
+    return { entries, count, limited, unavailable };
+  }, [navigation.visible, navigation.query]);
+  const findKey = JSON.stringify([
+    meme.id,
+    meme.published_revision,
+    navigation.query,
+    navigation.platform,
+    navigation.visible.map(({ evidence }) => [
+      evidence.id,
+      evidence.content_hash,
+    ]),
+  ]);
+  const activeMatch =
+    selectedMatch.key === findKey
+      ? Math.min(selectedMatch.index, Math.max(0, finding.count - 1))
+      : 0;
+  function moveMatch(direction: number) {
+    if (!finding.count) return;
+    const next = (activeMatch + direction + finding.count) % finding.count;
+    setSelectedMatch({ key: findKey, index: next });
+    const target = inspector.current?.querySelector<HTMLElement>(
+      `[data-find-index="${next}"]`,
+    );
+    const bar = inspector.current?.querySelector<HTMLElement>(
+      ".evidence-find-controls",
+    );
+    if (target && bar)
+      target.style.scrollMarginTop = `${bar.offsetHeight + 16}px`;
+    target?.focus({ preventScroll: true });
+    target?.scrollIntoView({ block: "nearest", behavior: "instant" });
+  }
+  const platforms = Array.from(
+    new Set(
+      meme.evidence
+        .map((e) => e.source?.platform)
+        .filter((p): p is string => !!p),
+    ),
+  );
+  async function copy(id: string) {
+    try {
+      if (!navigator.clipboard) throw new Error("Clipboard unavailable");
+      await navigator.clipboard.writeText(
+        new URL(
+          referenceUrl(meme.id, meme.published_revision, id),
+          window.location.origin,
+        ).href,
+      );
+      setCopied((old) => ({ ...old, [id]: "引用链接已复制。" }));
+    } catch {
+      setCopied((old) => ({
+        ...old,
+        [id]: "复制失败，可右键复制下方的引用直达链接。",
+      }));
+    }
+  }
+  return (
+    <aside
+      ref={inspector}
+      className="evidence-inspector"
+      id="evidence"
+      tabIndex={-1}
+      aria-label="公开证据浏览器"
+    >
+      <h2 className="section-title" style={{ marginTop: 0 }}>
+        回到证据本身
+      </h2>
+      {meme.evidence.length > 0 && (
+        <>
+          <div className="evidence-controls">
+            <label className="field">
+              <span>在证据中查找</span>
+              <input
+                type="search"
+                value={navigation.query}
+                onChange={(e) => {
+                  setSelectedMatch({ key: "", index: 0 });
+                  navigation.setQuery(e.target.value);
+                }}
+                onKeyDown={(event) => {
+                  if (
+                    event.key === "Enter" &&
+                    !event.nativeEvent.isComposing &&
+                    !event.altKey &&
+                    !event.ctrlKey &&
+                    !event.metaKey
+                  ) {
+                    event.preventDefault();
+                    moveMatch(event.shiftKey ? -1 : 1);
+                  }
+                }}
+                placeholder="原文或来源标题"
+              />
+            </label>
+            <label className="field">
+              <span>证据平台</span>
+              <select
+                value={navigation.platform}
+                onChange={(e) => {
+                  setSelectedMatch({ key: "", index: 0 });
+                  navigation.setPlatform(e.target.value);
+                }}
+              >
+                <option value="">全部平台</option>
+                {platforms.map((platform) => (
+                  <option key={platform} value={platform}>
+                    {platformLabel(platform)}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <div className="evidence-filter-status" role="status">
+              显示 {navigation.visible.length} / {meme.evidence.length} 份证据
+              {(navigation.query || navigation.platform) && (
+                <button
+                  className="text-button"
+                  onClick={() => {
+                    setSelectedMatch({ key: "", index: 0 });
+                    navigation.setQuery("");
+                    navigation.setPlatform("");
+                  }}
+                >
+                  清除证据筛选
+                </button>
+              )}
+            </div>
+          </div>
+          {!!navigation.query.trim() && (
+            <div className="evidence-find-controls">
+              <p role="status">
+                {finding.count
+                  ? `文字命中 ${activeMatch + 1} / ${finding.count}${finding.limited ? "（仅高亮前500处）" : ""}`
+                  : "当前筛选无可定位文字命中。"}
+              </p>
+              <div>
+                <button
+                  className="text-button"
+                  disabled={!finding.count}
+                  onClick={() => moveMatch(-1)}
+                >
+                  上一处命中
+                </button>
+                <button
+                  className="text-button"
+                  disabled={!finding.count}
+                  onClick={() => moveMatch(1)}
+                >
+                  下一处命中
+                </button>
+              </div>
+              {finding.unavailable && (
+                <p>部分超长材料或浏览器不支持精确高亮，仍可筛选并阅读原文。</p>
+              )}
+            </div>
+          )}
+        </>
+      )}
+      {!navigation.visible.length && (
+        <p className="muted">
+          {meme.evidence.length
+            ? "当前筛选没有匹配的证据。"
+            : "当前公开修订没有可展示的证据材料。"}
+        </p>
+      )}
+      {navigation.visible.map(({ evidence: e, number, uses }) => {
+        const [text, title, url] = finding.entries.get(e.id)!;
+        return (
+          <article
+            key={e.id}
+            id={`evidence-${e.id}`}
+            className="evidence-box"
+            tabIndex={-1}
+            aria-label={`证据 ${number}`}
+            aria-current={
+              navigation.activeEvidence === e.id ? "true" : undefined
+            }
+          >
+            <div className="evidence-head">
+              <span>
+                证据 {number} · {describeKind(e.kind)}
+              </span>
+              <span>已审核</span>
+            </div>
+            {navigation.activeEvidence === e.id &&
+              navigation.messages.length > 0 && (
+                <p className="notice reference-status" role="status">
+                  {navigation.messages.join(" ")}
+                </p>
+              )}
+            <blockquote>
+              <FindText text={e.text} {...text} active={activeMatch} />
+            </blockquote>
+            <p className="evidence-where">{describeLocator(e.locator)}</p>
+            {e.source && (
+              <>
+                <p className="evidence-source-platform">
+                  {platformLabel(e.source.platform)}
+                </p>
+                <a
+                  href={e.source.canonical_url}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <FindText
+                    text={e.source.title || "查看平台原始来源"}
+                    {...title}
+                    active={activeMatch}
+                  />{" "}
+                  <Icon name="arrow" size={17} />
+                </a>
+                {url.ranges.length > 0 && (
+                  <p className="evidence-find-url">
+                    来源网址：
+                    <FindText
+                      text={e.source.canonical_url}
+                      {...url}
+                      active={activeMatch}
+                    />
+                  </p>
+                )}
+                <p className="evidence-dates">
+                  平台发布时间：{date(e.source.platform_published_at)}
+                  <br />
+                  证据登记时间：{date(e.created_at)}
+                </p>
+                {e.source.metadata_note && (
+                  <p className="muted">来源备注：{e.source.metadata_note}</p>
+                )}
+              </>
+            )}
+            {uses.length > 0 && (
+              <div className="evidence-backlinks" aria-label="返回引用位置">
+                {uses.map((use, i) => (
+                  <div key={`${use.anchor}-${i}`}>
+                    <ReferenceLink
+                      anchor={use.anchor}
+                      onNavigate={navigation.navigate}
+                      title={use.statement}
+                    >
+                      {use.label}
+                    </ReferenceLink>
+                    <span>{stanceLabel(use.stance)}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+            <details className="evidence-integrity">
+              <summary>证据版本与摘要</summary>
+              <p className="small-code">
+                当前档案修订：{meme.published_revision}
+              </p>
+              <p className="small-code">记录 SHA-256：{e.content_hash}</p>
+              <p className="small-code">工件 SHA-256：{e.artifact_hash}</p>
+              <a href={`/api/v1/evidence/${encodeURIComponent(e.id)}/artifact`}>
+                下载证据工件
+              </a>
+            </details>
+            <div className="evidence-share">
+              <button className="text-button" onClick={() => void copy(e.id)}>
+                复制引用链接
+              </button>
+              <a href={referenceUrl(meme.id, meme.published_revision, e.id)}>
+                引用直达链接
+              </a>
+            </div>
+            {copied[e.id] && (
+              <p className="retrieval-note" role="status">
+                {copied[e.id]}
+              </p>
+            )}
+          </article>
+        );
+      })}
+    </aside>
+  );
+}

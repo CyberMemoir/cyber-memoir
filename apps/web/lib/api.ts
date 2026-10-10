@@ -13,6 +13,9 @@ export type Star = components["schemas"]["Star"];
 export type UniverseBand = components["schemas"]["UniverseBand"];
 export type UniverseTick = components["schemas"]["UniverseTick"];
 export type TargetRef = components["schemas"]["TargetRef"];
+export type PublicationPackage = components["schemas"]["PublicationPackage"];
+export type ImportPlan = components["schemas"]["ImportPlan"];
+export type ImportResult = components["schemas"]["ImportResult"];
 export type Draft = {
   canonical_name: string;
   aliases: string[];
@@ -23,6 +26,13 @@ export type Draft = {
   events: unknown[];
   relations: unknown[];
   _source_id?: string;
+  _import?: {
+    operation: "create_new" | "append_derivatives";
+    evidence_ids: string[];
+    source_ids: string[];
+    warnings: string[];
+    entry_hash: string;
+  };
 };
 export type Revision = {
   id: string;
@@ -31,13 +41,64 @@ export type Revision = {
   status: string;
   created_at: string;
   based_on_revision: number;
+  edit_version: number;
+  etag: string;
+  review_reason?: string | null;
+  reviewer?: string | null;
+  reviewed_at?: string | null;
 };
+export type ReviewComparison = {
+  draft: Revision;
+  base: Revision | null;
+  current: Revision | null;
+  current_published_revision: number;
+  meme_status: string;
+  base_changed: boolean;
+};
+export type ReviewQueue = Omit<
+  components["schemas"]["ReviewQueueOut"],
+  "items"
+> & { items: Revision[] };
 export type Job = {
   id: string;
   status: string;
   attempts: number;
   error: string | null;
 };
+
+export class ApiError extends Error {
+  constructor(
+    message: string,
+    public readonly status: number,
+    public readonly code?: string,
+    public readonly retryAfterSeconds?: number,
+  ) {
+    super(message);
+    this.name = "ApiError";
+  }
+}
+
+export function retryDelay(
+  header: string | null,
+  fallback: unknown,
+  now = Date.now(),
+): number | undefined {
+  if (header && /^\d+$/.test(header.trim())) {
+    const seconds = Number(header.trim());
+    if (Number.isFinite(seconds)) return Math.min(60, seconds);
+  }
+  if (header && /^(Mon|Tue|Wed|Thu|Fri|Sat|Sun), /i.test(header)) {
+    const date = Date.parse(header);
+    if (Number.isFinite(date))
+      return Math.min(60, Math.max(0, Math.ceil((date - now) / 1000)));
+  }
+  if (
+    typeof fallback === "number" &&
+    Number.isFinite(fallback) &&
+    fallback >= 0
+  )
+    return Math.min(60, Math.ceil(fallback));
+}
 
 export async function api<T>(
   path: string,
@@ -59,10 +120,19 @@ export async function api<T>(
     const data = await response
       .json()
       .catch(() => ({ detail: `服务暂不可用 (${response.status})` }));
-    throw new Error(
-      typeof data.detail === "string"
-        ? data.detail
-        : JSON.stringify(data.detail),
+    const error = data && typeof data === "object" ? data : {};
+    throw new ApiError(
+      typeof error.detail === "string"
+        ? error.detail
+        : error.detail !== undefined
+          ? JSON.stringify(error.detail)
+          : `服务暂不可用 (${response.status})`,
+      response.status,
+      typeof error.code === "string" ? error.code : undefined,
+      retryDelay(
+        response.headers.get("Retry-After"),
+        error.retry_after_seconds,
+      ),
     );
   }
   return response.json();
@@ -78,6 +148,7 @@ export function date(value: string | null) {
         year: "numeric",
         month: "long",
         day: "numeric",
+        timeZone: "Asia/Shanghai",
       })
     : "时间未知";
 }

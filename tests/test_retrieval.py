@@ -1,10 +1,103 @@
 import pytest
+from review_requests import matching_revision
 from sqlalchemy.orm import Session
 
 from cyber_memoir.config import settings
 from cyber_memoir.domain.models import Source
 from cyber_memoir.search.indexing import index_meme
 from cyber_memoir.search.retrieval import rrf
+
+
+def test_search_and_answer_reuse_scores_but_retraction_is_immediate(client, prepared, monkeypatch, env):
+    from test_rerank_concurrency import Recorder
+
+    from cyber_memoir.adapters import inference
+
+    item = prepared(name="合成复用测试")
+    with Session(env) as db:
+        index_meme(db, item["meme_id"])
+        db.commit()
+    recorder = Recorder()
+    inference._SCORES.clear()
+    monkeypatch.setattr(inference, "reranker", lambda: recorder)
+    monkeypatch.setenv("RERANKER_BACKEND", "local")
+    settings.cache_clear()
+    body = {"query": "合成复用测试"}
+    assert client.post("/v1/search", json=body).json()["items"]
+    assert client.post("/v1/answers", json=body).json()["claims"]
+    assert recorder.calls == 1
+    response = client.post(
+        f"/v1/reviews/memes/{item['meme_id']}/retract",
+        headers={"Authorization": "Bearer unit-test-reviewer"},
+        json={"reason": "合成测试撤回"},
+    )
+    assert response.status_code == 200
+    assert not client.post("/v1/answers", json=body).json()["claims"]
+
+
+def test_revision_changed_during_rerank_is_not_scored_as_the_old_revision(client, prepared, monkeypatch, env):
+    from cyber_memoir.domain.models import EvidenceLink, Meme
+    from cyber_memoir.search import retrieval
+
+    item = prepared(name="合成评分中修订测试")
+    with Session(env) as db:
+        index_meme(db, item["meme_id"])
+        db.commit()
+
+    def revise_while_scoring(query, texts):
+        with Session(env) as other:
+            meme = other.get(Meme, item["meme_id"])
+            meme.published_revision = 2
+            meme.definition = "合成新修订，不能复用旧修订的相关性评分。"
+            other.add(
+                EvidenceLink(
+                    meme_id=meme.id,
+                    revision=2,
+                    evidence_id=item["evidence"]["id"],
+                    claim_key="definition",
+                    statement=meme.definition,
+                    stance="supports",
+                )
+            )
+            other.commit()
+        return [0.9] * len(texts)
+
+    monkeypatch.setattr(retrieval, "rerank", revise_while_scoring)
+    response = client.post("/v1/search", json={"query": "合成评分中修订测试"})
+    assert response.status_code == 200, response.text
+    data = response.json()
+    assert data["items"] == []
+    assert "corpus_changed_during_search" in data["degraded"]
+    fresh = client.get(f"/v1/memes/{item['meme_id']}").json()
+    assert fresh["published_revision"] == 2
+
+
+def test_public_detail_refreshes_a_preloaded_orm_record(prepared, env):
+    from cyber_memoir.application.content import detail
+    from cyber_memoir.domain.models import EvidenceLink, Meme
+
+    item = prepared(name="合成会话缓存测试")
+    with Session(env) as reader:
+        cached = reader.get(Meme, item["meme_id"])
+        assert cached.published_revision == 1
+        with Session(env) as writer:
+            current = writer.get(Meme, item["meme_id"])
+            current.published_revision = 2
+            current.definition = "合成最新定义，不允许使用旧会话实体。"
+            writer.add(
+                EvidenceLink(
+                    meme_id=current.id,
+                    revision=2,
+                    evidence_id=item["evidence"]["id"],
+                    claim_key="definition",
+                    statement=current.definition,
+                    stance="supports",
+                )
+            )
+            writer.commit()
+        result = detail(reader, item["meme_id"])
+        assert result["published_revision"] == 2
+        assert result["definition"] == "合成最新定义，不允许使用旧会话实体。"
 
 
 @pytest.mark.parametrize("url", [False, True])
@@ -119,7 +212,14 @@ def test_one_hop_graph_expansion_requires_reviewed_relation(client, prepared, au
             }
         ],
     }
-    assert client.put(f"/v1/reviews/{child['revision']['id']}", json=payload, headers=auth).status_code == 200
+    assert (
+        client.put(
+            f"/v1/reviews/{child['revision']['id']}",
+            json=payload,
+            headers=matching_revision(client, auth, f"/v1/reviews/{child['revision']['id']}"),
+        ).status_code
+        == 200
+    )
     assert (
         client.post(
             f"/v1/reviews/{child['revision']['id']}/decision",
@@ -128,7 +228,7 @@ def test_one_hop_graph_expansion_requires_reviewed_relation(client, prepared, au
                 "reason": "合成关系人工核查",
                 "verified_evidence_ids": [child["evidence"]["id"]],
             },
-            headers=auth,
+            headers=matching_revision(client, auth, f"/v1/reviews/{child['revision']['id']}/decision"),
         ).status_code
         == 200
     )
@@ -170,7 +270,9 @@ def test_answer_abstains_below_the_score_floor(client, prepared, monkeypatch, en
     _reranker(monkeypatch, 0.01)
     data = client.post("/v1/answers", json={"query": "仅用于软件测试的虚构表述"}).json()
     assert data["claims"] == []
-    assert "没有足够的已审核证据" in data["answer"]
+    assert data["abstention_reason"] == "low_relevance"
+    assert "相关性评分不足" in data["answer"]
+    assert data["citations"] == []
 
 
 def test_answer_uses_claims_above_the_score_floor(client, prepared, monkeypatch, env):
@@ -200,7 +302,8 @@ def test_missing_calibrated_scorer_is_declared_not_silently_skipped(client, prep
 def test_no_evidence_no_answer(client):
     data = client.post("/v1/answers", json={"query": "不存在的梗起源"}).json()
     assert not data["claims"] and not data["citations"]
-    assert "没有足够" in data["answer"]
+    assert data["abstention_reason"] == "no_public_matches"
+    assert data["related_memories"] == []
 
 
 def test_rag_citations_resolve_to_reviewed_evidence(client, prepared):

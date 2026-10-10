@@ -1,11 +1,22 @@
 "use client";
-import { useState } from "react";
-import { api, post, date, type Revision, type Draft } from "@/lib/api";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { api, post, date, type Revision, type ReviewQueue } from "@/lib/api";
 import { ReviewEditor } from "@/components/review-editor";
+import { PublicationImport } from "@/components/publication-import";
+import { RevisionHistory } from "@/components/revision-history";
+import Link from "next/link";
 
 export default function ReviewPage() {
   const [token, setToken] = useState("");
   const [authorized, setAuthorized] = useState(false);
+  const [queue, setQueue] = useState<ReviewQueue | null>(null);
+  const latestQueue = useRef<ReviewQueue | null>(null);
+  const [queueError, setQueueError] = useState("");
+  const queueRequest = useRef<{
+    controller: AbortController;
+    background: boolean;
+  } | null>(null);
+  const queueSequence = useRef(0);
   const [items, setItems] = useState<Revision[]>([]);
   const [selected, setSelected] = useState<Revision | null>(null);
   const [error, setError] = useState("");
@@ -17,21 +28,82 @@ export default function ReviewPage() {
   const [history, setHistory] = useState<
     (Revision & { review_reason?: string })[]
   >([]);
-  async function load() {
-    setBusy(true);
-    setError("");
-    try {
-      const data = await api<Revision[]>("/v1/reviews", undefined, token);
-      setAuthorized(true);
-      setItems(data);
-      setSelected(data[0] || null);
-    } catch (e) {
-      setError((e as Error).message);
-      setAuthorized(false);
-    } finally {
-      setBusy(false);
+  const load = useCallback(
+    async (manual = true) => {
+      const sequence = ++queueSequence.current;
+      queueRequest.current?.controller.abort();
+      const controller = new AbortController();
+      queueRequest.current = { controller, background: !manual };
+      if (manual) {
+        setBusy(true);
+        setQueueError("");
+      }
+      try {
+        const data = await api<ReviewQueue>(
+          "/v1/reviews/queue",
+          { signal: controller.signal },
+          token,
+        );
+        if (sequence !== queueSequence.current || controller.signal.aborted)
+          return;
+        setAuthorized(true);
+        setQueueError("");
+        setQueue(data);
+        latestQueue.current = data;
+        setItems(data.items);
+        // A peer may process this draft while the local editor is dirty. Keep
+        // its local working copy until the user resolves it or our own action succeeds.
+        setSelected((old) => old || data.items[0] || null);
+        return data;
+      } catch (e) {
+        if (controller.signal.aborted || sequence !== queueSequence.current)
+          return;
+        const message = (e as Error).message;
+        setQueueError(message);
+        if (manual || message.includes("需要审核者令牌")) {
+          setAuthorized(false);
+          setItems([]);
+          setSelected(null);
+        }
+      } finally {
+        if (queueRequest.current?.controller === controller)
+          queueRequest.current = null;
+        if (manual) setBusy(false);
+      }
+    },
+    [token],
+  );
+  useEffect(() => {
+    if (!authorized) return;
+    let active = true;
+    let timeout: ReturnType<typeof setTimeout>;
+    const interval = (data: ReviewQueue | null | undefined) =>
+      data && data.pending_jobs + data.running_jobs > 0 ? 2000 : 15000;
+    async function poll() {
+      // Never abort a manually requested refresh or overlap two queue reads.
+      if (queueRequest.current) {
+        timeout = setTimeout(poll, 2000);
+        return;
+      }
+      const data = await load(false);
+      if (active) timeout = setTimeout(poll, interval(data));
     }
-  }
+    timeout = setTimeout(poll, interval(latestQueue.current));
+    return () => {
+      active = false;
+      clearTimeout(timeout);
+      if (queueRequest.current?.background)
+        queueRequest.current.controller.abort();
+    };
+    // Queue changes do not restart an in-flight polling cycle or overwrite edits.
+  }, [authorized, load]);
+  useEffect(
+    () => () => {
+      ++queueSequence.current;
+      queueRequest.current?.controller.abort();
+    },
+    [],
+  );
   async function manage(action: string) {
     setError("");
     setNotice("");
@@ -72,13 +144,13 @@ export default function ReviewPage() {
       setBusy(false);
     }
   }
-  async function revise(payload: Draft) {
+  async function revise(item: Revision) {
     setBusy(true);
     setError("");
     try {
       await api(
-        `/v1/reviews/drafts?meme_id=${encodeURIComponent(memeId)}`,
-        post(payload),
+        `/v1/reviews/drafts?meme_id=${encodeURIComponent(item.meme_id)}`,
+        post(item.payload),
         token,
       );
       await load();
@@ -96,6 +168,10 @@ export default function ReviewPage() {
       <p className="page-subtitle">
         机器提出候选，人核查证据。审核通过，才成为公共记忆。
       </p>
+      <p className="retrieval-note">
+        <Link href="/review/semantic">打开本地语义复核</Link> ·
+        使用固定文件，不连接发布审批。
+      </p>
       <form
         className="inline-form"
         onSubmit={(e) => {
@@ -110,6 +186,8 @@ export default function ReviewPage() {
             autoComplete="off"
             value={token}
             onChange={(e) => {
+              ++queueSequence.current;
+              queueRequest.current?.controller.abort();
               setToken(e.target.value);
               setAuthorized(false);
             }}
@@ -126,6 +204,11 @@ export default function ReviewPage() {
           {error}
         </div>
       )}
+      {queueError && (
+        <div className="error" role="alert">
+          队列更新失败：{queueError}
+        </div>
+      )}
       {notice && (
         <div className="notice" role="status">
           {notice}
@@ -133,6 +216,24 @@ export default function ReviewPage() {
       )}
       {authorized && (
         <>
+          <PublicationImport
+            token={token}
+            onImported={async () => {
+              await load();
+            }}
+          />
+          {queue && queue.pending_jobs + queue.running_jobs > 0 && (
+            <p className="retrieval-note queue-processing" aria-live="polite">
+              材料任务：{queue.pending_jobs} 个待处理，{queue.running_jobs}{" "}
+              个执行中。待审队列将自动更新，不会重置正在编辑的草稿。
+            </p>
+          )}
+          {!!queue?.failed_jobs && (
+            <p className="retrieval-note">
+              有 {queue.failed_jobs}{" "}
+              条材料任务失败记录，可核对提交状态与运行日志；这不等于当前公开证据失效。
+            </p>
+          )}
           <div className="review-columns">
             <aside className="review-list">
               <h2 style={{ fontSize: 18, fontWeight: 500 }}>
@@ -161,15 +262,23 @@ export default function ReviewPage() {
                 key={selected.id}
                 revision={selected}
                 token={token}
+                remoteEtag={items.find((item) => item.id === selected.id)?.etag}
                 onDone={() => {
                   setNotice("审核决定已保存。索引异步更新，公开状态即时生效。");
+                  setSelected(null);
                   void load();
                 }}
               />
             ) : (
               <div className="empty-state">
-                <h3>所有待审记忆，已处理完毕。</h3>
-                <p>提交来源并补充材料后，新的候选会出现在这里。</p>
+                <h3>
+                  {queue && queue.pending_jobs + queue.running_jobs > 0
+                    ? "材料任务尚未结束"
+                    : "队列暂时没有待审修订。"}
+                </h3>
+                <p>
+                  目前暂无待审修订。新候选生成后会自动出现在这里；也可以刷新队列。
+                </p>
               </div>
             )}
           </div>
@@ -228,25 +337,10 @@ export default function ReviewPage() {
                 </button>
               </div>
             </div>
-            {history.map((item) => (
-              <article className="evidence-box" key={item.id}>
-                <div className="row-meta">
-                  <span>
-                    {date(item.created_at)} · {item.status}
-                  </span>
-                  <span>基于版本 {item.based_on_revision}</span>
-                </div>
-                <p>{item.review_reason}</p>
-                {item.payload.canonical_name && (
-                  <button
-                    className="text-button"
-                    onClick={() => void revise(item.payload)}
-                  >
-                    基于此内容创建新修订
-                  </button>
-                )}
-              </article>
-            ))}
+            <RevisionHistory
+              items={history}
+              onRevise={(item) => void revise(item)}
+            />
           </section>
         </>
       )}

@@ -1,5 +1,6 @@
 from functools import lru_cache
 
+from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -25,10 +26,16 @@ class Settings(BaseSettings):
     mcp_allowed_origins: str = "http://localhost:*,http://127.0.0.1:*"
     embedding_backend: str = "disabled"
     embedding_model: str = "BAAI/bge-m3"
+    embedding_device: str = ""
+    embedding_threads: int = 0
     reranker_backend: str = "disabled"
     reranker_model: str = "BAAI/bge-reranker-v2-m3"
+    reranker_device: str = ""
     # 0 leaves torch's own choice alone; set it to cap what one rerank may occupy.
     reranker_threads: int = 0
+    # Query cache misses wait at most this long for a model slot; compute itself
+    # is not interrupted. Indexing uses its original worker/job deadline.
+    inference_queue_timeout_seconds: float = Field(default=2.0, ge=0, le=60, allow_inf_nan=False)
     llm_base_url: str = ""
     llm_api_key: str = ""
     llm_model: str = ""

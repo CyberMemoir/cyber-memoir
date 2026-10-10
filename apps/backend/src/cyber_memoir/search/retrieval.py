@@ -1,10 +1,11 @@
 import logging
 from collections import defaultdict
 
+from fastapi import HTTPException
 from sqlalchemy import func, or_, select
 from sqlalchemy.orm import Session
 
-from cyber_memoir.adapters.inference import embed, rerank
+from cyber_memoir.adapters.inference import InferenceBusy, embed_query, rerank
 from cyber_memoir.application.content import detail
 from cyber_memoir.config import settings
 from cyber_memoir.domain.models import Alias, Chunk, Evidence, EvidenceLink, Meme, Relation, Source
@@ -50,6 +51,20 @@ def _base(request: SearchRequest):
     )
 
 
+def _exact_matches(db, eligible, query, raw_query):
+    matches = set(
+        db.scalars(select(Alias.meme_id).where(Alias.normalized == query, Alias.meme_id.in_(eligible)))
+    )
+    matches.update(
+        db.scalars(
+            eligible.where(
+                or_(Source.platform_item_id == raw_query.strip(), Source.canonical_url == raw_query.strip())
+            )
+        )
+    )
+    return matches
+
+
 def search(db: Session, request: SearchRequest):
     query = normalize(request.query)
     warnings, channels = [], []
@@ -84,19 +99,7 @@ def search(db: Session, request: SearchRequest):
             "scores_calibrated": False,
             "query": request.query,
         }
-    exact_memes = set(
-        db.scalars(select(Alias.meme_id).where(Alias.normalized == query, Alias.meme_id.in_(eligible)))
-    )
-    exact_memes.update(
-        db.scalars(
-            eligible.where(
-                or_(
-                    Source.platform_item_id == request.query.strip(),
-                    Source.canonical_url == request.query.strip(),
-                )
-            )
-        )
-    )
+    exact_memes = _exact_matches(db, eligible, query, request.query)
     cfg = settings()
     rankings = []
     exact = (
@@ -152,7 +155,7 @@ def search(db: Session, request: SearchRequest):
         warnings.append("bm25_disabled")
     if settings().embedding_backend == "local":
         try:
-            vector = embed([query])[0]
+            vector = embed_query(query)
             nearest = db.scalars(
                 _base(request)
                 .where(Chunk.embedding_model == settings().embedding_model, Chunk.embedding.is_not(None))
@@ -161,6 +164,8 @@ def search(db: Session, request: SearchRequest):
             ).all()
             rankings.append(([x.id for x in nearest], cfg.rrf_weight_vector))
             channels.append("vector")
+        except InferenceBusy:
+            raise
         except Exception as exc:
             warnings.append("vector_unavailable")
             log.info("vector failed: %s", type(exc).__name__)
@@ -215,6 +220,8 @@ def search(db: Session, request: SearchRequest):
             break
     # The reranker is the only calibrated relevance signal here. RRF scores encode rank position,
     # not match quality, so a threshold can never be read off them; see ADR 0004.
+    used_ids = exact_memes | {c.meme_id for c in candidates}
+    versions = dict(db.execute(select(Meme.id, Meme.published_revision).where(Meme.id.in_(used_ids))).all())
     chunk_scores, scores_calibrated = {}, False
     try:
         scores = rerank(query, [f"{db.get(Meme, x.meme_id).canonical_name}\n{x.text}" for x in candidates])
@@ -231,13 +238,40 @@ def search(db: Session, request: SearchRequest):
         # flag, because it is what a reader trusts to tell them the run was sound.
         elif candidates:
             warnings.append("reranker_disabled")
+    except InferenceBusy:
+        raise
     except Exception as exc:
         warnings.append("reranker_unavailable")
         log.info("reranker failed: %s", type(exc).__name__)
+    # Neither the score cache nor this Session's identity map defines public state.
+    # If a revision changed while inference was running, drop it from this run
+    # rather than applying an old revision's scores to new claims.
+    current = dict(
+        db.execute(
+            select(Meme.id, Meme.published_revision).where(Meme.id.in_(used_ids), Meme.id.in_(eligible))
+        ).all()
+    )
+    changed = {mid for mid in used_ids if versions.get(mid) != current.get(mid)}
+    valid_chunks = set(
+        db.scalars(_base(request).with_only_columns(Chunk.id).where(Chunk.id.in_([c.id for c in candidates])))
+    )
+    if changed or any(c.id not in valid_chunks for c in candidates):
+        warnings.append("corpus_changed_during_search")
+    candidates = [c for c in candidates if c.meme_id not in changed and c.id in valid_chunks]
+    exact_memes &= _exact_matches(db, eligible, query, request.query) - changed
     ordered = list(dict.fromkeys([*sorted(exact_memes), *(x.meme_id for x in candidates)]))
-    items = []
+    items, changed_after_check = [], set()
     for mid in ordered[request.offset : request.offset + request.limit]:
-        item = detail(db, mid)
+        try:
+            item = detail(db, mid)
+        except HTTPException as exc:
+            if exc.status_code not in {404, 409}:
+                raise
+            changed_after_check.add(mid)
+            continue
+        if item["published_revision"] != versions.get(mid):
+            changed_after_check.add(mid)
+            continue
         item["exact_match"] = mid in exact_memes
         item["matches"] = [
             {
@@ -253,9 +287,11 @@ def search(db: Session, request: SearchRequest):
         scored = [x["score"] for x in item["matches"] if x["score"] is not None]
         item["retrieval_score"] = max(scored) if scored else None
         items.append(item)
+    if changed_after_check and "corpus_changed_during_search" not in warnings:
+        warnings.append("corpus_changed_during_search")
     return {
         "items": items,
-        "total": len(ordered),
+        "total": len(ordered) - len(changed_after_check),
         "total_is_candidate_count": True,
         "channels": channels,
         "degraded": warnings,

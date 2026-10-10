@@ -71,9 +71,10 @@ class Loader:
         self.memes: dict[str, str] = {}
         self.duplicates: dict[str, list[str]] = {}
 
-    def post(self, path: str, payload: dict) -> httpx.Response:
+    def post(self, path: str, payload: dict, *, expected: str | None = None) -> httpx.Response:
         time.sleep(self.pace)
-        response = self.client.post(path, json=payload, headers=self.auth)
+        headers = {**self.auth, **({"If-Match": expected} if expected else {})}
+        response = self.client.post(path, json=payload, headers=headers)
         response.raise_for_status()
         return response
 
@@ -84,7 +85,9 @@ class Loader:
         if self.dry:
             self.sources[bv] = "dry-%s" % bv
             return self.sources[bv]
-        response = self.post("/v1/submissions", {"url": "https://www.bilibili.com/video/%s" % bv, "title": ""})
+        response = self.post(
+            "/v1/submissions", {"url": "https://www.bilibili.com/video/%s" % bv, "title": ""}
+        )
         self.sources[bv] = response.json()["source"]["id"]
         return self.sources[bv]
 
@@ -145,7 +148,8 @@ class Loader:
             return "dry-revision"
         existing = self.meme_for(name)
         path = "/v1/reviews/drafts" + ("?meme_id=%s" % existing if existing else "")
-        revision = self.post(path, draft).json()["id"]
+        snapshot = self.post(path, draft).json()
+        revision = snapshot["id"]
         self.post(
             "/v1/reviews/%s/decision" % revision,
             {
@@ -153,6 +157,7 @@ class Loader:
                 "reason": reason,
                 "verified_evidence_ids": evidence_ids,
             },
+            expected=snapshot["etag"],
         )
         return revision
 
@@ -191,10 +196,7 @@ def order_by_dependency(paths: list[Path], docs: dict[Path, dict]) -> list[Path]
             for path in pending
             if all(
                 owner[name] in done
-                for name in (
-                    r.get("target_name")
-                    for r in docs[path].get("relations") or []
-                )
+                for name in (r.get("target_name") for r in docs[path].get("relations") or [])
                 if name in owner and owner[name] is not path
             )
         ]
@@ -272,9 +274,10 @@ def approval_reason(doc: dict, name: str) -> str:
 
 def unconfirmed_draft(doc: dict) -> bool:
     curation = doc.get("curation") or {}
-    return bool(str(curation.get("drafted_by") or "").strip()) and not str(
-        curation.get("confirmed_by") or ""
-    ).strip()
+    return (
+        bool(str(curation.get("drafted_by") or "").strip())
+        and not str(curation.get("confirmed_by") or "").strip()
+    )
 
 
 def main() -> int:
@@ -283,7 +286,9 @@ def main() -> int:
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--pace", type=float, default=1.1)
     parser.add_argument(
-        "records", nargs="*", type=Path,
+        "records",
+        nargs="*",
+        type=Path,
         help="load only these files; default is every record, and each run revises every meme it loads",
     )
     args = parser.parse_args()
@@ -312,7 +317,7 @@ def main() -> int:
             continue
 
         ids: dict[str, str] = {}
-        for key in (doc.get("evidence_map") or {}):
+        for key in doc.get("evidence_map") or {}:
             found = resolve_placeholder(key, index)
             if not found:
                 print("  x 无法定位证据 %s" % key)
@@ -341,7 +346,9 @@ def main() -> int:
             fact = platform.get(bv)
             if fact:
                 loader.metadata(
-                    source_id, fact["title"], fact["date"],
+                    source_id,
+                    fact["title"],
+                    fact["date"],
                     "日期与标题取自 yt-dlp 对平台元数据的解析；抓取受限，ingest 未能写入",
                 )
 
@@ -374,8 +381,10 @@ def main() -> int:
             continue
         try:
             revision = loader.publish(draft, every_id, name, approval_reason(doc, name))
-            print("  已发布 revision %s（证据 %d 条，事件 %d 条）"
-                  % (revision[:8], len(every_id), len(draft["events"])))
+            print(
+                "  已发布 revision %s（证据 %d 条，事件 %d 条）"
+                % (revision[:8], len(every_id), len(draft["events"]))
+            )
         except httpx.HTTPStatusError as exc:
             print("  x 发布失败 %s: %s" % (exc.response.status_code, exc.response.text[:200]))
             failures += 1

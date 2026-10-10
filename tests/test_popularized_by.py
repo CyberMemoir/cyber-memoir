@@ -8,6 +8,8 @@ origin and popularity into one thing, which is the mistake the archive exists to
 avoid.
 """
 
+from review_requests import matching_revision
+
 AUTH = {"Authorization": "Bearer unit-test-reviewer"}
 
 
@@ -35,7 +37,7 @@ def revise_and_approve(client, made, relations, reason):
             "reason": reason,
             "verified_evidence_ids": [made["evidence"]["id"]],
         },
-        headers=AUTH,
+        headers=matching_revision(client, AUTH, f"/v1/reviews/{revision.json()['id']}/decision"),
     )
 
 
