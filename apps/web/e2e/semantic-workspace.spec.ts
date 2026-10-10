@@ -241,3 +241,242 @@ test("Unicode positions, invalid dates, unknown fields and unsafe source links a
     ),
   ).toThrow(/重复/);
 });
+
+test("queue filters keep dirty work, next pending respects saved state, and export never truncates to a subset", async ({
+  page,
+}) => {
+  const apiCalls: string[] = [];
+  page.on("request", (request) => {
+    if (request.url().includes("/api/")) apiCalls.push(request.url());
+  });
+  await page.goto("/review/semantic");
+  await page.getByLabel("导入审计队列").setInputFiles({
+    name: "queue.jsonl",
+    mimeType: "application/json",
+    buffer: fixture(),
+  });
+  await page.getByLabel("复核理由").fill("第一条未保存的合成稿");
+  await page.getByLabel("筛选断言").fill("  合成的使用语境  ");
+  await expect(page.getByText("显示 1 / 2 条")).toBeVisible();
+  await expect(
+    page.getByText("当前断言不在筛选结果中；编辑仍保留。"),
+  ).toBeVisible();
+  await expect(page.getByLabel("复核理由")).toHaveValue("第一条未保存的合成稿");
+  page.once("dialog", (dialog) => dialog.dismiss());
+  await page.getByRole("button", { name: "下一条待复核" }).click();
+  await expect(page.getByLabel("复核理由")).toHaveValue("第一条未保存的合成稿");
+  page.once("dialog", (dialog) => dialog.accept());
+  await page.getByRole("button", { name: "下一条待复核" }).click();
+  await expect(page.getByLabel("复核理由")).toHaveValue("");
+  await expect(page.getByLabel("复核结论")).toHaveValue("");
+  await expect(
+    page.getByRole("button", { name: "下一条待复核" }),
+  ).toBeDisabled();
+  await page.getByLabel("复核结论").selectOption("unverifiable");
+  await page.getByLabel("复核者", { exact: true }).fill("合成测试者");
+  await page.getByLabel("复核理由").fill("合成：仅供流程验收，没有实际核验。");
+  await page.getByRole("button", { name: "保存这条复核" }).click();
+  await page.getByLabel("筛选断言").fill("");
+  await page.getByLabel("已保存状态").selectOption("pending");
+  await expect(page.getByText("显示 1 / 2 条")).toBeVisible();
+  await expect(
+    page.getByText("当前断言不在筛选结果中；编辑仍保留。"),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "下一条待复核" }).click();
+  await expect(page.getByLabel("复核结论")).toHaveValue("");
+  await page.getByLabel("复核结论").selectOption("unsupported");
+  await page.getByLabel("复核者", { exact: true }).fill("合成测试者");
+  await page.getByLabel("复核理由").fill("合成：仅测试分类，不是真实判断。");
+  // A dirty choice is not counted as saved or silently removed from the pending list.
+  await expect(page.getByText("显示 1 / 2 条")).toBeVisible();
+  await page.getByRole("button", { name: "保存这条复核" }).click();
+  await expect(page.getByText("显示 0 / 2 条")).toBeVisible();
+  await expect(
+    page.getByRole("button", { name: "下一条待复核" }),
+  ).toBeDisabled();
+  await page.getByLabel("已保存状态").selectOption("reviewed");
+  await expect(page.getByText("显示 2 / 2 条")).toBeVisible();
+  await page.getByLabel("已保存状态").selectOption("unsupported");
+  await expect(page.getByText("显示 1 / 2 条")).toBeVisible();
+  await page.getByLabel("筛选断言").fill("没有这个合成断言");
+  await expect(
+    page.getByText("当前筛选无匹配；不会改变复核记录。"),
+  ).toBeVisible();
+  const directory = mkdtempSync(join(tmpdir(), "memoir-filter-export-"));
+  try {
+    const downloading = page.waitForEvent("download");
+    await page.getByRole("button", { name: "导出复核 JSON" }).click();
+    const path = join(directory, "reviews.json");
+    await (await downloading).saveAs(path);
+    const data = JSON.parse(readFileSync(path, "utf8"));
+    expect(
+      data.reviews.map((row: { assessment: string }) => row.assessment),
+    ).toEqual(["unsupported", "unverifiable"]);
+    expect(data.reviews).toHaveLength(2);
+  } finally {
+    rmSync(directory, { recursive: true, force: true });
+  }
+  await page.getByLabel("导入审计队列").setInputFiles({
+    name: "new.jsonl",
+    mimeType: "application/json",
+    buffer: fixture(),
+  });
+  await expect(page.getByLabel("筛选断言")).toHaveValue("");
+  await expect(page.getByLabel("已保存状态")).toHaveValue("all");
+  await expect(page.getByText("已复核 0 / 待复核 2")).toBeVisible();
+  expect(apiCalls).toEqual([]);
+});
+
+test("next pending wraps frozen queue order and reselecting the active item cannot discard a dirty draft", async ({
+  page,
+}) => {
+  await page.goto("/review/semantic");
+  await page.getByLabel("导入审计队列").setInputFiles({
+    name: "queue.jsonl",
+    mimeType: "application/json",
+    buffer: fixture(),
+  });
+  await page.getByRole("button", { name: "下一条待复核" }).click();
+  await expect(
+    page
+      .getByRole("region", { name: "断言复核编辑" })
+      .getByRole("heading", { level: 2 }),
+  ).toHaveText("合成使用语境");
+  await page.getByRole("button", { name: "下一条待复核" }).click();
+  await expect(
+    page
+      .getByRole("region", { name: "断言复核编辑" })
+      .getByRole("heading", { level: 2 }),
+  ).toHaveText("合成演示断言");
+  await page.getByLabel("复核理由").fill("选中条目的合成脏稿");
+  await page.getByRole("button", { name: /合成演示断言.*待复核/ }).click();
+  await expect(page.getByLabel("复核理由")).toHaveValue("选中条目的合成脏稿");
+});
+
+test("each of the five saved verdicts has its own filter and is never treated as pending", async ({
+  page,
+}) => {
+  const raw = fixture();
+  const queue = await loadQueue(new Uint8Array(raw));
+  await page.goto("/review/semantic");
+  await page.getByLabel("导入审计队列").setInputFiles({
+    name: "queue.jsonl",
+    mimeType: "application/json",
+    buffer: raw,
+  });
+  for (const assessment of [
+    "supported",
+    "partial",
+    "unsupported",
+    "contradicted",
+    "unverifiable",
+  ]) {
+    const reviews = queue.rows.map((row, index) =>
+      index
+        ? pending(row.audit_id)
+        : {
+            ...pending(row.audit_id),
+            assessment,
+            reviewer: "合成测试者",
+            reason: "合成流程验收",
+            reviewed_at: "2026-10-10T12:00:00Z",
+            quotes: [quoteFromSelection(row.evidence[0], 0, 1)],
+          },
+    );
+    await page.getByLabel("加载复核文件").setInputFiles({
+      name: "review.json",
+      mimeType: "application/json",
+      buffer: Buffer.from(
+        JSON.stringify({
+          schema_version: 1,
+          scope: "saved_evidence_text_not_publication",
+          queue_sha256: queue.sha,
+          reviews,
+        }),
+      ),
+    });
+    await expect(page.getByLabel("复核结论")).toHaveValue(assessment);
+    await page.getByLabel("已保存状态").selectOption(assessment);
+    await expect(page.getByText("显示 1 / 2 条")).toBeVisible();
+    await expect(
+      page.getByRole("button", { name: /合成使用语境.*待复核/ }),
+    ).toHaveCount(0);
+    await page.getByLabel("已保存状态").selectOption("pending");
+    await expect(page.getByText("显示 1 / 2 条")).toBeVisible();
+    await expect(
+      page.getByRole("button", { name: /合成使用语境.*待复核/ }),
+    ).toBeVisible();
+  }
+});
+
+test("reading a replacement review file freezes task ownership until the validated file is ready", async ({
+  page,
+}) => {
+  const raw = fixture();
+  const queue = await loadQueue(new Uint8Array(raw));
+  await page.goto("/review/semantic");
+  await page.getByLabel("导入审计队列").setInputFiles({
+    name: "queue.jsonl",
+    mimeType: "application/json",
+    buffer: raw,
+  });
+  await expect(page.getByText("显示 2 / 2 条")).toBeVisible();
+  await page.evaluate(() => {
+    const original = File.prototype.arrayBuffer;
+    File.prototype.arrayBuffer = function () {
+      const file = this;
+      File.prototype.arrayBuffer = original;
+      return new Promise<ArrayBuffer>((resolve) => {
+        (
+          window as unknown as { releaseReviewRead: () => void }
+        ).releaseReviewRead = () => {
+          void original.call(file).then(resolve);
+        };
+      });
+    };
+  });
+  await page.getByLabel("加载复核文件").setInputFiles({
+    name: "pending.json",
+    mimeType: "application/json",
+    buffer: Buffer.from(
+      JSON.stringify({
+        schema_version: 1,
+        scope: "saved_evidence_text_not_publication",
+        queue_sha256: queue.sha,
+        reviews: queue.rows.map((row) => pending(row.audit_id)),
+      }),
+    ),
+  });
+  for (const label of [
+    "筛选断言",
+    "已保存状态",
+    "复核结论",
+    "复核者",
+    "复核理由",
+  ]) {
+    await expect(page.getByLabel(label)).toBeDisabled();
+  }
+  await expect(
+    page.getByRole("button", { name: /合成使用语境.*待复核/ }),
+  ).toBeDisabled();
+  await expect(
+    page.getByRole("button", { name: "下一条待复核" }),
+  ).toBeDisabled();
+  await expect(
+    page.getByRole("button", { name: "保存这条复核" }),
+  ).toBeDisabled();
+  await page.evaluate(() =>
+    (
+      window as unknown as { releaseReviewRead: () => void }
+    ).releaseReviewRead(),
+  );
+  await expect(page.getByLabel("复核理由")).toBeEnabled();
+  await expect(
+    page
+      .getByRole("region", { name: "断言复核编辑" })
+      .getByRole("heading", { level: 2 }),
+  ).toHaveText("合成演示断言");
+  await expect(
+    page.getByRole("button", { name: /合成使用语境.*待复核/ }),
+  ).toBeEnabled();
+});

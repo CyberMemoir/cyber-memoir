@@ -30,6 +30,7 @@ const FIELDS: Record<string, string> = {
   usage_context: "语境",
   origin: "起源",
 };
+type StatusFilter = "all" | "pending" | "reviewed" | Assessment;
 function clone(row: Review): Review {
   return { ...row, quotes: row.quotes.map((quote) => ({ ...quote })) };
 }
@@ -45,9 +46,34 @@ export default function SemanticReviewPage() {
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
   const [selection, setSelection] = useState<Quote | null>(null);
+  const [query, setQuery] = useState("");
+  const [statusFilter, setStatusFilter] = useState<StatusFilter>("all");
   const generation = useRef(0);
   const row = queue?.rows[selected];
   const reviewed = saved.filter((value) => value.assessment !== null).length;
+  const needle = query.trim().normalize("NFKC").toLowerCase();
+  const visible = (queue?.rows ?? [])
+    .map((value, index) => ({ value, index }))
+    .filter(({ value, index }) => {
+      const assessment = saved[index]?.assessment ?? null;
+      const matchesStatus =
+        statusFilter === "all" ||
+        (statusFilter === "pending" && assessment === null) ||
+        (statusFilter === "reviewed" && assessment !== null) ||
+        statusFilter === assessment;
+      const text = `${value.claim.meme_name ?? ""}\n${value.claim.statement}`;
+      return (
+        matchesStatus && text.normalize("NFKC").toLowerCase().includes(needle)
+      );
+    });
+  // Follow the frozen queue's order, wrap once, and never switch to the current task.
+  const remaining = visible.filter(
+    ({ index }) => index !== selected && saved[index]?.assessment === null,
+  );
+  const nextPending =
+    remaining.find(({ index }) => index > selected) ?? remaining[0];
+  const selectedHidden =
+    queue && !visible.some(({ index }) => index === selected);
   useEffect(() => {
     function leave(event: BeforeUnloadEvent) {
       if (dirty || unexported) {
@@ -110,6 +136,8 @@ export default function SemanticReviewPage() {
         setSaved(reviews);
         setSelected(0);
         setDraft(clone(reviews[0]));
+        setQuery("");
+        setStatusFilter("all");
       } else {
         if (!queue) throw new Error("请先导入对应的审计队列");
         const next = importReviews(bytes, queue);
@@ -127,6 +155,7 @@ export default function SemanticReviewPage() {
     }
   }
   function select(index: number) {
+    if (busy || index === selected) return;
     if (dirty && !window.confirm("当前断言尚未保存。确认放弃当前编辑？"))
       return;
     setSelected(index);
@@ -137,7 +166,7 @@ export default function SemanticReviewPage() {
     setNotice("");
   }
   function update(values: Partial<Review>) {
-    if (draft) {
+    if (draft && !busy) {
       setDraft({ ...draft, ...values });
       setDirty(true);
       setError("");
@@ -145,7 +174,7 @@ export default function SemanticReviewPage() {
     }
   }
   function save() {
-    if (!row || !draft) return;
+    if (!row || !draft || busy) return;
     setError("");
     try {
       if (!draft.assessment)
@@ -168,7 +197,11 @@ export default function SemanticReviewPage() {
     }
   }
   function withdraw() {
-    if (!row || !window.confirm("仅撤回这一条本地评级，不影响文化记录。确认？"))
+    if (
+      !row ||
+      busy ||
+      !window.confirm("仅撤回这一条本地评级，不影响文化记录。确认？")
+    )
       return;
     const next = pending(row.audit_id);
     setSaved(
@@ -182,6 +215,7 @@ export default function SemanticReviewPage() {
     setNotice("本地评级已撤回；原审计队列和文化发布状态未改。");
   }
   function capture(element: HTMLPreElement, evidenceIndex: number) {
+    if (busy) return;
     try {
       const current = window.getSelection();
       if (!row || !current || current.rangeCount !== 1 || current.isCollapsed)
@@ -209,7 +243,7 @@ export default function SemanticReviewPage() {
     }
   }
   function addQuote() {
-    if (!draft || !selection || !row) return;
+    if (!draft || !selection || !row || busy) return;
     if (
       draft.quotes.some(
         (q) =>
@@ -252,7 +286,7 @@ export default function SemanticReviewPage() {
     }
   }
   return (
-    <main id="main" className="semantic-workspace">
+    <main id="main" className="semantic-workspace" aria-busy={busy}>
       <div className="semantic-breadcrumb">
         <Link href="/review">审核工作台</Link>
         <span>/</span>
@@ -300,6 +334,11 @@ export default function SemanticReviewPage() {
           导出复核 JSON
         </button>
       </div>
+      {busy && (
+        <p className="semantic-notice" role="status">
+          正在读取并校验本地文件；完成前暂停切换与编辑。
+        </p>
+      )}
       {error && (
         <div className="error" role="alert">
           {error}
@@ -326,11 +365,58 @@ export default function SemanticReviewPage() {
               <h2>断言队列</h2>
               <span>{queue.rows.length} 条</span>
             </div>
-            {queue.rows.map((value, index) => (
+            <div className="semantic-filters">
+              <label>
+                筛选断言
+                <input
+                  type="search"
+                  placeholder="名称或断言文字"
+                  value={query}
+                  disabled={busy}
+                  onChange={(event) => setQuery(event.target.value)}
+                />
+              </label>
+              <label>
+                已保存状态
+                <select
+                  value={statusFilter}
+                  disabled={busy}
+                  onChange={(event) =>
+                    setStatusFilter(event.target.value as StatusFilter)
+                  }
+                >
+                  <option value="all">全部</option>
+                  <option value="pending">待复核</option>
+                  <option value="reviewed">已复核（全部结论）</option>
+                  {ASSESSMENTS.map((value) => (
+                    <option key={value} value={value}>
+                      {LABELS[value]}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <p aria-live="polite">
+                显示 {visible.length} / {queue.rows.length} 条
+              </p>
+              <button
+                className="button"
+                disabled={busy || !nextPending}
+                onClick={() => nextPending && select(nextPending.index)}
+              >
+                下一条待复核
+              </button>
+            </div>
+            {!visible.length && (
+              <p className="semantic-filter-empty">
+                当前筛选无匹配；不会改变复核记录。
+              </p>
+            )}
+            {visible.map(({ value, index }) => (
               <button
                 className={`semantic-item ${selected === index ? "active" : ""}`}
                 key={value.audit_id}
                 onClick={() => select(index)}
+                disabled={busy}
                 aria-pressed={selected === index}
               >
                 <strong>{value.claim.meme_name || value.claim.key}</strong>
@@ -348,6 +434,11 @@ export default function SemanticReviewPage() {
             <>
               <section className="semantic-editor" aria-label="断言复核编辑">
                 <h2>{row.claim.meme_name || row.claim.key}</h2>
+                {selectedHidden && (
+                  <p className="semantic-notice" role="status">
+                    当前断言不在筛选结果中；编辑仍保留。
+                  </p>
+                )}
                 <label>
                   断言内容（只读）
                   <div className="semantic-statement">
@@ -368,6 +459,7 @@ export default function SemanticReviewPage() {
                 <label>
                   复核结论
                   <select
+                    disabled={busy}
                     value={draft.assessment ?? ""}
                     onChange={(event) =>
                       update({
@@ -388,6 +480,7 @@ export default function SemanticReviewPage() {
                 <label>
                   复核者
                   <input
+                    disabled={busy}
                     value={draft.reviewer ?? ""}
                     onChange={(event) =>
                       update({ reviewer: event.target.value })
@@ -398,6 +491,7 @@ export default function SemanticReviewPage() {
                 <label>
                   复核理由
                   <textarea
+                    disabled={busy}
                     value={draft.reason ?? ""}
                     onChange={(event) => update({ reason: event.target.value })}
                     placeholder="请填写复核理由（必填）"
@@ -420,6 +514,7 @@ export default function SemanticReviewPage() {
                             {quote.evidence_id.slice(0, 8)}
                           </small>
                           <button
+                            disabled={busy}
                             className="text-button"
                             onClick={() =>
                               update({
@@ -437,10 +532,14 @@ export default function SemanticReviewPage() {
                   )}
                 </div>
                 <div className="semantic-actions">
-                  <button className="button primary" onClick={save}>
+                  <button
+                    className="button primary"
+                    onClick={save}
+                    disabled={busy}
+                  >
                     保存这条复核
                   </button>
-                  <button className="button" onClick={withdraw}>
+                  <button className="button" onClick={withdraw} disabled={busy}>
                     撤回本地评级
                   </button>
                 </div>
@@ -479,7 +578,7 @@ export default function SemanticReviewPage() {
                 <button
                   className="button"
                   onClick={addQuote}
-                  disabled={!selection}
+                  disabled={!selection || busy}
                 >
                   添加选中摘录
                 </button>

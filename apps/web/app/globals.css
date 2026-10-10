@@ -3319,6 +3319,46 @@ details textarea {
   max-height: 700px;
   overflow: auto;
 }
+.semantic-filters {
+  display: grid;
+  gap: 12px;
+  padding: 4px 18px 16px;
+  border-bottom: 1px solid var(--line-2);
+}
+.semantic-filters label {
+  color: var(--ink-2);
+  font-size: 14px;
+  line-height: 1.4;
+}
+.semantic-filters input,
+.semantic-filters select {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  margin-top: 5px;
+  padding: 8px 10px;
+  border: 1px solid var(--line-2);
+  border-radius: 4px;
+  background: var(--sky-0);
+  color: var(--ink);
+  font: 400 16px/1.6 var(--body);
+}
+.semantic-filters p,
+.semantic-filter-empty {
+  font-size: 14px;
+  color: var(--ink-2);
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.semantic-filter-empty {
+  padding: 18px;
+}
+.semantic-filters .button {
+  min-height: 44px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font: 400 15px/1.6 var(--body);
+}
 .semantic-item {
   width: 100%;
   text-align: left;
@@ -3477,7 +3517,7 @@ details textarea {
     gap: 14px;
   }
   .semantic-rail {
-    max-height: 260px;
+    max-height: 520px;
   }
   .semantic-evidence-text {
     min-height: 220px;
