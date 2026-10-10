@@ -161,6 +161,8 @@ answer_question(question, platform?)
 
 [逐字段审核与证据绑定](docs/REVIEW.md)
 
+[真实模型与离线检索探针](docs/MODEL_PROBE.md)
+
 [引用与档案阅读](docs/EVIDENCE_READING.md) · [跨平台导入](docs/PUBLICATION_IMPORT.md)
 
 [搜索等待与分数复用](docs/SEARCH_RECOVERY.md)

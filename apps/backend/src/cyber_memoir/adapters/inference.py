@@ -11,17 +11,39 @@ import httpx
 from cyber_memoir.config import settings
 
 
-@lru_cache
 def embedder():
+    cfg = settings()
+    return _load_embedder(
+        cfg.embedding_model, getattr(cfg, "embedding_device", ""), getattr(cfg, "embedding_threads", 0)
+    )
+
+
+@lru_cache(maxsize=1)
+def _load_embedder(model: str, device: str, threads: int):
     from FlagEmbedding import BGEM3FlagModel
 
-    return BGEM3FlagModel(settings().embedding_model, use_fp16=False)
+    if threads > 0:
+        import torch
+
+        torch.set_num_threads(threads)
+    return BGEM3FlagModel(model, use_fp16=False, devices=device or None)
+
+
+_EMBED = threading.Lock()
 
 
 def embed(texts: list[str]) -> list[list[float]] | None:
     if settings().embedding_backend != "local":
         return None
-    return embedder().encode(texts, batch_size=8, max_length=1024)["dense_vecs"].tolist()
+    if not texts:
+        return []
+    with _EMBED:
+        vectors = embedder().encode(texts, batch_size=8, max_length=1024)["dense_vecs"].tolist()
+    if len(vectors) != len(texts) or any(
+        len(vector) != 1024 or not all(math.isfinite(float(v)) for v in vector) for vector in vectors
+    ):
+        raise ValueError("Invalid BGE-M3 dense vectors")
+    return [[float(value) for value in vector] for vector in vectors]
 
 
 # One rerank at a time. The model is a 568M-parameter cross-encoder scoring on CPU,
@@ -43,11 +65,11 @@ _SCORE_LIMIT = 64
 
 def reranker():
     cfg = settings()
-    return _load_reranker(cfg.reranker_model, cfg.reranker_threads)
+    return _load_reranker(cfg.reranker_model, cfg.reranker_threads, getattr(cfg, "reranker_device", ""))
 
 
 @lru_cache(maxsize=1)
-def _load_reranker(model: str, threads: int):
+def _load_reranker(model: str, threads: int, device: str):
     from FlagEmbedding import FlagReranker
 
     if threads > 0:
@@ -56,7 +78,7 @@ def _load_reranker(model: str, threads: int):
         # Left alone by default: torch picks a sensible count per machine. Set it to
         # keep a shared box responsive while a rerank runs.
         torch.set_num_threads(threads)
-    return FlagReranker(model, use_fp16=False)
+    return FlagReranker(model, use_fp16=False, devices=device or None)
 
 
 def rerank(query: str, texts: list[str]) -> list[float] | None:
@@ -72,6 +94,7 @@ def rerank(query: str, texts: list[str]) -> list[float] | None:
             [
                 getattr(cfg, "reranker_model", ""),
                 getattr(cfg, "reranker_threads", 0),
+                getattr(cfg, "reranker_device", ""),
                 query,
                 texts,
             ],

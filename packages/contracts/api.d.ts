@@ -1272,6 +1272,7 @@ export interface components {
             total_is_candidate_count: boolean;
             /**
              * Scores Calibrated
+             * @description 兼容字段：已运行可使用评分下限的规范化重排器。不是经验概率校准，也不是事实置信度。
              * @default false
              */
             scores_calibrated: boolean;

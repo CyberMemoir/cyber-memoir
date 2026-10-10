@@ -120,8 +120,11 @@ class SearchOut(BaseModel):
     degraded: list[str]
     query: str
     total_is_candidate_count: bool = False
-    # False means no calibrated scorer ran, so the ADR 0004 floor could not be applied.
-    scores_calibrated: bool = False
+    # Legacy name: score availability/normalization, not statistical calibration.
+    scores_calibrated: bool = Field(
+        default=False,
+        description="兼容字段：已运行可使用评分下限的规范化重排器。不是经验概率校准，也不是事实置信度。",
+    )
 
 
 class AnswerClaim(ClaimOut):
