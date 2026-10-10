@@ -18,7 +18,9 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def unused_port(port):
     with socket.socket() as probe:
+        probe.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         probe.bind(("127.0.0.1", port))
+        probe.listen(1)
 
 
 def wait_ready(url, process, timeout=120):

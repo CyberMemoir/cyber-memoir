@@ -8,10 +8,28 @@ import time
 from pathlib import Path
 
 import httpx
+import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 TOKEN = "local-synthetic-demo-only"
 URL = "https://www.bilibili.com/video/BV1DEMO00002"
+
+
+def test_demo_port_probe_refuses_live_server_but_allows_recent_restart(monkeypatch):
+    monkeypatch.syspath_prepend(str(ROOT / "ops"))
+    from demo import unused_port
+
+    with socket.socket() as server:
+        server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        server.bind(("127.0.0.1", 0))
+        port = server.getsockname()[1]
+        server.listen(1)
+        with pytest.raises(OSError):
+            unused_port(port)
+        with socket.create_connection(("127.0.0.1", port)):
+            connection, _ = server.accept()
+            connection.close()  # server-side TIME_WAIT must not block a restart
+    unused_port(port)
 
 
 def eventually(get, predicate, timeout=30):
