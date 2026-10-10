@@ -9,6 +9,7 @@ from pathlib import Path
 
 import httpx
 import pytest
+from review_requests import matching_revision
 
 ROOT = Path(__file__).resolve().parents[1]
 TOKEN = "local-synthetic-demo-only"
@@ -115,7 +116,7 @@ def test_demo_is_isolated_and_runs_real_search_review_and_worker(tmp_path):
                         "reason": "合成演示软件验收，不是真实文化审核。",
                         "verified_evidence_ids": ids,
                     },
-                    headers=auth,
+                    headers=matching_revision(client, auth, f"/v1/reviews/{draft['id']}/decision"),
                 )
                 assert approved.status_code == 200, approved.text
                 meme_id = approved.json()["meme_id"]

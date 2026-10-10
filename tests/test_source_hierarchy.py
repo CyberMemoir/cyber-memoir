@@ -5,6 +5,8 @@ be curated as its own entry. Restricting derived_from to meme targets left no wa
 record it, so an archive could hold a meme's derivatives but not what it came from.
 """
 
+from review_requests import matching_revision
+
 AUTH = {"Authorization": "Bearer unit-test-reviewer"}
 
 
@@ -30,7 +32,7 @@ def approve(client, revision_id, evidence_id, reason):
     return client.post(
         f"/v1/reviews/{revision_id}/decision",
         json={"decision": "approve", "reason": reason, "verified_evidence_ids": [evidence_id]},
-        headers=AUTH,
+        headers=matching_revision(client, AUTH, f"/v1/reviews/{revision_id}/decision"),
     )
 
 

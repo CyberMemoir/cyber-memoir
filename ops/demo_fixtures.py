@@ -8,6 +8,7 @@ DEMO_QUERY = "合成星灯"
 def seed(db):
     from cyber_memoir.application.content import add_material, create_draft, review
     from cyber_memoir.application.publications import register_source
+    from cyber_memoir.application.revisions import etag
     from cyber_memoir.domain.publications import SourceRegistration
     from cyber_memoir.domain.schemas import Material, MemeDraft, ReviewAction
 
@@ -105,6 +106,7 @@ def seed(db):
                     verified_evidence_ids=[evidence.id],
                 ),
                 "synthetic-demo-bootstrap",
+                etag(revision),
             )
             published.append(revision.meme_id)
         else:

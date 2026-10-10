@@ -1,3 +1,4 @@
+from review_requests import matching_revision
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
@@ -46,11 +47,18 @@ def test_publication_and_evidence_download(client, prepared):
 def test_definition_requires_complete_support(client, prepared, auth):
     item = prepared(publish=False)
     payload = {**item["payload"], "definition": "这句话没有证据支持"}
-    assert client.put(f"/v1/reviews/{item['revision']['id']}", json=payload, headers=auth).status_code == 200
+    assert (
+        client.put(
+            f"/v1/reviews/{item['revision']['id']}",
+            json=payload,
+            headers=matching_revision(client, auth, f"/v1/reviews/{item['revision']['id']}"),
+        ).status_code
+        == 200
+    )
     response = client.post(
         f"/v1/reviews/{item['revision']['id']}/decision",
         json={"decision": "approve", "reason": "人工核查", "verified_evidence_ids": [item["evidence"]["id"]]},
-        headers=auth,
+        headers=matching_revision(client, auth, f"/v1/reviews/{item['revision']['id']}/decision"),
     )
     assert response.status_code == 422
 
@@ -60,7 +68,7 @@ def test_review_requires_explicit_verification(client, prepared, auth):
     response = client.post(
         f"/v1/reviews/{item['revision']['id']}/decision",
         json={"decision": "approve", "reason": "人工核查"},
-        headers=auth,
+        headers=matching_revision(client, auth, f"/v1/reviews/{item['revision']['id']}/decision"),
     )
     assert response.status_code == 422
 
@@ -74,7 +82,7 @@ def test_origin_cannot_be_inferred_without_specific_evidence(client, prepared, a
             "reason": "看起来最早",
             "verified_evidence_ids": [item["evidence"]["id"]],
         },
-        headers=auth,
+        headers=matching_revision(client, auth, f"/v1/reviews/{item['revision']['id']}/decision"),
     )
     assert response.status_code == 422
 
@@ -83,10 +91,20 @@ def test_rejected_revision_is_not_published(client, prepared, auth):
     item = prepared(publish=False)
     path = f"/v1/reviews/{item['revision']['id']}/decision"
     assert (
-        client.post(path, json={"decision": "reject", "reason": "证据不足"}, headers=auth).status_code == 200
+        client.post(
+            path,
+            json={"decision": "reject", "reason": "证据不足"},
+            headers=matching_revision(client, auth, path),
+        ).status_code
+        == 200
     )
     assert (
-        client.post(path, json={"decision": "reject", "reason": "证据不足"}, headers=auth).status_code == 409
+        client.post(
+            path,
+            json={"decision": "reject", "reason": "证据不足"},
+            headers=matching_revision(client, auth, path),
+        ).status_code
+        == 409
     )
     assert client.get(f"/v1/memes/{item['meme_id']}").status_code == 404
 
@@ -105,11 +123,25 @@ def test_new_draft_does_not_overwrite_public_revision(client, prepared, auth):
 def test_stale_revision_conflict(client, prepared, auth):
     item = prepared()
     path = f"/v1/reviews/drafts?meme_id={item['meme_id']}"
-    a = client.post(path, json=item["payload"], headers=auth).json()
-    b = client.post(path, json=item["payload"], headers=auth).json()
+    a = client.post(path, json=item["payload"], headers=matching_revision(client, auth, path)).json()
+    b = client.post(path, json=item["payload"], headers=matching_revision(client, auth, path)).json()
     decision = {"decision": "approve", "reason": "人工复核证据"}
-    assert client.post(f"/v1/reviews/{a['id']}/decision", json=decision, headers=auth).status_code == 200
-    assert client.post(f"/v1/reviews/{b['id']}/decision", json=decision, headers=auth).status_code == 409
+    assert (
+        client.post(
+            f"/v1/reviews/{a['id']}/decision",
+            json=decision,
+            headers=matching_revision(client, auth, f"/v1/reviews/{a['id']}/decision"),
+        ).status_code
+        == 200
+    )
+    assert (
+        client.post(
+            f"/v1/reviews/{b['id']}/decision",
+            json=decision,
+            headers=matching_revision(client, auth, f"/v1/reviews/{b['id']}/decision"),
+        ).status_code
+        == 409
+    )
 
 
 def test_index_jobs_are_transactional_and_idempotent(client, prepared, env):

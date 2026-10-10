@@ -1263,6 +1263,15 @@
               "default": "",
               "title": "Authorization"
             }
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "从稿件 GET/队列读取的单个具体强 ETag；缺失返回 428，过期返回 412，不接受通配或弱标签。"
           }
         ],
         "requestBody": {
@@ -1280,7 +1289,62 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewRevisionOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "需要具体稿件快照条件"
+          },
+          "412": {
+            "description": "稿件或条目公开状态已改变；未提交此写入"
+          }
+        }
+      },
+      "get": {
+        "summary": "Revision Snapshot",
+        "operationId": "revision_snapshot_v1_reviews__revision_id__get",
+        "parameters": [
+          {
+            "name": "revision_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Revision Id"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewRevisionOut"
+                }
               }
             }
           },
@@ -1320,6 +1384,15 @@
               "default": "",
               "title": "Authorization"
             }
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "从稿件 GET/队列读取的单个具体强 ETag；缺失返回 428，过期返回 412，不接受通配或弱标签。"
           }
         ],
         "requestBody": {
@@ -1337,7 +1410,64 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewRevisionOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "需要具体稿件快照条件"
+          },
+          "412": {
+            "description": "稿件或条目公开状态已改变；未提交此写入"
+          }
+        }
+      }
+    },
+    "/v1/reviews/{revision_id}/comparison": {
+      "get": {
+        "summary": "Revision Comparison",
+        "operationId": "revision_comparison_v1_reviews__revision_id__comparison_get",
+        "parameters": [
+          {
+            "name": "revision_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Revision Id"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewComparisonOut"
+                }
               }
             }
           },
@@ -3096,6 +3226,55 @@
         ],
         "title": "ReviewAction"
       },
+      "ReviewComparisonOut": {
+        "properties": {
+          "draft": {
+            "$ref": "#/components/schemas/ReviewRevisionOut"
+          },
+          "base": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ReviewRevisionOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "current": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ReviewRevisionOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "current_published_revision": {
+            "type": "integer",
+            "title": "Current Published Revision"
+          },
+          "meme_status": {
+            "type": "string",
+            "title": "Meme Status"
+          },
+          "base_changed": {
+            "type": "boolean",
+            "title": "Base Changed"
+          }
+        },
+        "type": "object",
+        "required": [
+          "draft",
+          "base",
+          "current",
+          "current_published_revision",
+          "meme_status",
+          "base_changed"
+        ],
+        "title": "ReviewComparisonOut"
+      },
       "ReviewQueueOut": {
         "properties": {
           "items": {
@@ -3160,6 +3339,49 @@
             "type": "string",
             "format": "date-time",
             "title": "Created At"
+          },
+          "edit_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Edit Version"
+          },
+          "etag": {
+            "type": "string",
+            "title": "Etag"
+          },
+          "review_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Review Reason"
+          },
+          "reviewer": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reviewer"
+          },
+          "reviewed_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reviewed At"
           }
         },
         "type": "object",
@@ -3169,7 +3391,9 @@
           "based_on_revision",
           "payload",
           "status",
-          "created_at"
+          "created_at",
+          "edit_version",
+          "etag"
         ],
         "title": "ReviewRevisionOut"
       },

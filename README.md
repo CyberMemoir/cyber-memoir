@@ -14,6 +14,7 @@
 - 获取可用元数据/字幕，或人工补充定位摘录、字幕、截图、短媒体材料。
 - Whisper ASR / PaddleOCR、BGE-M3 embedding、BGE reranker、兼容 Chat Completions 的 LLM 适配器。
 - 人工编辑和审核候选；分别绑定定义/语境证据，编辑后重新选引，保留反对断言；显式证据核查与版本冲突检查。
+- 审核稿/历史修订的旧新对照，条件写入防止覆盖别人改动；冲突保留本地文字，不自动合并或批准另一份稿件。
 - 跨平台数据包摘要校验、冲突预演、幂等导入与多来源待审稿；追加用法保留原定义和证据绑定，不自动发布。
 - 名称/别名 + BM25 + Vector + 一跳关系扩展 + Reranker。
 - 搜索结果先到先显示；回答可独立重试/取消，重复重排仅复用校验过的分数，不缓存事实回答。
@@ -129,6 +130,8 @@ MEMOIR_INTEGRATION=1 uv run --env-file ../../.env pytest -q ../../tests/test_liv
 跨平台交付的文件格式、工作台与 CLI 操作见 [导入指南](docs/PUBLICATION_IMPORT.md)。上线新版前运行 `make migrate`；导入仅生成待审稿。
 
 HTTP API 以 `/v1` 为前缀；契约见 [OpenAPI](packages/contracts/openapi.json)。审核接口使用 `Authorization: Bearer <reviewer-token>`。
+
+保存稿件与提交审核决定还必须携带读取/保存该稿所得的具体 `If-Match` 标签；新迁移 `f5a6b7c8d9e0` 需同步升级 API 与编辑客户端。详见 [修订对照和条件写入](docs/REVIEW.md#版本化-api必须同步升级客户端)。
 
 MCP 使用 Streamable HTTP，连接 `http://localhost:8100/mcp/`：
 

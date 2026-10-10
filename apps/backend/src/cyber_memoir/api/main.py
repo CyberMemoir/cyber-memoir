@@ -4,7 +4,7 @@ import time
 from collections import defaultdict, deque
 from typing import Annotated
 
-from fastapi import Depends, FastAPI, File, HTTPException, Query, Request, UploadFile
+from fastapi import Depends, FastAPI, File, Header, HTTPException, Query, Request, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, Response
 from pydantic import BaseModel, Field
@@ -16,7 +16,7 @@ from sqlalchemy.orm import Session
 from cyber_memoir.adapters import storage
 from cyber_memoir.api.auth import reviewer, submitter
 from cyber_memoir.api.body_limit import BodyLimitMiddleware
-from cyber_memoir.application import content, publications, universe
+from cyber_memoir.application import content, publications, revisions, universe
 from cyber_memoir.config import settings
 from cyber_memoir.db import session
 from cyber_memoir.domain.models import Alias, Entity, Evidence, EvidenceLink, Job, Meme, Revision, Source, now
@@ -26,7 +26,9 @@ from cyber_memoir.domain.responses import (
     EvidenceOut,
     MemeOut,
     MemeRef,
+    ReviewComparisonOut,
     ReviewQueueOut,
+    ReviewRevisionOut,
     SearchOut,
     UniverseOut,
 )
@@ -47,6 +49,22 @@ from cyber_memoir.search.retrieval import search
 
 DB = Annotated[Session, Depends(session)]
 Reviewer = Annotated[str, Depends(reviewer)]
+ReviewMatch = Annotated[str | None, Header(include_in_schema=False)]
+REVIEW_PRECONDITIONS = {
+    "parameters": [
+        {
+            "name": "If-Match",
+            "in": "header",
+            "required": True,
+            "schema": {"type": "string"},
+            "description": "从稿件 GET/队列读取的单个具体强 ETag；缺失返回 428，过期返回 412，不接受通配或弱标签。",
+        }
+    ],
+    "responses": {
+        "428": {"description": "需要具体稿件快照条件"},
+        "412": {"description": "稿件或条目公开状态已改变；未提交此写入"},
+    },
+}
 
 
 @contextlib.asynccontextmanager
@@ -404,24 +422,51 @@ def draft(body: MemeDraft, db: DB, who: Reviewer, meme_id: str | None = None):
     return content.dump(revision)
 
 
-@app.put("/v1/reviews/{revision_id}")
-def edit_draft(revision_id: str, body: MemeDraft, db: DB, who: Reviewer):
-    revision = db.scalar(select(Revision).where(Revision.id == revision_id).with_for_update())
-    if not revision:
-        raise HTTPException(404, "修订不存在")
-    if revision.status != "pending_review":
-        raise HTTPException(409, "只有待审修订可编辑")
+@app.put("/v1/reviews/{revision_id}", response_model=ReviewRevisionOut, openapi_extra=REVIEW_PRECONDITIONS)
+def edit_draft(
+    revision_id: str,
+    body: MemeDraft,
+    db: DB,
+    who: Reviewer,
+    response: Response,
+    if_match: ReviewMatch = None,
+):
+    revision = revisions.claim(db, revision_id, if_match)
     revision.payload = {
         **body.model_dump(mode="json"),
         **{k: v for k, v in revision.payload.items() if k.startswith("_")},
     }
     db.commit()
+    response.headers["ETag"] = revisions.etag(revision)
     return content.dump(revision)
 
 
-@app.post("/v1/reviews/{revision_id}/decision")
-def decision(revision_id: str, body: ReviewAction, db: DB, who: Reviewer):
-    return content.review(db, revision_id, body, who)
+@app.post(
+    "/v1/reviews/{revision_id}/decision", response_model=ReviewRevisionOut, openapi_extra=REVIEW_PRECONDITIONS
+)
+def decision(
+    revision_id: str,
+    body: ReviewAction,
+    db: DB,
+    who: Reviewer,
+    response: Response,
+    if_match: ReviewMatch = None,
+):
+    result = content.review(db, revision_id, body, who, if_match)
+    response.headers["ETag"] = result["etag"]
+    return result
+
+
+@app.get("/v1/reviews/{revision_id}", response_model=ReviewRevisionOut)
+def revision_snapshot(revision_id: str, db: DB, who: Reviewer, response: Response):
+    row = content.require(db, Revision, revision_id)
+    response.headers["ETag"] = revisions.etag(row)
+    return content.dump(row)
+
+
+@app.get("/v1/reviews/{revision_id}/comparison", response_model=ReviewComparisonOut)
+def revision_comparison(revision_id: str, db: DB, who: Reviewer):
+    return revisions.comparison(db, revision_id)
 
 
 @app.get("/v1/reviews/memes/{meme_id}/history")

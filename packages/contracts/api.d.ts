@@ -530,7 +530,8 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get?: never;
+        /** Revision Snapshot */
+        get: operations["revision_snapshot_v1_reviews__revision_id__get"];
         /** Edit Draft */
         put: operations["edit_draft_v1_reviews__revision_id__put"];
         post?: never;
@@ -551,6 +552,23 @@ export interface paths {
         put?: never;
         /** Decision */
         post: operations["decision_v1_reviews__revision_id__decision_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/reviews/{revision_id}/comparison": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Revision Comparison */
+        get: operations["revision_comparison_v1_reviews__revision_id__comparison_get"];
+        put?: never;
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -1177,6 +1195,18 @@ export interface components {
             /** Verified Evidence Ids */
             verified_evidence_ids?: string[];
         };
+        /** ReviewComparisonOut */
+        ReviewComparisonOut: {
+            draft: components["schemas"]["ReviewRevisionOut"];
+            base: components["schemas"]["ReviewRevisionOut"] | null;
+            current: components["schemas"]["ReviewRevisionOut"] | null;
+            /** Current Published Revision */
+            current_published_revision: number;
+            /** Meme Status */
+            meme_status: string;
+            /** Base Changed */
+            base_changed: boolean;
+        };
         /** ReviewQueueOut */
         ReviewQueueOut: {
             /** Items */
@@ -1212,6 +1242,16 @@ export interface components {
              * Format: date-time
              */
             created_at: string;
+            /** Edit Version */
+            edit_version: number;
+            /** Etag */
+            etag: string;
+            /** Review Reason */
+            review_reason?: string | null;
+            /** Reviewer */
+            reviewer?: string | null;
+            /** Reviewed At */
+            reviewed_at?: string | null;
         };
         /** SearchOut */
         SearchOut: {
@@ -2403,11 +2443,46 @@ export interface operations {
             };
         };
     };
-    edit_draft_v1_reviews__revision_id__put: {
+    revision_snapshot_v1_reviews__revision_id__get: {
         parameters: {
             query?: never;
             header?: {
                 authorization?: string;
+            };
+            path: {
+                revision_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ReviewRevisionOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    edit_draft_v1_reviews__revision_id__put: {
+        parameters: {
+            query?: never;
+            header: {
+                authorization?: string;
+                /** @description 从稿件 GET/队列读取的单个具体强 ETag；缺失返回 428，过期返回 412，不接受通配或弱标签。 */
+                "If-Match": string;
             };
             path: {
                 revision_id: string;
@@ -2426,8 +2501,15 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": unknown;
+                    "application/json": components["schemas"]["ReviewRevisionOut"];
                 };
+            };
+            /** @description 稿件或条目公开状态已改变；未提交此写入 */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
             /** @description Validation Error */
             422: {
@@ -2438,13 +2520,22 @@ export interface operations {
                     "application/json": components["schemas"]["HTTPValidationError"];
                 };
             };
+            /** @description 需要具体稿件快照条件 */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
         };
     };
     decision_v1_reviews__revision_id__decision_post: {
         parameters: {
             query?: never;
-            header?: {
+            header: {
                 authorization?: string;
+                /** @description 从稿件 GET/队列读取的单个具体强 ETag；缺失返回 428，过期返回 412，不接受通配或弱标签。 */
+                "If-Match": string;
             };
             path: {
                 revision_id: string;
@@ -2463,7 +2554,54 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": unknown;
+                    "application/json": components["schemas"]["ReviewRevisionOut"];
+                };
+            };
+            /** @description 稿件或条目公开状态已改变；未提交此写入 */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+            /** @description 需要具体稿件快照条件 */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    revision_comparison_v1_reviews__revision_id__comparison_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path: {
+                revision_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ReviewComparisonOut"];
                 };
             };
             /** @description Validation Error */

@@ -7,6 +7,7 @@ from sqlalchemy import inspect, select
 from sqlalchemy.orm import Session
 
 from cyber_memoir.adapters import storage
+from cyber_memoir.application import revisions
 from cyber_memoir.domain.models import (
     Alias,
     Entity,
@@ -26,7 +27,10 @@ from cyber_memoir.ingestion.urls import canonicalize
 
 
 def dump(obj):
-    return {col.key: getattr(obj, col.key) for col in inspect(obj).mapper.column_attrs}
+    result = {col.key: getattr(obj, col.key) for col in inspect(obj).mapper.column_attrs}
+    if isinstance(obj, Revision):
+        result["etag"] = revisions.etag(obj)
+    return result
 
 
 def require(db: Session, model, identifier: str):
@@ -135,16 +139,12 @@ def _evidence_ids(payload: MemeDraft):
     }
 
 
-def review(db: Session, revision_id: str, action: ReviewAction, reviewer: str):
-    revision = db.scalar(select(Revision).where(Revision.id == revision_id).with_for_update())
-    if not revision:
-        raise HTTPException(404, "修订不存在")
-    if revision.status != "pending_review":
-        raise HTTPException(409, "该修订已处理")
+def review(db: Session, revision_id: str, action: ReviewAction, reviewer: str, expected: str | None):
+    revision = revisions.claim(db, revision_id, expected)
     meme = db.scalar(select(Meme).where(Meme.id == revision.meme_id).with_for_update())
-    if meme.published_revision != revision.based_on_revision:
+    if action.decision == "approve" and meme.published_revision != revision.based_on_revision:
         raise HTTPException(409, "公开版本已变化，请重新创建修订")
-    if meme.status == "merged":
+    if action.decision == "approve" and meme.status == "merged":
         raise HTTPException(409, "条目已合并")
     if action.decision == "approve":
         payload = MemeDraft.model_validate(revision.payload)

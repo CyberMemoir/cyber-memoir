@@ -1,15 +1,9 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
-import {
-  api,
-  post,
-  date,
-  type Revision,
-  type Draft,
-  type ReviewQueue,
-} from "@/lib/api";
+import { api, post, date, type Revision, type ReviewQueue } from "@/lib/api";
 import { ReviewEditor } from "@/components/review-editor";
 import { PublicationImport } from "@/components/publication-import";
+import { RevisionHistory } from "@/components/revision-history";
 
 export default function ReviewPage() {
   const [token, setToken] = useState("");
@@ -56,11 +50,9 @@ export default function ReviewPage() {
         setQueue(data);
         latestQueue.current = data;
         setItems(data.items);
-        setSelected((old) =>
-          old && data.items.some((item) => item.id === old.id)
-            ? old
-            : data.items[0] || null,
-        );
+        // A peer may process this draft while the local editor is dirty. Keep
+        // its local working copy until the user resolves it or our own action succeeds.
+        setSelected((old) => old || data.items[0] || null);
         return data;
       } catch (e) {
         if (controller.signal.aborted || sequence !== queueSequence.current)
@@ -151,13 +143,13 @@ export default function ReviewPage() {
       setBusy(false);
     }
   }
-  async function revise(payload: Draft) {
+  async function revise(item: Revision) {
     setBusy(true);
     setError("");
     try {
       await api(
-        `/v1/reviews/drafts?meme_id=${encodeURIComponent(memeId)}`,
-        post(payload),
+        `/v1/reviews/drafts?meme_id=${encodeURIComponent(item.meme_id)}`,
+        post(item.payload),
         token,
       );
       await load();
@@ -265,8 +257,10 @@ export default function ReviewPage() {
                 key={selected.id}
                 revision={selected}
                 token={token}
+                remoteEtag={items.find((item) => item.id === selected.id)?.etag}
                 onDone={() => {
                   setNotice("审核决定已保存。索引异步更新，公开状态即时生效。");
+                  setSelected(null);
                   void load();
                 }}
               />
@@ -338,25 +332,10 @@ export default function ReviewPage() {
                 </button>
               </div>
             </div>
-            {history.map((item) => (
-              <article className="evidence-box" key={item.id}>
-                <div className="row-meta">
-                  <span>
-                    {date(item.created_at)} · {item.status}
-                  </span>
-                  <span>基于版本 {item.based_on_revision}</span>
-                </div>
-                <p>{item.review_reason}</p>
-                {item.payload.canonical_name && (
-                  <button
-                    className="text-button"
-                    onClick={() => void revise(item.payload)}
-                  >
-                    基于此内容创建新修订
-                  </button>
-                )}
-              </article>
-            ))}
+            <RevisionHistory
+              items={history}
+              onRevise={(item) => void revise(item)}
+            />
           </section>
         </>
       )}

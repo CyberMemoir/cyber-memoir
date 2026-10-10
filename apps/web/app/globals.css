@@ -107,6 +107,58 @@ body {
 .review-evidence-fields .check-label {
   min-height: 44px;
 }
+.revision-diff {
+  margin: 22px 0;
+  padding: 18px 0;
+  border-block: 1px solid var(--line);
+}
+.revision-diff > summary {
+  color: var(--signal);
+  cursor: pointer;
+  min-height: 32px;
+}
+.revision-diff-field {
+  margin-top: 24px;
+}
+.revision-diff-field h4 {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0 0 12px;
+}
+.revision-diff-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+.revision-diff-columns > div {
+  min-width: 0;
+  border-left: 2px solid var(--line-2);
+  padding-left: 14px;
+}
+.revision-diff-columns > div:last-child {
+  border-color: var(--signal);
+}
+.revision-diff pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font: 14px/1.8 var(--body);
+  color: var(--ink-2);
+  margin: 8px 0;
+}
+.review-conflict {
+  margin: 24px 0;
+  padding: 20px 0;
+  border-block: 1px solid var(--line-2);
+}
+.review-conflict h3 {
+  font-size: 20px;
+  font-weight: 500;
+}
+@media (max-width: 760px) {
+  .revision-diff-columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
 ::-webkit-scrollbar {
   width: 11px;
   height: 11px;

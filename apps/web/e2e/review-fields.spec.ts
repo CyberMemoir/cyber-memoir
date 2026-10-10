@@ -365,7 +365,7 @@ test("逐字段审核保留原支持/反对绑定，文字变化不能自动复�
       const rejected = await request.post(
         `/api/v1/reviews/${candidate.id}/decision`,
         {
-          headers: auth,
+          headers: { ...auth, "If-Match": candidate.etag },
           data: {
             decision: "reject",
             reason: "清理这份合成材料产生的未发布候选。",
@@ -412,7 +412,7 @@ test("Worker 候选加载全部跨来源引用，而不是只显示最初来源"
     expect(material.ok()).toBeTruthy();
     evidence.push((await material.json()).id);
   }
-  let original: { id: string; payload: Draft } | undefined;
+  let original: { id: string; payload: Draft; etag: string } | undefined;
   await expect
     .poll(async () => {
       const queue = await (
@@ -425,7 +425,7 @@ test("Worker 候选加载全部跨来源引用，而不是只显示最初来源"
     })
     .toBe(true);
   const updated = await request.put(`/api/v1/reviews/${original!.id}`, {
-    headers: auth,
+    headers: { ...auth, "If-Match": original!.etag },
     data: {
       canonical_name: title,
       definition: fixtures[0].text,
@@ -469,7 +469,7 @@ test("Worker 候选加载全部跨来源引用，而不是只显示最初来源"
       const rejected = await request.post(
         `/api/v1/reviews/${candidate.id}/decision`,
         {
-          headers: auth,
+          headers: { ...auth, "If-Match": candidate.etag },
           data: {
             decision: "reject",
             reason: "清理合成跨来源候选，不发布为文化资料。",

@@ -1,5 +1,7 @@
 """Reference destinations must carry the claim's own revision, even for shared evidence."""
 
+from review_requests import matching_revision
+
 from cyber_memoir.domain.responses import AnswerOut
 from cyber_memoir.rag import answer as rag
 
@@ -23,7 +25,7 @@ def test_answer_claims_keep_their_own_published_revision(client, auth, prepared,
     ).json()
     approved = client.post(
         f"/v1/reviews/{revision['id']}/decision",
-        headers=auth,
+        headers=matching_revision(client, auth, f"/v1/reviews/{revision['id']}/decision"),
         json={
             "decision": "approve",
             "reason": "合成引用绑定测试，非文化事实",
@@ -80,10 +82,14 @@ def test_supported_origin_requires_support_not_just_counter_evidence(client, aut
             }
         ],
     }
-    client.put(f"/v1/reviews/{item['revision']['id']}", json=payload, headers=auth)
+    client.put(
+        f"/v1/reviews/{item['revision']['id']}",
+        json=payload,
+        headers=matching_revision(client, auth, f"/v1/reviews/{item['revision']['id']}"),
+    )
     response = client.post(
         f"/v1/reviews/{item['revision']['id']}/decision",
-        headers=auth,
+        headers=matching_revision(client, auth, f"/v1/reviews/{item['revision']['id']}/decision"),
         json={
             "decision": "approve",
             "reason": "合成来源判断测试",
@@ -117,10 +123,14 @@ def test_supported_origin_cannot_use_a_disputed_source_relation(client, auth, pr
             }
         ],
     }
-    client.put(f"/v1/reviews/{item['revision']['id']}", json=payload, headers=auth)
+    client.put(
+        f"/v1/reviews/{item['revision']['id']}",
+        json=payload,
+        headers=matching_revision(client, auth, f"/v1/reviews/{item['revision']['id']}"),
+    )
     response = client.post(
         f"/v1/reviews/{item['revision']['id']}/decision",
-        headers=auth,
+        headers=matching_revision(client, auth, f"/v1/reviews/{item['revision']['id']}/decision"),
         json={
             "decision": "approve",
             "reason": "合成争议关系测试",

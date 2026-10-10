@@ -169,6 +169,20 @@ class ReviewRevisionOut(BaseModel):
     payload: dict[str, Any]
     status: str
     created_at: datetime
+    edit_version: int = Field(ge=1)
+    etag: str
+    review_reason: str | None = None
+    reviewer: str | None = None
+    reviewed_at: datetime | None = None
+
+
+class ReviewComparisonOut(BaseModel):
+    draft: ReviewRevisionOut
+    base: ReviewRevisionOut | None
+    current: ReviewRevisionOut | None
+    current_published_revision: int
+    meme_status: str
+    base_changed: bool
 
 
 class ReviewQueueOut(BaseModel):

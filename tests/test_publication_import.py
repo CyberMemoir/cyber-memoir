@@ -5,6 +5,7 @@ import json
 from hashlib import sha256
 
 import pytest
+from review_requests import matching_revision
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
@@ -122,7 +123,7 @@ def test_import_stages_unverified_private_draft_without_jobs_and_is_idempotent(c
             "reason": "仍需人工选择字段证据",
             "verified_evidence_ids": item["evidence_ids"],
         },
-        headers=auth,
+        headers=matching_revision(client, auth, f"/v1/reviews/{item['revision_id']}/decision"),
     )
     assert decision.status_code == 422
 
@@ -148,7 +149,7 @@ def test_append_preserves_existing_fields_claims_events_and_relations(client, au
             "reason": "合成测试确认，非文化事实",
             "verified_evidence_ids": item["evidence_ids"],
         },
-        headers=auth,
+        headers=matching_revision(client, auth, f"/v1/reviews/{item['revision_id']}/decision"),
     )
     assert result.status_code == 200, result.text
     after = client.get(f"/v1/memes/{old['meme_id']}").json()
@@ -204,11 +205,18 @@ def test_append_cannot_silently_replace_protected_content(client, auth, prepared
     else:
         payload["events"] = payload["events"][1:]
     payload.pop("_import_append_base", None)  # PUT must retain server-owned metadata.
-    assert client.put(f"/v1/reviews/{item['revision_id']}", json=payload, headers=auth).status_code == 200
+    assert (
+        client.put(
+            f"/v1/reviews/{item['revision_id']}",
+            json=payload,
+            headers=matching_revision(client, auth, f"/v1/reviews/{item['revision_id']}"),
+        ).status_code
+        == 200
+    )
     response = client.post(
         f"/v1/reviews/{item['revision_id']}/decision",
         json={"decision": "approve", "reason": "合成改动测试", "verified_evidence_ids": item["evidence_ids"]},
-        headers=auth,
+        headers=matching_revision(client, auth, f"/v1/reviews/{item['revision_id']}/decision"),
     )
     assert response.status_code == 422
     assert client.get(f"/v1/memes/{old['meme_id']}").json()["definition"] == old["payload"]["definition"]
@@ -354,11 +362,18 @@ def test_append_retains_timezone_from_approved_payload(client, auth, prepared):
             "evidence_ids": [old["evidence"]["id"]],
         }
     ]
-    assert client.put(f"/v1/reviews/{old['revision']['id']}", json=payload, headers=auth).status_code == 200
+    assert (
+        client.put(
+            f"/v1/reviews/{old['revision']['id']}",
+            json=payload,
+            headers=matching_revision(client, auth, f"/v1/reviews/{old['revision']['id']}"),
+        ).status_code
+        == 200
+    )
     assert (
         client.post(
             f"/v1/reviews/{old['revision']['id']}/decision",
-            headers=auth,
+            headers=matching_revision(client, auth, f"/v1/reviews/{old['revision']['id']}/decision"),
             json={
                 "decision": "approve",
                 "reason": "合成日期测试",
@@ -471,10 +486,14 @@ def test_repeated_dated_events_recover_their_own_offsets(client, auth, prepared)
         }
         for at in dates
     ]
-    client.put(f"/v1/reviews/{old['revision']['id']}", json=payload, headers=auth)
+    client.put(
+        f"/v1/reviews/{old['revision']['id']}",
+        json=payload,
+        headers=matching_revision(client, auth, f"/v1/reviews/{old['revision']['id']}"),
+    )
     client.post(
         f"/v1/reviews/{old['revision']['id']}/decision",
-        headers=auth,
+        headers=matching_revision(client, auth, f"/v1/reviews/{old['revision']['id']}/decision"),
         json={
             "decision": "approve",
             "reason": "合成重复事件测试",

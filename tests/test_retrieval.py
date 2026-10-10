@@ -1,4 +1,5 @@
 import pytest
+from review_requests import matching_revision
 from sqlalchemy.orm import Session
 
 from cyber_memoir.config import settings
@@ -211,7 +212,14 @@ def test_one_hop_graph_expansion_requires_reviewed_relation(client, prepared, au
             }
         ],
     }
-    assert client.put(f"/v1/reviews/{child['revision']['id']}", json=payload, headers=auth).status_code == 200
+    assert (
+        client.put(
+            f"/v1/reviews/{child['revision']['id']}",
+            json=payload,
+            headers=matching_revision(client, auth, f"/v1/reviews/{child['revision']['id']}"),
+        ).status_code
+        == 200
+    )
     assert (
         client.post(
             f"/v1/reviews/{child['revision']['id']}/decision",
@@ -220,7 +228,7 @@ def test_one_hop_graph_expansion_requires_reviewed_relation(client, prepared, au
                 "reason": "合成关系人工核查",
                 "verified_evidence_ids": [child["evidence"]["id"]],
             },
-            headers=auth,
+            headers=matching_revision(client, auth, f"/v1/reviews/{child['revision']['id']}/decision"),
         ).status_code
         == 200
     )

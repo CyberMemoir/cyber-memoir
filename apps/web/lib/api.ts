@@ -41,6 +41,19 @@ export type Revision = {
   status: string;
   created_at: string;
   based_on_revision: number;
+  edit_version: number;
+  etag: string;
+  review_reason?: string | null;
+  reviewer?: string | null;
+  reviewed_at?: string | null;
+};
+export type ReviewComparison = {
+  draft: Revision;
+  base: Revision | null;
+  current: Revision | null;
+  current_published_revision: number;
+  meme_status: string;
+  base_changed: boolean;
 };
 export type ReviewQueue = Omit<
   components["schemas"]["ReviewQueueOut"],
@@ -52,6 +65,16 @@ export type Job = {
   attempts: number;
   error: string | null;
 };
+
+export class ApiError extends Error {
+  constructor(
+    message: string,
+    public readonly status: number,
+  ) {
+    super(message);
+    this.name = "ApiError";
+  }
+}
 
 export async function api<T>(
   path: string,
@@ -73,10 +96,11 @@ export async function api<T>(
     const data = await response
       .json()
       .catch(() => ({ detail: `服务暂不可用 (${response.status})` }));
-    throw new Error(
+    throw new ApiError(
       typeof data.detail === "string"
         ? data.detail
         : JSON.stringify(data.detail),
+      response.status,
     );
   }
   return response.json();

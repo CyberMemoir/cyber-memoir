@@ -145,6 +145,8 @@ class EvidenceLink(Identity, Base):
 
 class Revision(Identity, Base):
     __tablename__ = "revisions"
+    __table_args__ = (CheckConstraint("edit_version >= 1", name="revision_edit_version_positive"),)
+    edit_version: Mapped[int] = mapped_column(Integer, default=1, server_default="1")
     meme_id: Mapped[str] = mapped_column(ForeignKey("memes.id"), index=True)
     based_on_revision: Mapped[int] = mapped_column(Integer, default=0)
     payload: Mapped[dict] = mapped_column(JSON)

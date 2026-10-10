@@ -5,6 +5,8 @@ decides position, a stage with no evidence is distinguishable from one without a
 dates arrive read in Beijing, and nothing retracted is drawn.
 """
 
+from review_requests import matching_revision
+
 AUTH = {"Authorization": "Bearer unit-test-reviewer"}
 
 
@@ -69,7 +71,7 @@ def revise(client, made, reason, **fields):
             "reason": reason,
             "verified_evidence_ids": [made["evidence"]["id"]],
         },
-        headers=AUTH,
+        headers=matching_revision(client, AUTH, f"/v1/reviews/{revision.json()['id']}/decision"),
     )
     assert approved.status_code == 200, approved.text
 
