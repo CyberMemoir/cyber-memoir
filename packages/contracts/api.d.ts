@@ -718,6 +718,22 @@ export interface components {
             channels: string[];
             /** Degraded */
             degraded: string[];
+            /** Abstention Reason */
+            abstention_reason?: ("no_public_matches" | "low_relevance" | "no_approved_claims" | "selection_empty" | "corpus_changed") | null;
+            /** Related Memories */
+            related_memories?: components["schemas"]["AnswerRelatedMeme"][];
+        };
+        /**
+         * AnswerRelatedMeme
+         * @description Published navigation candidate, not an answer claim or proof of relevance.
+         */
+        AnswerRelatedMeme: {
+            /** Id */
+            id: string;
+            /** Canonical Name */
+            canonical_name: string;
+            /** Published Revision */
+            published_revision: number;
         };
         /** Body_media_v1_sources__source_id__media_post */
         Body_media_v1_sources__source_id__media_post: {

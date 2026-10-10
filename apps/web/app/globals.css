@@ -3183,6 +3183,10 @@ details textarea {
   flex-wrap: wrap;
   font-size: 13px;
 }
+.answer-candidates .answer-reference-links a {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
 @media (max-width: 760px) {
   .evidence-inspector {
     position: static;

@@ -1,14 +1,49 @@
 import logging
 
+from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
 from cyber_memoir.adapters.inference import generate_json
-from cyber_memoir.application.content import evidence_is_public
+from cyber_memoir.application.content import detail, evidence_is_public
 from cyber_memoir.config import settings
 from cyber_memoir.domain.schemas import SearchRequest
 from cyber_memoir.search.retrieval import search
 
 log = logging.getLogger(__name__)
+ABSTENTION_TEXT = {
+    "no_public_matches": "当前检索结果中没有可用的公开记忆。你可以补充描述，或提交原始来源供审核。",
+    "low_relevance": "找到了候选记忆，但相关性评分不足，暂不将它们作为证据回答。你可以补充更具体的描述，或先浏览候选内容。",
+    "no_approved_claims": "当前候选中没有可用于本次回答的已核查断言。你可以浏览原条目核对信息，或提交原始来源供审核。",
+    "selection_empty": "有已核查断言，但未选择到足以回答这次提问的内容。你可以浏览候选记忆，或补充描述。",
+    "corpus_changed": "检索期间公开档案发生变化，暂不形成证据回答。请刷新后核对当前版本。",
+}
+
+
+def abstention_reason(result, eligible, approved):
+    if "corpus_changed_during_search" in result["degraded"]:
+        return "corpus_changed"
+    if not result["items"]:
+        return "no_public_matches"
+    if not eligible:
+        return "low_relevance"
+    return "selection_empty" if approved else "no_approved_claims"
+
+
+def related_memories(db, result):
+    related, seen = [], set()
+    for candidate in result["items"][:3]:
+        try:
+            current = detail(db, candidate["id"])
+        except HTTPException as exc:
+            if exc.status_code not in {404, 409}:
+                raise
+            return [], True
+        if current["published_revision"] != candidate["published_revision"]:
+            return [], True
+        if current["id"] not in seen:
+            related.append({key: current[key] for key in ["id", "canonical_name", "published_revision"]})
+            seen.add(current["id"])
+    return related, False
 
 
 def supported_items(result: dict) -> list[dict]:
@@ -32,7 +67,8 @@ def supported_items(result: dict) -> list[dict]:
 def answer(db: Session, request: SearchRequest):
     result = search(db, request.model_copy(update={"limit": 5, "offset": 0}))
     citations, approved = {}, []
-    for meme in supported_items(result):
+    eligible = supported_items(result)
+    for meme in eligible:
         for evidence in meme["evidence"]:
             if evidence_is_public(db, evidence["id"]):
                 citations[evidence["id"]] = {
@@ -115,10 +151,17 @@ def answer(db: Session, request: SearchRequest):
         + " ".join(f"[{eid}]" for eid in c["evidence_ids"])
         for c in selected
     ]
+    reason, related = None, []
+    if not selected:
+        reason = abstention_reason(result, eligible, approved)
+        if reason != "corpus_changed":
+            related, changed = related_memories(db, result)
+            if changed:
+                reason = "corpus_changed"
+                if "corpus_changed_during_search" not in result["degraded"]:
+                    result["degraded"].append("corpus_changed_during_search")
     return {
-        "answer": "\n\n".join(lines)
-        if lines
-        else "目前没有足够的已审核证据回答这个问题。你可以提交原始来源，补充这段记忆。",
+        "answer": "\n\n".join(lines) if lines else ABSTENTION_TEXT[reason],
         "claims": selected,
         "citations": selected_citations,
         "uncertainties": uncertainties,
@@ -126,4 +169,6 @@ def answer(db: Session, request: SearchRequest):
         "retrieval_version": "v1-evidence-locked",
         "channels": result["channels"],
         "degraded": result["degraded"],
+        "abstention_reason": reason,
+        "related_memories": related,
     }

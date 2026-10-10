@@ -270,7 +270,9 @@ def test_answer_abstains_below_the_score_floor(client, prepared, monkeypatch, en
     _reranker(monkeypatch, 0.01)
     data = client.post("/v1/answers", json={"query": "仅用于软件测试的虚构表述"}).json()
     assert data["claims"] == []
-    assert "没有足够的已审核证据" in data["answer"]
+    assert data["abstention_reason"] == "low_relevance"
+    assert "相关性评分不足" in data["answer"]
+    assert data["citations"] == []
 
 
 def test_answer_uses_claims_above_the_score_floor(client, prepared, monkeypatch, env):
@@ -300,7 +302,8 @@ def test_missing_calibrated_scorer_is_declared_not_silently_skipped(client, prep
 def test_no_evidence_no_answer(client):
     data = client.post("/v1/answers", json={"query": "不存在的梗起源"}).json()
     assert not data["claims"] and not data["citations"]
-    assert "没有足够" in data["answer"]
+    assert data["abstention_reason"] == "no_public_matches"
+    assert data["related_memories"] == []
 
 
 def test_rag_citations_resolve_to_reviewed_evidence(client, prepared):

@@ -78,16 +78,20 @@ export function evidenceIndex(meme: Meme | null): EvidenceIndex {
   return index;
 }
 
+export function memoryUrl(memeId: string, revision: number | undefined) {
+  const version =
+    revision && Number.isSafeInteger(revision) && revision > 0
+      ? `?expected_revision=${revision}`
+      : "";
+  return `/memes/${encodeURIComponent(memeId)}${version}`;
+}
+
 export function referenceUrl(
   memeId: string,
   revision: number | undefined,
   evidenceId: string,
 ) {
-  const version =
-    revision && Number.isSafeInteger(revision) && revision > 0
-      ? `?expected_revision=${revision}`
-      : "";
-  return `/memes/${encodeURIComponent(memeId)}${version}#${encodeURIComponent(`evidence-${evidenceId}`)}`;
+  return `${memoryUrl(memeId, revision)}#${encodeURIComponent(`evidence-${evidenceId}`)}`;
 }
 
 export function stanceLabel(stance: string) {

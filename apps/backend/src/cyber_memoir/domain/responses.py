@@ -160,6 +160,14 @@ class CitationOut(BaseModel):
     published_at: datetime | None
 
 
+class AnswerRelatedMeme(BaseModel):
+    """Published navigation candidate, not an answer claim or proof of relevance."""
+
+    id: str
+    canonical_name: str
+    published_revision: int = Field(ge=1)
+
+
 class AnswerOut(BaseModel):
     answer: str
     claims: list[AnswerClaim]
@@ -169,6 +177,13 @@ class AnswerOut(BaseModel):
     retrieval_version: str
     channels: list[str]
     degraded: list[str]
+    abstention_reason: (
+        Literal[
+            "no_public_matches", "low_relevance", "no_approved_claims", "selection_empty", "corpus_changed"
+        ]
+        | None
+    ) = None
+    related_memories: list[AnswerRelatedMeme] = Field(default_factory=list)
 
 
 class ReviewRevisionOut(BaseModel):

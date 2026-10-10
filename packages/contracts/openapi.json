@@ -1929,6 +1929,31 @@
             },
             "type": "array",
             "title": "Degraded"
+          },
+          "abstention_reason": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "no_public_matches",
+                  "low_relevance",
+                  "no_approved_claims",
+                  "selection_empty",
+                  "corpus_changed"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Abstention Reason"
+          },
+          "related_memories": {
+            "items": {
+              "$ref": "#/components/schemas/AnswerRelatedMeme"
+            },
+            "type": "array",
+            "title": "Related Memories"
           }
         },
         "type": "object",
@@ -1943,6 +1968,31 @@
           "degraded"
         ],
         "title": "AnswerOut"
+      },
+      "AnswerRelatedMeme": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "canonical_name": {
+            "type": "string",
+            "title": "Canonical Name"
+          },
+          "published_revision": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Published Revision"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "canonical_name",
+          "published_revision"
+        ],
+        "title": "AnswerRelatedMeme",
+        "description": "Published navigation candidate, not an answer claim or proof of relevance."
       },
       "Body_media_v1_sources__source_id__media_post": {
         "properties": {

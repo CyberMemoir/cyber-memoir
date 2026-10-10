@@ -1,6 +1,6 @@
 "use client";
 import { PLATFORMS, platformLabel } from "@/lib/platforms";
-import { referenceUrl } from "@/lib/citations";
+import { memoryUrl, referenceUrl } from "@/lib/citations";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import {
@@ -17,6 +17,13 @@ import { SkyBand } from "@/components/sky-band";
 import { useReducedMotion } from "@/lib/motion";
 
 type ConsoleState = "idle" | "searching" | "answered" | "abstained" | "error";
+const ABSTENTION_LABELS = {
+  no_public_matches: "暂无可用公开匹配",
+  low_relevance: "相关性不足，未作为证据回答",
+  no_approved_claims: "暂无可用于回答的已核查断言",
+  selection_empty: "未选出足以回答本次提问的断言",
+  corpus_changed: "公开档案已变化，请刷新",
+};
 type SearchRequest = {
   query: string;
   platform: string | null;
@@ -396,7 +403,11 @@ export default function ArchivePage() {
               <h3>基于证据的回答</h3>
               <p className="answer-text">{answer.answer}</p>
               {answer.claims.length === 0 && (
-                <p className="retrieval-note">本次回答没有可引用的证据断言。</p>
+                <p className="retrieval-note">
+                  {answer.abstention_reason
+                    ? ABSTENTION_LABELS[answer.abstention_reason]
+                    : "本次回答没有可引用的证据断言。"}
+                </p>
               )}
               {answer.uncertainties.map((t) => (
                 <p className="uncertainty" key={t}>
@@ -404,6 +415,31 @@ export default function ArchivePage() {
                   {t}
                 </p>
               ))}
+              {answer.claims.length === 0 &&
+                !!answer.related_memories?.length && (
+                  <div className="answer-candidates">
+                    <p className="retrieval-note">
+                      候选记忆仅供浏览，不是本次提问的证据回答：
+                    </p>
+                    <nav
+                      className="answer-reference-links"
+                      aria-label="仅供浏览的候选记忆"
+                    >
+                      {answer.related_memories.map((candidate) => (
+                        <Link
+                          key={candidate.id}
+                          href={memoryUrl(
+                            candidate.id,
+                            candidate.published_revision,
+                          )}
+                        >
+                          浏览{candidate.canonical_name}
+                          <Icon name="arrow" size={15} />
+                        </Link>
+                      ))}
+                    </nav>
+                  </div>
+                )}
               <ol className="citations">
                 {answer.citations.map((c, i) => (
                   <li key={c.evidence_id}>
