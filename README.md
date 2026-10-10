@@ -161,7 +161,7 @@ answer_question(question, platform?)
 
 [逐字段审核与证据绑定](docs/REVIEW.md)
 
-[真实模型与离线检索探针](docs/MODEL_PROBE.md) · [实际批准归档端到端评测](docs/ARCHIVE_EVALUATION.md) · [CPU 重排配对优化](docs/CPU_RERANK.md)
+[真实模型与离线检索探针](docs/MODEL_PROBE.md) · [实际批准归档端到端评测](docs/ARCHIVE_EVALUATION.md) · [CPU 重排配对优化](docs/CPU_RERANK.md) · [正常 HTTP 与并发等待](docs/HTTP_LATENCY.md)
 
 [引用与档案阅读](docs/EVIDENCE_READING.md) · [跨平台导入](docs/PUBLICATION_IMPORT.md)
 

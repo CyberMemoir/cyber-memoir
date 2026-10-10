@@ -4,11 +4,13 @@ import argparse
 import hashlib
 import json
 import os
+import re
 import secrets
 import subprocess
 import sys
 from pathlib import Path
 from urllib.parse import urlparse
+from uuid import uuid4
 
 import uvicorn
 
@@ -38,10 +40,13 @@ def main():
     parser.add_argument("--mode", choices=["off", "rerank", "hybrid"], required=True)
     parser.add_argument("--index-only", action="store_true")
     parser.add_argument("--compare-cpu-rerank", action="store_true")
+    parser.add_argument("--trace-inference", action="store_true")
     parser.add_argument("--port", type=int, default=8103)
     args = parser.parse_args()
     if args.compare_cpu_rerank and (args.mode == "off" or args.index_only):
         parser.error("paired CPU profiling requires an enabled reranker API")
+    if args.trace_inference and (args.index_only or args.compare_cpu_rerank):
+        parser.error("normal inference tracing requires an API without paired profiling")
     db_url, search_url = urlparse(args.database_url), urlparse(args.search_url)
     if (
         db_url.scheme != "postgresql+psycopg"
@@ -137,7 +142,17 @@ def main():
 
     from fastapi.responses import JSONResponse
 
+    if args.trace_inference:
+        from inference_trace import InferenceTrace
+
+        from cyber_memoir.adapters import inference
+
+        trace = InferenceTrace(snapshot / "inference-trace.jsonl", inference)
+
     from cyber_memoir.api.main import app
+
+    if args.trace_inference:
+        app.state.inference_trace = trace
 
     if args.compare_cpu_rerank:
         from rerank_cpu_probe import attach
@@ -162,7 +177,20 @@ def main():
                 status_code=405,
                 content={"detail": "Frozen evaluation snapshot: no publication, edits, jobs or ingestion"},
             )
-        response = await call_next(request)
+        token = None
+        if args.trace_inference:
+            from inference_trace import REQUEST_ID
+
+            supplied = request.headers.get("X-Cyber-Memoir-Trace", "")
+            identifier = supplied if re.fullmatch(r"[0-9a-f]{32}", supplied) else uuid4().hex
+            token = REQUEST_ID.set(identifier)
+        try:
+            response = await call_next(request)
+            if args.trace_inference:
+                response.headers["X-Cyber-Memoir-Trace"] = identifier
+        finally:
+            if token is not None:
+                REQUEST_ID.reset(token)
         response.headers["X-Cyber-Memoir-Evaluation"] = args.run_id
         return response
 
@@ -196,6 +224,28 @@ def main():
             "source": "restored approval records, no new approvals",
             "paired_cpu_profiling": args.compare_cpu_rerank,
             "reranker_implementation": "single-pass-cpu" if args.mode != "off" else "disabled",
+            "inference_tracing": args.trace_inference,
+            "retrieval": {
+                key: getattr(settings(), key)
+                for key in [
+                    "retrieval_candidate_cap",
+                    "retrieval_channel_limit",
+                    "retrieval_per_source_cap",
+                    "rrf_k",
+                    "rrf_weight_exact_alias",
+                    "rrf_weight_bm25",
+                    "rrf_weight_vector",
+                ]
+            },
+            **(
+                {
+                    "inference_trace_sha256": hashlib.sha256(
+                        (ROOT / "evals/inference_trace.py").read_bytes()
+                    ).hexdigest()
+                }
+                if args.trace_inference
+                else {}
+            ),
             **(
                 {
                     "comparison_probe_sha256": hashlib.sha256(

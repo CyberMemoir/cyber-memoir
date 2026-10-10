@@ -72,3 +72,33 @@ def test_paired_profiling_rejects_disabled_or_index_only_before_access(module, m
     with pytest.raises(SystemExit) as error:
         module.main()
     assert error.value.code == 2
+
+
+@pytest.mark.parametrize("index,paired", [(True, False), (False, True)])
+def test_normal_tracing_refuses_index_and_paired_modes(module, monkeypatch, index, paired):
+    monkeypatch.setattr(
+        "sys.argv",
+        [
+            "archive_eval_server",
+            "--snapshot",
+            "synthetic",
+            "--run-id",
+            "synthetic",
+            "--database-url",
+            "synthetic",
+            "--search-url",
+            "synthetic",
+            "--pg-container",
+            "synthetic",
+            "--search-container",
+            "synthetic",
+            "--mode",
+            "hybrid",
+            "--trace-inference",
+            *(["--index-only"] if index else []),
+            *(["--compare-cpu-rerank"] if paired else []),
+        ],
+    )
+    with pytest.raises(SystemExit) as error:
+        module.main()
+    assert error.value.code == 2

@@ -54,3 +54,5 @@ def test_pacing_is_accounted_separately_from_http_time(runner, monkeypatch):
     assert client.post("/second") == "/second"
     assert client.sleep_seconds == pytest.approx(0.8)
     assert client.post_seconds == pytest.approx(0.4)
+    assert [row["path"] for row in client.post_timings] == ["/first", "/second"]
+    assert [row["http_seconds"] for row in client.post_timings] == pytest.approx([0.2, 0.2])

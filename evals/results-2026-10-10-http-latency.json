@@ -1,0 +1,392 @@
+{
+  "base_commit": "0823502d0031e1549c74327135975ce92bfcf8dc",
+  "bursts": {
+    "distinct": {
+      "actual_model_calls": {
+        "embedding_compute": 6,
+        "reranker_compute": 6
+      },
+      "cases": [
+        {
+          "embedding_lock_wait_seconds": 4.159956006333232e-07,
+          "embedding_total_seconds": 0.15410062500450294,
+          "http_seconds": 10.797992665990023,
+          "index": 1,
+          "query_sha256": "08069d4ffbda90a736c99be344fae5c6273f33548ceda9371286af0f7901c811",
+          "request_id": "893ecaea00da4da0b6a1b4853a27f6f1",
+          "reranker_lock_wait_seconds": 5.840120138600469e-07,
+          "reranker_total_seconds": 10.398998666001717,
+          "start_offset_seconds": 0.00895699999819044,
+          "target_retrieved": true
+        },
+        {
+          "embedding_lock_wait_seconds": 0.44376745900081005,
+          "embedding_total_seconds": 0.6120654580008704,
+          "http_seconds": 35.820657208008924,
+          "index": 2,
+          "query_sha256": "546b70693d14ad6af173d9f64a2588b5020094ae67407b44cb8339c53e8225a1",
+          "request_id": "535813d924fc4fa8810259e24868e9e1",
+          "reranker_lock_wait_seconds": 25.92696637500194,
+          "reranker_total_seconds": 34.66979979199823,
+          "start_offset_seconds": 0.009368582992465235,
+          "target_retrieved": true
+        },
+        {
+          "embedding_lock_wait_seconds": 0.6108718329924159,
+          "embedding_total_seconds": 0.7460102500044741,
+          "http_seconds": 46.10894933399686,
+          "index": 3,
+          "query_sha256": "260e0476abbe4447f94013143970552b067e5c0f6bcada62cc387d638f83fed2",
+          "request_id": "71d2c1f16b8c4f8da2de0a7b55949b4c",
+          "reranker_lock_wait_seconds": 34.58138129199506,
+          "reranker_total_seconds": 45.099105333996704,
+          "start_offset_seconds": 0.008610666001914069,
+          "target_retrieved": true
+        },
+        {
+          "embedding_lock_wait_seconds": 0.7435096249973867,
+          "embedding_total_seconds": 0.8799613330047578,
+          "http_seconds": 54.6156587919977,
+          "index": 4,
+          "query_sha256": "07d61a65de4771ae9b31452b6af773b7dbf4c06deb5f459a4fae693fa3032dc5",
+          "request_id": "28465c3847a34a529ec5d85f29b8dcc1",
+          "reranker_lock_wait_seconds": 44.95155362499645,
+          "reranker_total_seconds": 53.46975933300564,
+          "start_offset_seconds": 0.00919383300060872,
+          "target_retrieved": true
+        },
+        {
+          "embedding_lock_wait_seconds": 0.15338045899989083,
+          "embedding_total_seconds": 0.2695026669971412,
+          "http_seconds": 19.301194625004428,
+          "index": 5,
+          "query_sha256": "6021526c010a88c2b1690ebb6b13950cc3aabef32e1eaa04bb4f5cd0cf20e210",
+          "request_id": "d39e0e5f023a4af9a8df78a19587de1e",
+          "reranker_lock_wait_seconds": 10.248719750001328,
+          "reranker_total_seconds": 18.777767584004323,
+          "start_offset_seconds": 0.009273582996684127,
+          "target_retrieved": true
+        },
+        {
+          "embedding_lock_wait_seconds": 0.26868095799,
+          "embedding_total_seconds": 0.4445194160070969,
+          "http_seconds": 26.832319000008283,
+          "index": 6,
+          "query_sha256": "9fa565744b539f3ea374df0cdcf13ea3fdabd0c2ff36b451db0191b2fb170266",
+          "request_id": "7ea572da59c042f7888745f589908a73",
+          "reranker_lock_wait_seconds": 18.64081670800806,
+          "reranker_total_seconds": 26.166506124995067,
+          "start_offset_seconds": 0.009090540988836437,
+          "target_retrieved": true
+        }
+      ],
+      "context": {
+        "configuration": {
+          "device": "cpu",
+          "floor": 0.35,
+          "images": {
+            "opensearch": "sha256:d96afaf6cbd2a6a3695aeb2f1d48c9a16ad5c8918eb849e5cbf43475f0f8e146",
+            "postgres": "sha256:a36250871de0833b8757561c72f2477ef1ddd1101afa4e617fb552e0de514c6b"
+          },
+          "inference_trace_sha256": "4e46362e618b164682d0ca3dff2020df3fcd70ab23a959d3028f5777b37515af",
+          "inference_tracing": true,
+          "mode": "hybrid",
+          "paired_cpu_profiling": false,
+          "reranker_implementation": "single-pass-cpu",
+          "retrieval": {
+            "retrieval_candidate_cap": 50,
+            "retrieval_channel_limit": 100,
+            "retrieval_per_source_cap": 4,
+            "rrf_k": 60,
+            "rrf_weight_bm25": 1.0,
+            "rrf_weight_exact_alias": 3.0,
+            "rrf_weight_vector": 1.0
+          },
+          "snapshot_dump_sha256": "6ad60adee9fd274f544212e3a5b56c763562b2542b35fd9309126a6d28eec67f",
+          "source": "restored approval records, no new approvals",
+          "threads": 4
+        },
+        "models": {
+          "embedding": {
+            "enabled": true,
+            "identifier": "BAAI/bge-m3",
+            "sha256": "b5e0ce3470abf5ef3831aa1bd5553b486803e83251590ab7ff35a117cf6aad38"
+          },
+          "llm": {
+            "enabled": false,
+            "identifier": "disabled"
+          },
+          "reranker": {
+            "enabled": true,
+            "identifier": "BAAI/bge-reranker-v2-m3",
+            "sha256": "d9e3e081faff1eefb84019509b2f5558fd74c1a05a2c7db22f74174fcedb5286"
+          }
+        }
+      },
+      "gold_sha256": "9fea6609c70e7ec6202a479b9bacf3f2dfec3d6e285b53b75e3efa42902b36ba",
+      "http": {
+        "max": 54.6156587919977,
+        "median": 31.326488104008604,
+        "n": 6,
+        "p95_nearest_rank": 54.6156587919977
+      },
+      "mode": "distinct",
+      "probe_sha256": "556a5b2c61c6740b86b4345a2db0089965b93b968494b38f521f5a72deaf8f77",
+      "report_sha256": "ee0b7c9ad59d4d79dd97b2a4f325a877bd38295af7a972cdd97c10c17b353ad4",
+      "reranker_queue_wait": {
+        "max": 44.95155362499645,
+        "median": 22.283891541505,
+        "n": 6,
+        "p95_nearest_rank": 44.95155362499645
+      },
+      "runner_and_backend_sha256": "c05fce102418d3c3e9bf07620ad560489846a46099fbe3c6cf3e1f740b38c81e",
+      "scope": "six_owned_real_search_requests_not_SLA",
+      "snapshot_sha256": "b9fb6a2e475ee5ef467ba44a2ea513063afbf82cd83bc506b7378e2f0c56e268",
+      "status": "complete",
+      "trace_sha256": "5aafb843d7f1c69ac6e0ad7469ea1336efcf70b5f9d1f37069cd94cb91af70aa",
+      "warmup_http_seconds": 14.301104416997987
+    },
+    "same": {
+      "actual_model_calls": {
+        "embedding_compute": 1,
+        "reranker_compute": 1
+      },
+      "cases": [
+        {
+          "embedding_lock_wait_seconds": 3.33995558321476e-07,
+          "embedding_total_seconds": 0.21605250000720844,
+          "http_seconds": 11.173107292008353,
+          "index": 1,
+          "query_sha256": "08069d4ffbda90a736c99be344fae5c6273f33548ceda9371286af0f7901c811",
+          "request_id": "0be1d33dfa9a4b20928ffc106a2f1536",
+          "reranker_lock_wait_seconds": 10.49473979198956,
+          "reranker_total_seconds": 10.49513174999447,
+          "start_offset_seconds": 0.011085957987233996,
+          "target_retrieved": true
+        },
+        {
+          "embedding_lock_wait_seconds": 0.21512929200252984,
+          "embedding_total_seconds": 0.21598629100481048,
+          "http_seconds": 11.172775416009245,
+          "index": 2,
+          "query_sha256": "08069d4ffbda90a736c99be344fae5c6273f33548ceda9371286af0f7901c811",
+          "request_id": "79e3b46943b340fb83092724503865f9",
+          "reranker_lock_wait_seconds": 10.493027874996187,
+          "reranker_total_seconds": 10.493842124997173,
+          "start_offset_seconds": 0.01079012498666998,
+          "target_retrieved": true
+        },
+        {
+          "embedding_lock_wait_seconds": 0.21505891600099858,
+          "embedding_total_seconds": 0.21589045799919404,
+          "http_seconds": 11.169164040999021,
+          "index": 3,
+          "query_sha256": "08069d4ffbda90a736c99be344fae5c6273f33548ceda9371286af0f7901c811",
+          "request_id": "fbce780edd044bfa8f8184a13c897ef1",
+          "reranker_lock_wait_seconds": 10.493795707996469,
+          "reranker_total_seconds": 10.496104208010365,
+          "start_offset_seconds": 0.010400499988463707,
+          "target_retrieved": true
+        },
+        {
+          "embedding_lock_wait_seconds": 0.21557170900632627,
+          "embedding_total_seconds": 0.21560054100700654,
+          "http_seconds": 11.170664167002542,
+          "index": 4,
+          "query_sha256": "08069d4ffbda90a736c99be344fae5c6273f33548ceda9371286af0f7901c811",
+          "request_id": "09d6987f7d634178b2457914ad8044ce",
+          "reranker_lock_wait_seconds": 10.494159167006728,
+          "reranker_total_seconds": 10.494582708008238,
+          "start_offset_seconds": 0.010887207987252623,
+          "target_retrieved": true
+        },
+        {
+          "embedding_lock_wait_seconds": 0.2148731659981422,
+          "embedding_total_seconds": 0.2153676669986453,
+          "http_seconds": 11.146711958004744,
+          "index": 5,
+          "query_sha256": "08069d4ffbda90a736c99be344fae5c6273f33548ceda9371286af0f7901c811",
+          "request_id": "2cc79e8a4a6740f08f5a8e159ce31ef4",
+          "reranker_lock_wait_seconds": 6.333008059300482e-06,
+          "reranker_total_seconds": 10.51615920799668,
+          "start_offset_seconds": 0.010987582994857803,
+          "target_retrieved": true
+        },
+        {
+          "embedding_lock_wait_seconds": 0.21235929201066028,
+          "embedding_total_seconds": 0.21289462498680223,
+          "http_seconds": 11.17431425000541,
+          "index": 6,
+          "query_sha256": "08069d4ffbda90a736c99be344fae5c6273f33548ceda9371286af0f7901c811",
+          "request_id": "cdcd2741f2c14824b05210be783509f9",
+          "reranker_lock_wait_seconds": 10.4886667499959,
+          "reranker_total_seconds": 10.49304708300042,
+          "start_offset_seconds": 0.010665915993740782,
+          "target_retrieved": true
+        }
+      ],
+      "context": {
+        "configuration": {
+          "device": "cpu",
+          "floor": 0.35,
+          "images": {
+            "opensearch": "sha256:d96afaf6cbd2a6a3695aeb2f1d48c9a16ad5c8918eb849e5cbf43475f0f8e146",
+            "postgres": "sha256:a36250871de0833b8757561c72f2477ef1ddd1101afa4e617fb552e0de514c6b"
+          },
+          "inference_trace_sha256": "4e46362e618b164682d0ca3dff2020df3fcd70ab23a959d3028f5777b37515af",
+          "inference_tracing": true,
+          "mode": "hybrid",
+          "paired_cpu_profiling": false,
+          "reranker_implementation": "single-pass-cpu",
+          "retrieval": {
+            "retrieval_candidate_cap": 50,
+            "retrieval_channel_limit": 100,
+            "retrieval_per_source_cap": 4,
+            "rrf_k": 60,
+            "rrf_weight_bm25": 1.0,
+            "rrf_weight_exact_alias": 3.0,
+            "rrf_weight_vector": 1.0
+          },
+          "snapshot_dump_sha256": "6ad60adee9fd274f544212e3a5b56c763562b2542b35fd9309126a6d28eec67f",
+          "source": "restored approval records, no new approvals",
+          "threads": 4
+        },
+        "models": {
+          "embedding": {
+            "enabled": true,
+            "identifier": "BAAI/bge-m3",
+            "sha256": "b5e0ce3470abf5ef3831aa1bd5553b486803e83251590ab7ff35a117cf6aad38"
+          },
+          "llm": {
+            "enabled": false,
+            "identifier": "disabled"
+          },
+          "reranker": {
+            "enabled": true,
+            "identifier": "BAAI/bge-reranker-v2-m3",
+            "sha256": "d9e3e081faff1eefb84019509b2f5558fd74c1a05a2c7db22f74174fcedb5286"
+          }
+        }
+      },
+      "gold_sha256": "9fea6609c70e7ec6202a479b9bacf3f2dfec3d6e285b53b75e3efa42902b36ba",
+      "http": {
+        "max": 11.17431425000541,
+        "median": 11.171719791505893,
+        "n": 6,
+        "p95_nearest_rank": 11.17431425000541
+      },
+      "mode": "same",
+      "probe_sha256": "556a5b2c61c6740b86b4345a2db0089965b93b968494b38f521f5a72deaf8f77",
+      "report_sha256": "bc7528082067e74dbf34736925ad9e3396eae8365f4c12db13cab975a563184d",
+      "reranker_queue_wait": {
+        "max": 10.49473979198956,
+        "median": 10.493411791496328,
+        "n": 6,
+        "p95_nearest_rank": 10.49473979198956
+      },
+      "runner_and_backend_sha256": "c05fce102418d3c3e9bf07620ad560489846a46099fbe3c6cf3e1f740b38c81e",
+      "scope": "six_owned_real_search_requests_not_SLA",
+      "snapshot_sha256": "b9fb6a2e475ee5ef467ba44a2ea513063afbf82cd83bc506b7378e2f0c56e268",
+      "status": "complete",
+      "trace_sha256": "0a86d46b71a5892d6bd09292e00692a21eee664dd0313b1eaa2035a6a67a147b",
+      "warmup_http_seconds": 17.169915042002685
+    }
+  },
+  "date": "2026-10-10",
+  "gold_sha256": "9fea6609c70e7ec6202a479b9bacf3f2dfec3d6e285b53b75e3efa42902b36ba",
+  "interpretation": "Different cache-miss queries serialize with substantial queue wait; deduplicated same-query requests still await the first computation. No limiter, candidate budget or quality threshold was relaxed.",
+  "scope": "single_path_real_HTTP_and_six_request_bursts_not_production_SLA",
+  "semantic_review": "16 hybrid claims remain unassessed; six positive queries still abstain",
+  "serial": {
+    "answer_claims_and_citations_exactly_match_previous_hybrid": true,
+    "answer_http": {
+      "max": 0.22907766699790955,
+      "median": 0.135793665991514,
+      "n": 25,
+      "p95_nearest_rank": 0.19458991700957995
+    },
+    "cases": 25,
+    "cold_model_load_seconds": {
+      "embedding_load": 4.053738707996672,
+      "reranker_load": 0.6482259589975001
+    },
+    "combined_post_http": {
+      "max": 23.53338033298496,
+      "median": 9.588443540982553,
+      "n": 25,
+      "p95_nearest_rank": 15.343338667007629
+    },
+    "context": {
+      "configuration": {
+        "device": "cpu",
+        "floor": 0.35,
+        "images": {
+          "opensearch": "sha256:d96afaf6cbd2a6a3695aeb2f1d48c9a16ad5c8918eb849e5cbf43475f0f8e146",
+          "postgres": "sha256:a36250871de0833b8757561c72f2477ef1ddd1101afa4e617fb552e0de514c6b"
+        },
+        "inference_trace_sha256": "4e46362e618b164682d0ca3dff2020df3fcd70ab23a959d3028f5777b37515af",
+        "inference_tracing": true,
+        "mode": "hybrid",
+        "paired_cpu_profiling": false,
+        "reranker_implementation": "single-pass-cpu",
+        "retrieval": {
+          "retrieval_candidate_cap": 50,
+          "retrieval_channel_limit": 100,
+          "retrieval_per_source_cap": 4,
+          "rrf_k": 60,
+          "rrf_weight_bm25": 1.0,
+          "rrf_weight_exact_alias": 3.0,
+          "rrf_weight_vector": 1.0
+        },
+        "snapshot_dump_sha256": "6ad60adee9fd274f544212e3a5b56c763562b2542b35fd9309126a6d28eec67f",
+        "source": "restored approval records, no new approvals",
+        "threads": 4
+      },
+      "models": {
+        "embedding": {
+          "enabled": true,
+          "identifier": "BAAI/bge-m3",
+          "sha256": "b5e0ce3470abf5ef3831aa1bd5553b486803e83251590ab7ff35a117cf6aad38"
+        },
+        "llm": {
+          "enabled": false,
+          "identifier": "disabled"
+        },
+        "reranker": {
+          "enabled": true,
+          "identifier": "BAAI/bge-reranker-v2-m3",
+          "sha256": "d9e3e081faff1eefb84019509b2f5558fd74c1a05a2c7db22f74174fcedb5286"
+        }
+      }
+    },
+    "first_search_http_seconds": 23.37513258299441,
+    "metrics": {
+      "answer_identity_match_rate": 0.5714285714285714,
+      "correct_abstention": 1,
+      "mrr": 0.8511904761904762,
+      "recall_at_10": 1.0
+    },
+    "pacing_seconds_total": 22.916737463069154,
+    "report_sha256": "64357a302cc2bc10c2769030e1ee900079e3bac29897b1d133c166228870c6a9",
+    "runner_and_backend_sha256": "c05fce102418d3c3e9bf07620ad560489846a46099fbe3c6cf3e1f740b38c81e",
+    "search_http": {
+      "max": 23.37513258299441,
+      "median": 9.451694584000506,
+      "n": 25,
+      "p95_nearest_rank": 15.148748749998049
+    },
+    "trace_sha256": "cebe0638e4c62a3c637edc9f77279dea7d574aec6b2d3cc2bb986de480496c8c",
+    "trace_stage_counts": {
+      "embedding_compute": 25,
+      "embedding_load": 1,
+      "embedding_lock_wait": 50,
+      "embedding_total": 50,
+      "reranker_compute": 25,
+      "reranker_load": 1,
+      "reranker_lock_wait": 50,
+      "reranker_total": 50
+    }
+  },
+  "snapshot_sha256": "b9fb6a2e475ee5ef467ba44a2ea513063afbf82cd83bc506b7378e2f0c56e268",
+  "status": "complete"
+}

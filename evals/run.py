@@ -62,6 +62,7 @@ class PacedClient:
     def __init__(self, client, interval):
         self.client, self.interval, self.last = client, interval, None
         self.sleep_seconds, self.post_seconds = 0.0, 0.0
+        self.post_timings = []
 
     def __getattr__(self, name):
         return getattr(self.client, name)
@@ -76,7 +77,9 @@ class PacedClient:
         try:
             return self.client.post(path, **kwargs)
         finally:
-            self.post_seconds += time.monotonic() - began
+            seconds = time.monotonic() - began
+            self.post_seconds += seconds
+            self.post_timings.append({"path": path, "http_seconds": seconds})
 
 
 def fold(name: str) -> str:
@@ -235,9 +238,11 @@ def main(argv=None):
                 print(f"[{index}/{len(rows)}] {row['query']}", file=sys.stderr, flush=True)
                 try:
                     sleeping, posting = client.sleep_seconds, client.post_seconds
+                    start_request = len(client.post_timings)
                     result = evaluate_case(client, row)
                     result["pacing_seconds"] = client.sleep_seconds - sleeping
                     result["post_http_seconds"] = client.post_seconds - posting
+                    result["post_requests"] = client.post_timings[start_request:]
                 except (httpx.HTTPError, ValueError, KeyError, TypeError) as exc:
                     changed = str(exc) == "ContextChangedDuringCase"
                     failures.append(

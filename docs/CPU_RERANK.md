@@ -47,3 +47,5 @@ apps/backend/.venv/bin/python evals/run.py "$SNAP/public-gold.jsonl" \
 本轮捕获的源公共 DTO 与评测副本前后 SHA 相同；源库仍 c2 schema、53 草稿/14 公开、0 待运行任务。结束后只停止本次 API 并按归属标签删除两个 tmpfs 容器；业务服务/卷、原 gold 和 `3102` 演示保持不变。模型关闭的演示不会展示这项模型推理加速。
 
 下一步：在相同冻结语料上测正常单路径 HTTP 延迟和并发尾部等待，再诊断六条正例弃答、扩充独立人工集并复核断言语义。
+
+接续已完成正常单路径与六并发 HTTP 测量：见 [HTTP_LATENCY.md](HTTP_LATENCY.md)，没有将本页的配对请求耗时冒充正常延迟。
