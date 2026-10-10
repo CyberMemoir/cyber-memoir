@@ -66,3 +66,30 @@ cd apps/web && npx playwright test
 ```
 
 后续仍需把独立人工描述查询、固定语料/模型快照与真实运行硬件一起用于语义检索比较，并完成评测恢复、PR 依赖整合、真实迁移/部署验收。本轮不以缓存或交互回归代替这些任务。
+
+## 查询向量精确复用（2026-10-10 接续）
+
+参考 [RedisVL 的 embedding 精确键、模型身份与 TTL 缓存](https://redis.io/docs/latest/develop/ai/redisvl/user_guide/how_to_guides/embeddings_cache/)，只借用做法，不新增 RedisVL 依赖或要求 Redis 在线。查询阶段改用 `embed_query`，索引文档批处理仍走原 `embed`，不把公开内容、资格、候选或回答放进向量缓存。
+
+- 单进程最多 64 条、300 秒 TTL/LRU。键绑定原查询文本、不可变模型路径、设备、线程数和提供函数对象；搜索先沿用原有 NFKC/casefold/空白规范化，再传入原推理文本，不作“语义相似缓存”。键只保留 SHA 而不是查询明文，不持久化。
+- 缓存填充与批处理共享原 embedding 串行锁，相同排队查询只编码一次，不同查询和索引仍顺序执行；冷加载也在锁内。
+- 只有通过维度/数量/有限数校验的向量能入缓存。返回列表是副本；无效推理不缓存，下次可重试；关闭 backend 不返回旧缓存。
+- 每次请求仍执行实际数据库资格、公开修订、chunk、证据和过滤条件检查，重排分数复用规则不变。权重须在不可变路径，替换同路径文件后应重启，切换向量空间须重建索引。
+
+### 真实 BGE 测量
+
+用已验证固定 BGE-M3 快照、原公开归档 gold 的 25 个规范化查询，在 CPU/4 线程/FP32 比较原始逐查询编码、缓存首次计算与重复命中。**25/25 向量逐元素完全相同**。暖态中位数：原始 **75.141ms**，首次缓存计算 **72.015ms**，重复命中 **0.023ms**。包装真实 `encode` 计数、不替换模型输出：六个相同并发请求实际编码 **1 次**，六个不同请求编码 **6 次**，两者推理峰值均为 1。
+
+这只省掉每次重复查询约 **0.075 秒的向量推理**，并不能解释或解决上轮 **18.359 秒** 的检索/回答 POST 合计耗时。不是 HTTP 加速倍数、生产 SLA 或回答质量提升；下一步应测候选交叉重排等阶段。该开发机非专用性能机器，数字不作为跨硬件承诺。没有重写正负例、改变阈值、重跑文化审批或修改业务部署。
+
+去路径报告：[results-2026-10-10-query-vectors.json](../evals/results-2026-10-10-query-vectors.json)。复现（独立模型环境和 manifest 准备见 [MODEL_PROBE.md](MODEL_PROBE.md)）：
+
+```bash
+cd apps/backend
+../../.data/model-eval-venv/bin/python ../../evals/query_vector_probe.py \
+  --gold ../../.data/archive-eval-8d7545877e/public-gold.jsonl \
+  --embedding-manifest ../../.data/model-eval/embedder-manifest.json \
+  --out ../../.data/model-eval/query-vector-new.json
+```
+
+probe 禁止 `.env`、网络模型、LLM、OpenSearch；使用实际生产适配器，不连接数据库，前后核对 gold、代码和模型文件。共享缓存机制的单元测试使用合成提供者，不用于速度报告；真实 PostgreSQL 集成现通过实际缓存路径使用合成向量，检查搜索/回答复用与撤回立即生效，而不是直接替换查询接口返回。

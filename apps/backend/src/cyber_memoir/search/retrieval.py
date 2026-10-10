@@ -5,7 +5,7 @@ from fastapi import HTTPException
 from sqlalchemy import func, or_, select
 from sqlalchemy.orm import Session
 
-from cyber_memoir.adapters.inference import embed, rerank
+from cyber_memoir.adapters.inference import embed_query, rerank
 from cyber_memoir.application.content import detail
 from cyber_memoir.config import settings
 from cyber_memoir.domain.models import Alias, Chunk, Evidence, EvidenceLink, Meme, Relation, Source
@@ -155,7 +155,7 @@ def search(db: Session, request: SearchRequest):
         warnings.append("bm25_disabled")
     if settings().embedding_backend == "local":
         try:
-            vector = embed([query])[0]
+            vector = embed_query(query)
             nearest = db.scalars(
                 _base(request)
                 .where(Chunk.embedding_model == settings().embedding_model, Chunk.embedding.is_not(None))

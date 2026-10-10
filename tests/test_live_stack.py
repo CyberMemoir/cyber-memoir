@@ -15,7 +15,7 @@ from review_requests import matching_revision
 from sqlalchemy import create_engine, select, text
 from sqlalchemy.orm import Session
 
-from cyber_memoir.adapters import storage
+from cyber_memoir.adapters import inference, storage
 from cyber_memoir.api.main import app
 from cyber_memoir.application import content, revisions
 from cyber_memoir.config import settings
@@ -24,7 +24,7 @@ from cyber_memoir.domain.models import Base, Chunk, Job
 from cyber_memoir.domain.schemas import MemeDraft
 from cyber_memoir.ingestion import pipeline
 from cyber_memoir.mcp import server
-from cyber_memoir.search import indexing, retrieval
+from cyber_memoir.search import indexing
 from cyber_memoir.workers import main as worker
 
 pytestmark = pytest.mark.skipif(os.environ.get("MEMOIR_INTEGRATION") != "1", reason="opt-in real services")
@@ -59,7 +59,19 @@ def test_real_stack_publication_indexing_vector_and_retraction(transport, monkey
     monkeypatch.setattr(pipeline, "metadata", lambda url: {"title": "合成集成测试来源"})
     vector = [1.0] + [0.0] * 1023
     monkeypatch.setattr(indexing, "embed", lambda texts: [vector for _ in texts])
-    monkeypatch.setattr(retrieval, "embed", lambda texts: [vector for _ in texts])
+    query_calls = []
+
+    class Dense:
+        def tolist(self):
+            return [list(vector)]
+
+    class QueryModel:
+        def encode(self, texts, **kwargs):
+            query_calls.append(list(texts))
+            return {"dense_vecs": Dense()}
+
+    inference._QUERY_VECTORS.clear()
+    monkeypatch.setattr(inference, "embedder", lambda: QueryModel())
     auth = {"Authorization": "Bearer live-test-reviewer"}
     client = transport
     try:
@@ -109,12 +121,16 @@ def test_real_stack_publication_indexing_vector_and_retraction(transport, monkey
         result = client.post("/v1/search", json={"query": "合成集成测试梗"}).json()
         assert {"bm25", "vector"} <= set(result["channels"]), result
         assert result["items"][0]["id"] == draft["meme_id"]
+        answer = client.post("/v1/answers", json={"query": "合成集成测试梗"}).json()
+        assert answer["claims"]
+        assert len(query_calls) == 1  # Actual cache path, synthetic vector provider.
         response = client.post(
             f"/v1/reviews/memes/{draft['meme_id']}/retract", json={"reason": "集成测试结束"}, headers=auth
         )
         assert response.status_code == 200, response.text
         result = client.post("/v1/search", json={"query": "合成集成测试梗"}).json()
         assert not result["items"]  # Before the asynchronous index deletion has run.
+        assert len(query_calls) == 1  # A vector hit never caches public eligibility.
         # Real PostgreSQL connections, not an SQLite or row-lock mock. Both
         # editors hold the same captured snapshot; exactly one mutation wins.
         with Session(eng) as db:
@@ -139,6 +155,7 @@ def test_real_stack_publication_indexing_vector_and_retraction(transport, monkey
                 pool.map(concurrent_edit, ["合成 PostgreSQL 编辑甲", "合成 PostgreSQL 编辑乙"])
             ) == [200, 412]
     finally:
+        inference._QUERY_VECTORS.clear()
         app.dependency_overrides.clear()
         indexing.client().indices.delete(index=identifier, ignore=[404])
         s3 = storage.client()

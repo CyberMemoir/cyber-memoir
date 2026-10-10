@@ -30,6 +30,18 @@ def _load_embedder(model: str, device: str, threads: int):
 
 
 _EMBED = threading.Lock()
+_QUERY_VECTORS: OrderedDict[tuple[object, str], tuple[float, tuple[float, ...]]] = OrderedDict()
+_QUERY_VECTOR_TTL = 300
+_QUERY_VECTOR_LIMIT = 64
+
+
+def _encode(provider, texts):
+    vectors = provider().encode(texts, batch_size=8, max_length=1024)["dense_vecs"].tolist()
+    if len(vectors) != len(texts) or any(
+        len(vector) != 1024 or not all(math.isfinite(float(v)) for v in vector) for vector in vectors
+    ):
+        raise ValueError("Invalid BGE-M3 dense vectors")
+    return [[float(value) for value in vector] for vector in vectors]
 
 
 def embed(texts: list[str]) -> list[list[float]] | None:
@@ -38,12 +50,33 @@ def embed(texts: list[str]) -> list[list[float]] | None:
     if not texts:
         return []
     with _EMBED:
-        vectors = embedder().encode(texts, batch_size=8, max_length=1024)["dense_vecs"].tolist()
-    if len(vectors) != len(texts) or any(
-        len(vector) != 1024 or not all(math.isfinite(float(v)) for v in vector) for vector in vectors
-    ):
-        raise ValueError("Invalid BGE-M3 dense vectors")
-    return [[float(value) for value in vector] for vector in vectors]
+        return _encode(embedder, texts)
+
+
+def embed_query(query: str) -> list[float] | None:
+    """Reuse only a validated query vector; no corpus, visibility, scores or facts."""
+    cfg = settings()
+    if cfg.embedding_backend != "local":
+        return None
+    provider = embedder
+    fingerprint = hashlib.sha256(
+        json.dumps(
+            [cfg.embedding_model, cfg.embedding_device, cfg.embedding_threads, query],
+            ensure_ascii=False,
+        ).encode()
+    ).hexdigest()
+    key = (provider, fingerprint)
+    with _EMBED:
+        cached = _QUERY_VECTORS.get(key)
+        if cached and time.monotonic() - cached[0] < _QUERY_VECTOR_TTL:
+            _QUERY_VECTORS.move_to_end(key)
+            return list(cached[1])
+        vector = _encode(provider, [query])[0]
+        _QUERY_VECTORS[key] = (time.monotonic(), tuple(vector))
+        _QUERY_VECTORS.move_to_end(key)
+        while len(_QUERY_VECTORS) > _QUERY_VECTOR_LIMIT:
+            _QUERY_VECTORS.popitem(last=False)
+        return vector
 
 
 # One rerank at a time. The model is a 568M-parameter cross-encoder scoring on CPU,
