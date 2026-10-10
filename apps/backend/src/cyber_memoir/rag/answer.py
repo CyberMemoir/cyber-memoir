@@ -56,6 +56,7 @@ def answer(db: Session, request: SearchRequest):
                         **claim,
                         "meme_id": meme["id"],
                         "meme_name": meme["canonical_name"],
+                        "meme_revision": meme["published_revision"],
                         "origin_status": meme["origin_status"],
                     }
                 )
@@ -88,6 +89,27 @@ def answer(db: Session, request: SearchRequest):
     ):
         uncertainties.append("现有证据不足以认定该梗的起源。以下仅列出已核查的相关断言。")
     referenced = {eid for c in selected for eid in c["evidence_ids"]}
+    selected_citations = []
+    for eid, citation in citations.items():
+        if eid not in referenced:
+            continue
+        contexts = {
+            (claim["meme_id"], claim["meme_revision"]): {
+                "meme_id": claim["meme_id"],
+                "meme_name": claim["meme_name"],
+                "meme_revision": claim["meme_revision"],
+            }
+            for claim in selected
+            if eid in claim["evidence_ids"]
+        }
+        references = list(contexts.values())
+        selected_citations.append(
+            {
+                **citation,
+                "meme_revision": references[0]["meme_revision"],
+                "meme_references": references,
+            }
+        )
     lines = [
         f"{c['meme_name']}：{'争议材料所涉主张（非已确认事实）：' if c['stance'] == 'contradicts' or c['origin_status'] == 'disputed' and c['key'] == 'origin' else ''}{c['statement']} "
         + " ".join(f"[{eid}]" for eid in c["evidence_ids"])
@@ -98,7 +120,7 @@ def answer(db: Session, request: SearchRequest):
         if lines
         else "目前没有足够的已审核证据回答这个问题。你可以提交原始来源，补充这段记忆。",
         "claims": selected,
-        "citations": [c for eid, c in citations.items() if eid in referenced],
+        "citations": selected_citations,
         "uncertainties": uncertainties,
         "mode": mode,
         "retrieval_version": "v1-evidence-locked",

@@ -4,6 +4,8 @@ from typing import Literal
 
 from pydantic import BaseModel, Field, model_validator
 
+from cyber_memoir.domain.sources import Platform
+
 
 def normalize(text: str) -> str:
     return " ".join(unicodedata.normalize("NFKC", text).casefold().split())
@@ -79,7 +81,7 @@ class ReviewAction(BaseModel):
 
 class SearchRequest(BaseModel):
     query: str = Field(default="", max_length=500)
-    platform: Literal["bilibili", "douyin"] | None = None
+    platform: Platform | None = None
     published_after: datetime | None = None
     published_before: datetime | None = None
     limit: int = Field(default=20, ge=1, le=50)

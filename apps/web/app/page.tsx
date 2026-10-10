@@ -1,4 +1,6 @@
 "use client";
+import { PLATFORMS, platformLabel } from "@/lib/platforms";
+import { referenceUrl } from "@/lib/citations";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import {
@@ -35,11 +37,56 @@ export default function ArchivePage() {
   const [universe, setUniverse] = useState<Universe | null>(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
+  const [answerLoading, setAnswerLoading] = useState(false);
+  const [answerError, setAnswerError] = useState("");
+  const activeRequest = useRef<AbortController | null>(null);
+  const answerRequest = useRef<{
+    query: string;
+    platform: string | null;
+  } | null>(null);
   const [elapsed, setElapsed] = useState(0);
   const serial = useRef(0);
   const lastRequest = useRef<SearchRequest | null>(null);
   const index = useRef<HTMLDivElement | null>(null);
   const reduced = useReducedMotion();
+
+  function cancel() {
+    ++serial.current;
+    activeRequest.current?.abort();
+    if (answerLoading) setAnswerError("已取消回答等待，检索结果已保留。");
+    if (loading) setError("已取消检索等待。");
+    setLoading(false);
+    setAnswerLoading(false);
+  }
+
+  async function fetchAnswer(
+    body: { query: string; platform: string | null },
+    id: number,
+  ) {
+    answerRequest.current = body;
+    const controller = new AbortController();
+    activeRequest.current = controller;
+    setAnswerLoading(true);
+    setAnswerError("");
+    const timer = window.setTimeout(() => controller.abort(), 300000);
+    try {
+      const response = await api<Answer>("/v1/answers", {
+        ...post(body),
+        signal: controller.signal,
+      });
+      if (serial.current === id) setAnswer(response);
+    } catch (e) {
+      if (serial.current === id)
+        setAnswerError(
+          controller.signal.aborted
+            ? "回答等待超时。检索结果已保留，可以重试回答。"
+            : (e as Error).message,
+        );
+    } finally {
+      window.clearTimeout(timer);
+      if (serial.current === id) setAnswerLoading(false);
+    }
+  }
 
   async function run(
     nextPlatform = platform,
@@ -58,10 +105,16 @@ export default function ArchivePage() {
     const searchQuery = request.query;
     offset = request.offset;
     const id = ++serial.current;
+    activeRequest.current?.abort();
+    const controller = new AbortController();
+    activeRequest.current = controller;
+    setAnswerLoading(false);
+    setAnswerError("");
     setError("");
     setLoading(true);
     setElapsed(0);
     if (!offset) setAnswer(null);
+    const timer = window.setTimeout(() => controller.abort(), 300000);
     try {
       const body = {
         query: searchQuery,
@@ -69,7 +122,10 @@ export default function ArchivePage() {
         limit: 20,
         offset,
       };
-      const data = await api<SearchResult>("/v1/search", post(body));
+      const data = await api<SearchResult>("/v1/search", {
+        ...post(body),
+        signal: controller.signal,
+      });
       if (serial.current !== id) return;
       setSubmittedQuery(searchQuery);
       setSubmittedPlatform(body.platform);
@@ -78,10 +134,8 @@ export default function ArchivePage() {
           ? { ...data, items: [...(result?.items || []), ...data.items] }
           : data,
       );
-      if (!offset && request.answer && searchQuery.trim()) {
-        const response = await api<Answer>("/v1/answers", post(body));
-        if (serial.current === id) setAnswer(response);
-      }
+      window.clearTimeout(timer);
+      setLoading(false);
       /* A search asked from the console should land where its results are; the
          initial catalogue load should not move the page at all. */
       if (request.reveal && serial.current === id) {
@@ -90,14 +144,26 @@ export default function ArchivePage() {
           block: "start",
         });
       }
+      if (!offset && request.answer && searchQuery.trim())
+        await fetchAnswer(body, id);
     } catch (e) {
-      if (serial.current === id) setError((e as Error).message);
+      if (serial.current === id)
+        setError(
+          controller.signal.aborted
+            ? "检索等待超时，请重试或换一个更具体的描述。"
+            : (e as Error).message,
+        );
     } finally {
+      window.clearTimeout(timer);
       if (serial.current === id) setLoading(false);
     }
   }
   useEffect(() => {
     void run(); /* initial catalog */
+    return () => {
+      ++serial.current;
+      activeRequest.current?.abort();
+    };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
   /* The sky is decoration and a way in; if it fails the page still works, so a
      failure here is silent rather than an error beside the search. */
@@ -110,10 +176,10 @@ export default function ArchivePage() {
      without promising a duration this deployment cannot keep. Nothing here fires on
      a keystroke: the run is submitted with the form. */
   useEffect(() => {
-    if (!loading) return;
+    if (!loading && !answerLoading) return;
     const timer = window.setInterval(() => setElapsed((n) => n + 1), 1000);
     return () => window.clearInterval(timer);
-  }, [loading]);
+  }, [loading, answerLoading]);
 
   const state: ConsoleState = error
     ? "error"
@@ -165,11 +231,7 @@ export default function ArchivePage() {
           </form>
           <div className="filter-bar">
             <div className="tabs" aria-label="平台筛选">
-              {[
-                [null, "全部平台"],
-                ["bilibili", "Bilibili"],
-                ["douyin", "抖音"],
-              ].map(([id, label]) => (
+              {[[null, "全部平台"], ...PLATFORMS].map(([id, label]) => (
                 <button
                   key={label}
                   aria-pressed={platform === id}
@@ -200,9 +262,15 @@ export default function ArchivePage() {
               留下一份来源 <Icon name="arrow" size={14} />
             </Link>
           </div>
-          {loading && elapsed > 2 && (
+          {(loading || answerLoading) && (
             <p className="retrieval-note console-status" role="status">
-              正在检索并核对证据，请勿关闭页面。
+              {answerLoading
+                ? "检索完成，正在整理证据回答。"
+                : "正在检索记忆。"}
+              {elapsed > 30 && " 本次处理较慢，你可以取消等待。"}
+              <button type="button" className="text-button" onClick={cancel}>
+                取消等待
+              </button>
             </p>
           )}
         </div>
@@ -243,6 +311,41 @@ export default function ArchivePage() {
               {result?.total ?? "—"} 条{submittedQuery ? "相关" : "已审核"}记录
             </span>
           </div>
+          {answerError && (
+            <div className="error" role="alert">
+              回答暂不可用：{answerError}
+              <button
+                className="text-button"
+                disabled={answerLoading}
+                onClick={() => {
+                  if (answerRequest.current)
+                    void fetchAnswer(answerRequest.current, ++serial.current);
+                }}
+              >
+                重试回答
+              </button>
+            </div>
+          )}
+          {result?.degraded.includes("corpus_changed_during_search") && (
+            <div className="notice" role="status">
+              检索期间公开档案发生变化，受影响的旧版本候选已排除。
+              <button
+                className="text-button"
+                disabled={loading || answerLoading}
+                onClick={() => {
+                  const request = lastRequest.current;
+                  if (request)
+                    void run(request.platform, 0, true, {
+                      ...request,
+                      offset: 0,
+                      reveal: true,
+                    });
+                }}
+              >
+                刷新当前检索
+              </button>
+            </div>
+          )}
           {/* An abstention is a result. When `claims` is empty the answer text and
               the uncertainties are still the API's own, so they are rendered in the
               same place and the same style as any other answer - never as an error. */}
@@ -269,6 +372,28 @@ export default function ArchivePage() {
                       <Icon name="arrow" size={15} />
                     </a>
                     <p>{c.text.slice(0, 200)}</p>
+                    <div className="answer-reference-links">
+                      {Array.from(
+                        new Map(
+                          answer.claims
+                            .filter((claim) =>
+                              claim.evidence_ids.includes(c.evidence_id),
+                            )
+                            .map((claim) => [claim.meme_id, claim]),
+                        ).values(),
+                      ).map((claim) => (
+                        <Link
+                          key={claim.meme_id}
+                          href={referenceUrl(
+                            claim.meme_id,
+                            claim.meme_revision,
+                            c.evidence_id,
+                          )}
+                        >
+                          查看{claim.meme_name}的引用
+                        </Link>
+                      ))}
+                    </div>
                   </li>
                 ))}
               </ol>
@@ -289,19 +414,25 @@ export default function ArchivePage() {
             <div className="empty-state">
               <Icon name="archive" size={86} />
               <h3>
-                {submittedQuery
-                  ? "这段记忆，还缺少证据"
-                  : "第一条记忆，从一个链接开始"}
+                {result?.degraded.includes("corpus_changed_during_search")
+                  ? "公开档案在检索期间发生变化"
+                  : submittedQuery
+                    ? "这段记忆，还缺少证据"
+                    : "第一条记忆，从一个链接开始"}
               </h3>
               <p>
-                {submittedQuery
-                  ? "换一个别名试试，或提交你找到的原始来源。"
-                  : "提交 Bilibili 或抖音来源，核对证据后进入公共索引。"}
+                {result?.degraded.includes("corpus_changed_during_search")
+                  ? "刷新后会重新检查当前公开条目，不把版本变化当作证据缺失。"
+                  : submittedQuery
+                    ? "换一个别名试试，或提交你找到的原始来源。"
+                    : "提交 Bilibili 或抖音来源，核对证据后进入公共索引。"}
               </p>
-              <Link className="button outline" href="/submit">
-                {submittedQuery ? "补充一份来源" : "提交第一个来源"}{" "}
-                <Icon name="arrow" />
-              </Link>
+              {!result?.degraded.includes("corpus_changed_during_search") && (
+                <Link className="button outline" href="/submit">
+                  {submittedQuery ? "补充一份来源" : "提交第一个来源"}{" "}
+                  <Icon name="arrow" />
+                </Link>
+              )}
             </div>
           )}
           {loading && !result && (
@@ -340,7 +471,7 @@ export default function ArchivePage() {
                       {Array.from(
                         new Set(meme.evidence.map((e) => e.source?.platform)),
                       )
-                        .map((p) => (p === "bilibili" ? "Bilibili" : "抖音"))
+                        .map(platformLabel)
                         .join(" / ")}
                       {" · "}
                       {meme.evidence.length} 份证据 · 修订{" "}
@@ -372,7 +503,7 @@ export default function ArchivePage() {
           {result && result.items.length < result.total && (
             <button
               className="load-more"
-              disabled={loading}
+              disabled={loading || answerLoading}
               onClick={() => void run(platform, result.items.length)}
             >
               加载更多

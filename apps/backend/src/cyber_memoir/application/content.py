@@ -61,7 +61,15 @@ def submit(db: Session, url: str, title=""):
     return {"source": dump(source), "job_id": job.id, "duplicate": duplicate}
 
 
-def add_material(db: Session, source_id: str, material: Material, provenance=None, artifact_key=None):
+def add_material(
+    db: Session,
+    source_id: str,
+    material: Material,
+    provenance=None,
+    artifact_key=None,
+    *,
+    enqueue_extract=True,
+):
     source = require(db, Source, source_id)
     if not material.text.strip():
         raise HTTPException(422, "材料不能为空白")
@@ -97,7 +105,8 @@ def add_material(db: Session, source_id: str, material: Material, provenance=Non
     db.add(evidence)
     source.availability = "material_available"
     db.flush()
-    enqueue(db, "extract", {"source_id": source_id}, f"extract:{evidence.id}")
+    if enqueue_extract:
+        enqueue(db, "extract", {"source_id": source_id}, f"extract:{evidence.id}")
     return evidence
 
 
@@ -139,6 +148,10 @@ def review(db: Session, revision_id: str, action: ReviewAction, reviewer: str):
         raise HTTPException(409, "条目已合并")
     if action.decision == "approve":
         payload = MemeDraft.model_validate(revision.payload)
+        if revision.payload.get("_import_append_base"):
+            from cyber_memoir.domain.publications import require_append_only
+
+            require_append_only(payload, revision.payload["_import_append_base"])
         if not payload.definition.strip():
             raise HTTPException(422, "发布前必须填写有证据支持的定义")
         for field in ("definition", "usage_context"):
@@ -150,9 +163,13 @@ def review(db: Session, revision_id: str, action: ReviewAction, reviewer: str):
         if payload.origin_status != "unknown" and not any(c.key == "origin" for c in payload.claims):
             raise HTTPException(422, "来源主张必须提供专门的 origin 证据")
         if payload.origin_status == "supported" and not any(
-            r.predicate == "claimed_origin" for r in payload.relations
+            c.key == "origin" and c.stance == "supports" for c in payload.claims
         ):
-            raise HTTPException(422, "起源主张必须关联具体 Source")
+            raise HTTPException(422, "已支持的起源主张必须有支持性 origin 引用，不能只有反对材料")
+        if payload.origin_status == "supported" and not any(
+            r.predicate == "claimed_origin" and r.assertion_status == "supported" for r in payload.relations
+        ):
+            raise HTTPException(422, "起源主张必须通过有支持证据的关系关联具体 Source")
         ids = _evidence_ids(payload)
         for eid in ids:
             evidence = require(db, Evidence, eid)
@@ -260,7 +277,11 @@ def find_by_name(db: Session, name: str) -> list[dict]:
 
 
 def public_meme(db: Session, meme_id: str):
-    meme = require(db, Meme, meme_id)
+    # A long inference call may outlive a publication in another transaction.
+    # Refresh ORM identity-map state before reading the current public revision.
+    meme = db.scalar(select(Meme).where(Meme.id == meme_id).execution_options(populate_existing=True))
+    if meme is None:
+        raise HTTPException(404, "记录不存在")
     if meme.status == "merged":
         raise HTTPException(409, {"message": "已合并", "merged_into_id": meme.merged_into_id})
     if not db.scalar(select(Meme.id).where(Meme.id == meme_id, publication_is_valid())):

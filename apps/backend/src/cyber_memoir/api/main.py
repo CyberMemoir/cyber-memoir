@@ -16,11 +16,20 @@ from sqlalchemy.orm import Session
 from cyber_memoir.adapters import storage
 from cyber_memoir.api.auth import reviewer, submitter
 from cyber_memoir.api.body_limit import BodyLimitMiddleware
-from cyber_memoir.application import content, universe
+from cyber_memoir.application import content, publications, universe
 from cyber_memoir.config import settings
 from cyber_memoir.db import session
 from cyber_memoir.domain.models import Alias, Entity, Evidence, EvidenceLink, Job, Meme, Revision, Source, now
-from cyber_memoir.domain.responses import AnswerOut, EvidenceOut, MemeOut, MemeRef, SearchOut, UniverseOut
+from cyber_memoir.domain.publications import ImportPlan, ImportResult, PublicationPackage, SourceRegistration
+from cyber_memoir.domain.responses import (
+    AnswerOut,
+    EvidenceOut,
+    MemeOut,
+    MemeRef,
+    ReviewQueueOut,
+    SearchOut,
+    UniverseOut,
+)
 from cyber_memoir.domain.schemas import (
     Material,
     MemeDraft,
@@ -280,6 +289,57 @@ def reviews(db: DB, who: Reviewer, status: str = "pending_review"):
     ]
 
 
+@app.get("/v1/reviews/queue", response_model=ReviewQueueOut)
+def review_queue(db: DB, who: Reviewer):
+    # Read job states before drafts: if an extraction finishes between these
+    # statements, its new draft is visible or a nonzero job count prompts a refresh.
+    counts = dict(
+        db.execute(
+            select(Job.status, func.count(Job.id))
+            .where(Job.kind.in_(["ingest", "extract", "media"]))
+            .group_by(Job.status)
+        ).all()
+    )
+    return {
+        "items": reviews(db, who),
+        "pending_jobs": counts.get("pending", 0),
+        "running_jobs": counts.get("running", 0),
+        "failed_jobs": counts.get("failed", 0),
+        "checked_at": now(),
+    }
+
+
+@app.post("/v1/reviews/sources")
+def register_manual_source(body: SourceRegistration, db: DB, who: Reviewer):
+    for attempt in range(2):
+        try:
+            source, duplicate = publications.register_source(db, body)
+            db.commit()
+            return {"source": content.dump(source), "duplicate": duplicate}
+        except IntegrityError:
+            db.rollback()
+            if attempt:
+                raise HTTPException(409, "来源状态发生并发变化，请重试。")
+
+
+@app.post("/v1/reviews/imports/validate", response_model=ImportPlan)
+def validate_publication_import(body: PublicationPackage, db: DB, who: Reviewer):
+    return publications.plan(db, body)
+
+
+@app.post("/v1/reviews/imports", response_model=ImportResult)
+def stage_publication_import(
+    body: PublicationPackage, db: DB, who: Reviewer, expected_plan_hash: str | None = None
+):
+    for attempt in range(2):
+        try:
+            return publications.stage(db, body, who, expected_plan_hash)
+        except IntegrityError:
+            db.rollback()
+            if attempt:
+                raise HTTPException(409, "导入期间状态发生并发变化，请重新预演。")
+
+
 @app.get("/v1/reviews/sources/{source_id}")
 def review_source(source_id: str, db: DB, who: Reviewer):
     return {
@@ -329,7 +389,9 @@ def set_source_metadata(source_id: str, body: SourceMetadata, db: DB, who: Revie
 
 @app.post("/v1/reviews/sources/{source_id}/refresh", status_code=202)
 def refresh_source(source_id: str, db: DB, who: Reviewer):
-    content.require(db, Source, source_id)
+    source = content.require(db, Source, source_id)
+    if source.platform not in {"bilibili", "douyin"}:
+        raise HTTPException(422, "此平台目前仅支持人工材料/数据包登记，不支持自动刷新。")
     job = content.enqueue(db, "ingest", {"source_id": source_id}, f"refresh:{source_id}:{now().isoformat()}")
     db.commit()
     return {"job_id": job.id}

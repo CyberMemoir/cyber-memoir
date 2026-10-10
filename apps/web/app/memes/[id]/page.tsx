@@ -1,12 +1,16 @@
 "use client";
 import { use, useEffect, useState } from "react";
 import Link from "next/link";
-import { api, date, type Galaxy, type Meme, type Universe } from "@/lib/api";
+import { api, type Galaxy, type Meme, type Universe } from "@/lib/api";
 import { Icon } from "@/components/icons";
 import { GalaxyGraph } from "@/components/universe-graphs";
 import { GALAXY_VIEW } from "@/components/universe-layout";
 import { TimeStrip } from "@/components/time-strip";
-import { describeKind, describeLocator } from "@/lib/evidence";
+import { eventDate } from "@/lib/evidence";
+import { claimAnchor } from "@/lib/citations";
+import { useReferenceNavigation } from "@/lib/use-reference-navigation";
+import { CitationLinks, ReferenceLink } from "@/components/citation-links";
+import { EvidenceInspector } from "@/components/evidence-inspector";
 
 /** How precisely an event's date is known, in the reader's words. */
 const PRECISION: Record<string, string> = {
@@ -30,9 +34,42 @@ export default function MemePage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = use(params);
-  const [meme, setMeme] = useState<Meme | null>(null);
-  const [error, setError] = useState("");
-  const [galaxy, setGalaxy] = useState<Galaxy | null>(null);
+  const [loadedMeme, setMeme] = useState<Meme | null>(null);
+  const [loadError, setError] = useState<{
+    id: string;
+    message: string;
+  } | null>(null);
+  const [loadedGalaxy, setGalaxy] = useState<Galaxy | null>(null);
+  // A reused client route must never show the previous record while the new
+  // request is loading or has failed (especially when the new record is withdrawn).
+  const meme = loadedMeme?.id === id ? loadedMeme : null;
+  const galaxy = loadedGalaxy?.meme_id === id ? loadedGalaxy : null;
+  const error = loadError?.id === id ? loadError.message : "";
+  const navigation = useReferenceNavigation(meme);
+  const originHasSupport =
+    !!meme &&
+    meme.claims.some(
+      (claim) =>
+        claim.key === "origin" &&
+        claim.stance === "supports" &&
+        claim.evidence_ids.length > 0 &&
+        claim.evidence_ids.every((eid) => navigation.index.has(eid)),
+    ) &&
+    meme.relations.some(
+      (relation) =>
+        relation.predicate === "claimed_origin" &&
+        relation.assertion_status === "supported" &&
+        relation.to_source_id &&
+        relation.evidence_ids?.length &&
+        relation.evidence_ids.every((eid) => navigation.index.has(eid)),
+    );
+  const fieldClaims = (key: string, statement: string, stance = "supports") =>
+    meme?.claims
+      .filter(
+        (c) =>
+          c.key === key && c.statement === statement && c.stance === stance,
+      )
+      .flatMap((c) => c.evidence_ids) || [];
   /* The page opens on this meme's own galaxy. It is a picture of the same evidence
      listed below, so if it cannot load the page simply goes without it. */
   useEffect(() => {
@@ -49,15 +86,20 @@ export default function MemePage({
   }, [id]);
   useEffect(() => {
     let active = true;
-    api<Meme>(`/v1/memes/${id}`)
+    const controller = new AbortController();
+    setMeme(null);
+    setError(null);
+    api<Meme>(`/v1/memes/${id}`, { signal: controller.signal })
       .then((data) => {
+        if (data.id !== id) throw new Error("档案标识与请求不一致。");
         if (active) setMeme(data);
       })
       .catch((e) => {
-        if (active) setError(e.message);
+        if (active) setError({ id, message: e.message });
       });
     return () => {
       active = false;
+      controller.abort();
     };
   }, [id]);
   return (
@@ -90,7 +132,9 @@ export default function MemePage({
                     ? "起源尚未确认"
                     : meme.origin_status === "disputed"
                       ? "来源存在争议"
-                      : "有证据支持的来源主张"}
+                      : originHasSupport
+                        ? "有证据支持的来源主张"
+                        : "起源支持材料待核查"}
                 </span>
               </div>
               <Link
@@ -124,29 +168,144 @@ export default function MemePage({
               </Link>
             )}
           </header>
+          {navigation.messages.length > 0 &&
+            !navigation.index.has(navigation.activeEvidence || "") && (
+              <p className="notice reference-status" role="status">
+                {navigation.messages.join(" ")}
+              </p>
+            )}
+          <nav className="record-navigation" aria-label="档案阅读导航">
+            {[
+              ["claim-definition", "含义"],
+              ...(meme.usage_context ? [["claim-usage_context", "语境"]] : []),
+              ["origin", "起源"],
+              ["timeline", "传播"],
+              ["relations", "关联"],
+              ["evidence", "证据"],
+            ].map(([anchor, label]) => (
+              <ReferenceLink
+                key={anchor}
+                anchor={anchor}
+                onNavigate={navigation.navigate}
+              >
+                {label}
+              </ReferenceLink>
+            ))}
+          </nav>
           <div className="detail-columns">
             <div>
-              <section className="detail-section">
+              <section
+                className="detail-section reference-target"
+                id="claim-definition"
+                tabIndex={-1}
+              >
                 <h2>它是什么意思</h2>
                 <p className="detail-copy">{meme.definition}</p>
                 <div className="citations">
-                  {meme.claims
-                    .filter((c) => c.key === "definition")
-                    .flatMap((c) => c.evidence_ids)
-                    .map((eid) => (
-                      <a key={eid} href={`#evidence-${eid}`}>
-                        [证据 {eid.slice(0, 8)}]{" "}
-                      </a>
-                    ))}
+                  <CitationLinks
+                    ids={fieldClaims("definition", meme.definition)}
+                    index={navigation.index}
+                    onNavigate={navigation.navigate}
+                  />
+                  {fieldClaims("definition", meme.definition, "contradicts")
+                    .length > 0 && (
+                    <p className="claim-counter-note">
+                      另有相矛盾材料：
+                      <CitationLinks
+                        ids={fieldClaims(
+                          "definition",
+                          meme.definition,
+                          "contradicts",
+                        )}
+                        index={navigation.index}
+                        onNavigate={navigation.navigate}
+                      />
+                    </p>
+                  )}
                 </div>
               </section>
               {meme.usage_context && (
-                <section className="detail-section">
+                <section
+                  className="detail-section reference-target"
+                  id="claim-usage_context"
+                  tabIndex={-1}
+                >
                   <h2>在什么语境下使用</h2>
                   <p className="detail-copy">{meme.usage_context}</p>
+                  <CitationLinks
+                    ids={fieldClaims("usage_context", meme.usage_context)}
+                    index={navigation.index}
+                    onNavigate={navigation.navigate}
+                  />
+                  {fieldClaims(
+                    "usage_context",
+                    meme.usage_context,
+                    "contradicts",
+                  ).length > 0 && (
+                    <p className="claim-counter-note">
+                      另有相矛盾材料：
+                      <CitationLinks
+                        ids={fieldClaims(
+                          "usage_context",
+                          meme.usage_context,
+                          "contradicts",
+                        )}
+                        index={navigation.index}
+                        onNavigate={navigation.navigate}
+                      />
+                    </p>
+                  )}
                 </section>
               )}
-              <section className="detail-section">
+              <section
+                className="detail-section reference-target"
+                id="origin"
+                tabIndex={-1}
+              >
+                <h2>它从哪里来</h2>
+                <p className="muted">
+                  {meme.origin_status === "unknown"
+                    ? "起源尚未确认。普通使用记录不能代替起源证明。"
+                    : meme.origin_status === "disputed"
+                      ? "现有来源主张存在争议，以下材料不能作为已确认起源。"
+                      : originHasSupport
+                        ? "以下是经审核的来源主张；本库最早可验证记录仍不等于全网首创。"
+                        : "当前支持性起源引用或来源关联不足，不能在本页确认该主张。"}
+                </p>
+                {meme.claims.map(
+                  (claim, i) =>
+                    claim.key === "origin" && (
+                      <div
+                        key={i}
+                        className="claim-block reference-target"
+                        id={claimAnchor(meme, claim, i)}
+                        tabIndex={-1}
+                      >
+                        <p className="claim-stance">
+                          {claim.stance === "contradicts"
+                            ? "相矛盾材料所涉主张，不构成确认"
+                            : meme.origin_status === "unknown"
+                              ? "材料中的说法，尚未确认"
+                              : "支持材料所涉来源主张"}
+                        </p>
+                        <p>{claim.statement}</p>
+                        <CitationLinks
+                          ids={claim.evidence_ids}
+                          index={navigation.index}
+                          onNavigate={navigation.navigate}
+                        />
+                      </div>
+                    ),
+                )}
+                {!meme.claims.some((claim) => claim.key === "origin") && (
+                  <p className="muted">尚无可引用的专门起源断言。</p>
+                )}
+              </section>
+              <section
+                className="detail-section reference-target"
+                id="timeline"
+                tabIndex={-1}
+              >
                 <h2>传播时间线</h2>
                 <p className="muted">
                   事件时间与采集时间分开记录，时间未知时不补写日期。
@@ -155,8 +314,18 @@ export default function MemePage({
                 {meme.events.length ? (
                   <ol className="timeline">
                     {meme.events.map((event) => (
-                      <li key={event.id}>
-                        <time>{date(event.occurred_at_start)}</time>
+                      <li
+                        key={event.id}
+                        id={`event-${event.id}`}
+                        className="reference-target"
+                        tabIndex={-1}
+                      >
+                        <time>
+                          {eventDate(
+                            event.occurred_at_start,
+                            event.time_precision,
+                          )}
+                        </time>
                         <p>{event.description}</p>
                         <small className="muted">
                           {PRECISION[event.time_precision] ??
@@ -164,6 +333,13 @@ export default function MemePage({
                           · 时间依据：
                           {event.time_basis}
                         </small>
+                        <div>
+                          <CitationLinks
+                            ids={event.evidence_ids || []}
+                            index={navigation.index}
+                            onNavigate={navigation.navigate}
+                          />
+                        </div>
                       </li>
                     ))}
                   </ol>
@@ -171,17 +347,33 @@ export default function MemePage({
                   <p className="notice">尚未收录经审核的传播事件。</p>
                 )}
               </section>
-              <section className="detail-section">
+              <section
+                className="detail-section reference-target"
+                id="relations"
+                tabIndex={-1}
+              >
                 <h2>衍生与关联</h2>
                 {meme.relations.length ? (
                   meme.relations.map((r) => (
-                    <div className="relation-row" key={r.id}>
-                      <span>
-                        {predicates[r.predicate] || r.predicate} ·{" "}
-                        {r.assertion_status === "disputed"
-                          ? "有争议"
-                          : "有证据支持"}
-                      </span>
+                    <div
+                      className="relation-row reference-target"
+                      key={r.id}
+                      id={`relation-${r.id}`}
+                      tabIndex={-1}
+                    >
+                      <div>
+                        <span>
+                          {predicates[r.predicate] || r.predicate} ·{" "}
+                          {r.assertion_status === "disputed"
+                            ? "有争议"
+                            : "有证据支持"}
+                        </span>
+                        <CitationLinks
+                          ids={r.evidence_ids || []}
+                          index={navigation.index}
+                          onNavigate={navigation.navigate}
+                        />
+                      </div>
                       {/* The far end of a relation arrives named and linked. A
                           withdrawn meme comes back with no label and is named only
                           as withdrawn, so a retraction cannot stay readable here.
@@ -212,51 +404,48 @@ export default function MemePage({
                   <p className="muted">尚无经审核的关联关系。</p>
                 )}
               </section>
+              {meme.claims.some(
+                (claim, i) =>
+                  !["event", "relation"].includes(claim.key) &&
+                  claimAnchor(meme, claim, i).startsWith("claim-extra-"),
+              ) && (
+                <section className="detail-section">
+                  <h2>补充断言</h2>
+                  {meme.claims.map(
+                    (claim, i) =>
+                      !["event", "relation"].includes(claim.key) &&
+                      claimAnchor(meme, claim, i).startsWith(
+                        "claim-extra-",
+                      ) && (
+                        <div
+                          key={i}
+                          id={claimAnchor(meme, claim, i)}
+                          tabIndex={-1}
+                          className="claim-block reference-target"
+                        >
+                          <p className="claim-stance">
+                            {claim.stance === "contradicts"
+                              ? "相矛盾材料所涉主张"
+                              : "支持材料所涉断言"}
+                          </p>
+                          <p>{claim.statement}</p>
+                          <CitationLinks
+                            ids={claim.evidence_ids}
+                            index={navigation.index}
+                            onNavigate={navigation.navigate}
+                          />
+                        </div>
+                      ),
+                  )}
+                </section>
+              )}
               <p className="notice">目前可验证的最早记录，不等于互联网起源。</p>
             </div>
-            <aside>
-              <h2 className="section-title" style={{ marginTop: 0 }}>
-                回到证据本身
-              </h2>
-              {meme.evidence.map((e, i) => (
-                <article
-                  id={`evidence-${e.id}`}
-                  className="evidence-box"
-                  key={e.id}
-                >
-                  <div className="evidence-head">
-                    <span>
-                      证据 {i + 1} · {describeKind(e.kind)}
-                    </span>
-                    <span>已审核</span>
-                  </div>
-                  <blockquote>{e.text}</blockquote>
-                  <p className="evidence-where">{describeLocator(e.locator)}</p>
-                  <p className="small-code">SHA-256: {e.content_hash}</p>
-                  <a
-                    href={e.source?.canonical_url}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {e.source?.title || "查看平台原始来源"}{" "}
-                    <Icon name="arrow" size={17} />
-                  </a>
-                  <p
-                    className="muted"
-                    style={{ fontSize: 12, margin: "7px 0" }}
-                  >
-                    平台发布时间：
-                    {date(e.source?.platform_published_at || null)}
-                  </p>
-                  <a
-                    style={{ fontSize: 12 }}
-                    href={`/api/v1/evidence/${e.id}/artifact`}
-                  >
-                    下载证据工件
-                  </a>
-                </article>
-              ))}
-            </aside>
+            <EvidenceInspector
+              key={meme.id}
+              meme={meme}
+              navigation={navigation}
+            />
           </div>
         </>
       )}

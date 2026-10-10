@@ -340,6 +340,74 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/reviews/queue": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Review Queue */
+        get: operations["review_queue_v1_reviews_queue_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/reviews/sources": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Register Manual Source */
+        post: operations["register_manual_source_v1_reviews_sources_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/reviews/imports/validate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Validate Publication Import */
+        post: operations["validate_publication_import_v1_reviews_imports_validate_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/reviews/imports": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Stage Publication Import */
+        post: operations["stage_publication_import_v1_reviews_imports_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/reviews/sources/{source_id}": {
         parameters: {
             query?: never;
@@ -609,6 +677,8 @@ export interface components {
             meme_id: string;
             /** Meme Name */
             meme_name: string;
+            /** Meme Revision */
+            meme_revision: number;
             /** Origin Status */
             origin_status: string;
         };
@@ -636,6 +706,15 @@ export interface components {
             /** File */
             file: string;
         };
+        /** CitationMemeRef */
+        CitationMemeRef: {
+            /** Meme Id */
+            meme_id: string;
+            /** Meme Name */
+            meme_name: string;
+            /** Meme Revision */
+            meme_revision: number;
+        };
         /** CitationOut */
         CitationOut: {
             /** Evidence Id */
@@ -652,8 +731,13 @@ export interface components {
             };
             /** Content Hash */
             content_hash: string;
-            /** Meme Revision */
+            /**
+             * Meme Revision
+             * @description 兼容字段：第一条所选断言所属条目的修订。共享证据的完整映射见 meme_references。
+             */
             meme_revision: number;
+            /** Meme References */
+            meme_references?: components["schemas"]["CitationMemeRef"][];
             /** Published At */
             published_at: string | null;
         };
@@ -823,6 +907,80 @@ export interface components {
             /** Detail */
             detail?: components["schemas"]["ValidationError"][];
         };
+        /** ImportPlan */
+        ImportPlan: {
+            /** Entries Sha256 */
+            entries_sha256: string;
+            /** Groups */
+            groups: number;
+            /** New Groups */
+            new_groups: number;
+            /** Existing Groups */
+            existing_groups: number;
+            /** Meme Source Associations */
+            meme_source_associations: number;
+            /** Unique Sources */
+            unique_sources: number;
+            /** Can Import */
+            can_import: boolean;
+            /** Items */
+            items: components["schemas"]["ImportPlanItem"][];
+            /** Warnings */
+            warnings: string[];
+            /**
+             * Plan Hash
+             * @default
+             */
+            plan_hash: string;
+        };
+        /** ImportPlanItem */
+        ImportPlanItem: {
+            /** Canonical Name */
+            canonical_name: string;
+            /** Entry Hash */
+            entry_hash: string;
+            /**
+             * Action
+             * @enum {string}
+             */
+            action: "create_draft" | "append_draft" | "duplicate" | "blocked";
+            /** Target Meme Id */
+            target_meme_id?: string | null;
+            /** Based On Revision */
+            based_on_revision?: number | null;
+            /** Revision Id */
+            revision_id?: string | null;
+            /** Message */
+            message?: string | null;
+        };
+        /** ImportResult */
+        ImportResult: {
+            /** Entries Sha256 */
+            entries_sha256: string;
+            /** Items */
+            items: components["schemas"]["ImportResultItem"][];
+            /**
+             * Published
+             * @default false
+             * @constant
+             */
+            published: false;
+        };
+        /** ImportResultItem */
+        ImportResultItem: {
+            /** Canonical Name */
+            canonical_name: string;
+            /** Meme Id */
+            meme_id: string;
+            /** Revision Id */
+            revision_id: string;
+            /** Evidence Ids */
+            evidence_ids: string[];
+            /** Source Ids */
+            source_ids: string[];
+            /** Duplicate */
+            duplicate: boolean;
+        };
         /** Material */
         Material: {
             /** Text */
@@ -929,6 +1087,38 @@ export interface components {
             /** Target Id */
             target_id: string;
         };
+        /** PublicationManifest */
+        PublicationManifest: {
+            /**
+             * Schema Version
+             * @constant
+             */
+            schema_version: 1;
+            /** Groups */
+            groups: number;
+            /** New Groups */
+            new_groups: number;
+            /** Existing Groups */
+            existing_groups: number;
+            /** Meme Source Associations */
+            meme_source_associations: number;
+            /** Entries Sha256 */
+            entries_sha256: string;
+            /**
+             * Automatic Import
+             * @default false
+             * @constant
+             */
+            automatic_import: false;
+        } & {
+            [key: string]: unknown;
+        };
+        /** PublicationPackage */
+        PublicationPackage: {
+            manifest: components["schemas"]["PublicationManifest"];
+            /** Entries Jsonl */
+            entries_jsonl: string;
+        };
         /** Reason */
         Reason: {
             /** Reason */
@@ -987,6 +1177,42 @@ export interface components {
             /** Verified Evidence Ids */
             verified_evidence_ids?: string[];
         };
+        /** ReviewQueueOut */
+        ReviewQueueOut: {
+            /** Items */
+            items: components["schemas"]["ReviewRevisionOut"][];
+            /** Pending Jobs */
+            pending_jobs: number;
+            /** Running Jobs */
+            running_jobs: number;
+            /** Failed Jobs */
+            failed_jobs: number;
+            /**
+             * Checked At
+             * Format: date-time
+             */
+            checked_at: string;
+        };
+        /** ReviewRevisionOut */
+        ReviewRevisionOut: {
+            /** Id */
+            id: string;
+            /** Meme Id */
+            meme_id: string;
+            /** Based On Revision */
+            based_on_revision: number;
+            /** Payload */
+            payload: {
+                [key: string]: unknown;
+            };
+            /** Status */
+            status: string;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
         /** SearchOut */
         SearchOut: {
             /** Items */
@@ -1018,7 +1244,7 @@ export interface components {
              */
             query: string;
             /** Platform */
-            platform?: ("bilibili" | "douyin") | null;
+            platform?: ("bilibili" | "douyin" | "xiaohongshu" | "web") | null;
             /** Published After */
             published_after?: string | null;
             /** Published Before */
@@ -1071,6 +1297,23 @@ export interface components {
              * Format: date-time
              */
             created_at: string;
+        };
+        /** SourceRegistration */
+        SourceRegistration: {
+            /**
+             * Platform
+             * @enum {string}
+             */
+            platform: "bilibili" | "douyin" | "xiaohongshu" | "web";
+            /** Url */
+            url: string;
+            /**
+             * Title
+             * @default
+             */
+            title: string;
+            /** Platform Published At */
+            platform_published_at?: string | null;
         };
         /**
          * Star
@@ -1799,6 +2042,144 @@ export interface operations {
                 };
                 content: {
                     "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    review_queue_v1_reviews_queue_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ReviewQueueOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    register_manual_source_v1_reviews_sources_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SourceRegistration"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    validate_publication_import_v1_reviews_imports_validate_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PublicationPackage"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ImportPlan"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    stage_publication_import_v1_reviews_imports_post: {
+        parameters: {
+            query?: {
+                expected_plan_hash?: string | null;
+            };
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PublicationPackage"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ImportResult"];
                 };
             };
             /** @description Validation Error */

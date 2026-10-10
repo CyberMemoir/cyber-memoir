@@ -1,5 +1,7 @@
 COMPOSE = docker compose --env-file .env -f ops/compose/compose.yml
-.PHONY: configure up down infra logs test check migrate contracts backup
+EVAL_CHECK = ../../evals/run.py ../../evals/checkpoint.py ../../evals/build_gold.py ../../evals/score_buckets.py
+DEMO_CHECK = ../../ops/demo.py ../../ops/demo_server.py ../../ops/demo_fixtures.py
+.PHONY: configure up down infra logs test check migrate contracts backup demo
 configure:
 	python3 ops/configure.py
 up:
@@ -15,10 +17,12 @@ migrate:
 test:
 	cd apps/backend && uv run pytest -q ../../tests
 check:
-	cd apps/backend && uv run ruff check src ../../tests && uv run ruff format --check src ../../tests
+	cd apps/backend && uv run ruff check src ../../tests $(EVAL_CHECK) $(DEMO_CHECK) && uv run ruff format --check src ../../tests $(EVAL_CHECK) $(DEMO_CHECK)
 	cd apps/web && npm run typecheck && npm run build
 contracts:
 	cd apps/backend && uv run python ../../ops/export_contracts.py
 	cd apps/web && npx openapi-typescript ../../packages/contracts/openapi.json -o ../../packages/contracts/api.d.ts
 backup:
 	bash ops/backup.sh
+demo:
+	cd apps/backend && uv run --project . python ../../ops/demo.py

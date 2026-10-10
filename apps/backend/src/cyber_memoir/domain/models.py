@@ -154,6 +154,18 @@ class Revision(Identity, Base):
     reviewed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
 
 
+class ImportRecord(Base):
+    """Immutable import receipt. A duplicate never recreates or republishes a revision."""
+
+    __tablename__ = "import_records"
+    fingerprint: Mapped[str] = mapped_column(String(64), primary_key=True)
+    revision_id: Mapped[str] = mapped_column(ForeignKey("revisions.id"))
+    artifact_key: Mapped[str] = mapped_column(Text)
+    imported_by: Mapped[str] = mapped_column(String(100))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=now)
+    bindings: Mapped[dict] = mapped_column(JSON)
+
+
 class Chunk(Identity, Base):
     __tablename__ = "chunks"
     __table_args__ = (UniqueConstraint("meme_id", "revision", "evidence_id", "offset"),)

@@ -7,6 +7,98 @@ from cyber_memoir.search.indexing import index_meme
 from cyber_memoir.search.retrieval import rrf
 
 
+def test_search_and_answer_reuse_scores_but_retraction_is_immediate(client, prepared, monkeypatch, env):
+    from test_rerank_concurrency import Recorder
+
+    from cyber_memoir.adapters import inference
+
+    item = prepared(name="合成复用测试")
+    with Session(env) as db:
+        index_meme(db, item["meme_id"])
+        db.commit()
+    recorder = Recorder()
+    inference._SCORES.clear()
+    monkeypatch.setattr(inference, "reranker", lambda: recorder)
+    monkeypatch.setenv("RERANKER_BACKEND", "local")
+    settings.cache_clear()
+    body = {"query": "合成复用测试"}
+    assert client.post("/v1/search", json=body).json()["items"]
+    assert client.post("/v1/answers", json=body).json()["claims"]
+    assert recorder.calls == 1
+    response = client.post(
+        f"/v1/reviews/memes/{item['meme_id']}/retract",
+        headers={"Authorization": "Bearer unit-test-reviewer"},
+        json={"reason": "合成测试撤回"},
+    )
+    assert response.status_code == 200
+    assert not client.post("/v1/answers", json=body).json()["claims"]
+
+
+def test_revision_changed_during_rerank_is_not_scored_as_the_old_revision(client, prepared, monkeypatch, env):
+    from cyber_memoir.domain.models import EvidenceLink, Meme
+    from cyber_memoir.search import retrieval
+
+    item = prepared(name="合成评分中修订测试")
+    with Session(env) as db:
+        index_meme(db, item["meme_id"])
+        db.commit()
+
+    def revise_while_scoring(query, texts):
+        with Session(env) as other:
+            meme = other.get(Meme, item["meme_id"])
+            meme.published_revision = 2
+            meme.definition = "合成新修订，不能复用旧修订的相关性评分。"
+            other.add(
+                EvidenceLink(
+                    meme_id=meme.id,
+                    revision=2,
+                    evidence_id=item["evidence"]["id"],
+                    claim_key="definition",
+                    statement=meme.definition,
+                    stance="supports",
+                )
+            )
+            other.commit()
+        return [0.9] * len(texts)
+
+    monkeypatch.setattr(retrieval, "rerank", revise_while_scoring)
+    response = client.post("/v1/search", json={"query": "合成评分中修订测试"})
+    assert response.status_code == 200, response.text
+    data = response.json()
+    assert data["items"] == []
+    assert "corpus_changed_during_search" in data["degraded"]
+    fresh = client.get(f"/v1/memes/{item['meme_id']}").json()
+    assert fresh["published_revision"] == 2
+
+
+def test_public_detail_refreshes_a_preloaded_orm_record(prepared, env):
+    from cyber_memoir.application.content import detail
+    from cyber_memoir.domain.models import EvidenceLink, Meme
+
+    item = prepared(name="合成会话缓存测试")
+    with Session(env) as reader:
+        cached = reader.get(Meme, item["meme_id"])
+        assert cached.published_revision == 1
+        with Session(env) as writer:
+            current = writer.get(Meme, item["meme_id"])
+            current.published_revision = 2
+            current.definition = "合成最新定义，不允许使用旧会话实体。"
+            writer.add(
+                EvidenceLink(
+                    meme_id=current.id,
+                    revision=2,
+                    evidence_id=item["evidence"]["id"],
+                    claim_key="definition",
+                    statement=current.definition,
+                    stance="supports",
+                )
+            )
+            writer.commit()
+        result = detail(reader, item["meme_id"])
+        assert result["published_revision"] == 2
+        assert result["definition"] == "合成最新定义，不允许使用旧会话实体。"
+
+
 @pytest.mark.parametrize("url", [False, True])
 def test_video_identity_search_preserves_case(client, prepared, env, url):
     upper = prepared(name="大小写视频甲")

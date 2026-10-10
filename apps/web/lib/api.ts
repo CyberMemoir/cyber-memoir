@@ -13,6 +13,9 @@ export type Star = components["schemas"]["Star"];
 export type UniverseBand = components["schemas"]["UniverseBand"];
 export type UniverseTick = components["schemas"]["UniverseTick"];
 export type TargetRef = components["schemas"]["TargetRef"];
+export type PublicationPackage = components["schemas"]["PublicationPackage"];
+export type ImportPlan = components["schemas"]["ImportPlan"];
+export type ImportResult = components["schemas"]["ImportResult"];
 export type Draft = {
   canonical_name: string;
   aliases: string[];
@@ -23,6 +26,13 @@ export type Draft = {
   events: unknown[];
   relations: unknown[];
   _source_id?: string;
+  _import?: {
+    operation: "create_new" | "append_derivatives";
+    evidence_ids: string[];
+    source_ids: string[];
+    warnings: string[];
+    entry_hash: string;
+  };
 };
 export type Revision = {
   id: string;
@@ -32,6 +42,10 @@ export type Revision = {
   created_at: string;
   based_on_revision: number;
 };
+export type ReviewQueue = Omit<
+  components["schemas"]["ReviewQueueOut"],
+  "items"
+> & { items: Revision[] };
 export type Job = {
   id: string;
   status: string;
@@ -78,6 +92,7 @@ export function date(value: string | null) {
         year: "numeric",
         month: "long",
         day: "numeric",
+        timeZone: "Asia/Shanghai",
       })
     : "时间未知";
 }

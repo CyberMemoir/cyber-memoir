@@ -4,7 +4,7 @@
 
 > 本项目属于 [CyberMemoir](https://github.com/CyberMemoir)，一个由 [Cogstruct AI](https://github.com/Cogstruct-ai) 开发和维护的开源互联网文化记忆计划。
 
-面向人类与 AI 的中文互联网文化记忆与检索基础设施。第一阶段支持 **Bilibili、抖音**，保存梗、语境、来源、传播事件、衍生关系和证据，不托管完整视频。
+面向人类与 AI 的中文互联网文化记忆与检索基础设施。自动采集第一阶段支持 **Bilibili、抖音**；已采集的小红书与网页材料可通过审核数据包登记。保存梗、语境、来源、传播事件、衍生关系和证据，不托管完整视频。
 
 > V1 alpha：可运行的人工提交—审核—检索闭环。默认空库，不预装虚构文化事实。模型能力按配置启用，平台可获取性及中文模型效果需要部署者用真实样本验收。
 
@@ -14,12 +14,17 @@
 - 获取可用元数据/字幕，或人工补充定位摘录、字幕、截图、短媒体材料。
 - Whisper ASR / PaddleOCR、BGE-M3 embedding、BGE reranker、兼容 Chat Completions 的 LLM 适配器。
 - 人工编辑和审核候选；完整字段引用、显式证据核查、版本冲突检查。
+- 跨平台数据包摘要校验、冲突预演、幂等导入与多来源待审稿；追加用法保留原定义和证据绑定，不自动发布。
 - 名称/别名 + BM25 + Vector + 一跳关系扩展 + Reranker。
+- 搜索结果先到先显示；回答可独立重试/取消，重复重排仅复用校验过的分数，不缓存事实回答。
 - 来源、语境、时间线、关系、证据工件下载；条目合并、撤回和证据级撤回。
+- 定义/语境/事件/关系的双向编号引用、材料内查找、带修订核对的分享链接；起源争议与相矛盾材料明确区分。
 - 只使用已审核断言的引用型回答，以及六个只读 MCP 工具。
 - Docker Compose、Alembic、持久任务/Outbox、重试、索引重建、备份恢复和自动化测试。
 
 ## 快速启动
+
+只想先体验功能、不启动 Docker：按 [本地演示指南](docs/DEMO.md) 安装依赖后运行 `make demo`，打开 `http://127.0.0.1:3102`。演示使用临时合成库，与下面的业务部署分离。
 
 需要 Docker / Docker Compose、Python 3；首次镜像构建需要联网。
 
@@ -121,6 +126,8 @@ MEMOIR_INTEGRATION=1 uv run --env-file ../../.env pytest -q ../../tests/test_liv
 
 ## API / MCP
 
+跨平台交付的文件格式、工作台与 CLI 操作见 [导入指南](docs/PUBLICATION_IMPORT.md)。上线新版前运行 `make migrate`；导入仅生成待审稿。
+
 HTTP API 以 `/v1` 为前缀；契约见 [OpenAPI](packages/contracts/openapi.json)。审核接口使用 `Authorization: Bearer <reviewer-token>`。
 
 MCP 使用 Streamable HTTP，连接 `http://localhost:8100/mcp/`：
@@ -146,5 +153,11 @@ answer_question(question, platform?)
 - 代码 MIT 开源；第三方平台材料与模型权利不随代码许可证转授。
 
 ## 文档
+
+[本地可运行演示](docs/DEMO.md) · [可恢复评测与人工描述集](docs/EVALUATION.md)
+
+[引用与档案阅读](docs/EVIDENCE_READING.md) · [跨平台导入](docs/PUBLICATION_IMPORT.md)
+
+[搜索等待与分数复用](docs/SEARCH_RECOVERY.md)
 
 [架构](ARCHITECTURE.md) · [关键决策](docs/adr/0001-evidence-first.md) · [验证记录与边界](docs/VERIFICATION.md) · [贡献指南](CONTRIBUTING.md)

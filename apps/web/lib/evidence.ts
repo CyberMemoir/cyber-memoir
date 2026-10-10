@@ -11,7 +11,26 @@ const KINDS: Record<string, string> = {
   subtitle: "平台字幕",
   manual: "人工摘录",
   text: "文本",
+  metadata: "平台元数据",
 };
+
+/** Do not turn a year/month precision into an apparently exact calendar day. */
+export function eventDate(value: string | null, precision: string): string {
+  if (!value || precision === "unknown") return "时间未知";
+  const options: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    timeZone: "Asia/Shanghai",
+  };
+  if (precision !== "year") options.month = "long";
+  if (!["year", "month"].includes(precision)) options.day = "numeric";
+  if (precision === "second") {
+    options.hour = "2-digit";
+    options.minute = "2-digit";
+    options.second = "2-digit";
+    options.hourCycle = "h23";
+  }
+  return new Date(value).toLocaleDateString("zh-CN", options);
+}
 
 export function describeKind(kind: string | null | undefined): string {
   if (!kind) return "证据";

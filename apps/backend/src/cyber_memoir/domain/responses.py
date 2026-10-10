@@ -127,7 +127,14 @@ class SearchOut(BaseModel):
 class AnswerClaim(ClaimOut):
     meme_id: str
     meme_name: str
+    meme_revision: int = Field(ge=1)
     origin_status: str
+
+
+class CitationMemeRef(BaseModel):
+    meme_id: str
+    meme_name: str
+    meme_revision: int = Field(ge=1)
 
 
 class CitationOut(BaseModel):
@@ -137,7 +144,10 @@ class CitationOut(BaseModel):
     text: str
     locator: dict[str, Any]
     content_hash: str
-    meme_revision: int
+    meme_revision: int = Field(
+        description="兼容字段：第一条所选断言所属条目的修订。共享证据的完整映射见 meme_references。"
+    )
+    meme_references: list[CitationMemeRef] = Field(default_factory=list)
     published_at: datetime | None
 
 
@@ -150,6 +160,23 @@ class AnswerOut(BaseModel):
     retrieval_version: str
     channels: list[str]
     degraded: list[str]
+
+
+class ReviewRevisionOut(BaseModel):
+    id: str
+    meme_id: str
+    based_on_revision: int
+    payload: dict[str, Any]
+    status: str
+    created_at: datetime
+
+
+class ReviewQueueOut(BaseModel):
+    items: list[ReviewRevisionOut]
+    pending_jobs: int
+    running_jobs: int
+    failed_jobs: int
+    checked_at: datetime
 
 
 class UniverseBand(BaseModel):

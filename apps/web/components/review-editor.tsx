@@ -18,6 +18,7 @@ export function ReviewEditor({
   token: string;
   onDone: () => void;
 }) {
+  const isAppend = revision.payload._import?.operation === "append_derivatives";
   const [name, setName] = useState(revision.payload.canonical_name);
   const [aliases, setAliases] = useState(revision.payload.aliases.join(" / "));
   const [definition, setDefinition] = useState(revision.payload.definition);
@@ -61,7 +62,18 @@ export function ReviewEditor({
             );
         } else {
           const ids = Array.from(
-            new Set(revision.payload.claims.flatMap((c) => c.evidence_ids)),
+            new Set([
+              ...revision.payload.claims.flatMap((c) => c.evidence_ids),
+              ...(revision.payload._import?.evidence_ids || []),
+              ...revision.payload.events.flatMap(
+                (event) =>
+                  (event as { evidence_ids?: string[] }).evidence_ids || [],
+              ),
+              ...revision.payload.relations.flatMap(
+                (relation) =>
+                  (relation as { evidence_ids?: string[] }).evidence_ids || [],
+              ),
+            ]),
           );
           const data = await Promise.all(
             ids.map((id) =>
@@ -83,16 +95,23 @@ export function ReviewEditor({
     const extra = JSON.parse(advanced);
     return {
       canonical_name: name,
-      aliases: aliases
-        .split("/")
-        .map((s) => s.trim())
-        .filter(Boolean),
+      aliases: isAppend
+        ? revision.payload.aliases
+        : aliases
+            .split("/")
+            .map((s) => s.trim())
+            .filter(Boolean),
       definition,
       usage_context: context,
       origin_status: origin,
       claims: [
         ...(extra.claims || []),
-        ...(definition
+        ...(isAppend
+          ? revision.payload.claims.filter((c) =>
+              ["definition", "usage_context"].includes(c.key),
+            )
+          : []),
+        ...(!isAppend && definition
           ? [
               {
                 key: "definition",
@@ -102,7 +121,7 @@ export function ReviewEditor({
               },
             ]
           : []),
-        ...(context
+        ...(!isAppend && context
           ? [
               {
                 key: "usage_context",
@@ -189,6 +208,16 @@ export function ReviewEditor({
       <p className="small-code">
         Meme: {revision.meme_id} · 基于修订 {revision.based_on_revision}
       </p>
+      {revision.payload._import && (
+        <div className="task-state">
+          <p>
+            {revision.payload._import.operation === "append_derivatives"
+              ? "此修订仅追加用法：原有定义、别名、出处和证据绑定受到保护。"
+              : "数据包导入的待审稿：请选择真正支持定义与使用语境的证据。"}
+          </p>
+          <p>原始附件仅有引用；当前可核查材料是随包保存的文本摘录。</p>
+        </div>
+      )}
       {error && (
         <div className="error" role="alert">
           {error}
@@ -204,32 +233,58 @@ export function ReviewEditor({
           <span>梗名称</span>
           <input
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            disabled={isAppend}
+            onChange={(e) => {
+              setName(e.target.value);
+              setVerified(false);
+            }}
             required
             maxLength={200}
           />
         </label>
         <label className="field">
           <span>别名（用 / 分隔）</span>
-          <input value={aliases} onChange={(e) => setAliases(e.target.value)} />
+          <input
+            value={aliases}
+            disabled={isAppend}
+            onChange={(e) => {
+              setAliases(e.target.value);
+              setVerified(false);
+            }}
+          />
         </label>
         <label className="field">
           <span>定义 · 必须由下方选中的证据完整支持</span>
           <textarea
             value={definition}
-            onChange={(e) => setDefinition(e.target.value)}
+            disabled={isAppend}
+            onChange={(e) => {
+              setDefinition(e.target.value);
+              setVerified(false);
+            }}
           />
         </label>
         <label className="field">
           <span>使用语境</span>
           <textarea
             value={context}
-            onChange={(e) => setContext(e.target.value)}
+            disabled={isAppend}
+            onChange={(e) => {
+              setContext(e.target.value);
+              setVerified(false);
+            }}
           />
         </label>
         <label className="field">
           <span>起源状态</span>
-          <select value={origin} onChange={(e) => setOrigin(e.target.value)}>
+          <select
+            value={origin}
+            disabled={isAppend}
+            onChange={(e) => {
+              setOrigin(e.target.value);
+              setVerified(false);
+            }}
+          >
             <option value="unknown">未知：不作起源判断</option>
             <option value="disputed">有争议：需要 origin 引用</option>
             <option value="supported">
@@ -240,24 +295,28 @@ export function ReviewEditor({
       </div>
       <h3 className="section-title">逐条核对证据</h3>
       <p className="muted">
-        选中支持定义与使用语境的材料。仅有一个链接不足以支持事实断言。
+        {isAppend
+          ? "已有字段引用保持不变。请逐条核对新增用法材料及事件绑定，再确认审核。"
+          : "选中支持定义与使用语境的材料。仅有一个链接不足以支持事实断言。"}
       </p>
       {evidence.map((item) => (
         <article key={item.id} className="evidence-box">
           <label className="check-label">
-            <input
-              type="checkbox"
-              disabled={item.retracted}
-              checked={selected.includes(item.id)}
-              onChange={(e) => {
-                setVerified(false);
-                setSelected((old) =>
-                  e.target.checked
-                    ? [...old, item.id]
-                    : old.filter((x) => x !== item.id),
-                );
-              }}
-            />
+            {!isAppend && (
+              <input
+                type="checkbox"
+                disabled={item.retracted}
+                checked={selected.includes(item.id)}
+                onChange={(e) => {
+                  setVerified(false);
+                  setSelected((old) =>
+                    e.target.checked
+                      ? [...old, item.id]
+                      : old.filter((x) => x !== item.id),
+                  );
+                }}
+              />
+            )}
             <span>
               {item.kind} · {item.id.slice(0, 8)}
               {item.retracted ? " · 已撤回" : ""}
@@ -295,7 +354,10 @@ export function ReviewEditor({
           <textarea
             aria-label="高级结构化编辑"
             value={advanced}
-            onChange={(e) => setAdvanced(e.target.value)}
+            onChange={(e) => {
+              setAdvanced(e.target.value);
+              setVerified(false);
+            }}
           />
         </label>
       </details>
