@@ -111,6 +111,10 @@ def _load_reranker(model: str, threads: int, device: str):
         # Left alone by default: torch picks a sensible count per machine. Set it to
         # keep a shared box responsive while a rerank runs.
         torch.set_num_threads(threads)
+    if device == "cpu":
+        from cyber_memoir.adapters.cpu_reranker import cpu_reranker
+
+        return cpu_reranker(FlagReranker, model, use_fp16=False, devices="cpu")
     return FlagReranker(model, use_fp16=False, devices=device or None)
 
 

@@ -43,3 +43,32 @@ def test_owned_endpoint_keeps_pinned_image_identity(module, monkeypatch):
     }
     monkeypatch.setattr(module.subprocess, "check_output", lambda *args: json.dumps([info]).encode())
     assert module.owned_container("synthetic-container", "synthetic-run", 5432, 55433) == "synthetic-image"
+
+
+@pytest.mark.parametrize("mode,index", [("off", False), ("hybrid", True)])
+def test_paired_profiling_rejects_disabled_or_index_only_before_access(module, monkeypatch, mode, index):
+    monkeypatch.setattr(
+        "sys.argv",
+        [
+            "archive_eval_server",
+            "--snapshot",
+            "synthetic",
+            "--run-id",
+            "synthetic",
+            "--database-url",
+            "synthetic",
+            "--search-url",
+            "synthetic",
+            "--pg-container",
+            "synthetic",
+            "--search-container",
+            "synthetic",
+            "--mode",
+            mode,
+            "--compare-cpu-rerank",
+            *(["--index-only"] if index else []),
+        ],
+    )
+    with pytest.raises(SystemExit) as error:
+        module.main()
+    assert error.value.code == 2

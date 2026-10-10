@@ -37,8 +37,11 @@ def main():
     parser.add_argument("--search-container", required=True)
     parser.add_argument("--mode", choices=["off", "rerank", "hybrid"], required=True)
     parser.add_argument("--index-only", action="store_true")
+    parser.add_argument("--compare-cpu-rerank", action="store_true")
     parser.add_argument("--port", type=int, default=8103)
     args = parser.parse_args()
+    if args.compare_cpu_rerank and (args.mode == "off" or args.index_only):
+        parser.error("paired CPU profiling requires an enabled reranker API")
     db_url, search_url = urlparse(args.database_url), urlparse(args.search_url)
     if (
         db_url.scheme != "postgresql+psycopg"
@@ -136,6 +139,13 @@ def main():
 
     from cyber_memoir.api.main import app
 
+    if args.compare_cpu_rerank:
+        from rerank_cpu_probe import attach
+
+        from cyber_memoir.adapters.inference import reranker as load_reranker
+
+        app.state.cpu_comparison = attach(load_reranker(), snapshot / "cpu-comparison.jsonl")
+
     @app.middleware("http")
     async def readonly_snapshot(request, call_next):
         allowed = (
@@ -184,6 +194,17 @@ def main():
             "threads": 4,
             "floor": settings().answer_score_floor,
             "source": "restored approval records, no new approvals",
+            "paired_cpu_profiling": args.compare_cpu_rerank,
+            "reranker_implementation": "single-pass-cpu" if args.mode != "off" else "disabled",
+            **(
+                {
+                    "comparison_probe_sha256": hashlib.sha256(
+                        (ROOT / "evals/rerank_cpu_probe.py").read_bytes()
+                    ).hexdigest()
+                }
+                if args.compare_cpu_rerank
+                else {}
+            ),
         },
     }
     (snapshot / f"context-{args.mode}.json").write_text(json.dumps(context, indent=2, sort_keys=True))
