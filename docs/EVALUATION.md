@@ -67,3 +67,7 @@ python evals/score_buckets.py report.json full-gold.jsonl
 新上下文可用 `models` 精确列出 embedding/reranker/llm 三个提供者；每项必须声明布尔 `enabled`。启用时填写真实 identifier 和工件 SHA；关闭时 identifier 必须为 `disabled`，不虚构权重哈希。旧单 `model` 上下文仍支持。
 
 `--request-interval 1.1` 为相邻 POST 起点保留至少 1.1 秒；等待量与实际两次 POST 耗时分开保存，配置绑定检查点，不修改服务限流。实际批准归档的只读捕获、公开身份选题、隔离恢复、模型对照和未评级语义队列见 [ARCHIVE_EVALUATION.md](ARCHIVE_EVALUATION.md)。
+
+## 独立语义复核
+
+引用结构审计生成的未评级队列可以用新的 [SEMANTIC_REVIEW.md](SEMANTIC_REVIEW.md) 准备/校验归属和原文选择。完整队列SHA绑定、Unicode码点摘录、五类结论独立统计；pending不能冒充complete，complete也不等于事实真值或发布审批。该工具不调用模型，不自动标注真实断言。
