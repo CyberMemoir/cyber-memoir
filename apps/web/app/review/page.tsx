@@ -4,6 +4,7 @@ import { api, post, date, type Revision, type ReviewQueue } from "@/lib/api";
 import { ReviewEditor } from "@/components/review-editor";
 import { PublicationImport } from "@/components/publication-import";
 import { RevisionHistory } from "@/components/revision-history";
+import Link from "next/link";
 
 export default function ReviewPage() {
   const [token, setToken] = useState("");
@@ -166,6 +167,10 @@ export default function ReviewPage() {
       <h1 className="page-title">审核工作台</h1>
       <p className="page-subtitle">
         机器提出候选，人核查证据。审核通过，才成为公共记忆。
+      </p>
+      <p className="retrieval-note">
+        <Link href="/review/semantic">打开本地语义复核</Link> ·
+        使用固定文件，不连接发布审批。
       </p>
       <form
         className="inline-form"
