@@ -8,6 +8,13 @@ import {
   type Revision,
   type Source,
 } from "@/lib/api";
+import {
+  fieldClaims,
+  initialFieldEvidence,
+  missingFieldSupport,
+  reviewedFields,
+  supplementalClaims,
+} from "@/lib/review-claims";
 
 export function ReviewEditor({
   revision,
@@ -25,22 +32,20 @@ export function ReviewEditor({
   const [context, setContext] = useState(revision.payload.usage_context);
   const [origin, setOrigin] = useState(revision.payload.origin_status);
   const [evidence, setEvidence] = useState<Evidence[]>([]);
-  const [selected, setSelected] = useState<string[]>(
-    Array.from(new Set(revision.payload.claims.flatMap((c) => c.evidence_ids))),
+  const [selected, setSelected] = useState(() =>
+    initialFieldEvidence(revision.payload),
   );
   const [reason, setReason] = useState("");
   const [verified, setVerified] = useState(false);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
   const [busy, setBusy] = useState(false);
-  const [advanced, setAdvanced] = useState(
+  const [advanced, setAdvanced] = useState(() =>
     JSON.stringify(
       {
         events: revision.payload.events,
         relations: revision.payload.relations,
-        claims: revision.payload.claims.filter(
-          (c) => !["definition", "usage_context"].includes(c.key),
-        ),
+        claims: supplementalClaims(revision.payload, isAppend),
       },
       null,
       2,
@@ -48,40 +53,48 @@ export function ReviewEditor({
   );
   useEffect(() => {
     let active = true;
+    const controller = new AbortController();
     async function load() {
       try {
+        const ids = Array.from(
+          new Set([
+            ...revision.payload.claims.flatMap((c) => c.evidence_ids),
+            ...(revision.payload._import?.evidence_ids || []),
+            ...revision.payload.events.flatMap(
+              (event) =>
+                (event as { evidence_ids?: string[] }).evidence_ids || [],
+            ),
+            ...revision.payload.relations.flatMap(
+              (relation) =>
+                (relation as { evidence_ids?: string[] }).evidence_ids || [],
+            ),
+          ]),
+        );
+        let materials: Evidence[] = [];
         if (revision.payload._source_id) {
           const data = await api<{ evidence: Evidence[]; source: Source }>(
             `/v1/reviews/sources/${revision.payload._source_id}`,
-            undefined,
+            { signal: controller.signal },
             token,
           );
-          if (active)
-            setEvidence(
-              data.evidence.map((item) => ({ ...item, source: data.source })),
-            );
-        } else {
-          const ids = Array.from(
-            new Set([
-              ...revision.payload.claims.flatMap((c) => c.evidence_ids),
-              ...(revision.payload._import?.evidence_ids || []),
-              ...revision.payload.events.flatMap(
-                (event) =>
-                  (event as { evidence_ids?: string[] }).evidence_ids || [],
-              ),
-              ...revision.payload.relations.flatMap(
-                (relation) =>
-                  (relation as { evidence_ids?: string[] }).evidence_ids || [],
-              ),
-            ]),
-          );
-          const data = await Promise.all(
-            ids.map((id) =>
-              api<Evidence>(`/v1/reviews/evidence/${id}`, undefined, token),
-            ),
-          );
-          if (active) setEvidence(data);
+          materials = data.evidence.map((item) => ({
+            ...item,
+            source: data.source,
+          }));
         }
+        const loaded = new Set(materials.map((item) => item.id));
+        const referenced = await Promise.all(
+          ids
+            .filter((id) => !loaded.has(id))
+            .map((id) =>
+              api<Evidence>(
+                `/v1/reviews/evidence/${id}`,
+                { signal: controller.signal },
+                token,
+              ),
+            ),
+        );
+        if (active) setEvidence([...materials, ...referenced]);
       } catch (e) {
         if (active) setError((e as Error).message);
       }
@@ -89,6 +102,7 @@ export function ReviewEditor({
     void load();
     return () => {
       active = false;
+      controller.abort();
     };
   }, [revision.id, token]);
   function payload(): Draft {
@@ -106,38 +120,18 @@ export function ReviewEditor({
       origin_status: origin,
       claims: [
         ...(extra.claims || []),
-        ...(isAppend
-          ? revision.payload.claims.filter((c) =>
-              ["definition", "usage_context"].includes(c.key),
-            )
-          : []),
-        ...(!isAppend && definition
-          ? [
-              {
-                key: "definition",
-                statement: definition,
-                evidence_ids: selected,
-                stance: "supports",
-              },
-            ]
-          : []),
-        ...(!isAppend && context
-          ? [
-              {
-                key: "usage_context",
-                statement: context,
-                evidence_ids: selected,
-                stance: "supports",
-              },
-            ]
-          : []),
+        ...fieldClaims(
+          revision.payload,
+          { definition, usage_context: context },
+          selected,
+          isAppend,
+        ),
       ],
       events: extra.events || [],
       relations: extra.relations || [],
     };
   }
-  async function save() {
-    const body = payload();
+  async function save(body: Draft) {
     await api(
       `/v1/reviews/${revision.id}`,
       { method: "PUT", body: JSON.stringify(body) },
@@ -154,7 +148,17 @@ export function ReviewEditor({
         throw new Error("请填写至少 3 字的审核理由。");
       if (decision === "approve" && !verified)
         throw new Error("发布前请确认已核对证据及定位。");
-      const body = decision === "reject" ? revision.payload : await save();
+      const body = decision === "reject" ? revision.payload : payload();
+      if (decision === "approve") {
+        if (!body.definition.trim())
+          throw new Error("发布前请填写有证据支持的定义。");
+        const missing = missingFieldSupport(body);
+        if (missing)
+          throw new Error(
+            `${missing === "definition" ? "定义" : "使用语境"}尚未选择完整字段的支持证据。请分别勾选，或在高级编辑中提供对应断言。`,
+          );
+      }
+      if (decision !== "reject") await save(body);
       if (decision) {
         const ids = Array.from(
           new Set([
@@ -233,7 +237,7 @@ export function ReviewEditor({
           <span>梗名称</span>
           <input
             value={name}
-            disabled={isAppend}
+            disabled={isAppend || busy}
             onChange={(e) => {
               setName(e.target.value);
               setVerified(false);
@@ -246,7 +250,7 @@ export function ReviewEditor({
           <span>别名（用 / 分隔）</span>
           <input
             value={aliases}
-            disabled={isAppend}
+            disabled={isAppend || busy}
             onChange={(e) => {
               setAliases(e.target.value);
               setVerified(false);
@@ -257,9 +261,10 @@ export function ReviewEditor({
           <span>定义 · 必须由下方选中的证据完整支持</span>
           <textarea
             value={definition}
-            disabled={isAppend}
+            disabled={isAppend || busy}
             onChange={(e) => {
               setDefinition(e.target.value);
+              setSelected((old) => ({ ...old, definition: [] }));
               setVerified(false);
             }}
           />
@@ -267,10 +272,12 @@ export function ReviewEditor({
         <label className="field">
           <span>使用语境</span>
           <textarea
+            aria-label="使用语境"
             value={context}
-            disabled={isAppend}
+            disabled={isAppend || busy}
             onChange={(e) => {
               setContext(e.target.value);
+              setSelected((old) => ({ ...old, usage_context: [] }));
               setVerified(false);
             }}
           />
@@ -279,7 +286,7 @@ export function ReviewEditor({
           <span>起源状态</span>
           <select
             value={origin}
-            disabled={isAppend}
+            disabled={isAppend || busy}
             onChange={(e) => {
               setOrigin(e.target.value);
               setVerified(false);
@@ -297,31 +304,16 @@ export function ReviewEditor({
       <p className="muted">
         {isAppend
           ? "已有字段引用保持不变。请逐条核对新增用法材料及事件绑定，再确认审核。"
-          : "选中支持定义与使用语境的材料。仅有一个链接不足以支持事实断言。"}
+          : "分别选择支持定义、支持使用语境的材料；同一材料确实支持两者时才勾选两项。修改字段文字后需重新选择该字段的证据。反对意见、起源与补充断言保留在结构化编辑中，不自动变成字段支持。"}
       </p>
       {evidence.map((item) => (
         <article key={item.id} className="evidence-box">
-          <label className="check-label">
-            {!isAppend && (
-              <input
-                type="checkbox"
-                disabled={item.retracted}
-                checked={selected.includes(item.id)}
-                onChange={(e) => {
-                  setVerified(false);
-                  setSelected((old) =>
-                    e.target.checked
-                      ? [...old, item.id]
-                      : old.filter((x) => x !== item.id),
-                  );
-                }}
-              />
-            )}
+          <div className="row-meta">
             <span>
               {item.kind} · {item.id.slice(0, 8)}
               {item.retracted ? " · 已撤回" : ""}
             </span>
-          </label>
+          </div>
           <blockquote>{item.text}</blockquote>
           <div className="small-code">定位：{JSON.stringify(item.locator)}</div>
           {item.source && (
@@ -335,11 +327,42 @@ export function ReviewEditor({
               </a>
             </p>
           )}
+          {!isAppend && (
+            <div
+              className="review-evidence-fields"
+              role="group"
+              aria-label="这份证据的字段支持关系"
+            >
+              {reviewedFields.map((field) => (
+                <label className="check-label" key={field}>
+                  <input
+                    type="checkbox"
+                    disabled={item.retracted || busy}
+                    checked={selected[field].includes(item.id)}
+                    onChange={(e) => {
+                      const checked = e.target.checked;
+                      setVerified(false);
+                      setSelected((old) => ({
+                        ...old,
+                        [field]: checked
+                          ? Array.from(new Set([...old[field], item.id]))
+                          : old[field].filter((id) => id !== item.id),
+                      }));
+                    }}
+                  />
+                  <span>
+                    {field === "definition" ? "支持定义" : "支持使用语境"}
+                  </span>
+                </label>
+              ))}
+            </div>
+          )}
         </article>
       ))}
       <button
         className="text-button"
         style={{ marginLeft: 0 }}
+        disabled={busy}
         onClick={() => void addEvidence()}
       >
         补充其他证据 ID
@@ -353,6 +376,7 @@ export function ReviewEditor({
           <span>events / relations / claims</span>
           <textarea
             aria-label="高级结构化编辑"
+            disabled={busy}
             value={advanced}
             onChange={(e) => {
               setAdvanced(e.target.value);
@@ -365,6 +389,7 @@ export function ReviewEditor({
       <label className="field">
         <span>审核理由</span>
         <textarea
+          disabled={busy}
           value={reason}
           onChange={(e) => setReason(e.target.value)}
           placeholder="说明证据怎样支持这些断言，哪些内容仍不确定。"
@@ -373,6 +398,7 @@ export function ReviewEditor({
       <label className="check-label" style={{ margin: "20px 0" }}>
         <input
           type="checkbox"
+          disabled={busy}
           checked={verified}
           onChange={(e) => setVerified(e.target.checked)}
         />

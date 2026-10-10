@@ -31,6 +31,20 @@ with tempfile.TemporaryDirectory(prefix="memoir-e2e-") as directory:
 
     Base.metadata.create_all(engine())
 
+    @app.middleware("http")
+    async def separate_test_clients(request, call_next):
+        # Playwright contexts share one loopback IP. This fixture-only header
+        # simulates independent clients without disabling production rate limits.
+        # The production app does not read or trust this header (or X-Forwarded-For).
+        identity = request.headers.get("X-Memoir-E2E-Client", "")
+        if (
+            identity
+            and len(identity) <= 64
+            and all(c in "abcdefghijklmnopqrstuvwxyz0123456789-" for c in identity)
+        ):
+            request.scope["client"] = (f"e2e-{identity}", 0)
+        return await call_next(request)
+
     def synthetic_metadata(url):
         if url != "https://www.bilibili.com/video/BV1TEST00001":
             raise ValueError("Browser tests accept only the synthetic fixture URL")

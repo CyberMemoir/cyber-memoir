@@ -13,7 +13,7 @@
 - 提交视频 URL、展开平台短链、去重、查看任务状态。
 - 获取可用元数据/字幕，或人工补充定位摘录、字幕、截图、短媒体材料。
 - Whisper ASR / PaddleOCR、BGE-M3 embedding、BGE reranker、兼容 Chat Completions 的 LLM 适配器。
-- 人工编辑和审核候选；完整字段引用、显式证据核查、版本冲突检查。
+- 人工编辑和审核候选；分别绑定定义/语境证据，编辑后重新选引，保留反对断言；显式证据核查与版本冲突检查。
 - 跨平台数据包摘要校验、冲突预演、幂等导入与多来源待审稿；追加用法保留原定义和证据绑定，不自动发布。
 - 名称/别名 + BM25 + Vector + 一跳关系扩展 + Reranker。
 - 搜索结果先到先显示；回答可独立重试/取消，重复重排仅复用校验过的分数，不缓存事实回答。
@@ -155,6 +155,8 @@ answer_question(question, platform?)
 ## 文档
 
 [本地可运行演示](docs/DEMO.md) · [可恢复评测与人工描述集](docs/EVALUATION.md)
+
+[逐字段审核与证据绑定](docs/REVIEW.md)
 
 [引用与档案阅读](docs/EVIDENCE_READING.md) · [跨平台导入](docs/PUBLICATION_IMPORT.md)
 

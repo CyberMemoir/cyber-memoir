@@ -98,6 +98,15 @@ body {
 .demo-notice a {
   text-underline-offset: 4px;
 }
+.review-evidence-fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 24px;
+  margin-top: 12px;
+}
+.review-evidence-fields .check-label {
+  min-height: 44px;
+}
 ::-webkit-scrollbar {
   width: 11px;
   height: 11px;

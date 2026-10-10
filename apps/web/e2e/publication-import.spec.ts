@@ -115,7 +115,7 @@ test("跨平台文件预演 → 待审 → 人工核对 → 平台检索，不�
   await page
     .locator(".evidence-box")
     .filter({ hasText: definition })
-    .getByRole("checkbox")
+    .getByRole("checkbox", { name: "支持定义", exact: true })
     .check();
   await page
     .getByLabel("审核理由", { exact: true })
