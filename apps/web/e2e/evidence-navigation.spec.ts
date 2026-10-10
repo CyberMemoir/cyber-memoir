@@ -7,6 +7,8 @@ import {
   MAX_FIND_TEXT,
   normalizeFind,
 } from "../lib/text-find";
+import { eventTimePoint, eventTimeRange } from "../lib/event-time";
+import type { Galaxy } from "../lib/api";
 
 const memeId = "synthetic-evidence-navigation";
 const ids = ["synthetic-definition", "synthetic-usage", "synthetic-counter"];
@@ -76,7 +78,7 @@ function record() {
         event_type: "observed_use",
         description: "仅用于测试的合成传播事件。",
         occurred_at_start: "2026-10-08T16:00:00Z",
-        occurred_at_end: null,
+        occurred_at_end: null as string | null,
         time_precision: "day",
         time_basis: "合成时间依据，不是历史材料",
         to_source_id: sources[1].id,
@@ -602,4 +604,268 @@ test("unsupported grapheme segmentation preserves filtering and explicitly omits
     record().evidence[2].text,
   );
   await expect(page.getByRole("button", { name: "下一处命中" })).toBeDisabled();
+});
+
+test("event date labels and machine values never expand a year or month into a precise boundary day", () => {
+  const value = "2025-12-31T16:00:00.123456Z";
+  expect(eventTimePoint(value, "year")).toMatchObject({
+    label: "2026年",
+    dateTime: "2026",
+    zoneKnown: true,
+  });
+  expect(eventTimePoint(value, "month")).toMatchObject({
+    label: "2026年1月",
+    dateTime: "2026-01",
+  });
+  expect(eventTimePoint(value, "day")).toMatchObject({
+    label: "2026年1月1日",
+    dateTime: "2026-01-01",
+  });
+  const second = eventTimePoint(value, "second");
+  expect(second.label).toContain("00:00:00");
+  expect(second.dateTime).toBe("2025-12-31T16:00:00Z");
+  expect(eventTimePoint("2026-01-01T00:00:00+08:00", "second").label).toBe(
+    second.label,
+  );
+});
+
+test("invalid calendar dates, offsets and unrecognized precision are not published as precise machine times", () => {
+  for (const value of [
+    "2026-02-30T00:00:00Z",
+    "2025-02-29T00:00:00Z",
+    "2026-01-01T24:00:00Z",
+    "2026-01-01T00:00:00+24:00",
+    "2026-01-01",
+    "not-a-date",
+    "9999-12-31T23:59:59Z",
+  ]) {
+    expect(eventTimePoint(value, "day")).toEqual({ label: "时间格式待核对" });
+  }
+  expect(eventTimePoint("2024-02-29T00:00:00Z", "day").dateTime).toBe(
+    "2024-02-29",
+  );
+  expect(eventTimePoint("2026-01-01T00:00:00Z", "minute")).toEqual({
+    label: "时间精度待核对",
+  });
+  expect(
+    eventTimeRange("2026-01-01T00:00:00Z", "2026-02-01T00:00:00Z", "unknown"),
+  ).toMatchObject({ start: { label: "时间未知" }, end: null });
+});
+
+test("legacy zone-free timestamps keep their calendar fields and explicitly distinguish missing or mixed timezone information", () => {
+  expect(eventTimePoint("2026-01-01T23:00:00", "day")).toMatchObject({
+    label: "2026年1月1日",
+    dateTime: "2026-01-01",
+    zoneKnown: false,
+  });
+  expect(eventTimePoint("2026-01-01T23:00:00", "second").dateTime).toBe(
+    "2026-01-01T23:00:00",
+  );
+  const mixed = eventTimeRange(
+    "2026-01-01T23:00:00Z",
+    "2026-01-02T00:00:00",
+    "day",
+  );
+  expect(mixed.notes).toContain("起止字段时区信息不一致，无法核对先后。");
+  expect(mixed.notes.some((note) => note.includes("时区未记录"))).toBe(true);
+  const missing = eventTimeRange(null, "2026-01-02T00:00:00Z", "month");
+  expect(missing.start).toEqual({ label: "时间未知" });
+  expect(missing.notes).toContain("开始时间未记录，不从结束时间倒推。");
+});
+
+test("range validation preserves reverse boundaries, microsecond ordering and coarse uncertainty instead of swapping or inventing duration", () => {
+  const range = eventTimeRange(
+    "2026-01-03T00:00:00Z",
+    "2026-01-01T00:00:00Z",
+    "day",
+  );
+  expect(range.start.label).toBe("2026年1月3日");
+  expect(range.end!.label).toBe("2026年1月1日");
+  expect(range.notes).toContain("结束时间早于开始时间，范围待核对。");
+  expect(
+    eventTimeRange(
+      "2026-01-01T00:00:00.123456Z",
+      "2026-01-01T00:00:00.123123Z",
+      "second",
+    ).notes,
+  ).toContain("结束时间早于开始时间，范围待核对。");
+  expect(
+    eventTimeRange("2026-01-01T00:00:00Z", "2026-08-01T00:00:00Z", "year")
+      .notes,
+  ).toContain("起止落在同一已记录时间单位，按保存精度显示，不展开更细时间。");
+});
+
+test("public timeline renders both interval boundaries at saved precision and citation return still lands on the event", async ({
+  page,
+}) => {
+  const data = record();
+  data.events[0].time_precision = "month";
+  data.events[0].occurred_at_start = "2025-12-31T16:00:00Z";
+  data.events[0].occurred_at_end = "2026-02-28T16:00:00Z";
+  await mock(page, data);
+  const galaxy: Galaxy = {
+    meme_id: memeId,
+    name: data.canonical_name,
+    definition: data.definition,
+    emergence: { at: null, date: null, basis: "none" },
+    u: 0,
+    milestones: {},
+    bands: [],
+    ticks: [],
+    stars: [
+      {
+        id: "synthetic-time-star",
+        stage: "derivative",
+        kind: "source",
+        target_id: "source-1",
+        label: "合成证据日期",
+        url: null,
+        bvid: null,
+        tier: null,
+        at: "2026-01-01T00:00:00Z",
+        date: "2026-01-01",
+        t: 0.5,
+        milestone: false,
+        evidence_ids: [ids[1]],
+      },
+    ],
+  };
+  await page.route("**/api/v1/universe", (route) =>
+    route.fulfill({ json: { galaxies: [galaxy] } }),
+  );
+  await page.goto(`/memes/${memeId}`);
+  const event = page.locator("#event-synthetic-event");
+  await expect(page.locator(".time-strip")).toBeVisible();
+  await expect(
+    page.getByText("图示为证据日期概览；区间事件以下方起止标签为准。"),
+  ).toBeVisible();
+  await expect(event.locator(".timeline-date")).toHaveText(
+    "2026年1月 至 2026年3月",
+  );
+  await expect(event.locator("time")).toHaveCount(2);
+  await expect(event.locator("time").first()).toHaveAttribute(
+    "datetime",
+    "2026-01",
+  );
+  await expect(event.locator("time").last()).toHaveAttribute(
+    "datetime",
+    "2026-03",
+  );
+  await event.getByRole("link", { name: /查看证据 2/ }).click();
+  await page
+    .locator(`#evidence-${ids[1]}`)
+    .getByRole("link", { name: "返回传播事件" })
+    .click();
+  await expect(event).toBeFocused();
+  await expect(event.locator(".timeline-date")).toHaveText(
+    "2026年1月 至 2026年3月",
+  );
+  galaxy.stars[0].t = null;
+  galaxy.stars[0].date = null;
+  galaxy.stars[0].at = null;
+  await page.reload();
+  await expect(page.locator(".detail-galaxy")).toBeVisible();
+  await expect(page.locator(".time-strip")).toHaveCount(0);
+  await expect(
+    page.getByText("图示为证据日期概览；区间事件以下方起止标签为准。"),
+  ).toHaveCount(0);
+});
+
+test("unknown precision does not expose saved boundary timestamps and reversed ranges remain visibly unresolved on mobile", async ({
+  page,
+}) => {
+  const data = record();
+  data.events[0].occurred_at_end = "2026-01-01T00:00:00Z";
+  await mock(page, data);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(`/memes/${memeId}`);
+  await expect(page.locator("#event-synthetic-event")).toContainText(
+    "结束时间早于开始时间，范围待核对。",
+  );
+  data.events[0].time_precision = "second";
+  data.events[0].occurred_at_end = "2026-10-10T16:00:00Z";
+  await page.setViewportSize({ width: 320, height: 844 });
+  await page.reload();
+  await expect(page.locator("#event-synthetic-event time")).toHaveCount(2);
+  expect(
+    await page
+      .locator("#event-synthetic-event time")
+      .evaluateAll(
+        (elements) =>
+          elements[1].getBoundingClientRect().top >
+          elements[0].getBoundingClientRect().top,
+      ),
+  ).toBe(true);
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
+  data.events[0].time_precision = "unknown";
+  await page.reload();
+  await expect(
+    page.locator("#event-synthetic-event .timeline-date"),
+  ).toHaveText("时间未知");
+  await expect(page.locator("#event-synthetic-event time")).toHaveCount(0);
+  await expect(page.locator("#event-synthetic-event")).toContainText(
+    "精度未知，不展开日期",
+  );
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
+});
+
+test("aware and legacy interval display is independent of the reader timezone, and rendering does not call extra APIs", async ({
+  browser,
+  baseURL,
+}) => {
+  for (const timezoneId of ["America/New_York", "Pacific/Auckland"]) {
+    const context = await browser.newContext({ timezoneId, baseURL });
+    try {
+      const page = await context.newPage();
+      const data = record();
+      data.events[0].time_precision = "month";
+      data.events[0].occurred_at_start = "2025-12-31T16:00:00Z";
+      data.events[0].occurred_at_end = "2026-02-28T16:00:00Z";
+      const calls: string[] = [];
+      page.on("request", (request) => {
+        if (request.url().includes("/api/"))
+          calls.push(new URL(request.url()).pathname);
+      });
+      await mock(page, data);
+      await page.goto(`/memes/${memeId}`);
+      await expect(
+        page.locator("#event-synthetic-event .timeline-date"),
+      ).toHaveText("2026年1月 至 2026年3月");
+      // Next dev Strict Mode deliberately starts/cleans up the page effects twice.
+      expect([...new Set(calls)].sort()).toEqual(
+        [`/api/v1/memes/${memeId}`, "/api/v1/universe"].sort(),
+      );
+      const baselineCalls = calls.length;
+      await page
+        .locator("#event-synthetic-event")
+        .getByRole("link", { name: /查看证据 2/ })
+        .click();
+      await page
+        .locator(`#evidence-${ids[1]}`)
+        .getByRole("link", { name: "返回传播事件" })
+        .click();
+      await expect(page.locator("#event-synthetic-event")).toBeFocused();
+      expect(calls).toHaveLength(baselineCalls);
+      data.events[0].time_precision = "day";
+      data.events[0].occurred_at_start = "2026-01-01T23:00:00";
+      data.events[0].occurred_at_end = "2026-01-02T01:00:00";
+      await page.reload();
+      await expect(
+        page.locator("#event-synthetic-event .timeline-date"),
+      ).toHaveText("2026年1月1日 至 2026年1月2日");
+      await expect(
+        page.locator("#event-synthetic-event .timeline-time-note"),
+      ).toContainText("时区未记录");
+    } finally {
+      await context.close();
+    }
+  }
 });

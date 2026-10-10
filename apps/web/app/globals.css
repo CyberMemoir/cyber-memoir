@@ -3188,6 +3188,22 @@ details textarea {
   overflow-wrap: anywhere;
   margin: 8px 0;
 }
+.timeline-date {
+  font-family: var(--latin);
+  font-size: 13.5px;
+  letter-spacing: 0.04em;
+  color: var(--ink-2);
+  overflow-wrap: anywhere;
+}
+.timeline-date time,
+.timeline-range-end {
+  white-space: nowrap;
+}
+.timeline .timeline-time-note {
+  font: 400 13px/1.7 var(--body);
+  color: var(--ink-3);
+  margin: 6px 0;
+}
 .evidence-dates {
   margin: 8px 0 16px;
 }

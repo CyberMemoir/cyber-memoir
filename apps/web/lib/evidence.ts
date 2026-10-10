@@ -1,3 +1,5 @@
+import { eventTimePoint } from "@/lib/event-time";
+
 /**
  * Evidence metadata in the reader's language. The API stores a kind and a locator
  * for machines; a reader should see "画面文字（OCR） · 第 74 秒 · ..." rather than
@@ -16,20 +18,7 @@ const KINDS: Record<string, string> = {
 
 /** Do not turn a year/month precision into an apparently exact calendar day. */
 export function eventDate(value: string | null, precision: string): string {
-  if (!value || precision === "unknown") return "时间未知";
-  const options: Intl.DateTimeFormatOptions = {
-    year: "numeric",
-    timeZone: "Asia/Shanghai",
-  };
-  if (precision !== "year") options.month = "long";
-  if (!["year", "month"].includes(precision)) options.day = "numeric";
-  if (precision === "second") {
-    options.hour = "2-digit";
-    options.minute = "2-digit";
-    options.second = "2-digit";
-    options.hourCycle = "h23";
-  }
-  return new Date(value).toLocaleDateString("zh-CN", options);
+  return eventTimePoint(value, precision).label;
 }
 
 export function describeKind(kind: string | null | undefined): string {

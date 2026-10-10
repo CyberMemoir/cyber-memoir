@@ -6,7 +6,7 @@ import { Icon } from "@/components/icons";
 import { GalaxyGraph } from "@/components/universe-graphs";
 import { GALAXY_VIEW } from "@/components/universe-layout";
 import { TimeStrip } from "@/components/time-strip";
-import { eventDate } from "@/lib/evidence";
+import { EventTime } from "@/components/event-time";
 import { claimAnchor } from "@/lib/citations";
 import { useReferenceNavigation } from "@/lib/use-reference-navigation";
 import { CitationLinks, ReferenceLink } from "@/components/citation-links";
@@ -308,9 +308,15 @@ export default function MemePage({
               >
                 <h2>传播时间线</h2>
                 <p className="muted">
-                  事件时间与采集时间分开记录，时间未知时不补写日期。
+                  事件时间与采集时间分开记录，起止按保存精度显示；时间未知时不补写日期。
                 </p>
                 {galaxy && <TimeStrip galaxy={galaxy} />}
+                {galaxy?.stars.some((star) => star.t !== null) &&
+                  meme.events.some((event) => event.occurred_at_end) && (
+                    <p className="retrieval-note">
+                      图示为证据日期概览；区间事件以下方起止标签为准。
+                    </p>
+                  )}
                 {meme.events.length ? (
                   <ol className="timeline">
                     {meme.events.map((event) => (
@@ -320,12 +326,11 @@ export default function MemePage({
                         className="reference-target"
                         tabIndex={-1}
                       >
-                        <time>
-                          {eventDate(
-                            event.occurred_at_start,
-                            event.time_precision,
-                          )}
-                        </time>
+                        <EventTime
+                          start={event.occurred_at_start}
+                          end={event.occurred_at_end}
+                          precision={event.time_precision}
+                        />
                         <p>{event.description}</p>
                         <small className="muted">
                           {PRECISION[event.time_precision] ??

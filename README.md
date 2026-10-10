@@ -163,7 +163,7 @@ answer_question(question, platform?)
 
 [真实模型与离线检索探针](docs/MODEL_PROBE.md) · [实际批准归档端到端评测](docs/ARCHIVE_EVALUATION.md) · [CPU 重排配对优化](docs/CPU_RERANK.md) · [正常 HTTP 与并发等待](docs/HTTP_LATENCY.md) · [忙碌提示与明确重试](docs/INFERENCE_BUSY.md) · [弃答诊断与候选导航](docs/ABSTENTION.md) · [语义复核记录](docs/SEMANTIC_REVIEW.md) · [本地可视化复核](docs/SEMANTIC_WORKSPACE.md)
 
-[引用与档案阅读](docs/EVIDENCE_READING.md) · [证据内查找与定位](docs/EVIDENCE_FIND.md) · [跨平台导入](docs/PUBLICATION_IMPORT.md)
+[引用与档案阅读](docs/EVIDENCE_READING.md) · [证据内查找与定位](docs/EVIDENCE_FIND.md) · [时间范围与精度](docs/TIMELINE_RANGES.md) · [跨平台导入](docs/PUBLICATION_IMPORT.md)
 
 [搜索等待与分数复用](docs/SEARCH_RECOVERY.md)
 
