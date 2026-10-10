@@ -3145,6 +3145,49 @@ details textarea {
 .evidence-source-platform {
   margin: 14px 0 4px;
 }
+.evidence-find-controls {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--sky-0);
+  display: grid;
+  gap: 6px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+  color: var(--ink-2);
+  margin-bottom: 20px;
+}
+.evidence-find-controls p {
+  margin: 0;
+}
+.evidence-find-controls > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.evidence-find-controls .text-button {
+  font: 400 13px/1.6 var(--body);
+  padding: 4px 0;
+  min-height: 32px;
+}
+.evidence-find-mark {
+  background: var(--signal-dim);
+  color: inherit;
+  border-bottom: 1px solid var(--signal);
+  border-radius: 2px;
+  scroll-margin-block: 16px;
+}
+.evidence-find-mark[aria-current="true"] {
+  background: var(--signal);
+  color: var(--signal-ink);
+}
+.evidence-find-url {
+  font-size: 13px;
+  color: var(--ink-2);
+  overflow-wrap: anywhere;
+  margin: 8px 0;
+}
 .evidence-dates {
   margin: 8px 0 16px;
 }

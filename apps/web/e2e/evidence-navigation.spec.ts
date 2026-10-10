@@ -1,6 +1,12 @@
 import { expect, test, type Page } from "@playwright/test";
 import { mkdir } from "node:fs/promises";
 import path from "node:path";
+import {
+  findText,
+  MAX_FIND_MARKS,
+  MAX_FIND_TEXT,
+  normalizeFind,
+} from "../lib/text-find";
 
 const memeId = "synthetic-evidence-navigation";
 const ids = ["synthetic-definition", "synthetic-usage", "synthetic-counter"];
@@ -385,4 +391,215 @@ test("支持状态与反对材料不一致时不显示已确认起源", async ({
   await expect(page.locator(".detail-header")).not.toContainText(
     "有证据支持的来源主张",
   );
+});
+
+test("literal highlighting maps compatibility forms, contextual case and complete graphemes without rewriting text", () => {
+  for (const [text, query, expected] of [
+    ["ＡＢＣ abc", "abc", ["ＡＢＣ", "abc"]],
+    ["İ", "i", ["İ"]],
+    ["ﬃ", "f", ["ﬃ"]],
+    ["e\u0301", "é", ["e\u0301"]],
+    ["👩‍👩‍👧‍👦", "👩", ["👩‍👩‍👧‍👦"]],
+    ["ΟΣ", "ος", ["ΟΣ"]],
+    ["[.*] [.*]", "[.*]", ["[.*]", "[.*]"]],
+    ["😀😀", "😀", ["😀", "😀"]],
+  ] as const) {
+    const result = findText(text, query);
+    expect(result.unavailable).toBe(false);
+    expect(
+      result.ranges.map(({ start, end }) => text.slice(start, end)),
+    ).toEqual(expected);
+    expect(normalizeFind(text)).toContain(normalizeFind(query));
+  }
+});
+
+test("highlighting has an explicit rendering budget and leaves empty or oversized text unmodified", () => {
+  expect(findText("合成", " \n").ranges).toEqual([]);
+  expect(findText("合成", "不存在").ranges).toEqual([]);
+  const capped = findText("a ".repeat(MAX_FIND_MARKS + 4), "a");
+  expect(capped.limited).toBe(true);
+  expect(capped.ranges).toHaveLength(MAX_FIND_MARKS + 1);
+  expect(findText("合".repeat(MAX_FIND_TEXT + 1), "合")).toMatchObject({
+    ranges: [],
+    unavailable: true,
+  });
+});
+
+test("evidence find highlights text and titles, wraps next/previous, and keeps original citations and plain text", async ({
+  page,
+}) => {
+  const data = record();
+  const calls: string[] = [];
+  page.on("request", (request) => {
+    if (
+      request.url().includes("/api/v1/search") ||
+      request.url().includes("/api/v1/answer")
+    )
+      calls.push(request.url());
+  });
+  await mock(page, data);
+  await page.goto(`/memes/${memeId}?expected_revision=7`);
+  const before = page.url();
+  await page.getByRole("searchbox", { name: "在证据中查找" }).fill("合成");
+  await expect(page.locator(".evidence-find-controls")).toContainText(
+    "文字命中 1 / 6",
+  );
+  await expect(page.locator(".evidence-find-mark")).toHaveCount(6);
+  for (const evidence of data.evidence) {
+    await expect(
+      page.locator(`#evidence-${evidence.id} blockquote`),
+    ).toHaveText(evidence.text);
+  }
+  await page.getByRole("button", { name: "上一处命中" }).click();
+  await expect(page.locator(".evidence-find-controls")).toContainText(
+    "文字命中 6 / 6",
+  );
+  await expect(
+    page.locator('.evidence-find-mark[aria-current="true"]'),
+  ).toBeFocused();
+  expect(
+    await page.evaluate(() => {
+      const bar = document
+        .querySelector(".evidence-find-controls")!
+        .getBoundingClientRect();
+      const hit = document
+        .querySelector('.evidence-find-mark[aria-current="true"]')!
+        .getBoundingClientRect();
+      return bar.top >= 0 && hit.top >= bar.bottom && hit.bottom <= innerHeight;
+    }),
+  ).toBe(true);
+  await page.getByRole("button", { name: "下一处命中" }).click();
+  await expect(page.locator(".evidence-find-controls")).toContainText(
+    "文字命中 1 / 6",
+  );
+  expect(page.url()).toBe(before);
+  await page.getByRole("searchbox", { name: "在证据中查找" }).press("Enter");
+  await expect(page.locator(".evidence-find-controls")).toContainText(
+    "文字命中 2 / 6",
+  );
+  await page
+    .locator("#claim-definition")
+    .getByRole("link", { name: /查看证据 1/ })
+    .click();
+  await expect(page.locator(`#evidence-${ids[0]}`)).toBeFocused();
+  await expect(
+    page.getByRole("searchbox", { name: "在证据中查找" }),
+  ).toHaveValue("");
+  await expect(page.locator(".evidence-find-mark")).toHaveCount(0);
+  expect(calls).toEqual([]);
+});
+
+test("URL-only matches are visible and addressable, platform changes reset the current hit and no results disable navigation", async ({
+  page,
+}) => {
+  const data = record();
+  await mock(page, data);
+  await page.goto(`/memes/${memeId}`);
+  const input = page.getByRole("searchbox", { name: "在证据中查找" });
+  await input.fill("synthetic/1");
+  await expect(page.locator(".evidence-box")).toHaveCount(1);
+  await expect(page.locator(".evidence-find-url")).toHaveText(
+    `来源网址：${data.evidence[1].source.canonical_url}`,
+  );
+  await expect(page.locator(".evidence-find-mark")).toHaveText("synthetic/1");
+  await expect(page.locator(".evidence-find-controls")).toContainText(
+    "文字命中 1 / 1",
+  );
+  await input.fill("合成");
+  await page.getByRole("button", { name: "上一处命中" }).click();
+  await page.getByLabel("证据平台").selectOption("bilibili");
+  await expect(page.locator(".evidence-find-controls")).toContainText(
+    "文字命中 1 / 2",
+  );
+  await page.getByLabel("证据平台").selectOption("");
+  await expect(page.locator(".evidence-find-controls")).toContainText(
+    "文字命中 1 / 6",
+  );
+  await page.getByRole("button", { name: "上一处命中" }).click();
+  await input.fill("synthetic/1");
+  await input.fill("合成");
+  await expect(page.locator(".evidence-find-controls")).toContainText(
+    "文字命中 1 / 6",
+  );
+  await input.fill("没有这个字面内容");
+  await expect(page.locator(".evidence-find-controls")).toContainText(
+    "无可定位文字命中",
+  );
+  await expect(page.getByRole("button", { name: "下一处命中" })).toBeDisabled();
+  await expect(page.getByRole("button", { name: "上一处命中" })).toBeDisabled();
+  await page.getByRole("button", { name: "清除证据筛选" }).click();
+  await expect(page.locator(".evidence-find-controls")).toHaveCount(0);
+  await expect(page.locator(".evidence-box")).toHaveCount(3);
+});
+
+test("mobile compatibility highlighting keeps literal markup inert and original graphemes intact", async ({
+  page,
+}) => {
+  const data = record();
+  data.evidence[0].text =
+    "合成安全测试：ＡＢＣ İ ﬃ e\u0301 👩‍👩‍👧‍👦 <img src=x onerror=alert(1)>";
+  await mock(page, data);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(`/memes/${memeId}`);
+  for (const [query, expected] of [
+    ["abc", "ＡＢＣ"],
+    ["é", "e\u0301"],
+    ["👩", "👩‍👩‍👧‍👦"],
+    ["<img", "<img"],
+  ]) {
+    await page.getByRole("searchbox", { name: "在证据中查找" }).fill(query);
+    await expect(page.locator(".evidence-box blockquote mark")).toHaveText(
+      expected,
+    );
+    await expect(page.locator(".evidence-box blockquote")).toHaveText(
+      data.evidence[0].text,
+    );
+    await expect(page.locator(".evidence-box blockquote img")).toHaveCount(0);
+  }
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
+});
+
+test("the global mark limit is declared and oversized evidence remains readable and filterable", async ({
+  page,
+}) => {
+  const data = record();
+  data.evidence[0].text = "合成 ".repeat(MAX_FIND_MARKS + 4);
+  data.evidence[1].text = "长".repeat(MAX_FIND_TEXT + 1) + "合成";
+  await mock(page, data);
+  await page.goto(`/memes/${memeId}`);
+  await page.getByRole("searchbox", { name: "在证据中查找" }).fill("合成");
+  await expect(page.locator(".evidence-find-mark")).toHaveCount(MAX_FIND_MARKS);
+  await expect(page.locator(".evidence-find-controls")).toContainText(
+    "仅高亮前500处",
+  );
+  await expect(page.locator(".evidence-find-controls")).toContainText(
+    "部分超长材料或浏览器不支持精确高亮",
+  );
+  await expect(page.locator(`#evidence-${ids[1]} blockquote`)).toHaveText(
+    data.evidence[1].text,
+  );
+});
+
+test("unsupported grapheme segmentation preserves filtering and explicitly omits precision highlighting", async ({
+  page,
+}) => {
+  await page.addInitScript(() =>
+    Object.defineProperty(Intl, "Segmenter", { value: undefined }),
+  );
+  await mock(page);
+  await page.goto(`/memes/${memeId}`);
+  await page.getByRole("searchbox", { name: "在证据中查找" }).fill("反对");
+  await expect(page.locator(".evidence-box")).toHaveCount(1);
+  await expect(page.locator(".evidence-find-mark")).toHaveCount(0);
+  await expect(page.locator(".evidence-find-controls")).toContainText(
+    "浏览器不支持精确高亮",
+  );
+  await expect(page.locator(".evidence-box blockquote")).toHaveText(
+    record().evidence[2].text,
+  );
+  await expect(page.getByRole("button", { name: "下一处命中" })).toBeDisabled();
 });

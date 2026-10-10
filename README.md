@@ -19,7 +19,7 @@
 - 名称/别名 + BM25 + Vector + 一跳关系扩展 + Reranker。
 - 搜索结果先到先显示；回答可独立重试/取消，重复重排仅复用校验过的分数，不缓存事实回答。
 - 来源、语境、时间线、关系、证据工件下载；条目合并、撤回和证据级撤回。
-- 定义/语境/事件/关系的双向编号引用、材料内查找、带修订核对的分享链接；起源争议与相矛盾材料明确区分。
+- 定义/语境/事件/关系的双向编号引用、材料内字面命中高亮与逐处定位、带修订核对的分享链接；起源争议与相矛盾材料明确区分。
 - 只使用已审核断言的引用型回答，以及六个只读 MCP 工具。
 - Docker Compose、Alembic、持久任务/Outbox、重试、索引重建、备份恢复和自动化测试。
 
@@ -163,7 +163,7 @@ answer_question(question, platform?)
 
 [真实模型与离线检索探针](docs/MODEL_PROBE.md) · [实际批准归档端到端评测](docs/ARCHIVE_EVALUATION.md) · [CPU 重排配对优化](docs/CPU_RERANK.md) · [正常 HTTP 与并发等待](docs/HTTP_LATENCY.md) · [忙碌提示与明确重试](docs/INFERENCE_BUSY.md) · [弃答诊断与候选导航](docs/ABSTENTION.md) · [语义复核记录](docs/SEMANTIC_REVIEW.md) · [本地可视化复核](docs/SEMANTIC_WORKSPACE.md)
 
-[引用与档案阅读](docs/EVIDENCE_READING.md) · [跨平台导入](docs/PUBLICATION_IMPORT.md)
+[引用与档案阅读](docs/EVIDENCE_READING.md) · [证据内查找与定位](docs/EVIDENCE_FIND.md) · [跨平台导入](docs/PUBLICATION_IMPORT.md)
 
 [搜索等待与分数复用](docs/SEARCH_RECOVERY.md)
 

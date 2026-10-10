@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Meme } from "@/lib/api";
 import { evidenceIndex } from "@/lib/citations";
+import { normalizeFind } from "@/lib/text-find";
 
 export function useReferenceNavigation(meme: Meme | null) {
   const index = useMemo(() => evidenceIndex(meme), [meme]);
@@ -97,15 +98,14 @@ export function useReferenceNavigation(meme: Meme | null) {
         "当前公开修订不包含这条证据，不能据此判断是版本变化还是材料撤回；请核对当前引用。",
       );
   }
-  const normalized = query.trim().normalize("NFKC").toLocaleLowerCase("zh-CN");
+  const normalized = normalizeFind(query.trim());
   const visible = Array.from(index.values()).filter(
     ({ evidence }) =>
       (!platform || evidence.source?.platform === platform) &&
       (!normalized ||
-        `${evidence.text}\n${evidence.source?.title || ""}\n${evidence.source?.canonical_url || ""}`
-          .normalize("NFKC")
-          .toLocaleLowerCase("zh-CN")
-          .includes(normalized)),
+        normalizeFind(
+          `${evidence.text}\n${evidence.source?.title || ""}\n${evidence.source?.canonical_url || ""}`,
+        ).includes(normalized)),
   );
   return {
     index,
